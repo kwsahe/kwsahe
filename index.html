@@ -1,0 +1,415 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>권상헌 | 데이터 엔지니어 & AI 개발자</title>
+    <meta
+      name="description"
+      content="Python, SQL, 데이터 파이프라인, RAG, 영상 처리 역량을 쌓아가는 데이터 엔지니어 및 AI 개발자 권상헌의 포트폴리오입니다."
+    />
+    <meta name="theme-color" content="#1b2b3a" />
+    <meta property="og:title" content="권상헌 | 데이터 엔지니어 & AI 개발자" />
+    <meta
+      property="og:description"
+      content="데이터 분석, AI 개발, 인프라 이해를 바탕으로 실무형 데이터·AI 서비스를 만드는 개발자 포트폴리오."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="./assets/data-ai-portfolio-visual.png" />
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="./styles.css" />
+    <script defer src="./script.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">본문으로 바로가기</a>
+
+    <header class="site-header" data-header>
+      <a class="brand" href="#top" aria-label="권상헌 포트폴리오 홈">
+        <span class="brand-mark">KS</span>
+        <span class="brand-text">권상헌</span>
+      </a>
+      <button class="menu-button" type="button" aria-expanded="false" aria-controls="site-nav" data-menu-button>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span class="sr-only">메뉴 열기</span>
+      </button>
+      <nav class="site-nav" id="site-nav" data-site-nav>
+        <a href="#about">소개</a>
+        <a href="#experience">경력</a>
+        <a href="#projects">프로젝트</a>
+        <a href="#strengths">강점</a>
+        <a href="#contact">연락</a>
+      </nav>
+    </header>
+
+    <main id="main">
+      <section class="hero" id="top" aria-labelledby="hero-title">
+        <img class="hero-bg" src="./assets/data-ai-portfolio-visual.png" alt="" />
+        <div class="hero-inner">
+          <div class="hero-copy">
+            <p class="eyebrow">Data Engineering · AI Development</p>
+            <h1 id="hero-title">권상헌</h1>
+            <p class="hero-role">데이터 엔지니어 / AI 개발자</p>
+            <p class="hero-summary">
+              Python과 SQL을 중심으로 데이터 파이프라인, 분석, AI 서비스 개발 역량을 쌓고 있습니다.
+              사업기획 경험과 데이터사이언스 학습을 연결해 실무에 바로 쓰이는 결과물을 만드는 개발자를 지향합니다.
+            </p>
+            <div class="hero-actions" aria-label="주요 링크">
+              <a class="button primary" href="#projects">
+                <svg aria-hidden="true" viewBox="0 0 24 24">
+                  <path d="M5 12h14M13 6l6 6-6 6" />
+                </svg>
+                프로젝트 보기
+              </a>
+              <a class="button ghost" href="./assets/resume-kwon-sangheon.docx" download>
+                <svg aria-hidden="true" viewBox="0 0 24 24">
+                  <path d="M12 3v12m0 0 4-4m-4 4-4-4M4 21h16" />
+                </svg>
+                이력서 다운로드
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="resume-layout" aria-label="이력서 기반 포트폴리오">
+        <aside class="profile-panel" aria-label="프로필 정보">
+          <div class="profile-sticky">
+            <div class="avatar" aria-hidden="true">KS</div>
+            <p class="panel-kicker">Profile</p>
+            <h2>권상헌</h2>
+            <p class="panel-role">데이터 엔지니어 / AI 개발자</p>
+
+            <div class="panel-block">
+              <h3>개인 정보</h3>
+              <dl class="info-list">
+                <div>
+                  <dt>생년월일</dt>
+                  <dd>2001. 02. 23</dd>
+                </div>
+                <div>
+                  <dt>연락처</dt>
+                  <dd><a href="tel:01092809415">010-9280-9415</a></dd>
+                </div>
+                <div>
+                  <dt>이메일</dt>
+                  <dd><a href="mailto:kwhoney223@gmail.com">kwhoney223@gmail.com</a></dd>
+                </div>
+                <div>
+                  <dt>GitHub</dt>
+                  <dd><a href="https://github.com/kwsahe" target="_blank" rel="noreferrer">github.com/kwsahe</a></dd>
+                </div>
+                <div>
+                  <dt>병역</dt>
+                  <dd>육군 병장 만기전역<br />2021.11 ~ 2023.05</dd>
+                </div>
+              </dl>
+            </div>
+
+            <div class="panel-block">
+              <h3>스킬</h3>
+              <div class="skill-group">
+                <h4>언어 / 데이터</h4>
+                <ul>
+                  <li>Python</li>
+                  <li>SQL</li>
+                  <li>데이터 분석·파이프라인 구축</li>
+                  <li>빅데이터 처리</li>
+                </ul>
+              </div>
+              <div class="skill-group">
+                <h4>AI / ML</h4>
+                <ul>
+                  <li>머신러닝 기초</li>
+                  <li>RAG / 생성형 AI</li>
+                  <li>영상 처리</li>
+                  <li>AI 프롬프트 활용 2급</li>
+                </ul>
+              </div>
+              <div class="skill-group">
+                <h4>인프라 / 기타</h4>
+                <ul>
+                  <li>네트워크 관리</li>
+                  <li>데이터베이스 설계</li>
+                  <li>AI 사업기획 · 계획서 작성</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </aside>
+
+        <div class="content-panel">
+          <section class="section" id="about" aria-labelledby="about-title">
+            <p class="section-kicker">About</p>
+            <h2 id="about-title">자기소개</h2>
+            <p class="lead">
+              서강대학교 미디어공학과를 졸업하고 빅데이터분석기사, 네트워크관리사 2급 등 데이터·IT 관련
+              자격증을 보유하고 있습니다. 데이타트렌드에서 AI 바우처 사업수행계획서 작성 및 AI 사업전략
+              업무를 수행하며 실무 경험을 쌓았고, 서울대학교 데이터사이언스 부트캠프를 통해 이론적 기반을
+              강화했습니다.
+            </p>
+            <p>
+              현재 매력일자리 개발자 과정을 이수 중이며, Python과 SQL을 중심으로 데이터 파이프라인 구축 및
+              AI 서비스 개발 역량을 키우는 동시에 최신 AI 기술 트렌드, 영상 처리, RAG 등 실무에 적용 가능한
+              기술을 폭넓게 학습하고 있습니다.
+            </p>
+          </section>
+
+          <section class="section" id="experience" aria-labelledby="experience-title">
+            <p class="section-kicker">Experience</p>
+            <h2 id="experience-title">경력</h2>
+            <article class="timeline-item">
+              <div class="timeline-meta">2023.07 – 2023.09 · 3개월</div>
+              <div class="timeline-body">
+                <h3>데이타트렌드</h3>
+                <p class="item-role">사원 · AI사업전략</p>
+                <ul class="check-list">
+                  <li>AI 바우처 사업수행계획서 작성 및 관련 자료 조사</li>
+                  <li>AI 도입 기업 대상 솔루션 제안 자료 작성</li>
+                  <li>사업 현황 분석 및 보고서 작성</li>
+                </ul>
+              </div>
+            </article>
+          </section>
+
+          <section class="section" id="education" aria-labelledby="education-title">
+            <p class="section-kicker">Education</p>
+            <h2 id="education-title">교육</h2>
+            <div class="timeline-list">
+              <article class="timeline-item">
+                <div class="timeline-meta">2020.03 – 2026.02</div>
+                <div class="timeline-body">
+                  <h3>서강대학교</h3>
+                  <p class="item-role">미디어공학과 · 학점 3.53 / 4.5</p>
+                  <p>미디어 기술, 데이터 처리, 소프트웨어 공학 관련 전공 과목 이수</p>
+                </div>
+              </article>
+              <article class="timeline-item">
+                <div class="timeline-meta">2026.01 · 수료</div>
+                <div class="timeline-body">
+                  <h3>서울대학교 데이터사이언스 부트캠프</h3>
+                  <ul class="check-list">
+                    <li>데이터사이언스를 위한 선형대수학 및 확률과 통계</li>
+                    <li>머신러닝 기초 이론 및 실습</li>
+                  </ul>
+                </div>
+              </article>
+              <article class="timeline-item">
+                <div class="timeline-meta">진행 중</div>
+                <div class="timeline-body">
+                  <h3>매력일자리 개발자 과정</h3>
+                  <ul class="check-list">
+                    <li>최신 AI 기술 트렌드, 영상 처리, RAG 학습</li>
+                    <li>Python 기반 백엔드 개발 및 데이터 파이프라인 구축</li>
+                    <li>알고리즘, 자료구조, 데이터베이스 심화 학습 및 실무 프로젝트</li>
+                  </ul>
+                </div>
+              </article>
+            </div>
+          </section>
+
+          <section class="section" id="certificates" aria-labelledby="certificates-title">
+            <p class="section-kicker">Certificates</p>
+            <h2 id="certificates-title">자격증</h2>
+            <div class="certificate-grid">
+              <article class="certificate">
+                <span>2025.12</span>
+                <h3>빅데이터분석기사</h3>
+                <p>한국데이터산업진흥원</p>
+              </article>
+              <article class="certificate">
+                <span>2024.11</span>
+                <h3>AI-POT 2급</h3>
+                <p>한국생산성본부</p>
+              </article>
+              <article class="certificate">
+                <span>2024.10</span>
+                <h3>네트워크관리사 2급</h3>
+                <p>한국정보통신자격협회</p>
+              </article>
+            </div>
+          </section>
+
+          <section class="section" id="projects" aria-labelledby="projects-title">
+            <p class="section-kicker">GitHub Projects</p>
+            <h2 id="projects-title">주요 프로젝트</h2>
+            <div class="project-grid">
+              <article class="project-card">
+                <div class="project-topline">
+                  <span>Jupyter Notebook</span>
+                  <a href="https://github.com/kwsahe/ecommerce-data-analysis-practice" target="_blank" rel="noreferrer" aria-label="ecommerce-data-analysis-practice GitHub 저장소 열기">
+                    <svg aria-hidden="true" viewBox="0 0 24 24">
+                      <path d="M7 17 17 7M9 7h8v8" />
+                    </svg>
+                  </a>
+                </div>
+                <h3>ecommerce-data-analysis-practice</h3>
+                <p>23일 자체 설계 · SQL, RFM 분석, 머신러닝, 시계열 예측, SQLD까지 엔드투엔드 직접 설계 및 수행</p>
+                <div class="tags">
+                  <span>SQL</span>
+                  <span>RFM</span>
+                  <span>Forecasting</span>
+                </div>
+              </article>
+              <article class="project-card">
+                <div class="project-topline">
+                  <span>Python</span>
+                  <a href="https://github.com/kwsahe/air-quality-forecast" target="_blank" rel="noreferrer" aria-label="air-quality-forecast GitHub 저장소 열기">
+                    <svg aria-hidden="true" viewBox="0 0 24 24">
+                      <path d="M7 17 17 7M9 7h8v8" />
+                    </svg>
+                  </a>
+                </div>
+                <h3>air-quality-forecast</h3>
+                <p>기상 및 환경 데이터 기반 대기질 시계열 예측 모델 개발, 피처 엔지니어링 및 모델 성능 최적화</p>
+                <div class="tags">
+                  <span>Python</span>
+                  <span>PM2.5</span>
+                  <span>Time Series</span>
+                </div>
+              </article>
+              <article class="project-card">
+                <div class="project-topline">
+                  <span>Python</span>
+                  <a href="https://github.com/kwsahe/market-pulse" target="_blank" rel="noreferrer" aria-label="market-pulse GitHub 저장소 열기">
+                    <svg aria-hidden="true" viewBox="0 0 24 24">
+                      <path d="M7 17 17 7M9 7h8v8" />
+                    </svg>
+                  </a>
+                </div>
+                <h3>market-pulse</h3>
+                <p>다나와 PC 부품 가격 자동 수집, 이상치 탐지, 가격 예측 모델 및 Streamlit 대시보드 개발</p>
+                <div class="tags">
+                  <span>Crawling</span>
+                  <span>ML</span>
+                  <span>Streamlit</span>
+                </div>
+              </article>
+              <article class="project-card">
+                <div class="project-topline">
+                  <span>Jupyter Notebook</span>
+                  <a href="https://github.com/kwsahe/bigdata-eda-practice" target="_blank" rel="noreferrer" aria-label="bigdata-eda-practice GitHub 저장소 열기">
+                    <svg aria-hidden="true" viewBox="0 0 24 24">
+                      <path d="M7 17 17 7M9 7h8v8" />
+                    </svg>
+                  </a>
+                </div>
+                <h3>bigdata-eda-practice</h3>
+                <p>타이타닉 데이터 전처리, 피처 엔지니어링, EDA, 머신러닝 모델 구축 및 성능 평가 실습</p>
+                <div class="tags">
+                  <span>EDA</span>
+                  <span>Feature Engineering</span>
+                  <span>Modeling</span>
+                </div>
+              </article>
+              <article class="project-card">
+                <div class="project-topline">
+                  <span>C# · Unity2D</span>
+                  <a href="https://github.com/kwsahe/Artesia" target="_blank" rel="noreferrer" aria-label="Artesia GitHub 저장소 열기">
+                    <svg aria-hidden="true" viewBox="0 0 24 24">
+                      <path d="M7 17 17 7M9 7h8v8" />
+                    </svg>
+                  </a>
+                </div>
+                <h3>Artesia</h3>
+                <p>Unity2D 기반 게임 프로젝트 팀장 및 기획 총괄, 역할 분배와 일정 관리까지 전 과정 리딩</p>
+                <div class="tags">
+                  <span>Unity2D</span>
+                  <span>Planning</span>
+                  <span>Leadership</span>
+                </div>
+              </article>
+            </div>
+          </section>
+
+          <section class="section" id="strengths" aria-labelledby="strengths-title">
+            <p class="section-kicker">Strengths</p>
+            <h2 id="strengths-title">핵심 강점</h2>
+            <div class="strength-grid">
+              <article class="strength">
+                <span class="strength-icon" aria-hidden="true">01</span>
+                <h3>데이터 분석</h3>
+                <p>빅데이터분석기사 보유, SQL/Python 활용, EDA와 예측 모델링 경험을 갖추고 있습니다.</p>
+              </article>
+              <article class="strength">
+                <span class="strength-icon" aria-hidden="true">02</span>
+                <h3>AI 개발</h3>
+                <p>RAG와 영상처리를 학습하며 AI 사업기획 실무 경험을 서비스 개발 관점으로 확장하고 있습니다.</p>
+              </article>
+              <article class="strength">
+                <span class="strength-icon" aria-hidden="true">03</span>
+                <h3>인프라 이해</h3>
+                <p>네트워크관리사 2급, 데이터베이스 설계 경험, 백엔드 개발 기초 역량을 함께 다집니다.</p>
+              </article>
+            </div>
+          </section>
+
+          <section class="section work-section" aria-labelledby="work-title">
+            <p class="section-kicker">Preference</p>
+            <h2 id="work-title">희망 근무조건</h2>
+            <div class="preference-grid">
+              <div>
+                <span>고용형태</span>
+                <strong>정규직 / 계약직 / 인턴</strong>
+              </div>
+              <div>
+                <span>희망 근무지</span>
+                <strong>서울 · 경기 전지역</strong>
+              </div>
+              <div>
+                <span>지원 직무</span>
+                <strong>데이터엔지니어 / AI 개발</strong>
+              </div>
+              <div>
+                <span>희망 연봉</span>
+                <strong>면접 후 결정</strong>
+              </div>
+            </div>
+          </section>
+
+          <section class="contact-section" id="contact" aria-labelledby="contact-title">
+            <div>
+              <p class="section-kicker">Contact</p>
+              <h2 id="contact-title">데이터와 AI가 만나는 지점에서 일하고 싶습니다.</h2>
+              <p>프로젝트 협업, 채용 제안, 포트폴리오 피드백은 이메일 또는 GitHub로 연락해 주세요.</p>
+            </div>
+            <div class="contact-actions">
+              <a class="button primary" href="mailto:kwhoney223@gmail.com">
+                <svg aria-hidden="true" viewBox="0 0 24 24">
+                  <path d="M4 6h16v12H4z" />
+                  <path d="m4 7 8 6 8-6" />
+                </svg>
+                이메일 보내기
+              </a>
+              <a class="button dark" href="https://github.com/kwsahe" target="_blank" rel="noreferrer">
+                <svg aria-hidden="true" viewBox="0 0 24 24">
+                  <path d="M12 2a10 10 0 0 0-3 19c.5.1.7-.2.7-.5v-2c-2.8.6-3.4-1.2-3.4-1.2-.5-1.1-1.1-1.4-1.1-1.4-.9-.6.1-.6.1-.6 1 0 1.6 1.1 1.6 1.1.9 1.6 2.4 1.1 3 .9.1-.7.4-1.1.7-1.4-2.2-.3-4.6-1.1-4.6-5A3.9 3.9 0 0 1 7 7.2 3.6 3.6 0 0 1 7.1 5s.8-.3 2.6 1a9 9 0 0 1 4.6 0c1.8-1.3 2.6-1 2.6-1a3.6 3.6 0 0 1 .1 2.2 3.9 3.9 0 0 1 1 2.7c0 3.9-2.4 4.7-4.6 5 .4.3.7 1 .7 2v3c0 .3.2.6.7.5A10 10 0 0 0 12 2Z" />
+                </svg>
+                GitHub
+              </a>
+            </div>
+          </section>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>© <span data-year></span> 권상헌. All rights reserved.</p>
+      <a href="#top">맨 위로</a>
+    </footer>
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "권상헌",
+        "jobTitle": "데이터 엔지니어 / AI 개발자",
+        "email": "mailto:kwhoney223@gmail.com",
+        "url": "https://github.com/kwsahe",
+        "sameAs": ["https://github.com/kwsahe"],
+        "knowsAbout": ["Python", "SQL", "Data Engineering", "RAG", "Machine Learning", "Computer Vision"]
+      }
+    </script>
+  </body>
+</html>
