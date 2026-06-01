@@ -773,12 +773,14 @@ a {
 }
 
 .o2o-gallery {
-  grid-template-columns: repeat(2, minmax(360px, 1fr));
+  grid-template-columns: 1fr;
+  gap: 18px;
 }
 
 .o2o-gallery img {
-  aspect-ratio: 16 / 12.4;
-  object-fit: contain;
+  height: auto;
+  aspect-ratio: auto;
+  object-fit: initial;
   background: #f8fafc;
 }
 
