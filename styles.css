@@ -499,6 +499,11 @@ a {
   max-width: 760px;
 }
 
+#projects.section {
+  padding-left: 36px;
+  padding-right: 36px;
+}
+
 .lead {
   font-size: 17px;
 }
@@ -629,8 +634,8 @@ a {
 .project-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 24px;
-  margin-top: 24px;
+  gap: 32px;
+  margin-top: 28px;
 }
 
 .project-card {
@@ -641,7 +646,7 @@ a {
   border: 1px solid var(--line);
   border-radius: var(--radius);
   background: var(--white);
-  padding: 28px;
+  padding: 32px;
 }
 
 .featured-card {
@@ -687,13 +692,13 @@ a {
 
 .project-media,
 .project-gallery {
-  margin-bottom: 18px;
+  margin-bottom: 22px;
 }
 
 .project-media {
   overflow: hidden;
   width: 100%;
-  aspect-ratio: 16 / 8.6;
+  aspect-ratio: 16 / 9.6;
   border: 1px solid var(--line);
   border-radius: var(--radius);
   background: #edf2f6;
@@ -708,7 +713,7 @@ a {
 }
 
 .erd-media {
-  aspect-ratio: 16 / 7.8;
+  aspect-ratio: 16 / 9.2;
   background: #1d1b2d;
 }
 
@@ -717,7 +722,7 @@ a {
 }
 
 .market-hero-media {
-  aspect-ratio: 16 / 9.2;
+  aspect-ratio: 16 / 9.6;
   background: #f8fafc;
 }
 
@@ -746,12 +751,12 @@ a {
 
 .project-gallery {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 12px;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 16px;
 }
 
 .project-gallery img {
-  aspect-ratio: 16 / 10;
+  aspect-ratio: 16 / 9.6;
   min-width: 0;
   border: 1px solid var(--line);
   border-radius: var(--radius);
@@ -759,11 +764,11 @@ a {
 }
 
 .market-gallery {
-  grid-template-columns: repeat(2, minmax(260px, 1fr));
+  grid-template-columns: repeat(2, minmax(320px, 1fr));
 }
 
 .market-gallery img {
-  aspect-ratio: 16 / 8.8;
+  aspect-ratio: 16 / 9.6;
   object-fit: contain;
 }
 
@@ -1057,6 +1062,12 @@ a {
 
   .project-card {
     min-height: 0;
+    padding: 22px;
+  }
+
+  #projects.section {
+    padding-left: 18px;
+    padding-right: 18px;
   }
 
   .project-gallery {
