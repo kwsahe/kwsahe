@@ -32,7 +32,7 @@ Python과 SQL을 중심으로 데이터 파이프라인, 데이터 분석, AI �
 
 ## Portfolio
 
-[포트폴리오 바로가기](https://kwsahe.github.io/SH_Developer/)
+[포트폴리오 바로가기](https://kwsahe.github.io/kwsahe/)
 
 ## GitHub Projects
 
