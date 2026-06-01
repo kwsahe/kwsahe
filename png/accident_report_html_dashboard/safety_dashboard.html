@@ -1,0 +1,1375 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SAFE AI · 통합 안전관리 대시보드</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d0f12;
+    --bg-panel: #13161b;
+    --bg-raised: #1a1e25;
+    --bg-hover: #1f242d;
+    --border: rgba(255,255,255,0.07);
+    --border-strong: rgba(255,255,255,0.13);
+    --text: #e8eaed;
+    --text-2: #8b92a0;
+    --text-3: #555d6b;
+    --accent: #e74c3c;
+    --accent-dim: rgba(231,76,60,0.15);
+    --accent-border: rgba(231,76,60,0.35);
+    --green: #27ae60;
+    --green-dim: rgba(39,174,96,0.12);
+    --amber: #f39c12;
+    --amber-dim: rgba(243,156,18,0.12);
+    --blue: #3498db;
+    --blue-dim: rgba(52,152,219,0.12);
+    --purple: #9b59b6;
+    --purple-dim: rgba(155,89,182,0.12);
+    --mono: 'JetBrains Mono', monospace;
+    --sans: 'Noto Sans KR', sans-serif;
+    --radius: 8px;
+    --radius-lg: 12px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  /* ── TOP BAR ── */
+  .topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1.5rem;
+    height: 52px;
+    background: var(--bg-panel);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .topbar-left { display: flex; align-items: center; gap: 16px; }
+  .logo {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--text-2);
+    letter-spacing: 0.12em;
+  }
+  .logo span { color: var(--accent); font-weight: 500; }
+  .divider-v { width: 1px; height: 20px; background: var(--border-strong); }
+  .doc-title { font-size: 13px; font-weight: 500; color: var(--text); }
+  .doc-meta { font-family: var(--mono); font-size: 11px; color: var(--text-3); }
+  .topbar-right { display: flex; align-items: center; gap: 10px; }
+
+  .badge {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-size: 11px; font-family: var(--mono); font-weight: 500;
+    padding: 3px 10px; border-radius: 20px; letter-spacing: 0.04em;
+  }
+  .badge-red { background: var(--accent-dim); color: var(--accent); border: 1px solid var(--accent-border); }
+  .badge-green { background: var(--green-dim); color: var(--green); border: 1px solid rgba(39,174,96,0.3); }
+  .badge-amber { background: var(--amber-dim); color: var(--amber); border: 1px solid rgba(243,156,18,0.3); }
+  .badge-blue { background: var(--blue-dim); color: var(--blue); border: 1px solid rgba(52,152,219,0.3); }
+  .pulse { width: 6px; height: 6px; border-radius: 50%; background: currentColor; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+  /* ── 비상 버튼 ── */
+  .emergency-btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--accent);
+    color: #fff;
+    border: 1px solid var(--accent);
+    border-radius: 6px;
+    padding: 6px 14px;
+    font-size: 12px;
+    font-weight: 500;
+    font-family: var(--sans);
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 0 0 0 rgba(231,76,60,0.5);
+    animation: emergencyPulse 2s infinite;
+  }
+  .emergency-btn:hover {
+    background: #c0392b;
+    transform: translateY(-1px);
+  }
+  @keyframes emergencyPulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(231,76,60,0.5); }
+    50% { box-shadow: 0 0 0 6px rgba(231,76,60,0); }
+  }
+
+  /* ── LAYOUT ── */
+  .container {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 1rem 1.5rem 2.5rem;
+  }
+
+  /* ── 메트릭 바 ── */
+  .metric-bar {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    margin-bottom: 1rem;
+  }
+  .metric-card {
+    background: var(--bg-panel);
+    padding: 0.75rem 1rem;
+  }
+  .metric-label {
+    font-size: 10px;
+    color: var(--text-3);
+    font-family: var(--mono);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .metric-value {
+    font-size: 22px;
+    font-weight: 500;
+    font-family: var(--mono);
+    margin-bottom: 2px;
+  }
+  .metric-sub {
+    font-size: 10px;
+    font-family: var(--mono);
+    color: var(--text-2);
+  }
+  .v-red { color: var(--accent); }
+  .v-amber { color: var(--amber); }
+  .v-green { color: var(--green); }
+  .v-blue { color: var(--blue); }
+  .v-text { color: var(--text); }
+
+  /* ── 메인 그리드 ── */
+  .main-grid {
+    display: grid;
+    grid-template-columns: 1fr 360px;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  /* ── PANEL ── */
+  .panel {
+    background: var(--bg-panel);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1rem 1.25rem;
+    animation: fadeUp 0.5s ease both;
+  }
+  @keyframes fadeUp { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+  .panel-header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 0.875rem; padding-bottom: 0.625rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .panel-title {
+    font-size: 11px;
+    font-family: var(--mono);
+    font-weight: 500;
+    color: var(--text-2);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+  .panel-title-icon { font-size: 13px; opacity: 0.7; }
+
+  /* ── CCTV 그리드 ── */
+  .cctv-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  .cctv-cell {
+    background: var(--bg-raised);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    aspect-ratio: 16/9;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: border-color 0.2s;
+  }
+  .cctv-cell:hover { border-color: var(--border-strong); }
+  .cctv-cell.has-event { border-color: var(--accent-border); }
+
+  /* 메인 카메라 - 실제 이미지 */
+  .cctv-main-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.92);
+  }
+
+  /* 시뮬레이션 카메라 */
+  .cctv-sim {
+    width: 100%; height: 100%;
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+  }
+  .sim-1 { background: linear-gradient(160deg, #1a2030 0%, #0d1018 100%); }
+  .sim-2 { background: linear-gradient(160deg, #1a1a25 0%, #15151c 100%); }
+  .sim-3 { background: linear-gradient(160deg, #181f1a 0%, #0f1410 100%); }
+
+  /* CCTV 오버레이 */
+  .cctv-overlay {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    pointer-events: none;
+  }
+  .cctv-top-bar {
+    position: absolute;
+    top: 6px; left: 8px; right: 8px;
+    display: flex; justify-content: space-between;
+    font-family: var(--mono);
+    font-size: 10px;
+    color: rgba(255,255,255,0.7);
+  }
+  .cctv-cam-id {
+    background: rgba(0,0,0,0.5);
+    padding: 2px 6px;
+    border-radius: 3px;
+  }
+  .cctv-rec {
+    display: flex; align-items: center; gap: 4px;
+    color: var(--accent);
+  }
+  .cctv-rec-dot {
+    width: 6px; height: 6px;
+    background: var(--accent);
+    border-radius: 50%;
+    animation: pulse 1.2s infinite;
+  }
+  .cctv-bottom-bar {
+    position: absolute;
+    bottom: 6px; left: 8px; right: 8px;
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--mono);
+    font-size: 10px;
+    color: rgba(255,255,255,0.6);
+  }
+  .cctv-bottom-bar .ts {
+    background: rgba(0,0,0,0.5);
+    padding: 2px 6px;
+    border-radius: 3px;
+  }
+
+  /* 감지 박스 */
+  .det-box {
+    position: absolute;
+    border: 2px solid;
+    border-radius: 2px;
+    font-family: var(--mono);
+    font-size: 9px;
+    font-weight: 500;
+    padding: 1px 4px;
+  }
+  .det-red {
+    border-color: var(--accent);
+    color: #fff;
+    background: rgba(231,76,60,0.12);
+  }
+  .det-red .det-label {
+    position: absolute;
+    top: -16px; left: -2px;
+    background: var(--accent);
+    padding: 1px 5px;
+    border-radius: 2px 2px 0 0;
+    white-space: nowrap;
+  }
+  .det-amber {
+    border-color: var(--amber);
+    color: #fff;
+    background: rgba(243,156,18,0.1);
+  }
+  .det-amber .det-label {
+    position: absolute;
+    top: -16px; left: -2px;
+    background: var(--amber);
+    padding: 1px 5px;
+    border-radius: 2px 2px 0 0;
+    white-space: nowrap;
+  }
+  .det-green {
+    border-color: var(--green);
+    color: #fff;
+    background: rgba(39,174,96,0.08);
+  }
+  .det-green .det-label {
+    position: absolute;
+    top: -16px; left: -2px;
+    background: var(--green);
+    padding: 1px 5px;
+    border-radius: 2px 2px 0 0;
+    white-space: nowrap;
+  }
+
+  /* 스캔라인 (위험 카메라용) */
+  .scan-line {
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 1.5px;
+    background: linear-gradient(90deg, transparent, rgba(231,76,60,0.7), transparent);
+    animation: scanDown 3s linear infinite;
+    pointer-events: none;
+  }
+  @keyframes scanDown { from{top:0} to{top:100%} }
+
+  /* ── 자연재해 카드 ── */
+  .disaster-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    margin-top: 4px;
+  }
+  .dc {
+    background: var(--bg-raised);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 10px;
+  }
+  .dc.warn { border-color: rgba(243,156,18,0.35); }
+  .dc-head {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 6px;
+  }
+  .dc-name {
+    font-size: 11px;
+    color: var(--text-2);
+    font-weight: 500;
+  }
+  .dc-tag {
+    font-size: 9px;
+    font-family: var(--mono);
+    padding: 1px 6px;
+    border-radius: 8px;
+  }
+  .dc-tag-safe { background: var(--green-dim); color: var(--green); }
+  .dc-tag-watch { background: var(--amber-dim); color: var(--amber); }
+  .dc-value {
+    font-size: 18px;
+    font-family: var(--mono);
+    font-weight: 500;
+    margin-bottom: 4px;
+  }
+  .dc-sub {
+    font-size: 10px;
+    font-family: var(--mono);
+    color: var(--text-3);
+  }
+
+  /* API 칩 */
+  .api-strip {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid var(--border);
+  }
+  .api-chip {
+    display: flex; align-items: center; gap: 4px;
+    background: var(--bg-raised);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 3px 8px;
+    font-size: 10px;
+    font-family: var(--mono);
+    color: var(--text-2);
+  }
+  .api-dot {
+    width: 5px; height: 5px;
+    background: var(--green);
+    border-radius: 50%;
+  }
+
+  /* ── Agent 흐름 ── */
+  .agent-flow {
+    display: flex; align-items: center; gap: 6px;
+    flex-wrap: wrap;
+    margin-top: 4px;
+  }
+  .anode {
+    flex: 1;
+    background: var(--bg-raised);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 8px 10px;
+    text-align: center;
+    min-width: 80px;
+  }
+  .anode.active {
+    background: var(--accent-dim);
+    border-color: var(--accent-border);
+  }
+  .anode.active .anode-name { color: var(--accent); }
+  .anode-name {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 2px;
+  }
+  .anode-sub {
+    font-size: 9px;
+    font-family: var(--mono);
+    color: var(--text-3);
+  }
+  .arrow {
+    color: var(--text-3);
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+
+  /* ── 이벤트 알림 리스트 ── */
+  .alert-list { display: flex; flex-direction: column; gap: 6px; }
+  .alert-item {
+    background: var(--bg-raised);
+    border: 1px solid var(--border);
+    border-left: 3px solid;
+    border-radius: var(--radius);
+    padding: 8px 10px;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .alert-item:hover { background: var(--bg-hover); }
+  .alert-item.crit { border-left-color: var(--accent); }
+  .alert-item.warn { border-left-color: var(--amber); }
+  .alert-item.info { border-left-color: var(--blue); }
+  .alert-item.dis { border-left-color: var(--purple); }
+  .alert-row1 {
+    display: flex; justify-content: space-between;
+    align-items: center;
+    margin-bottom: 3px;
+  }
+  .alert-title {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text);
+  }
+  .alert-time {
+    font-size: 10px;
+    font-family: var(--mono);
+    color: var(--text-3);
+  }
+  .alert-meta {
+    font-size: 10px;
+    color: var(--text-2);
+    margin-bottom: 4px;
+  }
+  .alert-law {
+    display: inline-block;
+    font-size: 9px;
+    font-family: var(--mono);
+    padding: 1px 5px;
+    border-radius: 3px;
+  }
+  .law-crit { background: var(--accent-dim); color: var(--accent); }
+  .law-warn { background: var(--amber-dim); color: var(--amber); }
+  .law-info { background: var(--blue-dim); color: var(--blue); }
+  .law-dis { background: var(--purple-dim); color: var(--purple); }
+
+  /* ── RAG 챗봇 ── */
+  .chat-area {
+    display: flex; flex-direction: column;
+    gap: 8px;
+    max-height: 240px;
+    overflow-y: auto;
+  }
+  .bubble {
+    padding: 8px 10px;
+    border-radius: var(--radius);
+    font-size: 11.5px;
+    line-height: 1.5;
+  }
+  .bubble-user {
+    background: var(--bg-raised);
+    color: var(--text);
+    align-self: flex-end;
+    max-width: 85%;
+  }
+  .bubble-ai {
+    background: rgba(52,152,219,0.08);
+    border: 1px solid rgba(52,152,219,0.2);
+    color: var(--text);
+    max-width: 92%;
+  }
+  .bubble-src {
+    font-size: 9.5px;
+    font-family: var(--mono);
+    color: var(--blue);
+    margin-top: 5px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  /* ── 보고서 미리보기 ── */
+  .report-preview {
+    background: var(--bg-raised);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 10px 12px;
+  }
+  .rp-head {
+    display: flex; align-items: center; gap: 8px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 8px;
+  }
+  .rp-icon {
+    width: 28px; height: 28px;
+    background: var(--accent-dim);
+    border: 1px solid var(--accent-border);
+    border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--accent);
+    font-size: 14px;
+  }
+  .rp-title {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text);
+  }
+  .rp-sub {
+    font-size: 10px;
+    font-family: var(--mono);
+    color: var(--text-3);
+  }
+  .rp-row {
+    display: flex; justify-content: space-between;
+    padding: 4px 0;
+    font-size: 11px;
+    border-bottom: 1px dashed var(--border);
+  }
+  .rp-row:last-of-type { border: none; }
+  .rp-k { color: var(--text-3); font-family: var(--mono); font-size: 10px; }
+  .rp-v { color: var(--text); font-weight: 500; }
+  .rp-btn {
+    width: 100%;
+    margin-top: 8px;
+    padding: 8px;
+    background: var(--bg);
+    color: var(--text);
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius);
+    font-family: var(--sans);
+    font-size: 11px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.15s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  }
+  .rp-btn:hover { background: var(--bg-hover); }
+
+  /* 위험성평가 미니 위젯 */
+  .risk-list { display: flex; flex-direction: column; gap: 6px; }
+  .risk-row {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 8px;
+    align-items: center;
+    background: var(--bg-raised);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 7px 10px;
+  }
+  .risk-name {
+    font-size: 11px;
+    color: var(--text);
+  }
+  .risk-level {
+    font-size: 10px;
+    font-family: var(--mono);
+    padding: 2px 7px;
+    border-radius: 10px;
+    font-weight: 500;
+  }
+  .rl-high { background: var(--accent-dim); color: var(--accent); }
+  .rl-mid { background: var(--amber-dim); color: var(--amber); }
+  .rl-low { background: var(--green-dim); color: var(--green); }
+
+  /* 확장 패널 */
+  .full-panel { margin-bottom: 1rem; }
+
+  /* 스크롤바 */
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--text-3); }
+
+  /* ── 모델 스택 ── */
+  .model-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .model-row {
+    display: grid;
+    grid-template-columns: 40px 1fr auto;
+    gap: 12px;
+    align-items: center;
+    background: var(--bg-raised);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 10px 12px;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .model-row:hover {
+    border-color: var(--border-strong);
+    background: var(--bg-hover);
+  }
+  .model-icon {
+    width: 36px;
+    height: 36px;
+    border: 1px solid;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+  .model-info {
+    min-width: 0;
+  }
+  .model-role {
+    font-size: 10px;
+    font-family: var(--mono);
+    color: var(--text-3);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .model-name {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 3px;
+  }
+  .model-name code {
+    font-family: var(--mono);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text);
+    background: var(--bg);
+    padding: 2px 8px;
+    border-radius: 4px;
+    border: 1px solid var(--border);
+  }
+  .model-spec {
+    font-size: 10.5px;
+    font-family: var(--mono);
+    color: var(--text-3);
+  }
+  .model-desc {
+    font-size: 11.5px;
+    color: var(--text-2);
+    line-height: 1.4;
+  }
+  .model-perf {
+    text-align: right;
+    flex-shrink: 0;
+  }
+  .perf-label {
+    font-size: 9px;
+    font-family: var(--mono);
+    color: var(--text-3);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-bottom: 2px;
+  }
+  .perf-val {
+    font-size: 13px;
+    font-family: var(--mono);
+    font-weight: 500;
+  }
+
+  /* ── 리소스 요약 ── */
+  .resource-summary {
+    margin-top: 12px;
+    padding: 10px 12px;
+    background: var(--bg-raised);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+  }
+  .rs-title {
+    font-size: 11px;
+    font-family: var(--mono);
+    color: var(--text-2);
+    letter-spacing: 0.08em;
+    margin-bottom: 8px;
+  }
+  .rs-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+  }
+  .rs-item {
+    text-align: center;
+  }
+  .rs-k {
+    font-size: 10px;
+    color: var(--text-3);
+    margin-bottom: 2px;
+  }
+  .rs-v {
+    font-size: 13px;
+    font-family: var(--mono);
+    font-weight: 500;
+    color: var(--text);
+  }
+
+  /* ── 모델 트레이스 (RAG 응답 하단) ── */
+  .model-trace {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-top: 6px;
+    padding-top: 6px;
+    border-top: 1px dashed var(--border);
+  }
+  .trace-step {
+    font-size: 9px;
+    font-family: var(--mono);
+    color: var(--text-3);
+    background: var(--bg-raised);
+    border: 1px solid var(--border);
+    padding: 2px 6px;
+    border-radius: 3px;
+  }
+</style>
+</head>
+<body>
+
+<!-- ─── TOP BAR ─── -->
+<div class="topbar">
+  <div class="topbar-left">
+    <div class="logo">SAFE·<span>AI</span> v2.0</div>
+    <div class="divider-v"></div>
+    <div>
+      <div class="doc-title">중대재해 + 자연재해 통합 안전관리 시스템</div>
+      <div class="doc-meta">SESSION-2026-0514-1432 · OPS-MODE</div>
+    </div>
+  </div>
+  <div class="topbar-right">
+    <span class="badge badge-green"><span class="pulse"></span>실시간 모니터링</span>
+    <span class="badge badge-amber">강풍주의보 임박</span>
+    <span class="badge badge-red">위험 2건</span>
+    <button class="emergency-btn" onclick="triggerAccident()">
+      <span>🚨</span> 사고 발생 보고
+    </button>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- ─── 메트릭 바 ─── -->
+  <div class="metric-bar">
+    <div class="metric-card">
+      <div class="metric-label">오늘 위반</div>
+      <div class="metric-value v-red">7</div>
+      <div class="metric-sub">↑ 어제 +3건</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">지진 규모</div>
+      <div class="metric-value v-green">0.0</div>
+      <div class="metric-sub">이상 없음</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">현재 풍속</div>
+      <div class="metric-value v-amber">12.3<span style="font-size:12px">m/s</span></div>
+      <div class="metric-sub">주의보까지 1.7</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">강우량/h</div>
+      <div class="metric-value v-green">0.0<span style="font-size:12px">mm</span></div>
+      <div class="metric-sub">정상 범위</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">작업중지</div>
+      <div class="metric-value v-amber">2</div>
+      <div class="metric-sub">강풍 예비중지</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">안전 점수</div>
+      <div class="metric-value v-green">68</div>
+      <div class="metric-sub">↓ 어제 88점</div>
+    </div>
+  </div>
+
+  <!-- ─── 메인 그리드 ─── -->
+  <div class="main-grid">
+
+    <!-- ─── 좌측 영역 ─── -->
+    <div>
+
+      <!-- CCTV 실시간 -->
+      <div class="panel" style="margin-bottom: 1rem;">
+        <div class="panel-header">
+          <div class="panel-title">
+            <span class="panel-title-icon">📹</span>
+            실시간 CCTV 영상 분석
+          </div>
+          <div style="display:flex;gap:6px;">
+            <span class="badge badge-blue">YOLOv11n-Pose</span>
+            <span class="badge badge-blue">ByteTrack</span>
+            <span class="badge badge-green">CPU/GPU 노트북</span>
+          </div>
+        </div>
+        <div class="cctv-grid">
+
+          <!-- 메인 카메라: 실제 건설현장 이미지 -->
+          <div class="cctv-cell has-event" onclick="triggerAccident()">
+            <img src="cctv_construction_site.jpg" alt="CAM-01 건설현장" class="cctv-main-img">
+            <div class="scan-line"></div>
+            <div class="cctv-overlay">
+              <div class="cctv-top-bar">
+                <span class="cctv-cam-id">CAM-01 · 작업장 출입구</span>
+                <span class="cctv-rec"><span class="cctv-rec-dot"></span>REC</span>
+              </div>
+              <!-- 감지 박스: 사다리 영역 -->
+              <div class="det-box det-amber" style="top:45%;left:45%;width:25%;height:50%;">
+                <div class="det-label">사다리·낙하위험</div>
+              </div>
+              <!-- 감지 박스: 출입구 내부 위험 객체 -->
+              <div class="det-box det-red" style="top:35%;left:46%;width:13%;height:25%;">
+                <div class="det-label">위험구역 진입</div>
+              </div>
+              <div class="cctv-bottom-bar">
+                <span class="ts">2026.05.14 14:32:07</span>
+                <span style="color:var(--accent)">⚠ 위반 감지</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 보조 카메라 1 -->
+          <div class="cctv-cell">
+            <div class="cctv-sim sim-1">
+              <div class="cctv-overlay">
+                <div class="cctv-top-bar">
+                  <span class="cctv-cam-id">CAM-02 · 크레인 구역</span>
+                  <span class="cctv-rec"><span class="cctv-rec-dot"></span>REC</span>
+                </div>
+                <div class="det-box det-amber" style="top:30%;left:25%;width:50%;height:55%;">
+                  <div class="det-label">강풍 작업중지 대기</div>
+                </div>
+                <div class="cctv-bottom-bar">
+                  <span class="ts">14:32:00</span>
+                  <span style="color:var(--amber)">예비 감시</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 보조 카메라 2 -->
+          <div class="cctv-cell">
+            <div class="cctv-sim sim-2">
+              <div class="cctv-overlay">
+                <div class="cctv-top-bar">
+                  <span class="cctv-cam-id">CAM-03 · 조립라인</span>
+                  <span class="cctv-rec"><span class="cctv-rec-dot"></span>REC</span>
+                </div>
+                <div class="det-box det-green" style="top:30%;left:55%;width:26%;height:50%;">
+                  <div class="det-label">정상</div>
+                </div>
+                <div class="cctv-bottom-bar">
+                  <span class="ts">14:32:10</span>
+                  <span style="color:var(--green)">이상 없음</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 보조 카메라 3 -->
+          <div class="cctv-cell">
+            <div class="cctv-sim sim-3">
+              <div class="cctv-overlay">
+                <div class="cctv-top-bar">
+                  <span class="cctv-cam-id">CAM-04 · 야적장</span>
+                  <span class="cctv-rec"><span class="cctv-rec-dot"></span>REC</span>
+                </div>
+                <div class="cctv-bottom-bar">
+                  <span class="ts">14:32:05</span>
+                  <span style="color:var(--green)">이상 없음</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 자연재해 모니터링 -->
+      <div class="panel" style="margin-bottom: 1rem;">
+        <div class="panel-header">
+          <div class="panel-title">
+            <span class="panel-title-icon">🌪</span>
+            자연재해 실시간 모니터링
+          </div>
+          <span class="badge badge-blue">기상청 API · 30초 주기</span>
+        </div>
+        <div class="disaster-grid">
+          <div class="dc">
+            <div class="dc-head">
+              <span class="dc-name">🌍 지진</span>
+              <span class="dc-tag dc-tag-safe">정상</span>
+            </div>
+            <div class="dc-value v-green">M 0.0</div>
+            <div class="dc-sub">최근 감지 없음</div>
+          </div>
+          <div class="dc warn">
+            <div class="dc-head">
+              <span class="dc-name">💨 강풍</span>
+              <span class="dc-tag dc-tag-watch">주의보 임박</span>
+            </div>
+            <div class="dc-value v-amber">12.3<span style="font-size:11px;color:var(--text-3)">m/s</span></div>
+            <div class="dc-sub">기준 14m/s까지 1.7</div>
+          </div>
+          <div class="dc">
+            <div class="dc-head">
+              <span class="dc-name">🌧 호우</span>
+              <span class="dc-tag dc-tag-safe">정상</span>
+            </div>
+            <div class="dc-value v-green">0.0<span style="font-size:11px;color:var(--text-3)">mm</span></div>
+            <div class="dc-sub">철골기준 1mm/h</div>
+          </div>
+          <div class="dc">
+            <div class="dc-head">
+              <span class="dc-name">🌡 기온</span>
+              <span class="dc-tag dc-tag-safe">정상</span>
+            </div>
+            <div class="dc-value v-green">18<span style="font-size:11px;color:var(--text-3)">°C</span></div>
+            <div class="dc-sub">정상 작업 가능</div>
+          </div>
+        </div>
+        <div class="api-strip">
+          <div class="api-chip"><div class="api-dot"></div>기상청 특보 API</div>
+          <div class="api-chip"><div class="api-dot"></div>기상청 지진 API</div>
+          <div class="api-chip"><div class="api-dot"></div>초단기예보 API</div>
+          <div class="api-chip"><div class="api-dot"></div>KOSHA 법령 DB</div>
+        </div>
+      </div>
+
+      <!-- AI Agent 흐름 -->
+      <div class="panel" style="margin-bottom: 1rem;">
+        <div class="panel-header">
+          <div class="panel-title">
+            <span class="panel-title-icon">🤖</span>
+            AI Agent 통합 판단 흐름
+          </div>
+          <div style="display:flex;gap:6px;">
+            <span class="badge badge-blue">LangGraph 1.0</span>
+            <span class="badge badge-green">Ollama 로컬</span>
+          </div>
+        </div>
+        <div class="agent-flow">
+          <div class="anode">
+            <div class="anode-name">👁 감지</div>
+            <div class="anode-sub">YOLOv11n-Pose<br>ByteTrack</div>
+          </div>
+          <div class="arrow">→</div>
+          <div class="anode active">
+            <div class="anode-name">🧠 판단</div>
+            <div class="anode-sub">LangGraph +<br>Qwen2.5-3B</div>
+          </div>
+          <div class="arrow">→</div>
+          <div class="anode">
+            <div class="anode-name">📚 RAG 조회</div>
+            <div class="anode-sub">bge-m3 +<br>ChromaDB</div>
+          </div>
+          <div class="arrow">→</div>
+          <div class="anode">
+            <div class="anode-name">⚡ 대응</div>
+            <div class="anode-sub">EXAONE-3.5<br>보고서 생성</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- AI 모델 스택 (신규) -->
+      <div class="panel">
+        <div class="panel-header">
+          <div class="panel-title">
+            <span class="panel-title-icon">🧩</span>
+            AI 모델 스택 (개인 노트북 최적화)
+          </div>
+          <span class="badge badge-green">전체 로컬 실행</span>
+        </div>
+        <div class="model-stack">
+
+          <!-- Vision -->
+          <div class="model-row">
+            <div class="model-icon" style="background:var(--blue-dim);color:var(--blue);border-color:rgba(52,152,219,0.3)">👁</div>
+            <div class="model-info">
+              <div class="model-role">Vision · 객체 감지 + 자세 분석</div>
+              <div class="model-name">
+                <code>YOLOv11n-Pose</code>
+                <span class="model-spec">2.9M params · ~6MB · ONNX/TensorRT</span>
+              </div>
+              <div class="model-desc">사람 감지 + 17개 관절 추출 → 쓰러짐·위험자세 판단</div>
+            </div>
+            <div class="model-perf">
+              <div class="perf-label">CPU 노트북</div>
+              <div class="perf-val v-green">15-25 FPS</div>
+            </div>
+          </div>
+
+          <!-- Tracking -->
+          <div class="model-row">
+            <div class="model-icon" style="background:var(--blue-dim);color:var(--blue);border-color:rgba(52,152,219,0.3)">🎯</div>
+            <div class="model-info">
+              <div class="model-role">Tracking · 다중 객체 추적</div>
+              <div class="model-name">
+                <code>ByteTrack</code>
+                <span class="model-spec">Ultralytics 내장 · 추가 모델 불필요</span>
+              </div>
+              <div class="model-desc">작업자 ID 부여 + 위험구역 체류시간 측정</div>
+            </div>
+            <div class="model-perf">
+              <div class="perf-label">오버헤드</div>
+              <div class="perf-val v-green">+1-2ms</div>
+            </div>
+          </div>
+
+          <!-- Custom Vision -->
+          <div class="model-row">
+            <div class="model-icon" style="background:var(--blue-dim);color:var(--blue);border-color:rgba(52,152,219,0.3)">⛑</div>
+            <div class="model-info">
+              <div class="model-role">Vision · 안전장비 감지 (파인튜닝)</div>
+              <div class="model-name">
+                <code>YOLOv11n 커스텀</code>
+                <span class="model-spec">AI Hub 데이터로 파인튜닝 · ~6MB</span>
+              </div>
+              <div class="model-desc">안전모 · 안전조끼 · 안전화 착용 여부 감지</div>
+            </div>
+            <div class="model-perf">
+              <div class="perf-label">목표 mAP</div>
+              <div class="perf-val v-green">≥ 0.75</div>
+            </div>
+          </div>
+
+          <!-- Agent 오케스트레이션 -->
+          <div class="model-row">
+            <div class="model-icon" style="background:var(--purple-dim);color:var(--purple);border-color:rgba(155,89,182,0.35)">🧠</div>
+            <div class="model-info">
+              <div class="model-role">Agent · 의사결정 오케스트레이션</div>
+              <div class="model-name">
+                <code>LangGraph 1.0</code>
+                <span class="model-spec">상태머신 + 체크포인트 + Human-in-the-loop</span>
+              </div>
+              <div class="model-desc">위험도별 분기 처리 · 도구 호출 · 실패 복구</div>
+            </div>
+            <div class="model-perf">
+              <div class="perf-label">레이턴시</div>
+              <div class="perf-val v-green">~50ms</div>
+            </div>
+          </div>
+
+          <!-- 판단 LLM -->
+          <div class="model-row">
+            <div class="model-icon" style="background:var(--purple-dim);color:var(--purple);border-color:rgba(155,89,182,0.35)">💭</div>
+            <div class="model-info">
+              <div class="model-role">LLM · 위험도 판단 + RAG 추론</div>
+              <div class="model-name">
+                <code>Qwen2.5-3B-Instruct</code>
+                <span class="model-spec">3B 파라미터 · ~2GB (Q4) · Ollama 로컬</span>
+              </div>
+              <div class="model-desc">한국어 우수 · 노트북 RAM 8GB 환경 적합</div>
+            </div>
+            <div class="model-perf">
+              <div class="perf-label">추론 속도</div>
+              <div class="perf-val v-green">30-50 tok/s</div>
+            </div>
+          </div>
+
+          <!-- 임베딩 -->
+          <div class="model-row">
+            <div class="model-icon" style="background:var(--amber-dim);color:var(--amber);border-color:rgba(243,156,18,0.35)">🔤</div>
+            <div class="model-info">
+              <div class="model-role">RAG · 임베딩 (법령 문서 검색)</div>
+              <div class="model-name">
+                <code>bge-m3</code>
+                <span class="model-spec">567M params · ~1.1GB · 한국어 최상위</span>
+              </div>
+              <div class="model-desc">중대재해법·산안법·KOSHA 가이드 임베딩</div>
+            </div>
+            <div class="model-perf">
+              <div class="perf-label">차원</div>
+              <div class="perf-val v-amber">1024d</div>
+            </div>
+          </div>
+
+          <!-- 벡터 DB -->
+          <div class="model-row">
+            <div class="model-icon" style="background:var(--amber-dim);color:var(--amber);border-color:rgba(243,156,18,0.35)">🗄</div>
+            <div class="model-info">
+              <div class="model-role">RAG · 벡터 데이터베이스</div>
+              <div class="model-name">
+                <code>ChromaDB</code>
+                <span class="model-spec">SQLite 기반 · 설치 1줄 · 로컬 운영</span>
+              </div>
+              <div class="model-desc">법령 청크 ~2,000개 저장 · k=5 검색</div>
+            </div>
+            <div class="model-perf">
+              <div class="perf-label">검색 속도</div>
+              <div class="perf-val v-green">&lt; 50ms</div>
+            </div>
+          </div>
+
+          <!-- 보고서 생성 LLM -->
+          <div class="model-row">
+            <div class="model-icon" style="background:var(--accent-dim);color:var(--accent);border-color:var(--accent-border)">📝</div>
+            <div class="model-info">
+              <div class="model-role">Report · 산업재해조사표 자동 작성</div>
+              <div class="model-name">
+                <code>EXAONE-3.5-2.4B</code>
+                <span class="model-spec">2.4B params · ~1.5GB (Q4) · LG 한국어 특화</span>
+              </div>
+              <div class="model-desc">6하원칙 작성 · 재발방지 계획 · 법령 매핑 (한국어 보고서 최강)</div>
+            </div>
+            <div class="model-perf">
+              <div class="perf-label">생성 시간</div>
+              <div class="perf-val v-green">~15초</div>
+            </div>
+          </div>
+
+          <!-- PDF 변환 -->
+          <div class="model-row">
+            <div class="model-icon" style="background:var(--accent-dim);color:var(--accent);border-color:var(--accent-border)">📄</div>
+            <div class="model-info">
+              <div class="model-role">Report · 노동부 양식 PDF 변환</div>
+              <div class="model-name">
+                <code>Jinja2 + WeasyPrint</code>
+                <span class="model-spec">템플릿 엔진 + HTML→PDF · AI 모델 X</span>
+              </div>
+              <div class="model-desc">별지 제30호 산업재해조사표 양식 매핑 · 워터마크 포함</div>
+            </div>
+            <div class="model-perf">
+              <div class="perf-label">변환 시간</div>
+              <div class="perf-val v-green">&lt; 2초</div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- 노트북 리소스 사용량 요약 -->
+        <div class="resource-summary">
+          <div class="rs-title">📊 노트북 리소스 사용량 (예상)</div>
+          <div class="rs-grid">
+            <div class="rs-item">
+              <div class="rs-k">전체 디스크</div>
+              <div class="rs-v">~5.2 GB</div>
+            </div>
+            <div class="rs-item">
+              <div class="rs-k">RAM 사용</div>
+              <div class="rs-v">~6 GB</div>
+            </div>
+            <div class="rs-item">
+              <div class="rs-k">권장 사양</div>
+              <div class="rs-v">RAM 16GB</div>
+            </div>
+            <div class="rs-item">
+              <div class="rs-k">GPU</div>
+              <div class="rs-v">선택 (CPU 가능)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ─── 우측 영역 ─── -->
+    <div>
+
+      <!-- 실시간 이벤트 -->
+      <div class="panel" style="margin-bottom: 1rem;">
+        <div class="panel-header">
+          <div class="panel-title">
+            <span class="panel-title-icon">🚨</span>
+            실시간 이벤트
+          </div>
+        </div>
+        <div class="alert-list">
+          <div class="alert-item dis">
+            <div class="alert-row1">
+              <span class="alert-title">강풍주의보 임박</span>
+              <span class="alert-time">14:32:00</span>
+            </div>
+            <div class="alert-meta">크레인 구역 · 12.3m/s</div>
+            <span class="alert-law law-dis">산안규칙 제37조</span>
+          </div>
+          <div class="alert-item crit" onclick="triggerAccident()">
+            <div class="alert-row1">
+              <span class="alert-title">위험구역 진입 감지</span>
+              <span class="alert-time">14:32:07</span>
+            </div>
+            <div class="alert-meta">CAM-01 · 작업장 출입구</div>
+            <span class="alert-law law-crit">중대재해법 제4조</span>
+          </div>
+          <div class="alert-item warn">
+            <div class="alert-row1">
+              <span class="alert-title">사다리·낙하위험</span>
+              <span class="alert-time">14:31:55</span>
+            </div>
+            <div class="alert-meta">CAM-01 · 미고정 구조물</div>
+            <span class="alert-law law-warn">산안법 제38조</span>
+          </div>
+          <div class="alert-item info">
+            <div class="alert-row1">
+              <span class="alert-title">안전모 미착용</span>
+              <span class="alert-time">14:30:44</span>
+            </div>
+            <div class="alert-meta">CAM-02 · ID #A038</div>
+            <span class="alert-law law-info">산안법 제32조</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- RAG 챗봇 -->
+      <div class="panel" style="margin-bottom: 1rem;">
+        <div class="panel-header">
+          <div class="panel-title">
+            <span class="panel-title-icon">💬</span>
+            RAG 법령 챗봇
+          </div>
+          <span class="badge badge-blue">bge-m3 + Qwen2.5</span>
+        </div>
+        <div class="chat-area">
+          <div class="bubble bubble-user">강풍 시 크레인 작업 기준은?</div>
+          <div class="bubble bubble-ai">
+            산안규칙 제37조②에 따라 순간풍속 10m/s 초과 시 타워크레인 설치·해체를, 15m/s 초과 시 운전 작업을 중지해야 합니다. 현재 12.3m/s로 설치·해체 작업 중지가 필요합니다.
+            <div class="bubble-src">📄 산안규칙 제37조 · 제383조</div>
+            <div class="model-trace">
+              <span class="trace-step">🔤 bge-m3 임베딩</span>
+              <span class="trace-step">🗄 ChromaDB top-5</span>
+              <span class="trace-step">🧠 Qwen2.5-3B 생성</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 위험성평가 -->
+      <div class="panel" style="margin-bottom: 1rem;">
+        <div class="panel-header">
+          <div class="panel-title">
+            <span class="panel-title-icon">📊</span>
+            위험성평가 (KOSHA)
+          </div>
+          <span class="badge badge-amber">검토 필요</span>
+        </div>
+        <div class="risk-list">
+          <div class="risk-row">
+            <span class="risk-name">위험구역 진입</span>
+            <span class="risk-level rl-high">매우높음</span>
+          </div>
+          <div class="risk-row">
+            <span class="risk-name">강풍 시 크레인</span>
+            <span class="risk-level rl-high">높음</span>
+          </div>
+          <div class="risk-row">
+            <span class="risk-name">사다리 미고정</span>
+            <span class="risk-level rl-mid">보통</span>
+          </div>
+          <div class="risk-row">
+            <span class="risk-name">안전모 미착용</span>
+            <span class="risk-level rl-mid">보통</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 자동 보고서 -->
+      <div class="panel">
+        <div class="panel-header">
+          <div class="panel-title">
+            <span class="panel-title-icon">📄</span>
+            자동 보고서
+          </div>
+          <span class="badge badge-blue">EXAONE-3.5</span>
+        </div>
+        <div class="report-preview">
+          <div class="rp-head">
+            <div class="rp-icon">📋</div>
+            <div>
+              <div class="rp-title">산업재해조사표</div>
+              <div class="rp-sub">별지 제30호 · 자동 생성</div>
+            </div>
+          </div>
+          <div class="rp-row">
+            <span class="rp-k">보고 일시</span>
+            <span class="rp-v">2026.05.14 14:32</span>
+          </div>
+          <div class="rp-row">
+            <span class="rp-k">안전 위반</span>
+            <span class="rp-v v-red">7건</span>
+          </div>
+          <div class="rp-row">
+            <span class="rp-k">자연재해</span>
+            <span class="rp-v v-amber">강풍주의보</span>
+          </div>
+          <div class="rp-row">
+            <span class="rp-k">작업 중지</span>
+            <span class="rp-v v-amber">크레인 2기</span>
+          </div>
+          <div class="rp-row">
+            <span class="rp-k">관련 법령</span>
+            <span class="rp-v">산안규칙 제37조</span>
+          </div>
+          <button class="rp-btn" onclick="triggerAccident()">
+            🚨 사고 발생 보고서 작성 (긴급)
+          </button>
+          <button class="rp-btn" style="margin-top: 6px;">
+            📥 일일 보고서 PDF 다운로드
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+function triggerAccident() {
+  // 사고 발생 임시 버튼: 사고 보고서 페이지로 이동
+  // 페이지 전환 효과
+  document.body.style.transition = 'opacity 0.3s';
+  document.body.style.opacity = '0.3';
+  setTimeout(() => {
+    window.location.href = 'accident_report.html';
+  }, 200);
+}
+
+// 메트릭 실시간 깜빡임 효과 (강풍)
+setInterval(() => {
+  const windCard = document.querySelectorAll('.metric-card')[2];
+  if (windCard) {
+    windCard.style.transition = 'background 0.3s';
+    windCard.style.background = 'rgba(243,156,18,0.05)';
+    setTimeout(() => {
+      windCard.style.background = '';
+    }, 300);
+  }
+}, 3000);
+</script>
+
+</body>
+</html>

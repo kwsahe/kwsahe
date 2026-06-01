@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>사고 보고서 시스템</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d0f12;
+    --bg-panel: #13161b;
+    --bg-raised: #1a1e25;
+    --bg-hover: #1f242d;
+    --border: rgba(255,255,255,0.07);
+    --border-strong: rgba(255,255,255,0.13);
+    --text: #e8eaed;
+    --text-2: #8b92a0;
+    --text-3: #555d6b;
+    --accent: #e74c3c;
+    --accent-dim: rgba(231,76,60,0.15);
+    --accent-border: rgba(231,76,60,0.35);
+    --green: #27ae60;
+    --green-dim: rgba(39,174,96,0.12);
+    --amber: #f39c12;
+    --amber-dim: rgba(243,156,18,0.12);
+    --blue: #3498db;
+    --blue-dim: rgba(52,152,219,0.12);
+    --mono: 'JetBrains Mono', monospace;
+    --sans: 'Noto Sans KR', sans-serif;
+    --radius: 8px;
+    --radius-lg: 12px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  /* ── TOP BAR ── */
+  .topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2rem;
+    height: 52px;
+    background: var(--bg-panel);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .topbar-left { display: flex; align-items: center; gap: 16px; }
+  .logo { font-family: var(--mono); font-size: 12px; color: var(--text-2); letter-spacing: 0.12em; }
+  .logo span { color: var(--accent); }
+  .divider-v { width: 1px; height: 20px; background: var(--border-strong); }
+  .doc-title { font-size: 13px; font-weight: 500; color: var(--text); }
+  .doc-id { font-family: var(--mono); font-size: 11px; color: var(--text-3); }
+  .topbar-right { display: flex; align-items: center; gap: 10px; }
+
+  .badge {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-size: 11px; font-family: var(--mono); font-weight: 500;
+    padding: 3px 10px; border-radius: 20px; letter-spacing: 0.04em;
+  }
+  .badge-red { background: var(--accent-dim); color: var(--accent); border: 1px solid var(--accent-border); }
+  .badge-green { background: var(--green-dim); color: var(--green); border: 1px solid rgba(39,174,96,0.3); }
+  .badge-amber { background: var(--amber-dim); color: var(--amber); border: 1px solid rgba(243,156,18,0.3); }
+  .badge-blue { background: var(--blue-dim); color: var(--blue); border: 1px solid rgba(52,152,219,0.3); }
+  .pulse { width: 6px; height: 6px; border-radius: 50%; background: currentColor; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+  /* ── LAYOUT ── */
+  .container { max-width: 1200px; margin: 0 auto; padding: 1.5rem 2rem 3rem; }
+
+  /* ── AI DETECTION BANNER ── */
+  .detection-banner {
+    background: var(--bg-panel);
+    border: 1px solid var(--accent-border);
+    border-radius: var(--radius-lg);
+    padding: 1rem 1.25rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    animation: slideIn 0.4s ease;
+  }
+  @keyframes slideIn { from{opacity:0;transform:translateY(-8px)} to{opacity:1;transform:translateY(0)} }
+  .detection-info { display: flex; align-items: center; gap: 12px; }
+  .detection-icon {
+    width: 36px; height: 36px; border-radius: 8px;
+    background: var(--accent-dim); border: 1px solid var(--accent-border);
+    display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0;
+  }
+  .detection-text .label { font-size: 11px; color: var(--text-3); font-family: var(--mono); letter-spacing: 0.08em; margin-bottom: 2px; }
+  .detection-text .value { font-size: 13px; color: var(--text); font-weight: 500; }
+  .detection-meta { display: flex; align-items: center; gap: 8px; }
+  .confidence-bar { display: flex; align-items: center; gap: 8px; }
+  .confidence-bar .bar-bg { width: 80px; height: 4px; background: var(--border-strong); border-radius: 2px; overflow: hidden; }
+  .confidence-bar .bar-fill { height: 100%; background: var(--accent); border-radius: 2px; transition: width 1s ease; }
+  .confidence-bar .pct { font-family: var(--mono); font-size: 11px; color: var(--accent); }
+
+  /* ── MAIN GRID ── */
+  .main-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+
+  /* ── PANEL ── */
+  .panel {
+    background: var(--bg-panel);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1.25rem;
+    animation: fadeUp 0.5s ease both;
+  }
+  @keyframes fadeUp { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:translateY(0)} }
+  .panel:nth-child(2) { animation-delay: 0.08s; }
+  .panel-header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 1rem; padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .panel-title {
+    font-size: 11px; font-family: var(--mono); font-weight: 500;
+    color: var(--text-2); letter-spacing: 0.1em; text-transform: uppercase;
+    display: flex; align-items: center; gap: 7px;
+  }
+  .panel-title-icon { font-size: 14px; opacity: 0.7; }
+
+  /* ── FIELD GROUPS ── */
+  .field-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .field-grid.full { grid-template-columns: 1fr; }
+  .field { display: flex; flex-direction: column; gap: 4px; }
+  .field label {
+    font-size: 10px; font-family: var(--mono); color: var(--text-3);
+    letter-spacing: 0.1em; text-transform: uppercase;
+  }
+  .field-value {
+    font-size: 13px; color: var(--text); font-weight: 400;
+    padding: 7px 10px;
+    background: var(--bg-raised);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    min-height: 34px;
+    position: relative;
+    overflow: hidden;
+  }
+  .field-value.highlight {
+    border-color: var(--accent-border);
+    color: var(--accent);
+    font-family: var(--mono);
+    font-size: 12px;
+  }
+  .field-value.mono { font-family: var(--mono); font-size: 12px; }
+
+  /* AI 타이핑 애니메이션 */
+  .typing::after {
+    content: '▋';
+    animation: blink 0.7s infinite;
+    color: var(--accent);
+    font-size: 11px;
+  }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+  /* ── SEVERITY ── */
+  .severity-row { display: flex; gap: 6px; margin-top: 4px; }
+  .sev {
+    flex: 1; padding: 6px 4px; text-align: center;
+    border-radius: var(--radius); border: 1px solid var(--border);
+    background: var(--bg-raised); color: var(--text-3);
+    font-size: 11px; font-family: var(--mono); cursor: pointer;
+    transition: all 0.15s;
+  }
+  .sev.active-critical {
+    background: var(--accent-dim); border-color: var(--accent-border); color: var(--accent);
+  }
+  .sev.active-moderate {
+    background: var(--amber-dim); border-color: rgba(243,156,18,0.4); color: var(--amber);
+  }
+  .sev.active-minor {
+    background: var(--green-dim); border-color: rgba(39,174,96,0.3); color: var(--green);
+  }
+
+  /* ── VIDEO PANEL ── */
+  .video-wrap {
+    background: var(--bg-raised);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    aspect-ratio: 16/9;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    margin-bottom: 10px;
+  }
+  .video-frame-sim {
+    width: 100%; height: 100%;
+    background: linear-gradient(160deg, #0a0c10 0%, #111520 60%, #0d1018 100%);
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+  }
+  .scan-line {
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 2px; background: rgba(231,76,60,0.4);
+    animation: scanDown 3s linear infinite;
+  }
+  @keyframes scanDown { from{top:0} to{top:100%} }
+
+  .cctv-overlay {
+    position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+    display: flex; flex-direction: column;
+    justify-content: space-between;
+    padding: 10px 12px;
+  }
+  .cctv-top { display: flex; justify-content: space-between; align-items: flex-start; }
+  .cctv-badge {
+    font-family: var(--mono); font-size: 10px;
+    background: rgba(0,0,0,0.6); border: 1px solid rgba(231,76,60,0.5);
+    color: var(--accent); padding: 2px 8px; border-radius: 3px;
+  }
+  .cctv-ts {
+    font-family: var(--mono); font-size: 10px;
+    color: rgba(255,255,255,0.6); background: rgba(0,0,0,0.5);
+    padding: 2px 8px; border-radius: 3px;
+  }
+  .cctv-bottom { display: flex; justify-content: space-between; align-items: flex-end; }
+  .detect-box {
+    width: 80px; height: 60px;
+    border: 2px solid var(--accent);
+    border-radius: 3px; position: absolute;
+    top: 50%; left: 50%; transform: translate(-30%, -40%);
+    animation: detectPulse 1.5s ease-in-out infinite;
+  }
+  @keyframes detectPulse { 0%,100%{opacity:1;border-color:var(--accent)} 50%{opacity:0.5;border-color:rgba(231,76,60,0.4)} }
+  .detect-label {
+    position: absolute; top: -18px; left: 0;
+    font-family: var(--mono); font-size: 9px;
+    background: var(--accent); color: white; padding: 1px 5px; border-radius: 2px;
+    white-space: nowrap;
+  }
+  .play-center {
+    width: 48px; height: 48px; border-radius: 50%;
+    background: rgba(0,0,0,0.7); border: 1.5px solid rgba(255,255,255,0.2);
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s; z-index: 2; position: relative;
+  }
+  .play-center:hover { background: rgba(0,0,0,0.9); border-color: rgba(255,255,255,0.4); }
+  .play-center svg { margin-left: 3px; }
+
+  .video-meta-row {
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .vid-status { font-family: var(--mono); font-size: 11px; color: var(--text-3); }
+  .vid-dur { font-family: var(--mono); font-size: 11px; color: var(--text-3); }
+
+  /* ── BOTTOM PANEL ── */
+  .bottom-panel {
+    background: var(--bg-panel);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1.25rem;
+    margin-bottom: 1rem;
+    animation: fadeUp 0.5s 0.16s ease both;
+  }
+  .bottom-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+
+  .content-area {
+    background: var(--bg-raised);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 12px 14px;
+    min-height: 160px;
+    font-size: 13px;
+    line-height: 1.8;
+    color: var(--text-2);
+    white-space: pre-wrap;
+    word-break: keep-all;
+  }
+
+  /* ── FAULT ANALYSIS ── */
+  .fault-section { display: flex; flex-direction: column; gap: 14px; }
+  .fault-row { display: flex; flex-direction: column; gap: 6px; }
+  .fault-header { display: flex; justify-content: space-between; align-items: center; }
+  .fault-name { font-size: 12px; font-family: var(--mono); color: var(--text-2); }
+  .fault-pct { font-size: 14px; font-family: var(--mono); font-weight: 600; }
+  .fault-pct.company { color: var(--accent); }
+  .fault-pct.worker { color: var(--amber); }
+  .fault-bar-bg { height: 5px; background: var(--bg-raised); border-radius: 3px; overflow: hidden; border: 1px solid var(--border); }
+  .fault-bar { height: 100%; border-radius: 3px; transition: width 1.2s cubic-bezier(0.4,0,0.2,1); }
+  .fault-bar.company { background: var(--accent); }
+  .fault-bar.worker { background: var(--amber); }
+
+  /* ── LAW REFS ── */
+  .law-cards { display: flex; flex-direction: column; gap: 8px; margin-top: 4px; }
+  .law-card {
+    background: var(--bg-raised);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 10px 12px;
+    border-left: 3px solid var(--accent);
+  }
+  .law-card-title {
+    font-size: 11px; font-family: var(--mono); font-weight: 500;
+    color: var(--accent); margin-bottom: 4px;
+  }
+  .law-card-body { font-size: 12px; color: var(--text-2); line-height: 1.6; }
+
+  /* ── ACTION BAR ── */
+  .action-bar {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1rem 1.25rem;
+    background: var(--bg-panel);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    animation: fadeUp 0.5s 0.22s ease both;
+  }
+  .action-left { font-size: 11px; color: var(--text-3); font-family: var(--mono); }
+  .action-right { display: flex; gap: 8px; }
+  .btn {
+    padding: 7px 18px; border-radius: var(--radius);
+    font-size: 12px; font-family: var(--sans); font-weight: 500;
+    cursor: pointer; display: flex; align-items: center; gap: 6px;
+    transition: all 0.15s; border: 1px solid var(--border-strong);
+    background: var(--bg-raised); color: var(--text-2);
+  }
+  .btn:hover { background: var(--bg-hover); color: var(--text); border-color: rgba(255,255,255,0.2); }
+  .btn-primary {
+    background: var(--accent); color: white; border-color: var(--accent);
+    font-weight: 600;
+  }
+  .btn-primary:hover { background: #c0392b; border-color: #c0392b; color: white; }
+
+  /* ── AI STATUS BAR ── */
+  .ai-status {
+    display: flex; align-items: center; gap: 8px;
+    padding: 6px 12px; margin-bottom: 1rem;
+    background: var(--bg-panel); border: 1px solid var(--border);
+    border-radius: 6px; font-size: 11px; color: var(--text-3); font-family: var(--mono);
+  }
+  .ai-status .dot { width: 5px; height: 5px; border-radius: 50%; background: var(--green); animation: pulse 1.5s infinite; }
+
+  /* ── SPACER ── */
+  .gap { margin-bottom: 10px; }
+  .gap-sm { margin-bottom: 6px; }
+
+  @keyframes sideFlash { 0%,100%{opacity:0} 50%{opacity:1} }
+
+  /* ── LOADING SKELETON ── */
+  .skeleton {
+    background: linear-gradient(90deg, var(--bg-raised) 25%, var(--bg-hover) 50%, var(--bg-raised) 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+    border-radius: 4px; height: 14px;
+  }
+  @keyframes shimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
+  .skeleton-block { display: flex; flex-direction: column; gap: 8px; }
+
+  /* sub-label */
+  .sub { font-size: 10px; color: var(--text-3); font-family: var(--mono); margin-top: 3px; }
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="topbar-left">
+    <div class="logo">SAFE<span>AI</span></div>
+    <div class="divider-v"></div>
+    <div>
+      <div class="doc-title">사고 보고서</div>
+      <div class="doc-id" id="doc-id">ACC-2026-05-14-001</div>
+    </div>
+  </div>
+  <div class="topbar-right">
+    <div class="badge badge-red"><span class="pulse"></span>중대재해 감지됨</div>
+    <div class="badge badge-amber" id="report-status">보고서 생성 중</div>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- AI STATUS -->
+  <div class="ai-status">
+    <span class="dot"></span>
+    <span id="ai-status-text">AI 분석 엔진 연결됨 · 사고 데이터 수신 완료 · 보고서 자동 작성 중...</span>
+  </div>
+
+  <!-- DETECTION BANNER -->
+  <div class="detection-banner">
+    <div class="detection-info">
+      <div class="detection-icon">⚠️</div>
+      <div class="detection-text">
+        <div class="label">DETECTION EVENT</div>
+        <div class="value" id="detection-desc">협착·끼임 사고 감지 — CH-03 / 3공장 B동 2층 작업구역</div>
+      </div>
+    </div>
+    <div class="detection-meta">
+      <div class="confidence-bar">
+        <span style="font-size:10px;color:var(--text-3);font-family:var(--mono);margin-right:4px">신뢰도</span>
+        <div class="bar-bg"><div class="bar-fill" id="conf-bar" style="width:0%"></div></div>
+        <span class="pct" id="conf-pct">0%</span>
+      </div>
+      <div class="badge badge-blue">자동 감지</div>
+    </div>
+  </div>
+
+  <!-- MAIN GRID -->
+  <div class="main-grid">
+
+    <!-- LEFT: 사고 기본 정보 -->
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-title">
+          <span class="panel-title-icon">📋</span>
+          사고 기본 정보
+        </div>
+        <div class="badge badge-red" style="font-size:10px">자동 입력</div>
+      </div>
+
+      <div class="field-grid gap">
+        <div class="field">
+          <label>사고 날짜</label>
+          <div class="field-value mono" id="f-date">—</div>
+        </div>
+        <div class="field">
+          <label>사고 시각</label>
+          <div class="field-value mono highlight" id="f-time">—</div>
+        </div>
+      </div>
+
+      <div class="field-grid full gap">
+        <div class="field">
+          <label>발생 장소</label>
+          <div class="field-value" id="f-location">—</div>
+        </div>
+      </div>
+
+      <div class="field-grid gap">
+        <div class="field">
+          <label>CCTV 채널</label>
+          <div class="field-value mono" id="f-cctv">—</div>
+        </div>
+        <div class="field">
+          <label>사고 유형</label>
+          <div class="field-value highlight" id="f-type">—</div>
+        </div>
+      </div>
+
+      <div class="field-grid full gap">
+        <div class="field">
+          <label>재해자 정보</label>
+          <div class="field-value" id="f-victim">—</div>
+        </div>
+      </div>
+
+      <div class="field-grid full gap">
+        <div class="field">
+          <label>사고 중대도</label>
+          <div class="severity-row">
+            <div class="sev" id="sev-minor">경미</div>
+            <div class="sev" id="sev-moderate">중간</div>
+            <div class="sev active-critical" id="sev-critical">중대재해</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="field-grid full">
+        <div class="field">
+          <label>현장 조치 상태</label>
+          <div class="field-value" id="f-action" style="color:var(--amber)">—</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: 사고 영상 -->
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-title">
+          <span class="panel-title-icon">📹</span>
+          사고 영상
+        </div>
+        <div class="badge badge-blue" id="vid-badge">데이터 수신 중</div>
+      </div>
+
+      <!-- 영상 컨테이너: 썸네일(클릭 전) + iframe(클릭 후) -->
+      <div class="video-wrap" id="video-wrap" style="cursor:pointer;position:relative;overflow:hidden;">
+
+        <!-- 썸네일 레이어 (클릭 전 기본 상태) -->
+        <div id="thumb-layer" style="position:absolute;inset:0;z-index:2;">
+          <!-- 실제 공사현장 썸네일 이미지 -->
+          <img
+            src="https://img.youtube.com/vi/JjKSS_jbHWg/maxresdefault.jpg"
+            alt="공사현장 CCTV 영상 썸네일"
+            style="width:100%;height:100%;object-fit:cover;filter:brightness(0.7) saturate(0.6);"
+            onerror="this.style.display='none';document.getElementById('thumb-fallback').style.display='flex';"
+          />
+          <!-- 썸네일 로드 실패 시 fallback -->
+          <div id="thumb-fallback" style="display:none;width:100%;height:100%;background:linear-gradient(160deg,#0a0c10,#111520);align-items:center;justify-content:center;">
+            <div style="text-align:center;color:rgba(255,255,255,0.3)">
+              <div style="font-size:32px;margin-bottom:6px">🏗</div>
+              <div style="font-family:var(--mono);font-size:10px">공사현장 CCTV</div>
+            </div>
+          </div>
+
+          <!-- CCTV HUD 오버레이 -->
+          <div style="position:absolute;inset:0;display:flex;flex-direction:column;justify-content:space-between;padding:10px 12px;pointer-events:none;">
+            <!-- 상단 HUD -->
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+              <div style="display:flex;flex-direction:column;gap:4px;">
+                <div style="font-family:var(--mono);font-size:10px;background:rgba(0,0,0,0.65);border:1px solid rgba(231,76,60,0.6);color:#e74c3c;padding:2px 8px;border-radius:3px;">CH-03 · LIVE</div>
+                <div style="font-family:var(--mono);font-size:9px;color:rgba(255,255,255,0.5);background:rgba(0,0,0,0.45);padding:1px 6px;border-radius:2px;">CAM: 3공장-B-2F</div>
+              </div>
+              <div style="font-family:var(--mono);font-size:10px;color:rgba(255,255,255,0.65);background:rgba(0,0,0,0.5);padding:2px 8px;border-radius:3px;" id="vid-ts">2026-05-14 14:32:07</div>
+            </div>
+            <!-- 중앙: 감지박스 + 재생버튼 -->
+            <div style="display:flex;align-items:center;justify-content:center;flex:1;position:relative;">
+              <!-- 감지 박스 -->
+              <div style="position:absolute;width:90px;height:68px;border:2px solid #e74c3c;border-radius:3px;top:50%;left:50%;transform:translate(-20%,-50%);animation:detectPulse 1.5s ease-in-out infinite;">
+                <div style="position:absolute;top:-18px;left:0;font-family:var(--mono);font-size:9px;background:#e74c3c;color:white;padding:1px 6px;border-radius:2px;white-space:nowrap;">협착 감지 94.7%</div>
+              </div>
+              <!-- 재생 버튼 -->
+              <div style="width:52px;height:52px;border-radius:50%;background:rgba(0,0,0,0.72);border:1.5px solid rgba(255,255,255,0.3);display:flex;align-items:center;justify-content:center;z-index:1;transition:all 0.2s;" id="play-thumb-btn">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="white" style="margin-left:3px"><path d="M8 5v14l11-7z"/></svg>
+              </div>
+            </div>
+            <!-- 하단 HUD -->
+            <div style="display:flex;justify-content:space-between;align-items:flex-end;">
+              <div style="display:flex;align-items:center;gap:6px;">
+                <span style="font-family:var(--mono);font-size:9px;color:#e74c3c;animation:pulse 1s infinite;">● REC</span>
+                <span style="font-family:var(--mono);font-size:9px;color:rgba(255,255,255,0.4);">FPS:30 · 1080P</span>
+              </div>
+              <div style="font-family:var(--mono);font-size:9px;color:rgba(255,255,255,0.4);">00:02:34</div>
+            </div>
+          </div>
+
+          <!-- 스캔라인 효과 -->
+          <div style="position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.08) 2px,rgba(0,0,0,0.08) 4px);pointer-events:none;"></div>
+          <!-- 좌측 사이드 노이즈 -->
+          <div style="position:absolute;top:0;bottom:0;left:0;width:3px;background:linear-gradient(180deg,transparent,rgba(231,76,60,0.3),transparent);animation:sideFlash 4s infinite;pointer-events:none;"></div>
+        </div>
+
+        <!-- YouTube iframe (클릭 후 표시) -->
+        <iframe
+          id="yt-frame"
+          src=""
+          data-src="https://www.youtube.com/embed/JjKSS_jbHWg?autoplay=1&mute=0&controls=1&rel=0&modestbranding=1&start=12"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+          style="position:absolute;inset:0;width:100%;height:100%;border:none;z-index:1;display:none;"
+        ></iframe>
+      </div>
+
+      <div class="video-meta-row">
+        <div class="vid-status" id="vid-status-text">▶ 클릭하면 재생 · 첫 번째 프레임 (썸네일)</div>
+        <div class="badge badge-red" style="font-size:10px">사고 구간 감지됨</div>
+      </div>
+
+      <div style="margin-top:12px">
+        <div class="field">
+          <label>감지 이벤트 타임라인</label>
+        </div>
+        <div style="margin-top:6px;display:flex;flex-direction:column;gap:5px" id="timeline">
+          <!-- JS로 채워짐 -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BOTTOM: 세부내용 + 과실분석 -->
+  <div class="bottom-panel">
+    <div class="panel-header">
+      <div class="panel-title">
+        <span class="panel-title-icon">⚖️</span>
+        사고 세부내용 및 법률 과실 분석
+      </div>
+      <div class="badge badge-green" id="llm-badge"><span class="pulse"></span>AI 작성 중</div>
+    </div>
+
+    <div class="bottom-grid">
+      <!-- 사고 세부내용 -->
+      <div>
+        <div class="field gap-sm"><label>사고 경위 (AI 자동 작성)</label></div>
+        <div class="content-area" id="detail-content"></div>
+      </div>
+
+      <!-- 과실 분석 -->
+      <div>
+        <div class="field gap-sm"><label>과실 비율 분석</label></div>
+        <div class="fault-section" style="margin-bottom:14px">
+          <div class="fault-row">
+            <div class="fault-header">
+              <span class="fault-name">회사 측 (사업주)</span>
+              <span class="fault-pct company" id="company-pct">0%</span>
+            </div>
+            <div class="fault-bar-bg"><div class="fault-bar company" id="company-bar" style="width:0%"></div></div>
+          </div>
+          <div class="fault-row">
+            <div class="fault-header">
+              <span class="fault-name">노동자 측</span>
+              <span class="fault-pct worker" id="worker-pct">0%</span>
+            </div>
+            <div class="fault-bar-bg"><div class="fault-bar worker" id="worker-bar" style="width:0%"></div></div>
+          </div>
+        </div>
+
+        <div class="field gap-sm"><label>적용 법률 근거</label></div>
+        <div class="law-cards" id="law-cards">
+          <div class="skeleton-block">
+            <div class="skeleton" style="width:60%"></div>
+            <div class="skeleton" style="width:90%"></div>
+            <div class="skeleton" style="width:75%"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ACTION BAR -->
+  <div class="action-bar">
+    <div class="action-left" id="action-status">AI 분석 완료 대기 중...</div>
+    <div class="action-right">
+      <button class="btn" onclick="regenerateReport()">↺ 재분석</button>
+      <button class="btn" onclick="printReport()">🖨 출력</button>
+      <button class="btn btn-primary" onclick="submitReport()">보고서 제출 →</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// ─────────────────────────────────────────────
+// 모의 사고 데이터 (실제 환경에서는 서버/AI에서 수신)
+// ─────────────────────────────────────────────
+const accidentData = {
+  date: '2026-05-14',
+  time: '14:32:07',
+  location: '3공장 B동 2층 컨베이어 작업구역',
+  cctv: 'CH-03',
+  type: '협착·끼임',
+  victim: '김○○ (생산2팀 / 현장작업원)',
+  severity: 'critical',
+  action: '비상정지 완료 · 응급처치 시행 · 119 신고',
+  confidence: 94.7,
+  duration: '00:02:34',
+  timestamp: '2026-05-14 14:32:07'
+};
+
+const timelineEvents = [
+  { time: '14:31:52', label: '작업자 컨베이어 점검 진입 감지', type: 'warn' },
+  { time: '14:32:07', label: '협착 사고 발생 — 우측 팔', type: 'danger' },
+  { time: '14:32:09', label: '비상정지 신호 감지', type: 'info' },
+  { time: '14:32:41', label: '응급처치 인원 현장 도착', type: 'info' }
+];
+
+const detailText = `오후 14시 32분경, 3공장 B동 2층 컨베이어 작업구역에서 생산2팀 소속 작업원 김○○(이하 재해자)가 컨베이어 벨트 이상 작동 점검을 위해 기계 가동 중 보호 덮개를 열고 내부 롤러 부위에 접근하던 중, 우측 소매가 회전하는 롤러에 말려 들어가면서 우측 전완부 협착 사고가 발생하였다.
+
+사고 발생 직후 인근 작업자가 비상정지 버튼을 작동하였으며, 즉각 응급처치가 시행되었고 119 신고를 통해 재해자는 인근 병원으로 후송되었다.
+
+AI 영상 분석 결과, 사고 발생 15초 전부터 재해자가 가동 중인 기계 내부에 접근하는 행동이 감지되었으나 자동 경보 시스템이 작동하지 않은 것으로 확인되었다.`;
+
+const lawData = [
+  {
+    title: '중대재해처벌법 제4조 (사업주·경영책임자의 안전보건 확보의무)',
+    body: '사업주는 재해 예방을 위한 안전보건관리체계를 구축·이행해야 함. 본 사고는 가동 중 기계 접근 차단 장치 미비 및 연동 경보 미작동으로 인해 해당 조항 위반 소지가 있음.'
+  },
+  {
+    title: '중대재해처벌법 제6조 (중대산업재해 처벌 규정)',
+    body: '사망 또는 3일 이상 부상 시 경영책임자에게 1년 이상 징역 또는 10억 원 이하 벌금. 재해자 부상 정도에 따라 처벌 여부 결정됨. 즉시 고용노동부 보고 의무 발생.'
+  },
+  {
+    title: '산업안전보건법 제89조 (기계·기구 방호조치 의무)',
+    body: '회전체에 대한 덮개, 울 등 방호장치 설치 의무. CCTV 분석상 보호 덮개가 고정되지 않아 작업자가 임의 개방한 정황이 확인되어 회사의 방호조치 관리 책임이 인정됨.'
+  },
+  {
+    title: '산업안전보건법 제57조 (중대재해 발생 보고 의무)',
+    body: '사망 또는 3일 이상 요양이 필요한 부상 발생 즉시 고용노동부 장관에게 보고 의무. 미보고 시 1천만 원 이하 과태료.'
+  }
+];
+
+// ─────────────────────────────────────────────
+// 순차 애니메이션으로 필드 자동 채우기
+// ─────────────────────────────────────────────
+function delay(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+async function typeText(el, text, speed = 18) {
+  el.classList.add('typing');
+  el.textContent = '';
+  for (let i = 0; i < text.length; i++) {
+    el.textContent += text[i];
+    await delay(speed);
+  }
+  el.classList.remove('typing');
+}
+
+async function animateBar(barEl, pctEl, pct, delay_ms = 0) {
+  await delay(delay_ms);
+  barEl.style.width = pct + '%';
+  let current = 0;
+  const step = pct / 40;
+  const iv = setInterval(() => {
+    current = Math.min(current + step, pct);
+    pctEl.textContent = Math.round(current) + '%';
+    if (current >= pct) clearInterval(iv);
+  }, 30);
+}
+
+async function fillTimeline() {
+  const container = document.getElementById('timeline');
+  container.innerHTML = '';
+  for (const ev of timelineEvents) {
+    await delay(200);
+    const colors = { warn: '#f39c12', danger: '#e74c3c', info: '#3498db' };
+    const div = document.createElement('div');
+    div.style.cssText = `display:flex;align-items:flex-start;gap:8px;opacity:0;transition:opacity 0.3s`;
+    div.innerHTML = `
+      <div style="font-family:var(--mono);font-size:10px;color:${colors[ev.type]};min-width:52px;padding-top:1px">${ev.time.slice(0,5)}</div>
+      <div style="width:6px;height:6px;border-radius:50%;background:${colors[ev.type]};margin-top:5px;flex-shrink:0"></div>
+      <div style="font-size:11px;color:var(--text-2);line-height:1.4">${ev.label}</div>`;
+    container.appendChild(div);
+    await delay(50);
+    div.style.opacity = '1';
+  }
+}
+
+async function fillLawCards() {
+  const container = document.getElementById('law-cards');
+  container.innerHTML = '';
+  for (const law of lawData) {
+    await delay(300);
+    const card = document.createElement('div');
+    card.className = 'law-card';
+    card.style.cssText = 'opacity:0;transform:translateY(6px);transition:all 0.3s';
+    card.innerHTML = `<div class="law-card-title">${law.title}</div><div class="law-card-body">${law.body}</div>`;
+    container.appendChild(card);
+    await delay(50);
+    card.style.opacity = '1';
+    card.style.transform = 'translateY(0)';
+  }
+}
+
+async function typeDetail(text) {
+  const el = document.getElementById('detail-content');
+  el.textContent = '';
+  const lines = text.trim().split('\n');
+  for (const line of lines) {
+    for (let i = 0; i < line.length; i++) {
+      el.textContent += line[i];
+      await delay(12);
+    }
+    el.textContent += '\n';
+    await delay(60);
+  }
+}
+
+async function runAnimation() {
+  // Confidence bar
+  await delay(400);
+  let c = 0;
+  const bar = document.getElementById('conf-bar');
+  const pctEl = document.getElementById('conf-pct');
+  const iv = setInterval(() => {
+    c = Math.min(c + 1.8, accidentData.confidence);
+    bar.style.width = c + '%';
+    pctEl.textContent = c.toFixed(1) + '%';
+    if (c >= accidentData.confidence) clearInterval(iv);
+  }, 20);
+
+  await delay(600);
+
+  // 기본 정보 순차 입력
+  await typeText(document.getElementById('f-date'), accidentData.date, 30);
+  await delay(100);
+  await typeText(document.getElementById('f-time'), accidentData.time, 30);
+  await delay(100);
+  await typeText(document.getElementById('f-location'), accidentData.location, 20);
+  await delay(100);
+  await typeText(document.getElementById('f-cctv'), accidentData.cctv, 40);
+  await delay(100);
+  await typeText(document.getElementById('f-type'), accidentData.type, 30);
+  await delay(100);
+  await typeText(document.getElementById('f-victim'), accidentData.victim, 20);
+  await delay(100);
+  await typeText(document.getElementById('f-action'), accidentData.action, 20);
+
+  // 영상 뱃지 업데이트
+  document.getElementById('vid-badge').textContent = '영상 수신 완료';
+  document.getElementById('vid-badge').className = 'badge badge-green';
+
+  // 타임라인
+  await fillTimeline();
+
+  await delay(300);
+
+  // 세부내용 타이핑
+  await typeDetail(detailText);
+
+  await delay(400);
+
+  // 과실 바
+  await animateBar(
+    document.getElementById('company-bar'),
+    document.getElementById('company-pct'), 75, 0
+  );
+  await animateBar(
+    document.getElementById('worker-bar'),
+    document.getElementById('worker-pct'), 25, 200
+  );
+
+  // 법률 카드
+  await fillLawCards();
+
+  // 상태 업데이트
+  document.getElementById('llm-badge').innerHTML = '✓ AI 작성 완료';
+  document.getElementById('llm-badge').className = 'badge badge-green';
+  document.getElementById('report-status').textContent = '검토 대기';
+  document.getElementById('report-status').className = 'badge badge-amber';
+  document.getElementById('ai-status-text').textContent = 'AI 분석 완료 · 보고서 자동 작성 완료 · 관리자 검토 후 제출 요망';
+  document.getElementById('action-status').textContent = 'AI 분석 완료 · 2026-05-14 14:34:21';
+}
+
+// 영상 재생 토글 (클릭 시 썸네일 → YouTube iframe 전환)
+let playing = false;
+document.getElementById('video-wrap').addEventListener('click', function() {
+  if (playing) return;
+  playing = true;
+  const thumb = document.getElementById('thumb-layer');
+  const frame = document.getElementById('yt-frame');
+  const status = document.getElementById('vid-status-text');
+  // iframe src 활성화
+  frame.src = frame.dataset.src;
+  frame.style.display = 'block';
+  // 썸네일 페이드아웃
+  thumb.style.transition = 'opacity 0.4s';
+  thumb.style.opacity = '0';
+  setTimeout(() => { thumb.style.display = 'none'; }, 400);
+  status.textContent = '▶ 재생 중';
+  document.getElementById('vid-badge').textContent = '영상 재생 중';
+  document.getElementById('vid-badge').className = 'badge badge-green';
+});
+
+function regenerateReport() {
+  document.getElementById('detail-content').textContent = '';
+  document.getElementById('law-cards').innerHTML = '<div class="skeleton-block"><div class="skeleton" style="width:60%"></div><div class="skeleton" style="width:90%"></div><div class="skeleton" style="width:75%"></div></div>';
+  document.getElementById('company-bar').style.width = '0%';
+  document.getElementById('worker-bar').style.width = '0%';
+  document.getElementById('company-pct').textContent = '0%';
+  document.getElementById('worker-pct').textContent = '0%';
+  document.getElementById('llm-badge').innerHTML = '<span class="pulse"></span>AI 작성 중';
+  document.getElementById('llm-badge').className = 'badge badge-green';
+  setTimeout(() => {
+    typeDetail(detailText).then(async () => {
+      await delay(300);
+      animateBar(document.getElementById('company-bar'), document.getElementById('company-pct'), 75, 0);
+      animateBar(document.getElementById('worker-bar'), document.getElementById('worker-pct'), 25, 200);
+      await delay(600);
+      fillLawCards();
+      document.getElementById('llm-badge').innerHTML = '✓ AI 작성 완료';
+      document.getElementById('llm-badge').className = 'badge badge-green';
+    });
+  }, 200);
+}
+
+function printReport() { window.print(); }
+
+function submitReport() {
+  document.getElementById('report-status').textContent = '제출 완료';
+  document.getElementById('report-status').className = 'badge badge-green';
+  alert('보고서가 제출되었습니다.\n문서번호: ' + document.getElementById('doc-id').textContent);
+}
+
+// 시작
+window.addEventListener('load', runAnimation);
+</script>
+</body>
+</html>

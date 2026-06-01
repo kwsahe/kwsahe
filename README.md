@@ -23,10 +23,12 @@ Python과 SQL을 중심으로 데이터 파이프라인, 데이터 분석, AI �
 
 ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
 ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
-![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=222222)
 ![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)
 ![Git](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white)
 ![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-222222?style=for-the-badge&logo=github&logoColor=white)
+![NotebookLM](https://img.shields.io/badge/NotebookLM-4285F4?style=for-the-badge)
+![Claude Code](https://img.shields.io/badge/Claude%20Code-D97757?style=for-the-badge)
+![Codex](https://img.shields.io/badge/Codex-111827?style=for-the-badge)
 
 ## Portfolio
 
@@ -34,7 +36,9 @@ Python과 SQL을 중심으로 데이터 파이프라인, 데이터 분석, AI �
 
 ## GitHub Projects
 
+- rag-report
+- Artesia
 - ecommerce-data-analysis-practice
-- air-quality-forecast
+- english-word-streamlit
 - market-pulse
-- bigdata-eda-practice
+- O2O-demand-forecasting-solution

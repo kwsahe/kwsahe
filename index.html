@@ -200,7 +200,7 @@
                 <div class="timeline-body">
                   <h3>매력일자리 개발자 과정</h3>
                   <ul class="check-list">
-                    <li>최신 AI 기술 트렌드, 영상 처리, RAG 학습</li>
+                    <li>최신 AI 기술 트렌드, 데이터 처리, RAG</li>
                     <li>Python 기반 백엔드 개발 및 데이터 파이프라인 구축</li>
                     <li>알고리즘, 자료구조, 데이터베이스 심화 학습 및 실무 프로젝트</li>
                   </ul>
@@ -232,77 +232,64 @@
           </section>
 
           <section class="section" id="projects" aria-labelledby="projects-title">
-            <p class="section-kicker">GitHub Projects</p>
+            <p class="section-kicker">Portfolio Projects</p>
             <h2 id="projects-title">주요 프로젝트</h2>
+            <p class="section-intro">
+              이력서에 정리된 프로젝트 목록을 기준으로, 실제 화면과 산출물이 있는 프로젝트는 스크린샷을 함께 배치했습니다.
+            </p>
             <div class="project-grid">
               <article class="project-card">
                 <div class="project-topline">
-                  <span>Jupyter Notebook</span>
-                  <a href="https://github.com/kwsahe/ecommerce-data-analysis-practice" target="_blank" rel="noreferrer" aria-label="ecommerce-data-analysis-practice GitHub 저장소 열기">
+                  <span>Python · RAG</span>
+                  <a href="https://github.com/Focus-Report/rag_report/tree/ksh" target="_blank" rel="noreferrer" aria-label="rag-report GitHub 저장소 열기">
                     <svg aria-hidden="true" viewBox="0 0 24 24">
                       <path d="M7 17 17 7M9 7h8v8" />
                     </svg>
                   </a>
                 </div>
-                <h3>ecommerce-data-analysis-practice</h3>
-                <p>23일 자체 설계 · SQL, RFM 분석, 머신러닝, 시계열 예측, SQLD까지 엔드투엔드 직접 설계 및 수행</p>
+                <div class="project-gallery">
+                  <img src="./png/accident_report_html_dashboard/safety_dashboard_capture.png" alt="SAFE AI 통합 안전관리 대시보드 화면" loading="lazy" />
+                  <img src="./png/accident_report_html_dashboard/accident_report_capture.png" alt="협착 사고 보고서 자동 작성 화면" loading="lazy" />
+                </div>
+                <h3>rag-report</h3>
+                <p>건설현장 사고 시나리오를 산업안전보건법 PDF와 연결해 위반 조항을 판단하는 RAG 시스템입니다.</p>
                 <div class="tags">
-                  <span>SQL</span>
-                  <span>RFM</span>
-                  <span>Forecasting</span>
+                  <span>pdfplumber</span>
+                  <span>ChromaDB</span>
+                  <span>BM25</span>
+                  <span>Ollama</span>
                 </div>
               </article>
-              <article class="project-card">
+
+              <article class="project-card featured-card">
                 <div class="project-topline">
-                  <span>Python</span>
-                  <a href="https://github.com/kwsahe/air-quality-forecast" target="_blank" rel="noreferrer" aria-label="air-quality-forecast GitHub 저장소 열기">
-                    <svg aria-hidden="true" viewBox="0 0 24 24">
-                      <path d="M7 17 17 7M9 7h8v8" />
-                    </svg>
-                  </a>
-                </div>
-                <h3>air-quality-forecast</h3>
-                <p>기상 및 환경 데이터 기반 대기질 시계열 예측 모델 개발, 피처 엔지니어링 및 모델 성능 최적화</p>
-                <div class="tags">
-                  <span>Python</span>
-                  <span>PM2.5</span>
-                  <span>Time Series</span>
-                </div>
-              </article>
-              <article class="project-card">
-                <div class="project-topline">
-                  <span>Python</span>
+                  <span>Python · Streamlit · SQLite</span>
                   <a href="https://github.com/kwsahe/market-pulse" target="_blank" rel="noreferrer" aria-label="market-pulse GitHub 저장소 열기">
                     <svg aria-hidden="true" viewBox="0 0 24 24">
                       <path d="M7 17 17 7M9 7h8v8" />
                     </svg>
                   </a>
                 </div>
+                <div class="project-media erd-media">
+                  <img src="./png/screenshots_market-palse/ERD.png" alt="Market Pulse 데이터베이스 ERD: prices 테이블과 news 테이블 구조" loading="lazy" />
+                </div>
                 <h3>market-pulse</h3>
-                <p>다나와 PC 부품 가격 자동 수집, 이상치 탐지, 가격 예측 모델 및 Streamlit 대시보드 개발</p>
+                <p>다나와 PC 부품 가격 자동 수집, 이상치 탐지, 가격 예측 모델, IT 뉴스 대시보드를 연결한 분석 서비스입니다.</p>
+                <p class="project-note">ERD를 먼저 보여주도록 배치해 가격 데이터와 뉴스 데이터의 저장 구조를 강조했습니다.</p>
+                <div class="project-gallery">
+                  <img src="./png/screenshots_market-palse/readme_01_overview.png" alt="Market Pulse 전체 대시보드 개요" loading="lazy" />
+                  <img src="./png/screenshots_market-palse/readme_09_prediction.png" alt="Market Pulse 가격 예측 화면" loading="lazy" />
+                  <img src="./png/screenshots_market-palse/readme_10_news.png" alt="Market Pulse IT 뉴스 화면" loading="lazy" />
+                </div>
                 <div class="tags">
+                  <span>Python</span>
                   <span>Crawling</span>
+                  <span>SQLite</span>
                   <span>ML</span>
                   <span>Streamlit</span>
                 </div>
               </article>
-              <article class="project-card">
-                <div class="project-topline">
-                  <span>Jupyter Notebook</span>
-                  <a href="https://github.com/kwsahe/bigdata-eda-practice" target="_blank" rel="noreferrer" aria-label="bigdata-eda-practice GitHub 저장소 열기">
-                    <svg aria-hidden="true" viewBox="0 0 24 24">
-                      <path d="M7 17 17 7M9 7h8v8" />
-                    </svg>
-                  </a>
-                </div>
-                <h3>bigdata-eda-practice</h3>
-                <p>타이타닉 데이터 전처리, 피처 엔지니어링, EDA, 머신러닝 모델 구축 및 성능 평가 실습</p>
-                <div class="tags">
-                  <span>EDA</span>
-                  <span>Feature Engineering</span>
-                  <span>Modeling</span>
-                </div>
-              </article>
+
               <article class="project-card">
                 <div class="project-topline">
                   <span>C# · Unity2D</span>
@@ -312,12 +299,87 @@
                     </svg>
                   </a>
                 </div>
+                <div class="project-media">
+                  <img src="./png/Artesia_preview.png" alt="Artesia Unity2D 게임 시작 화면" loading="lazy" />
+                </div>
                 <h3>Artesia</h3>
-                <p>Unity2D 기반 게임 프로젝트 팀장 및 기획 총괄, 역할 분배와 일정 관리까지 전 과정 리딩</p>
+                <p>Unity2D 기반 게임 프로젝트 팀장 및 기획 총괄, 역할 분배와 일정 관리를 포함해 전 과정을 리딩했습니다.</p>
                 <div class="tags">
                   <span>Unity2D</span>
+                  <span>C#</span>
                   <span>Planning</span>
                   <span>Leadership</span>
+                </div>
+              </article>
+
+              <article class="project-card">
+                <div class="project-topline">
+                  <span>Jupyter Notebook</span>
+                  <a href="https://github.com/kwsahe/ecommerce-data-analysis-practice" target="_blank" rel="noreferrer" aria-label="ecommerce-data-analysis-practice GitHub 저장소 열기">
+                    <svg aria-hidden="true" viewBox="0 0 24 24">
+                      <path d="M7 17 17 7M9 7h8v8" />
+                    </svg>
+                  </a>
+                </div>
+                <div class="project-media placeholder-media" aria-hidden="true">
+                  <span>SQL</span>
+                  <span>RFM</span>
+                  <span>ML</span>
+                  <span>Forecast</span>
+                </div>
+                <h3>ecommerce-data-analysis-practice</h3>
+                <p>SQL, RFM 분석, 머신러닝, 시계열 예측, SQLD까지 직접 설계하고 수행한 이커머스 분석 파이프라인입니다.</p>
+                <div class="tags">
+                  <span>SQL</span>
+                  <span>RFM</span>
+                  <span>Machine Learning</span>
+                  <span>Forecasting</span>
+                </div>
+              </article>
+
+              <article class="project-card">
+                <div class="project-topline">
+                  <span>Python · Streamlit</span>
+                  <a href="https://github.com/kwsahe/english-word-streamlit" target="_blank" rel="noreferrer" aria-label="english-word-streamlit GitHub 저장소 열기">
+                    <svg aria-hidden="true" viewBox="0 0 24 24">
+                      <path d="M7 17 17 7M9 7h8v8" />
+                    </svg>
+                  </a>
+                </div>
+                <div class="project-gallery">
+                  <img src="./png/screenshots_english-word-streamlit/01_flashcard.png" alt="영단어 학습 앱 플래시카드 화면" loading="lazy" />
+                  <img src="./png/screenshots_english-word-streamlit/04_wordbook.png" alt="영단어 학습 앱 단어장 화면" loading="lazy" />
+                  <img src="./png/screenshots_english-word-streamlit/06_statistics.png" alt="영단어 학습 앱 통계 화면" loading="lazy" />
+                </div>
+                <h3>english-word-streamlit</h3>
+                <p>Streamlit 기반 영단어 학습 웹 앱으로, 학습 진도 추적과 퀴즈, 단어장, 통계 화면을 구현했습니다.</p>
+                <div class="tags">
+                  <span>Streamlit</span>
+                  <span>Learning App</span>
+                  <span>Quiz</span>
+                </div>
+              </article>
+
+              <article class="project-card">
+                <div class="project-topline">
+                  <span>Jupyter Notebook</span>
+                  <a href="https://github.com/kwsahe/O2O-demand-forecasting-solution" target="_blank" rel="noreferrer" aria-label="O2O-demand-forecasting-solution GitHub 저장소 열기">
+                    <svg aria-hidden="true" viewBox="0 0 24 24">
+                      <path d="M7 17 17 7M9 7h8v8" />
+                    </svg>
+                  </a>
+                </div>
+                <div class="project-gallery">
+                  <img src="./png/screenshots_O2O-demand-forecasting-solution/01_overview.png" alt="O2O 수요 예측 대시보드 개요 화면" loading="lazy" />
+                  <img src="./png/screenshots_O2O-demand-forecasting-solution/05_ranking_table.png" alt="O2O 수요 예측 지역 랭킹 테이블" loading="lazy" />
+                  <img src="./png/screenshots_O2O-demand-forecasting-solution/09_score_explanation.png" alt="O2O 수요 점수 산정 설명 화면" loading="lazy" />
+                </div>
+                <h3>O2O-demand-forecasting-solution</h3>
+                <p>O2O 서비스 기반 수요 예측 모델을 설계하고, 시계열 데이터 분석과 예측 성능 최적화를 수행했습니다.</p>
+                <div class="tags">
+                  <span>Demand Forecasting</span>
+                  <span>Time Series</span>
+                  <span>Dashboard</span>
                 </div>
               </article>
             </div>
