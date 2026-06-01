@@ -37,39 +37,6 @@ body.menu-open {
   overflow: hidden;
 }
 
-.js-enabled .reveal-item {
-  opacity: 0;
-  transform: translateY(22px);
-  transition: opacity 680ms ease, transform 680ms ease;
-  transition-delay: var(--reveal-delay, 0ms);
-  will-change: opacity, transform;
-}
-
-.js-enabled .reveal-item.is-visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.js-enabled .reveal-item.reveal-soft {
-  transform: translateY(14px);
-}
-
-.js-enabled .reveal-item.reveal-left {
-  transform: translateX(-18px);
-}
-
-.js-enabled .reveal-item.reveal-left.is-visible {
-  transform: translateX(0);
-}
-
-.js-enabled .reveal-item.reveal-zoom {
-  transform: scale(0.985);
-}
-
-.js-enabled .reveal-item.reveal-zoom.is-visible {
-  transform: scale(1);
-}
-
 img {
   display: block;
   max-width: 100%;
@@ -1144,10 +1111,5 @@ a {
     transition-duration: 0.01ms !important;
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
-  }
-
-  .js-enabled .reveal-item {
-    opacity: 1 !important;
-    transform: none !important;
   }
 }
