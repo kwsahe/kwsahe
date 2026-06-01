@@ -772,6 +772,24 @@ a {
   object-fit: contain;
 }
 
+.o2o-hero-media {
+  aspect-ratio: 16 / 11.2;
+  background: #f8fafc;
+}
+
+.o2o-hero-media img {
+  object-fit: contain;
+}
+
+.o2o-gallery {
+  grid-template-columns: repeat(2, minmax(320px, 1fr));
+}
+
+.o2o-gallery img {
+  aspect-ratio: 16 / 11;
+  object-fit: contain;
+}
+
 .project-card p {
   margin-top: 12px;
 }
