@@ -20,6 +20,7 @@ Python과 SQL을 중심으로 데이터 파이프라인, 데이터 분석, AI �
 ![Scikit--learn](https://img.shields.io/badge/Scikit--learn-F7931E?style=for-the-badge&logo=scikitlearn&logoColor=white)
 ![Machine Learning](https://img.shields.io/badge/Machine%20Learning-4AA6D8?style=for-the-badge)
 ![RAG](https://img.shields.io/badge/RAG-1B2B3A?style=for-the-badge)
+![Google Colab](https://img.shields.io/badge/Google%20Colab-F9AB00?style=for-the-badge&logo=googlecolab&logoColor=white)
 
 ### Web / Tools
 
