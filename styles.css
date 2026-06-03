@@ -333,8 +333,8 @@ a {
 
 .avatar {
   display: block;
-  width: 92px;
-  height: 92px;
+  width: 156px;
+  height: 156px;
   margin-bottom: 24px;
   border: 1px solid rgba(224, 185, 106, 0.72);
   border-radius: var(--radius);
@@ -1054,6 +1054,11 @@ a {
   .section,
   .contact-section {
     padding: 34px 22px;
+  }
+
+  .avatar {
+    width: 132px;
+    height: 132px;
   }
 
   .timeline-item {
