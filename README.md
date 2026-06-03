@@ -21,6 +21,8 @@ Python과 SQL을 중심으로 데이터 파이프라인, 데이터 분석, AI �
 ![Machine Learning](https://img.shields.io/badge/Machine%20Learning-4AA6D8?style=for-the-badge)
 ![RAG](https://img.shields.io/badge/RAG-1B2B3A?style=for-the-badge)
 ![Google Colab](https://img.shields.io/badge/Google%20Colab-F9AB00?style=for-the-badge&logo=googlecolab&logoColor=white)
+![Qwen2.5](https://img.shields.io/badge/Qwen2.5-6B3FA0?style=for-the-badge)
+![EXAONE](https://img.shields.io/badge/EXAONE-E8003D?style=for-the-badge)
 
 ### Web / Tools
 
