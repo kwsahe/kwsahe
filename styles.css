@@ -332,17 +332,14 @@ a {
 }
 
 .avatar {
-  display: grid;
+  display: block;
   width: 92px;
   height: 92px;
-  place-items: center;
   margin-bottom: 24px;
   border: 1px solid rgba(224, 185, 106, 0.72);
   border-radius: var(--radius);
-  background: #22384b;
-  color: var(--gold-2);
-  font-size: 26px;
-  font-weight: 900;
+  object-fit: cover;
+  object-position: center top;
 }
 
 .profile-panel h2 {
