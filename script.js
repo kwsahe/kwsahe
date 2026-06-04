@@ -62,16 +62,16 @@ if (projectCarousel) {
     }
 
     if (prevButton) {
-      prevButton.disabled = currentIndex === 0;
+      prevButton.disabled = cards.length <= 1;
     }
 
     if (nextButton) {
-      nextButton.disabled = currentIndex === cards.length - 1;
+      nextButton.disabled = cards.length <= 1;
     }
   };
 
   const showProject = (index) => {
-    const nextIndex = Math.max(0, Math.min(index, cards.length - 1));
+    const nextIndex = (index + cards.length) % cards.length;
     cards[nextIndex]?.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "start" });
   };
 
