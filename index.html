@@ -17,8 +17,8 @@
     <meta property="og:type" content="website" />
     <meta property="og:image" content="./assets/data-ai-portfolio-visual.png" />
     <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
-    <link rel="stylesheet" href="./styles.css?v=20260604-pptx-images" />
-    <script defer src="./script.js"></script>
+    <link rel="stylesheet" href="./styles.css?v=20260604-project-carousel" />
+    <script defer src="./script.js?v=20260604-project-carousel"></script>
   </head>
   <body>
     <a class="skip-link" href="#main">본문으로 바로가기</a>
@@ -289,7 +289,21 @@
             <p class="section-intro">
               이력서에 정리된 프로젝트 목록을 기준으로, 실제 화면과 산출물이 있는 프로젝트는 스크린샷을 함께 배치했습니다.
             </p>
-            <div class="project-grid">
+            <div class="project-carousel" data-project-carousel>
+              <div class="project-carousel-controls" aria-label="프로젝트 카드 탐색">
+                <button class="carousel-button" type="button" aria-label="이전 프로젝트 보기" data-project-prev>
+                  <svg aria-hidden="true" viewBox="0 0 24 24">
+                    <path d="m15 18-6-6 6-6" />
+                  </svg>
+                </button>
+                <span class="project-counter" data-project-counter>1 / 6</span>
+                <button class="carousel-button" type="button" aria-label="다음 프로젝트 보기" data-project-next>
+                  <svg aria-hidden="true" viewBox="0 0 24 24">
+                    <path d="m9 6 6 6-6 6" />
+                  </svg>
+                </button>
+              </div>
+              <div class="project-grid" data-project-track tabindex="0" aria-label="주요 프로젝트 카드 목록">
               <article class="project-card">
                 <div class="project-topline">
                   <span>Python · RAG</span>
@@ -453,6 +467,7 @@
                   <span>Dashboard</span>
                 </div>
               </article>
+              </div>
             </div>
           </section>
 

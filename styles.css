@@ -628,14 +628,95 @@ a {
   font-size: 15px;
 }
 
-.project-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 32px;
+.project-carousel {
   margin-top: 28px;
 }
 
+.project-carousel-controls {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.carousel-button {
+  display: grid;
+  width: 42px;
+  height: 42px;
+  place-items: center;
+  flex: 0 0 auto;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--white);
+  color: var(--navy);
+  cursor: pointer;
+  transition: background 180ms ease, border-color 180ms ease, color 180ms ease, transform 180ms ease;
+}
+
+.carousel-button:hover,
+.carousel-button:focus-visible {
+  border-color: rgba(200, 151, 58, 0.56);
+  background: #fff8e6;
+  color: var(--navy);
+}
+
+.carousel-button:hover {
+  transform: translateY(-1px);
+}
+
+.carousel-button:disabled {
+  cursor: default;
+  opacity: 0.42;
+  transform: none;
+}
+
+.carousel-button svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.project-counter {
+  min-width: 56px;
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 900;
+  text-align: center;
+}
+
+.project-grid {
+  display: flex;
+  gap: 32px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-behavior: smooth;
+  scroll-padding-inline: 2px;
+  scroll-snap-type: x mandatory;
+  scrollbar-color: rgba(200, 151, 58, 0.62) rgba(219, 227, 234, 0.8);
+  scrollbar-width: thin;
+}
+
+.project-grid::-webkit-scrollbar {
+  height: 10px;
+}
+
+.project-grid::-webkit-scrollbar-track {
+  border-radius: 999px;
+  background: rgba(219, 227, 234, 0.8);
+}
+
+.project-grid::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: rgba(200, 151, 58, 0.68);
+}
+
 .project-card {
+  flex: 0 0 100%;
   min-height: 260px;
   display: flex;
   flex-direction: column;
@@ -647,9 +728,12 @@ a {
 }
 
 .featured-card {
-  grid-column: 1 / -1;
   border-color: rgba(200, 151, 58, 0.52);
   background: #fffdf8;
+}
+
+.project-grid .project-card {
+  scroll-snap-align: start;
 }
 
 .project-topline {
@@ -1091,6 +1175,10 @@ a {
   #projects.section {
     padding-left: 18px;
     padding-right: 18px;
+  }
+
+  .project-carousel-controls {
+    justify-content: center;
   }
 
   .project-gallery {
