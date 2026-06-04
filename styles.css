@@ -695,11 +695,11 @@ a {
 
 .project-grid {
   display: flex;
-  gap: clamp(14px, 2vw, 28px);
+  gap: 32px;
   overflow-x: auto;
   overflow-y: hidden;
   scroll-behavior: smooth;
-  scroll-padding-inline: 0;
+  scroll-padding-inline: 2px;
   scroll-snap-type: x mandatory;
   scrollbar-color: rgba(200, 151, 58, 0.62) rgba(219, 227, 234, 0.8);
   scrollbar-width: thin;
@@ -720,16 +720,15 @@ a {
 }
 
 .project-card {
-  flex: 0 0 clamp(320px, calc(100% - 56px), 980px);
-  display: grid;
-  grid-template-columns: minmax(0, 1.18fr) minmax(260px, 0.82fr);
-  align-content: start;
-  gap: 12px 22px;
+  flex: 0 0 100%;
+  min-height: 260px;
+  display: flex;
+  flex-direction: column;
   min-width: 0;
   border: 1px solid var(--line);
   border-radius: var(--radius);
   background: var(--white);
-  padding: clamp(20px, 2.2vw, 30px);
+  padding: 32px;
 }
 
 .featured-card {
@@ -739,11 +738,6 @@ a {
 
 .project-grid .project-card {
   scroll-snap-align: start;
-}
-
-.project-card h3,
-.project-topline {
-  grid-column: 1 / -1;
 }
 
 .project-topline {
@@ -783,8 +777,7 @@ a {
 
 .project-media,
 .project-gallery {
-  grid-column: 1;
-  margin-bottom: 0;
+  margin-bottom: 22px;
 }
 
 .project-media {
@@ -848,8 +841,8 @@ a {
 
 .project-gallery {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(180px, 100%), 1fr));
-  gap: 10px;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 16px;
 }
 
 .project-gallery img {
@@ -865,7 +858,7 @@ a {
 }
 
 .market-gallery {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(320px, 1fr));
 }
 
 .market-gallery img {
@@ -874,19 +867,18 @@ a {
 }
 
 .o2o-gallery {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 10px;
+  grid-template-columns: 1fr;
+  gap: 18px;
 }
 
 .o2o-gallery img {
-  height: 100%;
-  aspect-ratio: 16 / 9.4;
-  object-fit: contain;
+  height: auto;
+  aspect-ratio: auto;
+  object-fit: initial;
   background: #f8fafc;
 }
 
 .project-card p {
-  grid-column: 2;
   margin-top: 12px;
 }
 
@@ -956,13 +948,11 @@ a {
 }
 
 .tags {
-  grid-column: 2;
-  align-self: end;
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
   margin-top: auto;
-  padding-top: 8px;
+  padding-top: 18px;
 }
 
 .tags span {
@@ -1182,19 +1172,8 @@ a {
   }
 
   .project-card {
-    flex-basis: 100%;
-    grid-template-columns: 1fr;
     min-height: 0;
     padding: 22px;
-  }
-
-  .project-card h3,
-  .project-topline,
-  .project-media,
-  .project-gallery,
-  .project-card p,
-  .tags {
-    grid-column: 1;
   }
 
   #projects.section {
