@@ -889,6 +889,31 @@ a {
   font-size: 14px;
 }
 
+.project-summary-list {
+  display: grid;
+  gap: 8px;
+  margin: 16px 0 0;
+  padding: 14px 16px;
+  border: 1px solid #dce8ef;
+  border-radius: var(--radius);
+  background: #f8fbfd;
+  list-style: none;
+}
+
+.project-summary-list li {
+  color: #334253;
+  font-size: 14px;
+  line-height: 1.58;
+}
+
+.project-summary-list strong {
+  display: inline-block;
+  min-width: 36px;
+  margin-right: 6px;
+  color: var(--gold);
+  font-weight: 900;
+}
+
 .project-detail-section {
   background: var(--white);
 }

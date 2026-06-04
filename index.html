@@ -319,6 +319,11 @@
                 </div>
                 <p>건설현장 안전관리 프로젝트에서 사고 시나리오와 중대재해처벌법·산업안전보건법 PDF를 연결하는 관련법령 RAG 파트를 개발했습니다.</p>
                 <p class="project-note">사고 개요, 현장 상황, 안전조치 여부를 입력하면 위반 여부, 판단 근거, 참고 법령 조항, 유사도 점수까지 답변하도록 구현했습니다. Google Colab Pro와 Qwen2.5-14B를 연결해 실제 응답까지 검증했습니다.</p>
+                <ul class="project-summary-list" aria-label="rag-report 핵심 진행 내용">
+                  <li><strong>입력</strong> 아파트 신축 현장 사망 사고 시나리오와 안전조치 이행 여부 구성</li>
+                  <li><strong>질의</strong> 중대재해처벌법상 중대산업재해 해당 여부와 판단 근거 요청</li>
+                  <li><strong>응답</strong> Qwen2.5-14B가 해당 여부를 YES로 판단하고 제2조·제3조 근거를 제시</li>
+                </ul>
                 <div class="tags">
                   <span>pdfplumber</span>
                   <span>ChromaDB</span>
