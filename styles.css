@@ -558,6 +558,10 @@ a {
   font-size: 24px;
 }
 
+.project-card > h3 + .project-topline {
+  margin-top: 10px;
+}
+
 .item-role {
   margin-top: 4px;
   color: var(--muted);
