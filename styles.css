@@ -727,6 +727,11 @@ a {
   object-fit: contain;
 }
 
+.artesia-flow-media {
+  aspect-ratio: 1000 / 487;
+  background: #f8fafc;
+}
+
 .placeholder-media {
   min-height: 180px;
   display: grid;
