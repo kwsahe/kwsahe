@@ -296,7 +296,7 @@
                     <path d="m15 18-6-6 6-6" />
                   </svg>
                 </button>
-                <span class="project-counter" data-project-counter>1 / 6</span>
+                <span class="project-counter" data-project-counter>1 / 7</span>
                 <button class="carousel-button" type="button" aria-label="다음 프로젝트 보기" data-project-next>
                   <svg aria-hidden="true" viewBox="0 0 24 24">
                     <path d="m9 6 6 6-6 6" />
@@ -305,10 +305,39 @@
               </div>
               <div class="project-grid" data-project-track tabindex="0" aria-label="주요 프로젝트 카드 목록">
               <article class="project-card">
-                <h3>rag-report</h3>
+                <h3>construction-accident-vl-agent</h3>
+                <div class="project-topline">
+                  <span>Python · Qwen2.5-VL</span>
+                  <a href="https://github.com/kwsahe/construction-accident-vl-agent" target="_blank" rel="noreferrer" aria-label="construction-accident-vl-agent GitHub 저장소 열기">
+                    <svg aria-hidden="true" viewBox="0 0 24 24">
+                      <path d="M7 17 17 7M9 7h8v8" />
+                    </svg>
+                  </a>
+                </div>
+                <div class="project-media">
+                  <img src="./png/construction_accident_vl_agent_preview.png" alt="Vision-Language Agent의 CCTV 영상 분석 흐름 및 아키텍처 다이어그램" loading="lazy" />
+                </div>
+                <p>건설현장 CCTV MP4 영상을 프레임 단위로 분석해 사고 발생 여부, 사고 유형, 사고 원인을 자동 분석하는 Vision-Language Agent 시스템입니다.</p>
+                <p class="project-note">원본 영상 전체를 LLM에 넣는 대신, 사고 전후 핵심 프레임을 추출해 Contact Sheet 이미지를 생성함으로써 API 연동 비용을 최소화하였습니다. 최종 분석 데이터는 SPilot ERD 스키마에 맞는 DB Payload 규격으로 자동 가공 연동됩니다.</p>
+                <ul class="project-summary-list" aria-label="construction-accident-vl-agent 핵심 진행 내용">
+                  <li><strong>영상 분석</strong> OpenCV 기반 프레임 분석 및 사고 유력 구간 탐지</li>
+                  <li><strong>LLM 연동</strong> Qwen2.5-VL 모델 서버와 연동하여 사고 유형(추락/낙상 등) 및 경위 판단</li>
+                  <li><strong>Payload 변환</strong> DB 테이블 스키마(cctv_events) 규격에 맞춰 JSON verdict 자동 매핑</li>
+                </ul>
+                <div class="tags">
+                  <span>Python</span>
+                  <span>OpenCV</span>
+                  <span>Qwen2.5-VL</span>
+                  <span>Vision-Language</span>
+                  <span>DB Payload</span>
+                </div>
+              </article>
+
+              <article class="project-card">
+                <h3>k-safety-law-rag</h3>
                 <div class="project-topline">
                   <span>Python · RAG</span>
-                  <a href="https://github.com/Focus-Report/rag_report/tree/ksh" target="_blank" rel="noreferrer" aria-label="rag-report GitHub 저장소 열기">
+                  <a href="https://github.com/kwsahe/k-safety-law-rag" target="_blank" rel="noreferrer" aria-label="k-safety-law-rag GitHub 저장소 열기">
                     <svg aria-hidden="true" viewBox="0 0 24 24">
                       <path d="M7 17 17 7M9 7h8v8" />
                     </svg>
@@ -319,7 +348,7 @@
                 </div>
                 <p>건설현장 안전관리 프로젝트에서 사고 시나리오와 중대재해처벌법·산업안전보건법 PDF를 연결하는 관련법령 RAG 파트를 개발했습니다.</p>
                 <p class="project-note">사고 개요, 현장 상황, 안전조치 여부를 입력하면 위반 여부, 판단 근거, 참고 법령 조항, 유사도 점수까지 답변하도록 구현했습니다. Google Colab Pro와 Qwen2.5-14B를 연결해 실제 응답까지 검증했습니다.</p>
-                <ul class="project-summary-list" aria-label="rag-report 핵심 진행 내용">
+                <ul class="project-summary-list" aria-label="k-safety-law-rag 핵심 진행 내용">
                   <li><strong>입력</strong> 아파트 신축 현장 사망 사고 시나리오와 안전조치 이행 여부 구성</li>
                   <li><strong>질의</strong> 중대재해처벌법상 중대산업재해 해당 여부와 판단 근거 요청</li>
                   <li><strong>응답</strong> Qwen2.5-14B가 해당 여부를 YES로 판단하고 제2조·제3조 근거를 제시</li>
@@ -487,8 +516,45 @@
             <div class="project-detail-grid">
               <article class="project-detail-card">
                 <div class="project-detail-heading">
+                  <span>Python · Qwen2.5-VL · Computer Vision</span>
+                  <h3>construction-accident-vl-agent</h3>
+                </div>
+                <dl class="project-detail-list">
+                  <div>
+                    <dt>문제 정의</dt>
+                    <dd>건설현장 CCTV 영상에서 사고 상황을 자동으로 신속하게 감지하고 사고 유형, 피해 규모 및 원인 파악을 자동화하여 현장 안전관리를 개선하고자 했습니다.</dd>
+                  </div>
+                  <div>
+                    <dt>데이터 흐름</dt>
+                    <dd>CCTV mp4 비디오 파일로부터 프레임 이미지를 주기적으로 추출하고, 주요 움직임이 포착된 전후 프레임을 결합해 Contact Sheet 이미지를 구성해 Qwen2.5-VL 서버에 전달합니다.</dd>
+                  </div>
+                  <div>
+                    <dt>핵심 로직</dt>
+                    <dd>전체 비디오를 LLM에 전송하는 대신, Agent 로컬 단에서 OpenCV를 활용해 대표 프레임을 추리고 사고 위험이 높은 시점의 전후 프레임을 경량화하여 처리 효율을 극대화했습니다.</dd>
+                  </div>
+                  <div>
+                    <dt>사용 기술</dt>
+                    <dd>Python, OpenCV, Qwen2.5-VL (Colab Server API), Pydantic(검증 스키마 설계), .env 환경 변수를 구성해 외부 API 클라이언트 흐름을 연동했습니다.</dd>
+                  </div>
+                  <div>
+                    <dt>내 역할</dt>
+                    <dd>단독 개발로 OpenCV 기반 프레임 분석 및 사고 유력 구간 탐지 모듈 설계, Qwen2.5-VL용 다중 이미지 프롬프트 엔지니어링, SPilot ERD 데이터 규격 매핑 및 DB payload JSON 가공 로직 구현.</dd>
+                  </div>
+                  <div>
+                    <dt>답변 결과</dt>
+                    <dd>추락 사고가 감지된 영상 분석 시, 사고 유형을 "fall_from_height"(추락)로 정확히 탐지하고, 이동식 비계 위 작업자 위치 변화와 붕괴 과정에 대한 구체적인 사고 원인 경위(Details)를 JSON 형태로 도출해 냈습니다.</dd>
+                  </div>
+                  <div>
+                    <dt>한계와 개선점</dt>
+                    <dd>추가적인 YOLO 객체 추적(Worker tracking) 모델 및 작업자 포즈 추정(Pose estimation) 모듈과 결합 시, 작업자 개별 식별 및 사고 전 거동 분석 성능이 더욱 극대화될 수 있습니다.</dd>
+                  </div>
+                </dl>
+              </article>
+
+              <article class="project-detail-card">
+                <div class="project-detail-heading">
                   <span>Python · RAG · Safety Management</span>
-                  <h3>rag-report</h3>
+                  <h3>k-safety-law-rag</h3>
                 </div>
                 <dl class="project-detail-list">
                   <div>

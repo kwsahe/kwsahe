@@ -41,7 +41,8 @@ Python과 SQL을 중심으로 데이터 파이프라인, 데이터 분석, AI �
 
 ## GitHub Projects
 
-- rag-report
+- k-safety-law-rag (rag-report)
+- construction-accident-vl-agent
 - Artesia
 - ecommerce-data-analysis-practice
 - english-word-streamlit
