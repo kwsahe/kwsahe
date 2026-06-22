@@ -702,22 +702,14 @@ a {
   scroll-behavior: smooth;
   scroll-padding-inline: 2px;
   scroll-snap-type: x mandatory;
-  scrollbar-color: rgba(200, 151, 58, 0.62) rgba(219, 227, 234, 0.8);
-  scrollbar-width: thin;
+  /* 스크롤바 숨기기 (Firefox, IE/Edge) */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
+/* 스크롤바 숨기기 (Chrome, Safari, Opera) */
 .project-grid::-webkit-scrollbar {
-  height: 10px;
-}
-
-.project-grid::-webkit-scrollbar-track {
-  border-radius: 999px;
-  background: rgba(219, 227, 234, 0.8);
-}
-
-.project-grid::-webkit-scrollbar-thumb {
-  border-radius: 999px;
-  background: rgba(200, 151, 58, 0.68);
+  display: none;
 }
 
 .project-card {
