@@ -705,6 +705,8 @@ a {
   /* 스크롤바 숨기기 (Firefox, IE/Edge) */
   scrollbar-width: none;
   -ms-overflow-style: none;
+  /* 높이 리사이징 전환 애니메이션 */
+  transition: height 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* 스크롤바 숨기기 (Chrome, Safari, Opera) */

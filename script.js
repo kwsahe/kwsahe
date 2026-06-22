@@ -68,6 +68,12 @@ if (projectCarousel) {
     if (nextButton) {
       nextButton.disabled = cards.length <= 1;
     }
+
+    // 활성화된 카드의 실제 높이에 맞춰 트랙 높이 동적 설정
+    if (projectTrack && cards[currentIndex]) {
+      const activeCard = cards[currentIndex];
+      projectTrack.style.height = `${activeCard.offsetHeight}px`;
+    }
   };
 
   const showProject = (index) => {
@@ -96,6 +102,17 @@ if (projectCarousel) {
     });
 
     window.addEventListener("resize", updateProjectControls);
+
+    // 카드 내부 이미지가 비동기로 로딩되면 높이를 실시간 재계산
+    const carouselImages = projectTrack.querySelectorAll("img");
+    carouselImages.forEach((img) => {
+      if (img.complete) {
+        updateProjectControls();
+      } else {
+        img.addEventListener("load", updateProjectControls);
+      }
+    });
+
     updateProjectControls();
   }
 }
