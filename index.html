@@ -376,9 +376,13 @@
                     </svg>
                   </a>
                 </div>
-                <div class="project-gallery">
-                  <img src="./png/k_safety_law_rag_chatbot.png" alt="건설현장 중대재해-산업안전 법령 상담 챗봇 메인 화면" loading="lazy" />
-                  <img src="./png/pptx_final/image1.png" alt="RAG Report 프로젝트 아키텍처와 사용 흐름 정리 화면" loading="lazy" />
+                <div class="project-media-stacked">
+                  <div class="project-media-item">
+                    <img src="./png/k_safety_law_rag_chatbot.png" alt="건설현장 중대재해-산업안전 법령 상담 챗봇 메인 화면" loading="lazy" />
+                  </div>
+                  <div class="project-media-item">
+                    <img src="./png/pptx_final/image1.png" alt="RAG Report 프로젝트 아키텍처와 사용 흐름 정리 화면" loading="lazy" />
+                  </div>
                 </div>
                 <p>건설현장 사고 시나리오를 입력받아 산업안전보건법·중대재해처벌법 위반 조항과 책임 주체를 판단하는 RAG 시스템입니다.</p>
                 <p class="project-note">법령 본문과 별표/표를 별도 ChromaDB에 분리 임베딩한 Text RAG + Table RAG 이중 구조로 검색 정확도를 높였습니다. 질문 유형별 direct route와 관리자/일반 계정 분리, 대화 이력 SQLite 저장, CLI+웹 챗봇 UI 2종을 구현했습니다.</p>

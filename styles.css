@@ -1054,6 +1054,28 @@ a {
   margin-top: 0;
 }
 
+.project-media-stacked {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 22px;
+}
+
+.project-media-item {
+  overflow: hidden;
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--paper);
+}
+
+.project-media-item img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
 .site-footer {
   width: min(1180px, calc(100% - 48px));
   min-height: 92px;
