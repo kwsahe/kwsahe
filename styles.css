@@ -716,6 +716,7 @@ a {
 
 .project-card {
   flex: 0 0 100%;
+  align-self: flex-start;
   min-height: 260px;
   display: flex;
   flex-direction: column;
