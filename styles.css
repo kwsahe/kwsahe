@@ -1402,3 +1402,43 @@ html[lang="en"] .lang-ko {
     animation-iteration-count: 1 !important;
   }
 }
+
+
+/* --- Project GitHub Repository Bottom Link --- */
+.project-github-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 16px;
+  padding: 8px 14px;
+  color: var(--gold);
+  background: rgba(184, 150, 110, 0.05);
+  border: 1px solid rgba(184, 150, 110, 0.2);
+  border-radius: var(--radius);
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  width: fit-content;
+}
+
+.project-github-link:hover {
+  color: var(--white);
+  background: var(--gold);
+  border-color: var(--gold);
+}
+
+.project-github-link .github-icon {
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+  transition: transform 0.3s ease;
+}
+
+/* Adjust layout on mobile devices */
+@media (max-width: 768px) {
+  .project-github-link {
+    width: 100%;
+    justify-content: center;
+  }
+}
