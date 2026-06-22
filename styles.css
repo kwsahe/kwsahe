@@ -1156,7 +1156,55 @@ a {
   }
 }
 
+/* 언어 노출 제어 */
+html[lang="ko"] .lang-en {
+  display: none !important;
+}
+html[lang="en"] .lang-ko {
+  display: none !important;
+}
 
+/* 언어 토글 버튼 스타일 */
+.lang-toggle-container {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: auto;
+  margin-right: 16px;
+}
+
+.lang-btn {
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.45);
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 4px 6px;
+  border-radius: 4px;
+  transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+.lang-btn.active {
+  color: var(--gold);
+}
+
+.lang-btn:hover:not(.active) {
+  color: var(--white);
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.lang-divider {
+  color: rgba(255, 255, 255, 0.15);
+  font-size: 13px;
+  user-select: none;
+}
+
+@media (max-width: 760px) {
+  .lang-toggle-container {
+    margin-right: 8px;
+  }
+}
 
 .site-footer {
   width: min(1180px, calc(100% - 48px));

@@ -4,6 +4,8 @@ const header = document.querySelector("[data-header]");
 const year = document.querySelector("[data-year]");
 const projectCarousel = document.querySelector("[data-project-carousel]");
 
+window.updateProjectControls = () => {};
+
 if (year) {
   year.textContent = new Date().getFullYear();
 }
@@ -114,6 +116,7 @@ if (projectCarousel) {
     });
 
     updateProjectControls();
+    window.updateProjectControls = updateProjectControls;
   }
 }
 
@@ -151,9 +154,70 @@ const initScrollReveal = () => {
   });
 };
 
+// 언어 토글 기능 초기화
+const initLanguageToggle = () => {
+  const koBtn = document.querySelector('.lang-btn[data-lang="ko"]');
+  const enBtn = document.querySelector('.lang-btn[data-lang="en"]');
+  const resumeLinks = document.querySelectorAll('.resume-download');
+
+  const setLanguage = (lang, saveToStorage = true) => {
+    document.documentElement.setAttribute('lang', lang);
+    
+    // 버튼 active 상태 변경
+    if (lang === 'ko') {
+      koBtn?.classList.add('active');
+      enBtn?.classList.remove('active');
+      
+      // title 및 meta description 변경
+      document.title = "권상헌 | 데이터 엔지니어 & AI 개발자";
+      const metaDesc = document.querySelector('meta[name="description"]');
+      if (metaDesc) {
+        metaDesc.setAttribute('content', "RAG 시스템·VL Agent·데이터 파이프라인을 end-to-end로 직접 설계하고 배포까지 연결한 데이터 엔지니어 / AI 개발자 권상헌의 포트폴리오입니다.");
+      }
+      
+      // 이력서 파일명 권장 다운로드 속성
+      resumeLinks.forEach((link) => {
+        link.setAttribute('download', 'resume-kwon-sangheon.pdf');
+      });
+    } else {
+      koBtn?.classList.remove('active');
+      enBtn?.classList.add('active');
+      
+      document.title = "Sangheon Kwon | Data Engineer & AI Developer";
+      const metaDesc = document.querySelector('meta[name="description"]');
+      if (metaDesc) {
+        metaDesc.setAttribute('content', "Portfolio of Sangheon Kwon, a Data Engineer and AI Developer who designs and deploys RAG systems, VL Agents, and data pipelines end-to-end.");
+      }
+      
+      resumeLinks.forEach((link) => {
+        link.setAttribute('download', 'Resume_Kwon_Sangheon.pdf');
+      });
+    }
+
+    if (saveToStorage) {
+      localStorage.setItem('preferred-lang', lang);
+    }
+
+    // 프로젝트 카드의 실제 높이가 변경되므로 높이 재계산 호출
+    if (typeof window.updateProjectControls === 'function') {
+      window.updateProjectControls();
+    }
+  };
+
+  // 초기 언어 설정 로드 (로컬 스토리지 확인, 없으면 기본값 ko)
+  const savedLang = localStorage.getItem('preferred-lang') || 'ko';
+  setLanguage(savedLang, false);
+
+  koBtn?.addEventListener('click', () => setLanguage('ko'));
+  enBtn?.addEventListener('click', () => setLanguage('en'));
+};
+
 if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded", initScrollReveal);
+  document.addEventListener("DOMContentLoaded", () => {
+    initScrollReveal();
+    initLanguageToggle();
+  });
 } else {
   initScrollReveal();
+  initLanguageToggle();
 }
-

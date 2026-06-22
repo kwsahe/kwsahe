@@ -17,29 +17,54 @@
     <meta property="og:type" content="website" />
     <meta property="og:image" content="./assets/data-ai-portfolio-visual.png" />
     <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
-    <link class="styles-link" rel="stylesheet" href="./styles.css?v=20260622-hover-patch" />
-    <script defer src="./script.js?v=20260622-hover-patch"></script>
+    <link class="styles-link" rel="stylesheet" href="./styles.css?v=20260622-lang-patch" />
+    <script defer src="./script.js?v=20260622-lang-patch"></script>
   </head>
   <body>
-    <a class="skip-link" href="#main">본문으로 바로가기</a>
+    <a class="skip-link" href="#main">
+      <span class="lang-ko">본문으로 바로가기</span>
+      <span class="lang-en">Skip to main content</span>
+    </a>
 
     <header class="site-header" data-header>
       <a class="brand" href="#top" aria-label="권상헌 포트폴리오 홈">
         <span class="brand-mark">SH</span>
-        <span class="brand-text">권상헌</span>
+        <span class="brand-text lang-ko">권상헌</span>
+        <span class="brand-text lang-en">Sangheon Kwon</span>
       </a>
+      <div class="lang-toggle-container">
+        <button type="button" class="lang-btn active" data-lang="ko">KO</button>
+        <span class="lang-divider">/</span>
+        <button type="button" class="lang-btn" data-lang="en">EN</button>
+      </div>
       <button class="menu-button" type="button" aria-expanded="false" aria-controls="site-nav" data-menu-button>
         <span></span>
         <span></span>
         <span></span>
-        <span class="sr-only">메뉴 열기</span>
+        <span class="sr-only lang-ko">메뉴 열기</span>
+        <span class="sr-only lang-en">Open Menu</span>
       </button>
       <nav class="site-nav" id="site-nav" data-site-nav>
-        <a href="#about">소개</a>
-        <a href="#experience">경력</a>
-        <a href="#projects">프로젝트</a>
-        <a href="#strengths">강점</a>
-        <a href="#contact">연락</a>
+        <a href="#about">
+          <span class="lang-ko">소개</span>
+          <span class="lang-en">About</span>
+        </a>
+        <a href="#experience">
+          <span class="lang-ko">경력</span>
+          <span class="lang-en">Experience</span>
+        </a>
+        <a href="#projects">
+          <span class="lang-ko">프로젝트</span>
+          <span class="lang-en">Projects</span>
+        </a>
+        <a href="#strengths">
+          <span class="lang-ko">강점</span>
+          <span class="lang-en">Strengths</span>
+        </a>
+        <a href="#contact">
+          <span class="lang-ko">연락</span>
+          <span class="lang-en">Contact</span>
+        </a>
       </nav>
     </header>
 
@@ -49,24 +74,32 @@
         <div class="hero-inner">
           <div class="hero-copy">
             <p class="eyebrow">Data Engineering · AI Development</p>
-            <h1 id="hero-title">권상헌</h1>
-            <p class="hero-role">데이터 엔지니어 / AI 개발자</p>
+            <h1 id="hero-title">
+              <span class="lang-ko">권상헌</span>
+              <span class="lang-en">Sangheon Kwon</span>
+            </h1>
+            <p class="hero-role">
+              <span class="lang-ko">데이터 엔지니어 / AI 개발자</span>
+              <span class="lang-en">Data Engineer / AI Developer</span>
+            </p>
             <p class="hero-summary">
-              RAG 시스템·Vision-Language Agent·데이터 파이프라인을 직접 설계하고 end-to-end로 배포까지 연결합니다.
-              건설현장 법령 판단 RAG, CCTV 사고 분석 VL Agent, 공공 API 수요예측 Flask 서비스를 단독 구현했습니다.
+              <span class="lang-ko">RAG 시스템·Vision-Language Agent·데이터 파이프라인을 직접 설계하고 end-to-end로 배포까지 연결합니다. 건설현장 법령 판단 RAG, CCTV 사고 분석 VL Agent, 공공 API 수요예측 Flask 서비스를 단독 구현했습니다.</span>
+              <span class="lang-en">I design RAG systems, Vision-Language Agents, and data pipelines, delivering them through end-to-end deployment. Personally developed a construction site regulation RAG, a CCTV accident analysis VL Agent, and a public API demand forecasting Flask service.</span>
             </p>
             <div class="hero-actions" aria-label="주요 링크">
               <a class="button primary" href="#projects">
                 <svg aria-hidden="true" viewBox="0 0 24 24">
                   <path d="M5 12h14M13 6l6 6-6 6" />
                 </svg>
-                프로젝트 보기
+                <span class="lang-ko">프로젝트 보기</span>
+                <span class="lang-en">View Projects</span>
               </a>
               <a class="button resume-download" href="./assets/resume-kwon-sangheon.pdf" download="resume-kwon-sangheon.pdf">
                 <svg aria-hidden="true" viewBox="0 0 24 24">
                   <path d="M12 3v12m0 0 4-4m-4 4-4-4M4 21h16" />
                 </svg>
-                이력서 PDF 다운로드
+                <span class="lang-ko">이력서 PDF 다운로드</span>
+                <span class="lang-en">Download Resume PDF</span>
               </a>
             </div>
           </div>
@@ -78,22 +111,40 @@
           <div class="profile-sticky">
             <img class="avatar" src="./png/profile-photo.png" alt="권상헌 프로필 사진" />
             <p class="panel-kicker">Profile</p>
-            <h2>권상헌</h2>
-            <p class="panel-role">데이터 엔지니어 / AI 개발자</p>
+            <h2>
+              <span class="lang-ko">권상헌</span>
+              <span class="lang-en">Sangheon Kwon</span>
+            </h2>
+            <p class="panel-role">
+              <span class="lang-ko">데이터 엔지니어 / AI 개발자</span>
+              <span class="lang-en">Data Engineer / AI Developer</span>
+            </p>
 
             <div class="panel-block">
-              <h3>개인 정보</h3>
+              <h3>
+                <span class="lang-ko">개인 정보</span>
+                <span class="lang-en">Personal Info</span>
+              </h3>
               <dl class="info-list">
                 <div>
-                  <dt>생년월일</dt>
+                  <dt>
+                    <span class="lang-ko">생년월일</span>
+                    <span class="lang-en">Birth Date</span>
+                  </dt>
                   <dd>2001. 02. 23</dd>
                 </div>
                 <div>
-                  <dt>연락처</dt>
+                  <dt>
+                    <span class="lang-ko">연락처</span>
+                    <span class="lang-en">Contact</span>
+                  </dt>
                   <dd><a href="tel:01092809415">010-9280-9415</a></dd>
                 </div>
                 <div>
-                  <dt>이메일</dt>
+                  <dt>
+                    <span class="lang-ko">이메일</span>
+                    <span class="lang-en">Email</span>
+                  </dt>
                   <dd><a href="mailto:kwhoney223@gmail.com">kwhoney223@gmail.com</a></dd>
                 </div>
                 <div>
@@ -101,14 +152,23 @@
                   <dd><a href="https://github.com/kwsahe" target="_blank" rel="noreferrer">github.com/kwsahe</a></dd>
                 </div>
                 <div>
-                  <dt>병역</dt>
-                  <dd>육군 병장 만기전역<br />2021.11 ~ 2023.05</dd>
+                  <dt>
+                    <span class="lang-ko">병역</span>
+                    <span class="lang-en">Military</span>
+                  </dt>
+                  <dd>
+                    <span class="lang-ko">육군 병장 만기전역<br />2021.11 ~ 2023.05</span>
+                    <span class="lang-en">Sergeant, ROK Army (Discharged)<br />Nov 2021 ~ May 2023</span>
+                  </dd>
                 </div>
               </dl>
             </div>
 
             <div class="panel-block">
-              <h3>스킬</h3>
+              <h3>
+                <span class="lang-ko">스킬</span>
+                <span class="lang-en">Skills</span>
+              </h3>
               <div class="tech-logo-grid" aria-label="기술 스택 로고">
                 <div class="tech-logo-item">
                   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" width="32" height="32" alt="Python" loading="lazy" />
@@ -180,7 +240,10 @@
                 </div>
               </div>
               <div class="skill-group">
-                <h4>언어 / 데이터</h4>
+                <h4>
+                  <span class="lang-ko">언어 / 데이터</span>
+                  <span class="lang-en">Languages / Data</span>
+                </h4>
                 <ul>
                   <li>Python</li>
                   <li>C#</li>
@@ -188,33 +251,72 @@
                   <li>SQL</li>
                   <li>TypeScript</li>
                   <li>Flask</li>
-                  <li>데이터 분석·파이프라인 구축</li>
-                  <li>빅데이터 처리</li>
+                  <li>
+                    <span class="lang-ko">데이터 분석·파이프라인 구축</span>
+                    <span class="lang-en">Data Analysis & Pipelines</span>
+                  </li>
+                  <li>
+                    <span class="lang-ko">빅데이터 처리</span>
+                    <span class="lang-en">Big Data Processing</span>
+                  </li>
                 </ul>
               </div>
               <div class="skill-group">
                 <h4>AI / ML</h4>
                 <ul>
-                  <li>머신러닝 기초</li>
-                  <li>RAG / 생성형 AI</li>
+                  <li>
+                    <span class="lang-ko">머신러닝 기초</span>
+                    <span class="lang-en">Machine Learning Basics</span>
+                  </li>
+                  <li>
+                    <span class="lang-ko">RAG / 생성형 AI</span>
+                    <span class="lang-en">RAG / Generative AI</span>
+                  </li>
                   <li>LangChain</li>
                   <li>ChromaDB</li>
                   <li>XGBoost / LightGBM</li>
                   <li>Prophet / SHAP</li>
-                  <li>bge-m3 임베딩</li>
-                  <li>영상 처리</li>
-                  <li>AI 프롬프트 활용 2급</li>
+                  <li>
+                    <span class="lang-ko">bge-m3 임베딩</span>
+                    <span class="lang-en">bge-m3 Embedding</span>
+                  </li>
+                  <li>
+                    <span class="lang-ko">영상 처리</span>
+                    <span class="lang-en">Image & Video Processing</span>
+                  </li>
+                  <li>
+                    <span class="lang-ko">AI 프롬프트 활용 2급</span>
+                    <span class="lang-en">AI Prompt Specialist (Level 2)</span>
+                  </li>
                 </ul>
               </div>
               <div class="skill-group">
-                <h4>인프라 / 기타</h4>
+                <h4>
+                  <span class="lang-ko">인프라 / 기타</span>
+                  <span class="lang-en">Infrastructure / Other</span>
+                </h4>
                 <ul>
-                  <li>네트워크 관리</li>
-                  <li>데이터베이스 설계</li>
+                  <li>
+                    <span class="lang-ko">네트워크 관리</span>
+                    <span class="lang-en">Network Management</span>
+                  </li>
+                  <li>
+                    <span class="lang-ko">데이터베이스 설계</span>
+                    <span class="lang-en">Database Design</span>
+                  </li>
                   <li>Flask REST API</li>
-                  <li>TypeScript 프론트엔드</li>
-                  <li>Colab 원격 LLM 서버 구성</li>
-                  <li>AI 사업기획</li>
+                  <li>
+                    <span class="lang-ko">TypeScript 프론트엔드</span>
+                    <span class="lang-en">TypeScript Frontend</span>
+                  </li>
+                  <li>
+                    <span class="lang-ko">Colab 원격 LLM 서버 구성</span>
+                    <span class="lang-en">Colab Remote LLM Server Config</span>
+                  </li>
+                  <li>
+                    <span class="lang-ko">AI 사업기획</span>
+                    <span class="lang-en">AI Business Planning</span>
+                  </li>
                 </ul>
               </div>
             </div>
@@ -224,30 +326,58 @@
         <div class="content-panel">
           <section class="section" id="about" aria-labelledby="about-title">
             <p class="section-kicker">About</p>
-            <h2 id="about-title">자기소개</h2>
+            <h2 id="about-title">
+              <span class="lang-ko">자기소개</span>
+              <span class="lang-en">About Me</span>
+            </h2>
             <p class="lead">
-              객관적인 데이터와 최신 AI 기술로 전략을 세우고, 원활한 소통으로 비즈니스 가치를 완성합니다.
+              <span class="lang-ko">객관적인 데이터와 최신 AI 기술로 전략을 세우고, 원활한 소통으로 비즈니스 가치를 완성합니다.</span>
+              <span class="lang-en">Formulating strategies with objective data and state-of-the-art AI, and delivering business value through smooth communication.</span>
             </p>
             <p>
-              감이나 경험에만 의존하기보다 정확한 데이터 분석을 바탕으로 설득력 있는 전략을 수립하는 것을 최우선으로 생각합니다. 이를 위해 최신 AI 기술과 다양한 분석 툴들을 빠르게 습득하고 실무에 적극적으로 활용함으로써, 데이터 도출의 효율성을 높이고 더욱 정교한 비즈니스 인사이트를 발굴하고자 노력합니다.
+              <span class="lang-ko">감이나 경험에만 의존하기보다 정확한 데이터 분석을 바탕으로 설득력 있는 전략을 수립하는 것을 최우선으로 생각합니다. 이를 위해 최신 AI 기술과 다양한 분석 툴들을 빠르게 습득하고 실무에 적극적으로 활용함으로써, 데이터 도출의 효율성을 높이고 더욱 정교한 비즈니스 인사이트를 발굴하고자 노력합니다.</span>
+              <span class="lang-en">I prioritize establishing compelling strategies based on accurate data analysis over relying solely on intuition or experience. To achieve this, I quickly master state-of-the-art AI technologies and diverse analytical tools, actively applying them in practice to maximize the efficiency of data extraction and uncover more sophisticated business insights.</span>
             </p>
             <p>
-              과거 프로젝트 매니저(PM)로 활동하며 체득했듯, 아무리 뛰어난 데이터나 기술적 성과라도 다양한 직군과의 유연한 소통이 뒷받침되지 않으면 무용지물이 될 수 있습니다. 기술을 통해 도출한 핵심 인사이트를 팀원들과 명확하게 공유하고 협업 프로세스에 자연스럽게 녹여냄으로써, 조직의 실제 비즈니스 가치 창출에 기여하고자 합니다.
+              <span class="lang-ko">과거 프로젝트 매니저(PM)로 활동하며 체득했듯, 아무리 뛰어난 데이터나 기술적 성과라도 다양한 직군과의 유연한 소통이 뒷받침되지 않으면 무용지물이 될 수 있습니다. 기술을 통해 도출한 핵심 인사이트를 팀원들과 명확하게 공유하고 협업 프로세스에 자연스럽게 녹여냄으로써, 조직의 실제 비즈니스 가치 창출에 기여하고자 합니다.</span>
+              <span class="lang-en">As I learned through my experience as a Project Manager (PM), even the most outstanding data or technical achievement can be rendered useless without flexible communication across diverse teams. I aim to clearly share core insights derived from technology with team members and integrate them naturally into the collaborative workflow, contributing to the organization's actual business value creation.</span>
             </p>
           </section>
 
           <section class="section" id="experience" aria-labelledby="experience-title">
             <p class="section-kicker">Experience</p>
-            <h2 id="experience-title"><span class="heading-emoji" aria-hidden="true">💼</span>경력</h2>
+            <h2 id="experience-title">
+              <span class="heading-emoji" aria-hidden="true">💼</span>
+              <span class="lang-ko">경력</span>
+              <span class="lang-en">Experience</span>
+            </h2>
             <article class="timeline-item">
-              <div class="timeline-meta">2023.07 – 2023.09 · 3개월</div>
+              <div class="timeline-meta">
+                <span class="lang-ko">2023.07 – 2023.09 · 3개월</span>
+                <span class="lang-en">2023.07 – 2023.09 · 3 mos</span>
+              </div>
               <div class="timeline-body">
-                <h3>데이타트렌드</h3>
-                <p class="item-role">사원 · AI사업전략</p>
+                <h3>
+                  <span class="lang-ko">데이타트렌드</span>
+                  <span class="lang-en">Data Trend</span>
+                </h3>
+                <p class="item-role">
+                  <span class="lang-ko">사원 · AI사업전략</span>
+                  <span class="lang-en">Associate · AI Business Strategy</span>
+                </p>
                 <ul class="check-list">
-                  <li>AI 바우처 사업수행계획서 작성 및 관련 자료 조사</li>
-                  <li>AI 도입 기업 대상 솔루션 제안 자료 작성</li>
-                  <li>사업 현황 분석 및 보고서 작성</li>
+                  <li>
+                    <span class="lang-ko">AI 바우처 사업수행계획서 작성 및 관련 자료 조사</span>
+                    <span class="lang-en">Authored AI Voucher project execution plans and conducted market research</span>
+                  </li>
+                  <li>
+                    <span class="lang-ko">AI 도입 기업 대상 솔루션 제안 자료 작성</span>
+                    <span class="lang-en">Prepared solution proposals for companies adopting AI</span>
+                  </li>
+                  <li>
+                    <span class="lang-ko">사업 현황 분석 및 보고서 작성</span>
+                    <span class="lang-en">Analyzed business status and compiled reports</span>
+                  </li>
                 </ul>
               </div>
             </article>
@@ -255,34 +385,74 @@
 
           <section class="section" id="education" aria-labelledby="education-title">
             <p class="section-kicker">Education</p>
-            <h2 id="education-title"><span class="heading-emoji" aria-hidden="true">🎓</span>교육</h2>
+            <h2 id="education-title">
+              <span class="heading-emoji" aria-hidden="true">🎓</span>
+              <span class="lang-ko">교육</span>
+              <span class="lang-en">Education</span>
+            </h2>
             <div class="timeline-list">
               <article class="timeline-item">
                 <div class="timeline-meta">2020.03 – 2026.02</div>
                 <div class="timeline-body">
-                  <h3>서강대학교</h3>
-                  <p class="item-role">미디어공학과 · 학점 3.53 / 4.5</p>
-                  <p>미디어 기술, 데이터 처리, 소프트웨어 공학 관련 전공 과목 이수</p>
+                  <h3>
+                    <span class="lang-ko">서강대학교</span>
+                    <span class="lang-en">Sogang University</span>
+                  </h3>
+                  <p class="item-role">
+                    <span class="lang-ko">미디어공학과 · 학점 3.53 / 4.5</span>
+                    <span class="lang-en">B.S. in Media Technology · GPA 3.53 / 4.5</span>
+                  </p>
+                  <p>
+                    <span class="lang-ko">미디어 기술, 데이터 처리, 소프트웨어 공학 관련 전공 과목 이수</span>
+                    <span class="lang-en">Completed coursework in media technology, data processing, and software engineering</span>
+                  </p>
                 </div>
               </article>
               <article class="timeline-item">
-                <div class="timeline-meta">2026.01 · 수료</div>
+                <div class="timeline-meta">
+                  <span class="lang-ko">2026.01 · 수료</span>
+                  <span class="lang-en">Jan 2026 · Completed</span>
+                </div>
                 <div class="timeline-body">
-                  <h3>서울대학교 데이터사이언스 부트캠프</h3>
+                  <h3>
+                    <span class="lang-ko">서울대학교 데이터사이언스 부트캠프</span>
+                    <span class="lang-en">Seoul National University Data Science Bootcamp</span>
+                  </h3>
                   <ul class="check-list">
-                    <li>데이터사이언스를 위한 선형대수학 및 확률과 통계</li>
-                    <li>머신러닝 기초 이론 및 실습</li>
+                    <li>
+                      <span class="lang-ko">데이터사이언스를 위한 선형대수학 및 확률과 통계</span>
+                      <span class="lang-en">Linear Algebra, Probability & Statistics for Data Science</span>
+                    </li>
+                    <li>
+                      <span class="lang-ko">머신러닝 기초 이론 및 실습</span>
+                      <span class="lang-en">Basic Machine Learning Theory and Hands-on Practice</span>
+                    </li>
                   </ul>
                 </div>
               </article>
               <article class="timeline-item is-current">
-                <div class="timeline-meta">진행 중</div>
+                <div class="timeline-meta">
+                  <span class="lang-ko">진행 중</span>
+                  <span class="lang-en">In Progress</span>
+                </div>
                 <div class="timeline-body">
-                  <h3>매력일자리 개발자 과정</h3>
+                  <h3>
+                    <span class="lang-ko">매력일자리 개발자 과정</span>
+                    <span class="lang-en">Attractive Jobs Developer Program</span>
+                  </h3>
                   <ul class="check-list">
-                    <li>최신 AI 기술 트렌드, 데이터 처리, RAG</li>
-                    <li>Python 기반 백엔드 개발 및 데이터 파이프라인 구축</li>
-                    <li>알고리즘, 자료구조, 데이터베이스 심화 학습 및 실무 프로젝트</li>
+                    <li>
+                      <span class="lang-ko">최신 AI 기술 트렌드, 데이터 처리, RAG</span>
+                      <span class="lang-en">Latest AI technology trends, data processing, and RAG</span>
+                    </li>
+                    <li>
+                      <span class="lang-ko">Python 기반 백엔드 개발 및 데이터 파이프라인 구축</span>
+                      <span class="lang-en">Python-based backend development and data pipeline construction</span>
+                    </li>
+                    <li>
+                      <span class="lang-ko">알고리즘, 자료구조, 데이터베이스 심화 학습 및 실무 프로젝트</span>
+                      <span class="lang-en">Advanced studies in algorithms, data structures, databases, and hands-on projects</span>
+                    </li>
                   </ul>
                 </div>
               </article>
@@ -291,31 +461,55 @@
 
           <section class="section" id="certificates" aria-labelledby="certificates-title">
             <p class="section-kicker">Certificates</p>
-            <h2 id="certificates-title"><span class="heading-emoji" aria-hidden="true">🏅</span>자격증</h2>
+            <h2 id="certificates-title">
+              <span class="heading-emoji" aria-hidden="true">🏅</span>
+              <span class="lang-ko">자격증</span>
+              <span class="lang-en">Certificates</span>
+            </h2>
             <div class="certificate-grid">
               <article class="certificate">
                 <span><span class="card-emoji" aria-hidden="true">📊</span>2025.12</span>
-                <h3>빅데이터분석기사</h3>
-                <p>한국데이터산업진흥원</p>
+                <h3>
+                  <span class="lang-ko">빅데이터분석기사</span>
+                  <span class="lang-en">Big Data Analytics Engineer</span>
+                </h3>
+                <p>
+                  <span class="lang-ko">한국데이터산업진흥원</span>
+                  <span class="lang-en">Korea Data Agency (KDATA)</span>
+                </p>
               </article>
               <article class="certificate">
                 <span><span class="card-emoji" aria-hidden="true">🤖</span>2024.11</span>
                 <h3>AI-POT 2급</h3>
-                <p>한국생산성본부</p>
+                <p>
+                  <span class="lang-ko">한국생산성본부</span>
+                  <span class="lang-en">Korea Productivity Center (KPC)</span>
+                </p>
               </article>
               <article class="certificate">
                 <span><span class="card-emoji" aria-hidden="true">🌐</span>2024.10</span>
-                <h3>네트워크관리사 2급</h3>
-                <p>한국정보통신자격협회</p>
+                <h3>
+                  <span class="lang-ko">네트워크관리사 2급</span>
+                  <span class="lang-en">Network Administrator (Level 2)</span>
+                </h3>
+                <p>
+                  <span class="lang-ko">한국정보통신자격협회</span>
+                  <span class="lang-en">Korea Association of Information & Telecommunication (KAIT)</span>
+                </p>
               </article>
             </div>
           </section>
 
           <section class="section" id="projects" aria-labelledby="projects-title">
             <p class="section-kicker">Portfolio Projects</p>
-            <h2 id="projects-title"><span class="heading-emoji" aria-hidden="true">🐙</span>주요 프로젝트</h2>
+            <h2 id="projects-title">
+              <span class="heading-emoji" aria-hidden="true">🐙</span>
+              <span class="lang-ko">주요 프로젝트</span>
+              <span class="lang-en">Featured Projects</span>
+            </h2>
             <p class="section-intro">
-              이력서에 정리된 프로젝트 목록을 기준으로, 실제 화면과 산출물이 있는 프로젝트는 스크린샷을 함께 배치했습니다.
+              <span class="lang-ko">이력서에 정리된 프로젝트 목록을 기준으로, 실제 화면과 산출물이 있는 프로젝트는 스크린샷을 함께 배치했습니다.</span>
+              <span class="lang-en">Based on the project list in the resume, screenshots are included for projects that have actual interface screens and deliverables.</span>
             </p>
             <div class="project-carousel" data-project-carousel>
               <div class="project-carousel-controls" aria-label="프로젝트 카드 탐색">
@@ -345,12 +539,27 @@
                 <div class="project-media">
                   <img src="./png/construction_accident_vl_agent_preview.png" alt="Vision-Language Agent의 CCTV 영상 분석 흐름 및 아키텍처 다이어그램" loading="lazy" />
                 </div>
-                <p>건설현장 CCTV MP4 영상을 프레임 단위로 분석해 사고 발생 여부, 사고 유형, 사고 원인을 자동 분석하는 Vision-Language Agent 시스템입니다.</p>
-                <p class="project-note">원본 영상 전체를 LLM에 넣는 대신, 사고 전후 핵심 프레임을 추출해 Contact Sheet 이미지를 생성함으로써 API 연동 비용을 최소화하였습니다. 최종 분석 데이터는 SPilot ERD 스키마에 맞는 DB Payload 규격으로 자동 가공 연동됩니다.</p>
+                <p>
+                  <span class="lang-ko">건설현장 CCTV MP4 영상을 프레임 단위로 분석해 사고 발생 여부, 사고 유형, 사고 원인을 자동 분석하는 Vision-Language Agent 시스템입니다.</span>
+                  <span class="lang-en">A Vision-Language Agent system that analyzes construction site CCTV MP4 videos frame-by-frame to automatically detect accident occurrence, accident type, and cause.</span>
+                </p>
+                <p class="project-note">
+                  <span class="lang-ko">원본 영상 전체를 LLM에 넣는 대신, 사고 전후 핵심 프레임을 추출해 Contact Sheet 이미지를 생성함으로써 API 연동 비용을 최소화하였습니다. 최종 분석 데이터는 SPilot ERD 스키마에 맞는 DB Payload 규격으로 자동 가공 연동됩니다.</span>
+                  <span class="lang-en">Instead of feeding the entire raw video into the LLM, we extract key frames before and after the accident to generate a Contact Sheet image, minimizing API integration costs. The final analyzed data is automatically processed and mapped into DB Payload specifications matching the SPilot ERD schema.</span>
+                </p>
                 <ul class="project-summary-list" aria-label="construction-accident-vl-agent 핵심 진행 내용">
-                  <li><strong>영상 분석</strong> OpenCV 기반 프레임 분석 및 사고 유력 구간 탐지</li>
-                  <li><strong>LLM 연동</strong> Qwen2.5-VL 모델 서버와 연동하여 사고 유형(추락/낙상 등) 및 경위 판단</li>
-                  <li><strong>Payload 변환</strong> DB 테이블 스키마(cctv_events) 규격에 맞춰 JSON verdict 자동 매핑</li>
+                  <li>
+                    <span class="lang-ko"><strong>영상 분석</strong> OpenCV 기반 프레임 분석 및 사고 유력 구간 탐지</span>
+                    <span class="lang-en"><strong>Video Analysis</strong> OpenCV-based frame analysis and detection of high-probability accident segments</span>
+                  </li>
+                  <li>
+                    <span class="lang-ko"><strong>LLM 연동</strong> Qwen2.5-VL 모델 서버와 연동하여 사고 유형(추락/낙상 등) 및 경위 판단</span>
+                    <span class="lang-en"><strong>LLM Integration</strong> Integrated with Qwen2.5-VL model server to determine accident types (falls, slips, etc.) and details</span>
+                  </li>
+                  <li>
+                    <span class="lang-ko"><strong>Payload 변환</strong> DB 테이블 스키마(cctv_events) 규격에 맞춰 JSON verdict 자동 매핑</span>
+                    <span class="lang-en"><strong>Payload Conversion</strong> Automatically mapped JSON verdict according to the DB table schema (cctv_events)</span>
+                  </li>
                 </ul>
                 <div class="tags">
                   <span>Python</span>
@@ -379,12 +588,27 @@
                     <img src="./png/pptx_final/image1.png" alt="RAG Report 프로젝트 아키텍처와 사용 흐름 정리 화면" loading="lazy" />
                   </div>
                 </div>
-                <p>건설현장 사고 시나리오를 입력받아 산업안전보건법·중대재해처벌법 위반 조항과 책임 주체를 판단하는 RAG 시스템입니다.</p>
-                <p class="project-note">법령 본문과 별표/표를 별도 ChromaDB에 분리 임베딩한 Text RAG + Table RAG 이중 구조로 검색 정확도를 높였습니다. 질문 유형별 direct route와 관리자/일반 계정 분리, 대화 이력 SQLite 저장, CLI+웹 챗봇 UI 2종을 구현했습니다.</p>
+                <p>
+                  <span class="lang-ko">건설현장 사고 시나리오를 입력받아 산업안전보건법·중대재해처벌법 위반 조항과 책임 주체를 판단하는 RAG 시스템입니다.</span>
+                  <span class="lang-en">A RAG system that receives construction site accident scenarios and identifies violated clauses of the Occupational Safety and Health Act & Serious Accident Punishment Act, along with liable parties.</span>
+                </p>
+                <p class="project-note">
+                  <span class="lang-ko">법령 본문과 별표/표를 별도 ChromaDB에 분리 임베딩한 Text RAG + Table RAG 이중 구조로 검색 정확도를 높였습니다. 질문 유형별 direct route와 관리자/일반 계정 분리, 대화 이력 SQLite 저장, CLI+웹 챗봇 UI 2종을 구현했습니다.</span>
+                  <span class="lang-en">Improved retrieval accuracy through a dual structure of Text RAG + Table RAG, separating the law text and tables into independent ChromaDB embeddings. Implemented direct routing by question type, admin/user role separation, SQLite chat history storage, and two interfaces (CLI and Web chatbot UI).</span>
+                </p>
                 <ul class="project-summary-list" aria-label="k-safety-law-rag 핵심 진행 내용">
-                  <li><strong>이중 RAG</strong> Text RAG + Table RAG 분리: 별표/표를 pdfplumber로 추출해 독립 ChromaDB에 임베딩</li>
-                  <li><strong>라우팅</strong> 질문 유형별 direct route로 정형 질의 처리, Colab Pro Qwen2.5-14B로 자연어 판단</li>
-                  <li><strong>운영</strong> 관리자/일반 계정 분리 · 대화 이력 SQLite 저장 · CLI + HTML 웹 챗봇 UI 2종</li>
+                  <li>
+                    <span class="lang-ko"><strong>이중 RAG</strong> Text RAG + Table RAG 분리: 별표/표를 pdfplumber로 추출해 독립 ChromaDB에 임베딩</span>
+                    <span class="lang-en"><strong>Dual RAG</strong> Separated Text RAG & Table RAG: Extracted annexes and tables with pdfplumber and embedded them into a separate ChromaDB</span>
+                  </li>
+                  <li>
+                    <span class="lang-ko"><strong>라우팅</strong> 질문 유형별 direct route로 정형 질의 처리, Colab Pro Qwen2.5-14B로 자연어 판단</span>
+                    <span class="lang-en"><strong>Routing</strong> Processes structured queries via direct routing by question type, and utilizes Colab Pro Qwen2.5-14B for natural language reasoning</span>
+                  </li>
+                  <li>
+                    <span class="lang-ko"><strong>운영</strong> 관리자/일반 계정 분리 · 대화 이력 SQLite 저장 · CLI + HTML 웹 챗봇 UI 2종</span>
+                    <span class="lang-en"><strong>Operations</strong> Admin/general account separation, SQLite storage for chat history, and both CLI and HTML web chatbot interfaces</span>
+                  </li>
                 </ul>
                 <div class="tags">
                   <span>pdfplumber</span>
@@ -414,8 +638,14 @@
                 <div class="project-media market-hero-media">
                   <img src="./png/pptx_final/image2.png" alt="Market Pulse 구성도와 핵심 기능 요약 화면" loading="lazy" />
                 </div>
-                <p>다나와 PC 부품 가격 자동 수집, 이상치 탐지, 가격 예측 모델, IT 뉴스 대시보드를 연결한 분석 서비스입니다.</p>
-                <p class="project-note">단독 개발로 크롤링, SQLite 데이터 모델링, 분석 로직, Streamlit 대시보드를 연결해 가격·뉴스 데이터 흐름을 통합했습니다.</p>
+                <p>
+                  <span class="lang-ko">다나와 PC 부품 가격 자동 수집, 이상치 탐지, 가격 예측 모델, IT 뉴스 대시보드를 연결한 분석 서비스입니다.</span>
+                  <span class="lang-en">An analytics service integrating Danawa PC component price web scraping, anomaly detection, price forecasting models, and an IT news dashboard.</span>
+                </p>
+                <p class="project-note">
+                  <span class="lang-ko">단독 개발로 크롤링, SQLite 데이터 모델링, 분석 로직, Streamlit 대시보드를 연결해 가격·뉴스 데이터 흐름을 통합했습니다.</span>
+                  <span class="lang-en">Independently developed the scraping pipeline, SQLite data modeling, analytical logic, and Streamlit dashboard to integrate price and news data flows.</span>
+                </p>
                 <div class="project-gallery market-gallery">
                   <img src="./png/pptx_final/image3.png" alt="Market Pulse 카테고리별 대시보드 화면" loading="lazy" />
                   <img src="./png/pptx_final/image4.png" alt="Market Pulse 개요 지표와 가격 분석 화면" loading="lazy" />
@@ -444,8 +674,14 @@
                 <div class="project-media artesia-flow-media">
                   <img src="./png/pptx_final/Artesia_user_gameplay_flow.png" alt="Artesia 프로젝트 구조 요약 화면" loading="lazy" />
                 </div>
-                <p>Unity2D 기반 게임 프로젝트 팀장 및 기획 총괄, 역할 분배와 일정 관리를 포함해 전 과정을 리딩했습니다.</p>
-                <p class="project-note">PM 역할로 게임 콘셉트와 개발 범위를 정리하고, 팀원 역할 분배와 진행 관리를 맡아 완성 화면까지 이끌었습니다.</p>
+                <p>
+                  <span class="lang-ko">Unity2D 기반 게임 프로젝트 팀장 및 기획 총괄, 역할 분배와 일정 관리를 포함해 전 과정을 리딩했습니다.</span>
+                  <span class="lang-en">Served as project manager and lead designer for a Unity2D-based game, leading the entire lifecycle including role assignment and scheduling.</span>
+                </p>
+                <p class="project-note">
+                  <span class="lang-ko">PM 역할로 게임 콘셉트와 개발 범위를 정리하고, 팀원 역할 분배와 진행 관리를 맡아 완성 화면까지 이끌었습니다.</span>
+                  <span class="lang-en">As PM, defined the game concept and scope, distributed tasks, managed progress, and guided the team to deliver the final playable interface.</span>
+                </p>
                 <div class="project-gallery artesia-gallery">
                   <img src="./png/pptx_final/image9.png" alt="Artesia 게임 플레이 화면과 UI 구성" loading="lazy" />
                   <img src="./png/pptx_final/image10.png" alt="Artesia 맵과 던전 구조 화면" loading="lazy" />
@@ -473,8 +709,14 @@
                 <div class="project-media">
                   <img src="./png/pptx_final/image34.png" alt="AI 부동산 시장 예측 대시보드 전체 화면" loading="lazy" />
                 </div>
-                <p>SQL, RFM 분석, 머신러닝, 시계열 예측, SQLD까지 직접 설계하고 수행한 이커머스 분석 파이프라인입니다.</p>
-                <p class="project-note">단독 개발로 분석 주제 선정부터 notebook 실험, RFM·Prophet·SHAP 결과 정리와 대시보드 시각화까지 수행했습니다.</p>
+                <p>
+                  <span class="lang-ko">SQL, RFM 분석, 머신러닝, 시계열 예측, SQLD까지 직접 설계하고 수행한 이커머스 분석 파이프라인입니다.</span>
+                  <span class="lang-en">An e-commerce analysis pipeline designed and executed covering SQL queries, RFM analysis, machine learning classification, time series forecasting, and SQLD principles.</span>
+                </p>
+                <p class="project-note">
+                  <span class="lang-ko">단독 개발로 분석 주제 선정부터 notebook 실험, RFM·Prophet·SHAP 결과 정리와 대시보드 시각화까지 수행했습니다.</span>
+                  <span class="lang-en">Independently handled everything from selecting analysis topics, running experiments in Jupyter notebooks, summarizing RFM, Prophet, and SHAP results, to dashboard visualization.</span>
+                </p>
                 <div class="project-gallery">
                   <img src="./png/pptx_final/image32.png" alt="이커머스 분석 feature importance 결과 화면" loading="lazy" />
                   <img src="./png/pptx_final/image33.png" alt="시계열 예측 결과 그래프 화면" loading="lazy" />
@@ -507,8 +749,14 @@
                   <img src="./png/pptx_final/image30.png" alt="영단어 학습기 단어장 관리 화면" loading="lazy" />
                   <img src="./png/pptx_final/image31.png" alt="영단어 학습기 통계 화면" loading="lazy" />
                 </div>
-                <p>Streamlit 기반 영단어 학습 웹 앱으로, 학습 진도 추적과 퀴즈, 단어장, 통계 화면을 구현했습니다.</p>
-                <p class="project-note">단독 개발로 학습 흐름, 퀴즈 상태 관리, 단어장 관리, 통계 화면을 구성하며 사용자 중심 앱 구조를 연습했습니다.</p>
+                <p>
+                  <span class="lang-ko">Streamlit 기반 영단어 학습 웹 앱으로, 학습 진도 추적과 퀴즈, 단어장, 통계 화면을 구현했습니다.</span>
+                  <span class="lang-en">A Streamlit-based English word learning web app, featuring study progress tracking, quizzes, vocabulary management, and stats dashboards.</span>
+                </p>
+                <p class="project-note">
+                  <span class="lang-ko">단독 개발로 학습 흐름, 퀴즈 상태 관리, 단어장 관리, 통계 화면을 구성하며 사용자 중심 앱 구조를 연습했습니다.</span>
+                  <span class="lang-en">Independently developed the learning flow, quiz state manager, vocabulary list, and statistics panel to practice user-centric app architecture.</span>
+                </p>
                 <div class="tags">
                   <span>Streamlit</span>
                   <span>Learning App</span>
@@ -529,12 +777,27 @@
                 <div class="project-gallery o2o-gallery">
                   <img src="./png/pptx_final/o2o_demand_dashboard_new.png" alt="O2O 수요 예측 대시보드 및 인테리어 수요 챗봇 화면" loading="lazy" />
                 </div>
-                <p>오늘의집 O2O 서비스팀 시나리오 기반, 102개 시군구 인테리어 수요 점수를 산출하는 end-to-end 파이프라인입니다.</p>
-                <p class="project-note">국토교통부 매매·전월세·건축HUB 대수선 등 공공 API 5종을 자동 수집하고, 7개 지표 Min-Max 정규화 + 가중합산으로 수요 점수(0~100)와 S/A/B 등급을 산출합니다. Flask 웹 서버 + 네이버 지도 연동 + AI 챗봇 2종(Ollama)까지 배포했습니다.</p>
+                <p>
+                  <span class="lang-ko">오늘의집 O2O 서비스팀 시나리오 기반, 102개 시군구 인테리어 수요 점수를 산출하는 end-to-end 파이프라인입니다.</span>
+                  <span class="lang-en">An end-to-end pipeline calculating interior renovation demand scores across 102 districts based on an Oohya (Today's House) O2O service scenario.</span>
+                </p>
+                <p class="project-note">
+                  <span class="lang-ko">국토교통부 매매·전월세·건축HUB 대수선 등 공공 API 5종을 자동 수집하고, 7개 지표 Min-Max 정규화 + 가중합산으로 수요 점수(0~100)와 S/A/B 등급을 산출합니다. Flask 웹 서버 + 네이버 지도 연동 + AI 챗봇 2종(Ollama)까지 배포했습니다.</span>
+                  <span class="lang-en">Automatically collects data from 5 public APIs (Ministry of Land transaction, rent, Building HUB, etc.) and computes demand scores (0~100) and S/A/B grades via Min-Max normalization and weighted summation of 7 indicators. Deployed Flask web server with Naver Maps integration and two AI chatbots (Ollama).</span>
+                </p>
                 <ul class="project-summary-list" aria-label="O2O-demand-forecasting-solution 핵심 진행 내용">
-                  <li><strong>파이프라인</strong> 공공 API 5종 자동 수집: 국토부 매매·전월세·건축HUB 대수선·인테리어업체·상가정보</li>
-                  <li><strong>점수 산출</strong> 7개 지표 Min-Max 정규화 + 가중합산, S/A/B+/0/- 등급 분류, 시장규모 추정 컬럼 자동 산출</li>
-                  <li><strong>서비스</strong> Flask RESTful API 10개 · 네이버 지도 마커 연동 · AI 챗봇 2종(수요점수 + 구매가이드)</li>
+                  <li>
+                    <span class="lang-ko"><strong>파이프라인</strong> 공공 API 5종 자동 수집: 국토부 매매·전월세·건축HUB 대수선·인테리어업체·상가정보</span>
+                    <span class="lang-en"><strong>Pipeline</strong> Automated collection of 5 public APIs: transaction, rent, Building HUB renovation, interior firms, and commercial area info</span>
+                  </li>
+                  <li>
+                    <span class="lang-ko"><strong>점수 산출</strong> 7개 지표 Min-Max 정규화 + 가중합산, S/A/B+/0/- 등급 분류, 시장규모 추정 컬럼 자동 산출</span>
+                    <span class="lang-en"><strong>Score Calculation</strong> Min-Max normalization & weighted sum of 7 metrics, S/A/B grading classification, and automated market size estimation columns</span>
+                  </li>
+                  <li>
+                    <span class="lang-ko"><strong>서비스</strong> Flask RESTful API 10개 · 네이버 지도 마커 연동 · AI 챗봇 2종(수요점수 + 구매가이드)</span>
+                    <span class="lang-en"><strong>Service</strong> Deployed 10 Flask RESTful API endpoints, Naver Maps marker linkage, and two AI chatbots (demand scoring & buyer's guide)</span>
+                  </li>
                 </ul>
                 <div class="tags">
                   <span>Python</span>
@@ -552,9 +815,13 @@
 
           <section class="section project-detail-section" id="project-details" aria-labelledby="project-details-title">
             <p class="section-kicker">Project Details</p>
-            <h2 id="project-details-title">대표 프로젝트 상세</h2>
+            <h2 id="project-details-title">
+              <span class="lang-ko">대표 프로젝트 상세</span>
+              <span class="lang-en">Representative Project Details</span>
+            </h2>
             <p class="section-intro">
-              주요 개발·PM 경험이 뚜렷한 네 프로젝트를 중심으로 문제 정의부터 역할, 결과, 개선점까지 정리했습니다.
+              <span class="lang-ko">주요 개발·PM 경험이 뚜렷한 네 프로젝트를 중심으로 문제 정의부터 역할, 결과, 개선점까지 정리했습니다.</span>
+              <span class="lang-en">Details on problem definition, roles, results, and future improvements for five core development and PM projects.</span>
             </p>
             <div class="project-detail-grid">
               <article class="project-detail-card">
@@ -564,32 +831,74 @@
                 </div>
                 <dl class="project-detail-list">
                   <div>
-                    <dt>문제 정의</dt>
-                    <dd>건설현장 CCTV 영상에서 사고 상황을 자동으로 신속하게 감지하고 사고 유형, 피해 규모 및 원인 파악을 자동화하여 현장 안전관리를 개선하고자 했습니다.</dd>
+                    <dt>
+                      <span class="lang-ko">문제 정의</span>
+                      <span class="lang-en">Problem Definition</span>
+                    </dt>
+                    <dd>
+                      <span class="lang-ko">건설현장 CCTV 영상에서 사고 상황을 자동으로 신속하게 감지하고 사고 유형, 피해 규모 및 원인 파악을 자동화하여 현장 안전관리를 개선하고자 했습니다.</span>
+                      <span class="lang-en">Aimed to improve site safety management by automatically and rapidly detecting accident situations from CCTV footage and automating analysis of accident type, severity, and cause.</span>
+                    </dd>
                   </div>
                   <div>
-                    <dt>데이터 흐름</dt>
-                    <dd>CCTV mp4 비디오 파일로부터 프레임 이미지를 주기적으로 추출하고, 주요 움직임이 포착된 전후 프레임을 결합해 Contact Sheet 이미지를 구성해 Qwen2.5-VL 서버에 전달합니다.</dd>
+                    <dt>
+                      <span class="lang-ko">데이터 흐름</span>
+                      <span class="lang-en">Data Flow</span>
+                    </dt>
+                    <dd>
+                      <span class="lang-ko">CCTV mp4 비디오 파일로부터 프레임 이미지를 주기적으로 추출하고, 주요 움직임이 포착된 전후 프레임을 결합해 Contact Sheet 이미지를 구성해 Qwen2.5-VL 서버에 전달합니다.</span>
+                      <span class="lang-en">Periodically extract frames from CCTV MP4 video files, combine the before/after frames capturing major movements into a Contact Sheet image, and transmit it to the Qwen2.5-VL server.</span>
+                    </dd>
                   </div>
                   <div>
-                    <dt>핵심 로직</dt>
-                    <dd>전체 비디오를 LLM에 전송하는 대신, Agent 로컬 단에서 OpenCV를 활용해 대표 프레임을 추리고 사고 위험이 높은 시점의 전후 프레임을 경량화하여 처리 효율을 극대화했습니다.</dd>
+                    <dt>
+                      <span class="lang-ko">핵심 로직</span>
+                      <span class="lang-en">Core Logic</span>
+                    </dt>
+                    <dd>
+                      <span class="lang-ko">전체 비디오를 LLM에 전송하는 대신, Agent 로컬 단에서 OpenCV를 활용해 대표 프레임을 추리고 사고 위험이 높은 시점의 전후 프레임을 경량화하여 처리 효율을 극대화했습니다.</span>
+                      <span class="lang-en">Instead of uploading the full video to the LLM, the local agent uses OpenCV to filter representative frames and lightweight the before/after frames at high-risk moments to maximize processing efficiency.</span>
+                    </dd>
                   </div>
                   <div>
-                    <dt>사용 기술</dt>
-                    <dd>Python, OpenCV, Qwen2.5-VL (Colab Server API), Pydantic(검증 스키마 설계), .env 환경 변수를 구성해 외부 API 클라이언트 흐름을 연동했습니다.</dd>
+                    <dt>
+                      <span class="lang-ko">사용 기술</span>
+                      <span class="lang-en">Technologies</span>
+                    </dt>
+                    <dd>
+                      <span class="lang-ko">Python, OpenCV, Qwen2.5-VL (Colab Server API), Pydantic(검증 스키마 설계), .env 환경 변수를 구성해 외부 API 클라이언트 흐름을 연동했습니다.</span>
+                      <span class="lang-en">Python, OpenCV, Qwen2.5-VL (Colab Server API), Pydantic (schema validation), .env configurations for external API client flow integration.</span>
+                    </dd>
                   </div>
                   <div>
-                    <dt>내 역할</dt>
-                    <dd>단독 개발로 OpenCV 기반 프레임 분석 및 사고 유력 구간 탐지 모듈 설계, Qwen2.5-VL용 다중 이미지 프롬프트 엔지니어링, SPilot ERD 데이터 규격 매핑 및 DB payload JSON 가공 로직 구현.</dd>
+                    <dt>
+                      <span class="lang-ko">내 역할</span>
+                      <span class="lang-en">My Role</span>
+                    </dt>
+                    <dd>
+                      <span class="lang-ko">단독 개발로 OpenCV 기반 프레임 분석 및 사고 유력 구간 탐지 모듈 설계, Qwen2.5-VL용 다중 이미지 프롬프트 엔지니어링, SPilot ERD 데이터 규격 매핑 및 DB payload JSON 가공 로직 구현.</span>
+                      <span class="lang-en">Sole developer. Designed the OpenCV-based frame analysis and high-probability segment detection module, engineered multi-image prompting for Qwen2.5-VL, mapped SPilot ERD data specs, and implemented DB payload JSON processing.</span>
+                    </dd>
                   </div>
                   <div>
-                    <dt>답변 결과</dt>
-                    <dd>추락 사고가 감지된 영상 분석 시, 사고 유형을 "fall_from_height"(추락)로 정확히 탐지하고, 이동식 비계 위 작업자 위치 변화와 붕괴 과정에 대한 구체적인 사고 원인 경위(Details)를 JSON 형태로 도출해 냈습니다.</dd>
+                    <dt>
+                      <span class="lang-ko">답변 결과</span>
+                      <span class="lang-en">Results & Outputs</span>
+                    </dt>
+                    <dd>
+                      <span class="lang-ko">추락 사고가 감지된 영상 분석 시, 사고 유형을 "fall_from_height"(추락)로 정확히 탐지하고, 이동식 비계 위 작업자 위치 변화와 붕괴 과정에 대한 구체적인 사고 원인 경위(Details)를 JSON 형태로 도출해 냈습니다.</span>
+                      <span class="lang-en">When analyzing footage detecting a fall accident, it accurately identified the type as "fall_from_height", and generated detailed narratives (Details) on the scaffold worker's position change and the collapse progression in JSON.</span>
+                    </dd>
                   </div>
                   <div>
-                    <dt>한계와 개선점</dt>
-                    <dd>추가적인 YOLO 객체 추적(Worker tracking) 모델 및 작업자 포즈 추정(Pose estimation) 모듈과 결합 시, 작업자 개별 식별 및 사고 전 거동 분석 성능이 더욱 극대화될 수 있습니다.</dd>
+                    <dt>
+                      <span class="lang-ko">한계와 개선점</span>
+                      <span class="lang-en">Limitations & Improvements</span>
+                    </dt>
+                    <dd>
+                      <span class="lang-ko">추가적인 YOLO 객체 추적(Worker tracking) 모델 및 작업자 포즈 추정(Pose estimation) 모듈과 결합 시, 작업자 개별 식별 및 사고 전 거동 분석 성능이 더욱 극대화될 수 있습니다.</span>
+                      <span class="lang-en">Integrating with a YOLO worker tracking model and pose estimation module would maximize individual worker identification and pre-accident behavior analysis performance.</span>
+                    </dd>
                   </div>
                 </dl>
               </article>
@@ -601,36 +910,83 @@
                 </div>
                 <dl class="project-detail-list">
                   <div>
-                    <dt>문제 정의</dt>
-                    <dd>건설현장 안전관리 프로젝트에서 사고 상황을 입력했을 때 관련 중대재해처벌법, 산업안전보건법 조항과 위반 가능성을 빠르게 확인할 수 있는 관련법령 RAG 파트가 필요했습니다.</dd>
+                    <dt>
+                      <span class="lang-ko">문제 정의</span>
+                      <span class="lang-en">Problem Definition</span>
+                    </dt>
+                    <dd>
+                      <span class="lang-ko">건설현장 안전관리 프로젝트에서 사고 상황을 입력했을 때 관련 중대재해처벌법, 산업안전보건법 조항과 위반 가능성을 빠르게 확인할 수 있는 관련법령 RAG 파트가 필요했습니다.</span>
+                      <span class="lang-en">Needed a regulation RAG component to quickly check relevant clauses of the Serious Accident Punishment Act and Occupational Safety and Health Act, along with violation probability, when accident details are input in a site safety management project.</span>
+                    </dd>
                   </div>
                   <div>
-                    <dt>데이터 흐름</dt>
-                    <dd>법령 PDF를 pdfplumber로 본문·표 분리 추출 → Text·Table 각각 ChromaDB에 임베딩 → 통합 retriever로 유사도 합산 → 질문 유형 판단(direct route / LLM route) → 위반 조항·책임 주체·법령 페이지 출력</dd>
+                    <dt>
+                      <span class="lang-ko">데이터 흐름</span>
+                      <span class="lang-en">Data Flow</span>
+                    </dt>
+                    <dd>
+                      <span class="lang-ko">법령 PDF를 pdfplumber로 본문·표 분리 추출 → Text·Table 각각 ChromaDB에 임베딩 → 통합 retriever로 유사도 합산 → 질문 유형 판단(direct route / LLM route) → 위반 조항·책임 주체·법령 페이지 출력</span>
+                      <span class="lang-en">Extract law texts and tables separately via pdfplumber → Embed Text and Tables into separate ChromaDB → Combined retriever calculates similarity sum → Route query type (direct route vs. LLM route) → Output violated clauses, responsible parties, and reference pages.</span>
+                    </dd>
                   </div>
                   <div>
-                    <dt>시나리오 검증</dt>
-                    <dd>아파트 신축 현장에서 철제 자재 낙하로 근로자가 사망한 사례를 입력하고, 해당 사고가 중대재해처벌법상 중대산업재해에 해당하는지와 판단 근거를 함께 질의했습니다.</dd>
+                    <dt>
+                      <span class="lang-ko">시나리오 검증</span>
+                      <span class="lang-en">Scenario Verification</span>
+                    </dt>
+                    <dd>
+                      <span class="lang-ko">아파트 신축 현장에서 철제 자재 낙하로 근로자가 사망한 사례를 입력하고, 해당 사고가 중대재해처벌법상 중대산업재해에 해당하는지와 판단 근거를 함께 질의했습니다.</span>
+                      <span class="lang-en">Input a case where a worker died due to falling steel materials at an apartment construction site, and queried whether this falls under serious industrial accidents under the Serious Accident Punishment Act, along with the reasoning.</span>
+                    </dd>
                   </div>
                   <div>
-                    <dt>사용 기술</dt>
-                    <dd>Python · pdfplumber · LangChain · ChromaDB · BAAI/bge-m3 임베딩 · Qwen2.5-14B(Colab Pro + ngrok OpenAI-compatible API) · SQLite(대화 이력) · Flask(웹 챗봇 UI)</dd>
+                    <dt>
+                      <span class="lang-ko">사용 기술</span>
+                      <span class="lang-en">Technologies</span>
+                    </dt>
+                    <dd>
+                      <span>Python · pdfplumber · LangChain · ChromaDB · BAAI/bge-m3 Embedding · Qwen2.5-14B (Colab Pro + ngrok API) · SQLite (chat history) · Flask (web chatbot UI)</span>
+                    </dd>
                   </div>
                   <div>
-                    <dt>내 역할</dt>
-                    <dd>Text RAG + Table RAG 이중 구조 설계, 질문 유형별 direct route 구현, 관리자/일반 계정 분리, SQLite 대화 이력 저장, CLI + HTML 웹 챗봇 UI 2종 구현, 법령 참고 JSON 자동 저장 구조 전체 단독 개발</dd>
+                    <dt>
+                      <span class="lang-ko">내 역할</span>
+                      <span class="lang-en">My Role</span>
+                    </dt>
+                    <dd>
+                      <span class="lang-ko">Text RAG + Table RAG 이중 구조 설계, 질문 유형별 direct route 구현, 관리자/일반 계정 분리, SQLite 대화 이력 저장, CLI + HTML 웹 챗봇 UI 2종 구현, 법령 참고 JSON 자동 저장 구조 전체 단독 개발</span>
+                      <span class="lang-en">Sole developer. Designed dual Text+Table RAG structure, implemented question-type direct routing, set up admin/user role separation, configured SQLite chat history, and developed CLI + HTML chatbot interfaces.</span>
+                    </dd>
                   </div>
                   <div>
-                    <dt>답변 결과</dt>
-                    <dd>Qwen2.5-14B 모델이 사고를 중대산업재해로 판단하고, 사망자 1명 발생 및 상시 근로자 5명 이상 사업장 기준을 근거로 중대재해처벌법 제2조와 제3조를 제시하도록 응답을 받았습니다.</dd>
+                    <dt>
+                      <span class="lang-ko">답변 결과</span>
+                      <span class="lang-en">Results & Outputs</span>
+                    </dt>
+                    <dd>
+                      <span class="lang-ko">Qwen2.5-14B 모델이 사고를 중대산업재해로 판단하고, 사망자 1명 발생 및 상시 근로자 5명 이상 사업장 기준을 근거로 중대재해처벌법 제2조와 제3조를 제시하도록 응답을 받았습니다.</span>
+                      <span class="lang-en">The Qwen2.5-14B model correctly classified the incident as a serious industrial accident, citing the occurrence of 1 death and the 5+ regular workers criteria, presenting Articles 2 and 3 of the Serious Accident Punishment Act.</span>
+                    </dd>
                   </div>
                   <div>
-                    <dt>결과 화면</dt>
-                    <dd>건설현장 안전관리 화면에서 사고 정보, 위반 판단, 판단 근거, 관련 법령 조항, 참고 근거 유사도, 응답 시간을 함께 확인할 수 있도록 구성했습니다.</dd>
+                    <dt>
+                      <span class="lang-ko">결과 화면</span>
+                      <span class="lang-en">Result Interface</span>
+                    </dt>
+                    <dd>
+                      <span class="lang-ko">건설현장 안전관리 화면에서 사고 정보, 위반 판단, 판단 근거, 관련 법령 조항, 참고 근거 유사도, 응답 시간을 함께 확인할 수 있도록 구성했습니다.</span>
+                      <span class="lang-en">Configured the interface to display accident info, violation judgment, reasoning grounds, relevant clauses, reference similarity score, and API response time.</span>
+                    </dd>
                   </div>
                   <div>
-                    <dt>한계와 개선점</dt>
-                    <dd>법령 조항의 최신성 관리와 답변 검증 체계를 더 강화하고, 사고 유형별 평가 기준을 구조화하면 실무 적용성이 높아질 수 있습니다.</dd>
+                    <dt>
+                      <span class="lang-ko">한계와 개선점</span>
+                      <span class="lang-en">Limitations & Improvements</span>
+                    </dt>
+                    <dd>
+                      <span class="lang-ko">법령 조항의 최신성 관리와 답변 검증 체계를 더 강화하고, 사고 유형별 평가 기준을 구조화하면 실무 적용성이 높아질 수 있습니다.</span>
+                      <span class="lang-en">Strengthening version management for regulations, enhancing verification metrics, and structuring evaluation criteria by accident type would improve practical utility.</span>
+                    </dd>
                   </div>
                 </dl>
               </article>
@@ -642,28 +998,63 @@
                 </div>
                 <dl class="project-detail-list">
                   <div>
-                    <dt>문제 정의</dt>
-                    <dd>PC 부품 가격과 IT 뉴스를 따로 확인해야 하는 불편을 줄이고, 가격 변화·이상치·예측 결과를 한곳에서 볼 수 있는 분석 도구를 만들고자 했습니다.</dd>
+                    <dt>
+                      <span class="lang-ko">문제 정의</span>
+                      <span class="lang-en">Problem Definition</span>
+                    </dt>
+                    <dd>
+                      <span class="lang-ko">PC 부품 가격과 IT 뉴스를 따로 확인해야 하는 불편을 줄이고, 가격 변화·이상치·예측 결과를 한곳에서 볼 수 있는 분석 도구를 만들고자 했습니다.</span>
+                      <span class="lang-en">Aimed to build an integrated tool displaying price trends, anomalies, and forecasting results in one place, avoiding the inconvenience of separate checks for component prices and IT news.</span>
+                    </dd>
                   </div>
                   <div>
-                    <dt>데이터 흐름</dt>
-                    <dd>다나와 가격 데이터를 수집해 SQLite에 저장하고, 부품 카테고리별 가격 추이와 뉴스 데이터를 Streamlit 대시보드로 시각화했습니다.</dd>
+                    <dt>
+                      <span class="lang-ko">데이터 흐름</span>
+                      <span class="lang-en">Data Flow</span>
+                    </dt>
+                    <dd>
+                      <span class="lang-ko">다나와 가격 데이터를 수집해 SQLite에 저장하고, 부품 카테고리별 가격 추이와 뉴스 데이터를 Streamlit 대시보드로 시각화했습니다.</span>
+                      <span class="lang-en">Scrape Danawa price data, store it in SQLite, and visualize category price trends and IT news feeds on a Streamlit dashboard.</span>
+                    </dd>
                   </div>
                   <div>
-                    <dt>사용 기술</dt>
-                    <dd>Python, 크롤링, SQLite, 머신러닝, Streamlit을 사용해 수집, 저장, 분석, 예측, 화면 구성을 하나의 파이프라인으로 연결했습니다.</dd>
+                    <dt>
+                      <span class="lang-ko">사용 기술</span>
+                      <span class="lang-en">Technologies</span>
+                    </dt>
+                    <dd>
+                      <span>Python, BeautifulSoup (scraping), SQLite, Machine Learning, Streamlit (end-to-end integration of collection, storage, analysis, forecasting, and UI)</span>
+                    </dd>
                   </div>
                   <div>
-                    <dt>내 역할</dt>
-                    <dd>단독 개발로 크롤러, 데이터베이스 구조, 분석 로직, 이상치 탐지, 가격 예측 화면과 뉴스 탭까지 전체 기능을 설계하고 구현했습니다.</dd>
+                    <dt>
+                      <span class="lang-ko">내 역할</span>
+                      <span class="lang-en">My Role</span>
+                    </dt>
+                    <dd>
+                      <span class="lang-ko">단독 개발로 크롤러, 데이터베이스 구조, 분석 로직, 이상치 탐지, 가격 예측 화면과 뉴스 탭까지 전체 기능을 설계하고 구현했습니다.</span>
+                      <span class="lang-en">Independently built the scraper, database schema, analytics logic, anomaly detection, price forecasting dashboard, and IT news tab.</span>
+                    </dd>
                   </div>
                   <div>
-                    <dt>결과 화면</dt>
-                    <dd>카테고리별 가격 추이, 이상치 탐지, 예측 그래프, 관련 뉴스 탭을 제공해 가격 흐름과 시장 맥락을 함께 파악할 수 있게 했습니다.</dd>
+                    <dt>
+                      <span class="lang-ko">결과 화면</span>
+                      <span class="lang-en">Result Interface</span>
+                    </dt>
+                    <dd>
+                      <span class="lang-ko">카테고리별 가격 추이, 이상치 탐지, 예측 그래프, 관련 뉴스 탭을 제공해 가격 흐름과 시장 맥락을 함께 파악할 수 있게 했습니다.</span>
+                      <span class="lang-en">Provided category price trends, anomaly markers, forecast charts, and a news tab to analyze price movements in tandem with market context.</span>
+                    </dd>
                   </div>
                   <div>
-                    <dt>한계와 개선점</dt>
-                    <dd>크롤링 안정성, 데이터 갱신 자동화, 예측 모델 평가 지표를 보강하면 더 운영 가능한 가격 모니터링 서비스로 확장할 수 있습니다.</dd>
+                    <dt>
+                      <span class="lang-ko">한계와 개선점</span>
+                      <span class="lang-en">Limitations & Improvements</span>
+                    </dt>
+                    <dd>
+                      <span class="lang-ko">크롤링 안정성, 데이터 갱신 자동화, 예측 모델 평가 지표를 보강하면 더 운영 가능한 가격 모니터링 서비스로 확장할 수 있습니다.</span>
+                      <span class="lang-en">Enhancing scraping resilience, automating data updates, and refining forecasting metrics would scale it to a production-ready price monitoring service.</span>
+                    </dd>
                   </div>
                 </dl>
               </article>
@@ -675,28 +1066,64 @@
                 </div>
                 <dl class="project-detail-list">
                   <div>
-                    <dt>문제 정의</dt>
-                    <dd>오늘의집 O2O 서비스 관점에서 어느 지역의 인테리어 시공 수요가 높은지 판단할 수 있도록, 실거래 데이터 기반 수요 점수 체계가 필요했습니다.</dd>
+                    <dt>
+                      <span class="lang-ko">문제 정의</span>
+                      <span class="lang-en">Problem Definition</span>
+                    </dt>
+                    <dd>
+                      <span class="lang-ko">오늘의집 O2O 서비스 관점에서 어느 지역의 인테리어 시공 수요가 높은지 판단할 수 있도록, 실거래 데이터 기반 수요 점수 체계가 필요했습니다.</span>
+                      <span class="lang-en">Needed a transactional-data-based demand scoring framework to identify high-potential interior renovation regions from the perspective of Oohya (Today's House) O2O services.</span>
+                    </dd>
                   </div>
                   <div>
-                    <dt>데이터 흐름</dt>
-                    <dd>공공 API 5종 자동 수집(국토부 매매·전월세·건축HUB 대수선·인테리어업체·상가정보) → 전처리·세그먼트 분류 → 7개 지표 정규화 → Flask API → 네이버 지도 + 대시보드 + AI 챗봇 2종</dd>
+                    <dt>
+                      <span class="lang-ko">데이터 흐름</span>
+                      <span class="lang-en">Data Flow</span>
+                    </dt>
+                    <dd>
+                      <span class="lang-ko">공공 API 5종 자동 수집(국토부 매매·전월세·건축HUB 대수선·인테리어업체·상가정보) → 전처리·세그먼트 분류 → 7개 지표 정규화 → Flask API → 네이버 지도 + 대시보드 + AI 챗봇 2종</span>
+                      <span class="lang-en">Automated collection of 5 public APIs → Preprocessing & segmentation → 7-metric normalization → Flask API → Naver Maps + Dashboard + Dual AI Chatbots.</span>
+                    </dd>
                   </div>
                   <div>
-                    <dt>핵심 로직</dt>
-                    <dd>7개 지표(거래건수·전월세건수·거래금액·노후도·면적·신규입주·대수선이력) Min-Max 정규화 + 가중합산 수요점수 0~100 산출. 등급 S+/S0/S-/A+/A0/A-/B+… 세분화. 예상 시공비·시장규모 추정 컬럼 자동 산출.</dd>
+                    <dt>
+                      <span class="lang-ko">핵심 로직</span>
+                      <span class="lang-en">Core Logic</span>
+                    </dt>
+                    <dd>
+                      <span class="lang-ko">7개 지표(거래건수·전월세건수·거래금액·노후도·면적·신규입주·대수선이력) Min-Max 정규화 + 가중합산 수요점수 0~100 산출. 등급 S+/S0/S-/A+/A0/A-/B+… 세분화. 예상 시공비·시장규모 추정 컬럼 자동 산출.</span>
+                      <span class="lang-en">Min-Max normalization and weighted sum of 7 indicators (transactions, rents, prices, building age, area, new moves, renovations) to yield a 0-100 demand score. Finely graded (S+, S0, S-, etc.) and estimated market size and renovation costs dynamically.</span>
+                    </dd>
                   </div>
                   <div>
-                    <dt>내 역할</dt>
-                    <dd>공공 API 5종 연동 · 파이프라인 설계 · Flask RESTful API 10개 엔드포인트 · 네이버 지도 마커 연동(등급/시장규모 모드 토글) · AI 챗봇 2종(Ollama qwen2.5:3b, SQLite 대화 이력) · fuzzy 검색 전체 단독 개발</dd>
+                    <dt>
+                      <span class="lang-ko">내 역할</span>
+                      <span class="lang-en">My Role</span>
+                    </dt>
+                    <dd>
+                      <span class="lang-ko">공공 API 5종 연동 · 파이프라인 설계 · Flask RESTful API 10개 엔드포인트 · 네이버 지도 마커 연동(등급/시장규모 모드 토글) · AI 챗봇 2종(Ollama qwen2.5:3b, SQLite 대화 이력) · fuzzy 검색 전체 단독 개발</span>
+                      <span class="lang-en">Independently built the 5-API integration, pipeline architecture, 10 Flask API endpoints, Naver Maps marker toggle modes (Grade vs. Market Size), and dual AI Chatbots (Ollama, SQLite chat history).</span>
+                    </dd>
                   </div>
                   <div>
-                    <dt>결과 화면</dt>
-                    <dd>KPI 카드, TOP 10 수요 점수 차트, S/A/B 등급 랭킹 테이블, 시도 필터, 지역·단지명 검색, 점수 산정 설명 화면을 구성했습니다. AI 챗봇 2종(수요점수 챗봇·첫집 구매 가이드)과 네이버 지도 수요 등급 마커까지 통합한 end-to-end 서비스로 완성했습니다.</dd>
+                    <dt>
+                      <span class="lang-ko">결과 화면</span>
+                      <span class="lang-en">Result Interface</span>
+                    </dt>
+                    <dd>
+                      <span class="lang-ko">KPI 카드, TOP 10 수요 점수 차트, S/A/B 등급 랭킹 테이블, 시도 필터, 지역·단지명 검색, 점수 산정 설명 화면을 구성했습니다. AI 챗봇 2종(수요점수 챗봇·첫집 구매 가이드)과 네이버 지도 수요 등급 마커까지 통합한 end-to-end 서비스로 완성했습니다.</span>
+                      <span class="lang-en">Designed KPI cards, top-10 demand charts, S/A/B rank tables, search filters, and formula explanations. Delivered an end-to-end service integrating dual AI chatbots (demand helper & home buyer guide) and Naver Maps markers.</span>
+                    </dd>
                   </div>
                   <div>
-                    <dt>한계와 개선점</dt>
-                    <dd>cron 기반 월별 자동 갱신 스케줄러 추가, AI 챗봇 응답 품질 평가 지표(RAGAS 등) 도입, 지도 클러스터링 고도화를 통해 실 서비스 수준으로 확장 가능.</dd>
+                    <dt>
+                      <span class="lang-ko">한계와 개선점</span>
+                      <span class="lang-en">Limitations & Improvements</span>
+                    </dt>
+                    <dd>
+                      <span class="lang-ko">cron 기반 월별 자동 갱신 스케줄러 추가, AI 챗봇 응답 품질 평가 지표(RAGAS 등) 도입, 지도 클러스터링 고도화를 통해 실 서비스 수준으로 확장 가능.</span>
+                      <span class="lang-en">Can be scaled by adding monthly cron schedulers, introducing LLM evaluation metrics (e.g., RAGAS), and implementing advanced map marker clustering.</span>
+                    </dd>
                   </div>
                 </dl>
               </article>
@@ -708,28 +1135,64 @@
                 </div>
                 <dl class="project-detail-list">
                   <div>
-                    <dt>문제 정의</dt>
-                    <dd>짧은 기간 안에 Unity2D 게임의 핵심 플레이 흐름, 화면 구성, 팀원별 구현 범위를 정리하고 완성 가능한 개발 계획으로 바꾸는 것이 필요했습니다.</dd>
+                    <dt>
+                      <span class="lang-ko">문제 정의</span>
+                      <span class="lang-en">Problem Definition</span>
+                    </dt>
+                    <dd>
+                      <span class="lang-ko">짧은 기간 안에 Unity2D 게임의 핵심 플레이 흐름, 화면 구성, 팀원별 구현 범위를 정리하고 완성 가능한 개발 계획으로 바꾸는 것이 필요했습니다.</span>
+                      <span class="lang-en">Needed to structure the core gameplay loop, screen layouts, and developer scopes for a Unity2D game, transforming them into an achievable production schedule in a limited timeframe.</span>
+                    </dd>
                   </div>
                   <div>
-                    <dt>진행 방식</dt>
-                    <dd>게임 시작, 거점, 던전 입장, 탐색 턴, 이벤트 선택, 전투 처리, 아이템 처리, 결과 분기까지 전체 유저 흐름을 정의하고 단계별 구현 우선순위를 정했습니다.</dd>
+                    <dt>
+                      <span class="lang-ko">진행 방식</span>
+                      <span class="lang-en">Methodology</span>
+                    </dt>
+                    <dd>
+                      <span class="lang-ko">게임 시작, 거점, 던전 입장, 탐색 턴, 이벤트 선택, 전투 처리, 아이템 처리, 결과 분기까지 전체 유저 흐름을 정의하고 단계별 구현 우선순위를 정했습니다.</span>
+                      <span class="lang-en">Mapped out the complete user journey (game startup, base town, dungeon entry, turn-based exploration, event selection, combat, items, and branching endings) and prioritized feature tasks.</span>
+                    </dd>
                   </div>
                   <div>
-                    <dt>사용 기술</dt>
-                    <dd>C#과 Unity2D를 기반으로 캐릭터, 던전, 이벤트, 전투, 아이템, UI 화면이 하나의 플레이 루프로 연결되도록 프로젝트 범위와 기능 단위를 관리했습니다.</dd>
+                    <dt>
+                      <span class="lang-ko">사용 기술</span>
+                      <span class="lang-en">Technologies</span>
+                    </dt>
+                    <dd>
+                      <span class="lang-ko">C#과 Unity2D를 기반으로 캐릭터, 던전, 이벤트, 전투, 아이템, UI 화면이 하나의 플레이 루프로 연결되도록 프로젝트 범위와 기능 단위를 관리했습니다.</span>
+                      <span class="lang-en">Managed the scope and feature units based on C# and Unity2D to connect characters, dungeons, events, combat, inventory, and UI screens into a single gameplay loop.</span>
+                    </dd>
                   </div>
                   <div>
-                    <dt>내 역할</dt>
-                    <dd>PM으로서 게임 콘셉트 정리, 기능 명세, 역할 분배, 일정 관리, 진행 상황 점검을 맡아 팀이 같은 목표와 우선순위로 움직이도록 조율했습니다.</dd>
+                    <dt>
+                      <span class="lang-ko">내 역할</span>
+                      <span class="lang-en">My Role</span>
+                    </dt>
+                    <dd>
+                      <span class="lang-ko">PM으로서 게임 콘셉트 정리, 기능 명세, 역할 분배, 일정 관리, 진행 상황 점검을 맡아 팀이 같은 목표와 우선순위로 움직이도록 조율했습니다.</span>
+                      <span class="lang-en">As PM, formulated the concept, wrote functional specs, assigned developer roles, scheduled sprints, and tracked progress, keeping the team aligned on unified goals.</span>
+                    </dd>
                   </div>
                   <div>
-                    <dt>결과 화면</dt>
-                    <dd>유저 게임 진행 흐름도와 캐릭터·던전·전투·인벤토리 화면을 연결해, 기획한 플레이 루프가 실제 화면으로 구현되는 과정을 정리했습니다.</dd>
+                    <dt>
+                      <span class="lang-ko">결과 화면</span>
+                      <span class="lang-en">Result Interface</span>
+                    </dt>
+                    <dd>
+                      <span class="lang-ko">유저 게임 진행 흐름도와 캐릭터·던전·전투·인벤토리 화면을 연결해, 기획한 플레이 루프가 실제 화면으로 구현되는 과정을 정리했습니다.</span>
+                      <span class="lang-en">Linked the user gameplay flowcharts with screens of characters, dungeons, combat, and inventory to document the realization of the conceptualized loop.</span>
+                    </dd>
                   </div>
                   <div>
-                    <dt>배운 점</dt>
-                    <dd>PM 역할을 통해 기능을 많이 넣는 것보다 완성 가능한 범위를 정하고, 팀원 간 책임과 의사결정 기준을 명확히 하는 것이 프로젝트 완성도에 중요하다는 점을 배웠습니다.</dd>
+                    <dt>
+                      <span class="lang-ko">배운 점</span>
+                      <span class="lang-en">Key Takeaways</span>
+                    </dt>
+                    <dd>
+                      <span class="lang-ko">PM 역할을 통해 기능을 많이 넣는 것보다 완성 가능한 범위를 정하고, 팀원 간 책임과 의사결정 기준을 명확히 하는 것이 프로젝트 완성도에 중요하다는 점을 배웠습니다.</span>
+                      <span class="lang-en">Through the PM role, I learned that setting a realistic scope and defining clear responsibilities and decision-making criteria among team members are far more critical than feature bloating.</span>
+                    </dd>
                   </div>
                 </dl>
               </article>
@@ -738,45 +1201,91 @@
 
           <section class="section" id="strengths" aria-labelledby="strengths-title">
             <p class="section-kicker">Strengths</p>
-            <h2 id="strengths-title"><span class="heading-emoji" aria-hidden="true">💡</span>핵심 강점</h2>
+            <h2 id="strengths-title">
+              <span class="heading-emoji" aria-hidden="true">💡</span>
+              <span class="lang-ko">핵심 강점</span>
+              <span class="lang-en">Core Strengths</span>
+            </h2>
             <div class="strength-grid">
               <article class="strength">
                 <span class="strength-icon" aria-hidden="true">01</span>
-                <h3>데이터 분석</h3>
-                <p>빅데이터분석기사 보유. 공공 API 5종 파이프라인, RFM·Prophet·SHAP 실전 적용, Flask 서비스 배포까지 end-to-end 구현 경험.</p>
+                <h3>
+                  <span class="lang-ko">데이터 분석</span>
+                  <span class="lang-en">Data Analysis</span>
+                </h3>
+                <p>
+                  <span class="lang-ko">빅데이터분석기사 보유. 공공 API 5종 파이프라인, RFM·Prophet·SHAP 실전 적용, Flask 서비스 배포까지 end-to-end 구현 경험.</span>
+                  <span class="lang-en">Holds Big Data Analysis Engineer certification. End-to-end implementation experience: 5-API pipelines, RFM/Prophet/SHAP analytics, and Flask service deployment.</span>
+                </p>
               </article>
               <article class="strength">
                 <span class="strength-icon" aria-hidden="true">02</span>
                 <h3>AI 개발</h3>
-                <p>Text RAG + Table RAG 이중 구조 직접 설계, CCTV 영상 → Contact Sheet → VL 판단 파이프라인 구현, Colab 원격 LLM 서버 아키텍처 구성.</p>
+                <p>
+                  <span class="lang-ko">Text RAG + Table RAG 이중 구조 직접 설계, CCTV 영상 → Contact Sheet → VL 판단 파이프라인 구현, Colab 원격 LLM 서버 아키텍처 구성.</span>
+                  <span class="lang-en">Designed dual Text+Table RAG structures, implemented CCTV footage-to-Contact Sheet VL analysis pipelines, and configured Colab remote LLM server architectures.</span>
+                </p>
               </article>
               <article class="strength">
                 <span class="strength-icon" aria-hidden="true">03</span>
-                <h3>인프라 이해</h3>
-                <p>네트워크관리사 2급. Flask RESTful API 설계, SQLite DB 모델링, TypeScript 프론트엔드, Django 앱 개발 경험 보유.</p>
+                <h3>
+                  <span class="lang-ko">인프라 이해</span>
+                  <span class="lang-en">Infrastructure & Operations</span>
+                </h3>
+                <p>
+                  <span class="lang-ko">네트워크관리사 2급. Flask RESTful API 설계, SQLite DB 모델링, TypeScript 프론트엔드, Django 앱 개발 경험 보유.</span>
+                  <span class="lang-en">Holds Network Administrator (Level 2) certification. Experienced in Flask RESTful API design, SQLite DB schema design, TypeScript frontends, and Django app development.</span>
+                </p>
               </article>
             </div>
           </section>
 
           <section class="section work-section" aria-labelledby="work-title">
             <p class="section-kicker">Preference</p>
-            <h2 id="work-title">희망 근무조건</h2>
+            <h2 id="work-title">
+              <span class="lang-ko">희망 근무조건</span>
+              <span class="lang-en">Desired Work Conditions</span>
+            </h2>
             <div class="preference-grid">
               <div>
-                <span>고용형태</span>
-                <strong>정규직 / 계약직 / 인턴</strong>
+                <span>
+                  <span class="lang-ko">고용형태</span>
+                  <span class="lang-en">Employment Type</span>
+                </span>
+                <strong>
+                  <span class="lang-ko">정규직 / 계약직 / 인턴</span>
+                  <span class="lang-en">Full-time / Contract / Intern</span>
+                </strong>
               </div>
               <div>
-                <span>희망 근무지</span>
-                <strong>서울 · 경기 전지역</strong>
+                <span>
+                  <span class="lang-ko">희망 근무지</span>
+                  <span class="lang-en">Desired Location</span>
+                </span>
+                <strong>
+                  <span class="lang-ko">서울 · 경기 전지역</span>
+                  <span class="lang-en">All areas of Seoul and Gyeonggi</span>
+                </strong>
               </div>
               <div>
-                <span>지원 직무</span>
-                <strong>데이터엔지니어 / AI 개발</strong>
+                <span>
+                  <span class="lang-ko">지원 직무</span>
+                  <span class="lang-en">Target Positions</span>
+                </span>
+                <strong>
+                  <span class="lang-ko">데이터엔지니어 / AI 개발</span>
+                  <span class="lang-en">Data Engineer / AI Developer</span>
+                </strong>
               </div>
               <div>
-                <span>희망 연봉</span>
-                <strong>면접 후 결정</strong>
+                <span>
+                  <span class="lang-ko">희망 연봉</span>
+                  <span class="lang-en">Desired Salary</span>
+                </span>
+                <strong>
+                  <span class="lang-ko">면접 후 결정</span>
+                  <span class="lang-en">Negotiable after interview</span>
+                </strong>
               </div>
             </div>
           </section>
@@ -784,8 +1293,14 @@
           <section class="contact-section" id="contact" aria-labelledby="contact-title">
             <div>
               <p class="section-kicker">Contact</p>
-              <h2 id="contact-title">데이터와 AI가 만나는 지점에서 일하고 싶습니다.</h2>
-              <p>프로젝트 협업, 채용 제안, 포트폴리오 피드백은 이메일 또는 GitHub로 연락해 주세요.</p>
+              <h2 id="contact-title">
+                <span class="lang-ko">데이터와 AI가 만나는 지점에서 일하고 싶습니다.</span>
+                <span class="lang-en">I want to work at the intersection of data and AI.</span>
+              </h2>
+              <p>
+                <span class="lang-ko">프로젝트 협업, 채용 제안, 포트폴리오 피드백은 이메일 또는 GitHub로 연락해 주세요.</span>
+                <span class="lang-en">Please reach out via Email or GitHub for project collaborations, job offers, or feedback on my portfolio.</span>
+              </p>
             </div>
             <div class="contact-actions">
               <a class="button primary" href="mailto:kwhoney223@gmail.com">
@@ -793,7 +1308,8 @@
                   <path d="M4 6h16v12H4z" />
                   <path d="m4 7 8 6 8-6" />
                 </svg>
-                이메일 보내기
+                <span class="lang-ko">이메일 보내기</span>
+                <span class="lang-en">Send Email</span>
               </a>
               <a class="button dark" href="https://github.com/kwsahe" target="_blank" rel="noreferrer">
                 <svg aria-hidden="true" viewBox="0 0 24 24">
@@ -808,8 +1324,11 @@
     </main>
 
     <footer class="site-footer">
-      <p>© <span data-year></span> 권상헌. All rights reserved.</p>
-      <a href="#top">맨 위로</a>
+      <p>© <span data-year></span> <span class="lang-ko">권상헌</span><span class="lang-en">Sangheon Kwon</span>. All rights reserved.</p>
+      <a href="#top">
+        <span class="lang-ko">맨 위로</span>
+        <span class="lang-en">Back to Top</span>
+      </a>
     </footer>
 
     <script type="application/ld+json">
