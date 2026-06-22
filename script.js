@@ -136,6 +136,12 @@ const initScrollReveal = () => {
       if (entry.isIntersecting) {
         entry.target.classList.add("is-visible");
         observer.unobserve(entry.target);
+
+        // 애니메이션 완료 후(1초 뒤) reveal 클래스들을 제거하여
+        // 브라우저 GPU 레이어를 정리하고 서브픽셀 렌더링(1px 테두리 깨짐 방지) 복원
+        setTimeout(() => {
+          entry.target.classList.remove("reveal", "is-visible");
+        }, 1000);
       }
     });
   }, observerOptions);

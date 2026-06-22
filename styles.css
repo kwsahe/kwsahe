@@ -707,6 +707,12 @@ a {
   -ms-overflow-style: none;
   /* 높이 리사이징 전환 애니메이션 */
   transition: height 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* 호버 시 카드가 위로 떠오를 때 상단 테두리가 잘리는 현상 방지 */
+  padding-top: 12px;
+  padding-bottom: 12px;
+  margin-top: -12px;
+  margin-bottom: -12px;
 }
 
 /* 스크롤바 숨기기 (Chrome, Safari, Opera) */
@@ -1110,7 +1116,7 @@ a {
 
 .reveal.is-visible {
   opacity: 1;
-  transform: translateY(0);
+  transform: none;
 }
 
 /* 히어로 배경 발광 효과 (Hero Glow Animation) */
