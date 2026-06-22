@@ -819,13 +819,6 @@ a {
   height: 100%;
   object-fit: contain;
   object-position: top center;
-  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.project-card:hover .project-media img,
-.project-card:hover .project-gallery img,
-.project-card:hover .project-media-item img {
-  transform: scale(1.03);
 }
 
 .erd-media {
@@ -1104,7 +1097,6 @@ a {
   width: 100%;
   height: auto;
   object-fit: contain;
-  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* Scroll Reveal (스크롤 감지 애니메이션) */
