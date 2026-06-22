@@ -1408,37 +1408,35 @@ html[lang="en"] .lang-ko {
 .project-github-link {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   margin-top: 16px;
-  padding: 8px 14px;
-  color: var(--gold);
-  background: rgba(184, 150, 110, 0.05);
-  border: 1px solid rgba(184, 150, 110, 0.2);
-  border-radius: var(--radius);
+  color: var(--muted);
   font-size: 13px;
-  font-weight: 700;
+  font-weight: 500;
   text-decoration: none;
-  transition: all 0.3s ease;
+  transition: color 0.3s ease;
   width: fit-content;
 }
 
 .project-github-link:hover {
-  color: var(--white);
-  background: var(--gold);
-  border-color: var(--gold);
+  color: var(--gold);
 }
 
 .project-github-link .github-icon {
-  width: 16px;
-  height: 16px;
+  width: 14px;
+  height: 14px;
   fill: currentColor;
   transition: transform 0.3s ease;
 }
 
-/* Adjust layout on mobile devices */
+.project-github-link:hover .github-icon {
+  transform: scale(1.05);
+}
+
+/* On mobile, keep it inline-flex and don't stretch */
 @media (max-width: 768px) {
   .project-github-link {
-    width: 100%;
-    justify-content: center;
+    width: auto;
+    justify-content: flex-start;
   }
 }
