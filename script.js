@@ -99,3 +99,38 @@ if (projectCarousel) {
     updateProjectControls();
   }
 }
+
+// Scroll Reveal (스크롤 감지 애니메이션)
+const initScrollReveal = () => {
+  const revealTargets = document.querySelectorAll(".section, .contact-section");
+
+  revealTargets.forEach((target) => {
+    target.classList.add("reveal");
+  });
+
+  const observerOptions = {
+    root: null,
+    rootMargin: "0px 0px -80px 0px", // 뷰포트 하단보다 80px 여유를 두어 진입 시 부드럽게 활성화
+    threshold: 0.08,
+  };
+
+  const revealObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("is-visible");
+        observer.unobserve(entry.target);
+      }
+    });
+  }, observerOptions);
+
+  revealTargets.forEach((target) => {
+    revealObserver.observe(target);
+  });
+};
+
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", initScrollReveal);
+} else {
+  initScrollReveal();
+}
+
