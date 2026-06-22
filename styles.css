@@ -695,6 +695,7 @@ a {
 
 .project-grid {
   display: flex;
+  align-items: flex-start;
   gap: 32px;
   overflow-x: auto;
   overflow-y: hidden;
@@ -984,7 +985,7 @@ a {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  margin-top: auto;
+  margin-top: 20px;
   padding-top: 18px;
 }
 
