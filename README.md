@@ -50,16 +50,16 @@ end-to-end로 배포까지 연결한 데이터 엔지니어 / AI 개발자입니
 | [Artesia](https://github.com/kwsahe/Artesia) | Unity2D 로그라이크 턴제 던전 RPG · 팀장·기획 총괄 | C# · Unity2D |
 | [english-word-streamlit](https://github.com/kwsahe/english-word-streamlit) | 플래시카드·퀴즈·단어장 Streamlit 학습 앱 | Python · Streamlit |
 
+<br />
+
 <div align="center">
 
-## ✇ 3D Contribution Graph
-
-![](./profile-3d-contrib/profile-night-rainbow.svg)
-
-## ✇ Most Used Languages
-
-<a href="https://github.com/kwsahe">
-  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=kwsahe&layout=compact&theme=tokyonight" alt="Kwon Sang-heon's Top Languages" />
-</a>
+<details>
+  <summary><b>✇ Most Used Languages:</b></summary>
+  <br />
+  <a href="https://github.com/kwsahe">
+    <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=kwsahe&layout=compact&theme=tokyonight" alt="Kwon Sang-heon's Top Languages" />
+  </a>
+</details>
 
 </div>
