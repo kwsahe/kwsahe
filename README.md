@@ -49,3 +49,18 @@ end-to-end로 배포까지 연결한 데이터 엔지니어 / AI 개발자입니
 | [market-pulse](https://github.com/kwsahe/market-pulse) | 다나와 PC 부품 가격 크롤링 · 이상치 탐지 · ML 예측 | Python · SQLite · Streamlit |
 | [Artesia](https://github.com/kwsahe/Artesia) | Unity2D 로그라이크 턴제 던전 RPG · 팀장·기획 총괄 | C# · Unity2D |
 | [english-word-streamlit](https://github.com/kwsahe/english-word-streamlit) | 플래시카드·퀴즈·단어장 Streamlit 학습 앱 | Python · Streamlit |
+
+<br />
+
+<details>
+  <summary><b>✇ My Github Stats:</b></summary>
+  <br />
+  <a href="https://github.com/kwsahe">
+    <img src="https://github-readme-stats.vercel.app/api?username=kwsahe&show_icons=true&theme=tokyonight" alt="Kwon Sang-heon's GitHub Stats" />
+  </a>
+  <br />
+  <br />
+  <a href="https://github.com/kwsahe">
+    <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=kwsahe&layout=compact&theme=tokyonight" alt="Kwon Sang-heon's Top Languages" />
+  </a>
+</details>
