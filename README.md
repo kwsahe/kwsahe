@@ -53,12 +53,7 @@ end-to-end로 배포까지 연결한 데이터 엔지니어 / AI 개발자입니
 <br />
 
 <details>
-  <summary><b>✇ My Github Stats:</b></summary>
-  <br />
-  <a href="https://github.com/kwsahe">
-    <img src="https://github-readme-stats.vercel.app/api?username=kwsahe&show_icons=true&theme=tokyonight" alt="Kwon Sang-heon's GitHub Stats" />
-  </a>
-  <br />
+  <summary><b>✇ Most Used Languages:</b></summary>
   <br />
   <a href="https://github.com/kwsahe">
     <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=kwsahe&layout=compact&theme=tokyonight" alt="Kwon Sang-heon's Top Languages" />
