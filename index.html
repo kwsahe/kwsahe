@@ -32,10 +32,16 @@
         <span class="brand-text lang-ko">권상헌</span>
         <span class="brand-text lang-en">Sangheon Kwon</span>
       </a>
-      <div class="lang-toggle-container">
-        <button type="button" class="lang-btn active" data-lang="ko">KO</button>
-        <span class="lang-divider">/</span>
-        <button type="button" class="lang-btn" data-lang="en">EN</button>
+      <div class="header-controls">
+        <div class="lang-toggle-container">
+          <button type="button" class="lang-btn active" data-lang="ko">KO</button>
+          <span class="lang-divider">/</span>
+          <button type="button" class="lang-btn" data-lang="en">EN</button>
+        </div>
+        <button type="button" class="theme-toggle-btn" aria-label="테마 전환" data-theme-toggle>
+          <span class="theme-icon sun" aria-hidden="true">☀️</span>
+          <span class="theme-icon moon" aria-hidden="true">🌙</span>
+        </button>
       </div>
       <button class="menu-button" type="button" aria-expanded="false" aria-controls="site-nav" data-menu-button>
         <span></span>
@@ -529,6 +535,28 @@
               <span class="lang-ko">이력서에 정리된 프로젝트 목록을 기준으로, 실제 화면과 산출물이 있는 프로젝트는 스크린샷을 함께 배치했습니다.</span>
               <span class="lang-en">Based on the project list in the resume, screenshots are included for projects that have actual interface screens and deliverables.</span>
             </p>
+            <div class="project-filter-bar" aria-label="프로젝트 주제 필터">
+              <button type="button" class="filter-btn active" data-filter="all">
+                <span class="lang-ko">전체</span>
+                <span class="lang-en">All</span>
+              </button>
+              <button type="button" class="filter-btn" data-filter="rag">
+                <span class="lang-ko">RAG & LLM</span>
+                <span class="lang-en">RAG & LLM</span>
+              </button>
+              <button type="button" class="filter-btn" data-filter="vision">
+                <span class="lang-ko">비전 AI</span>
+                <span class="lang-en">Vision AI</span>
+              </button>
+              <button type="button" class="filter-btn" data-filter="data">
+                <span class="lang-ko">데이터 & ML</span>
+                <span class="lang-en">Data & ML</span>
+              </button>
+              <button type="button" class="filter-btn" data-filter="game">
+                <span class="lang-ko">게임 & C#</span>
+                <span class="lang-en">Game & C#</span>
+              </button>
+            </div>
             <div class="project-carousel" data-project-carousel>
               <div class="project-carousel-controls" aria-label="프로젝트 카드 탐색">
                 <button class="carousel-button" type="button" aria-label="이전 프로젝트 보기" data-project-prev>
@@ -544,7 +572,7 @@
                 </button>
               </div>
               <div class="project-grid" data-project-track tabindex="0" aria-label="주요 프로젝트 카드 목록">
-              <article class="project-card">
+              <article class="project-card" data-category="vision">
                 <h3>construction-accident-vl-agent</h3>
                 <div class="project-topline">
                   <span>Python · Qwen2.5-VL</span>
@@ -594,7 +622,7 @@
                 </a>
               </article>
 
-              <article class="project-card">
+              <article class="project-card" data-category="rag">
                 <h3>k-safety-law-rag</h3>
                 <div class="project-topline">
                   <span>Python · RAG</span>
@@ -620,6 +648,37 @@
                   <span class="lang-ko">법령 본문(500자 청킹)과 별표/표(행 단위 청킹)를 별도 ChromaDB에 분리 임베딩한 Text RAG + Table RAG 이중 구조로 수동 평가 정확도를 44.4점에서 97.8점으로 53.4점 향상시켰습니다. 6단계 질문 그래프와 결정형 법령 라우팅, EXAONE-4.0-32B LLM, 출처 검증기(Citation Validator), SQLite 이력 관리, CLI+FastAPI 웹 챗봇 UI 2종을 구현했습니다.</span>
                   <span class="lang-en">Improved retrieval accuracy from 44.4 to 97.8 (+53.4 points) through a dual structure of Text RAG (500-char chunks) + Table RAG (row chunks), separating law texts and tables into independent ChromaDB embeddings. Implemented a 6-node question graph, EXAONE-4.0-32B LLM reasoning, Citation Validator, SQLite storage, and CLI + FastAPI Web chatbot interfaces.</span>
                 </p>
+
+                <!-- Interactive Flow Widget -->
+                <div class="interactive-flow-widget" data-flow-widget>
+                  <div class="flow-widget-header">
+                    <span class="flow-badge">⚡ Interactive Node Graph</span>
+                    <h4>6단계 질문 그래프 파이프라인 (노드 클릭)</h4>
+                  </div>
+                  <div class="flow-nodes-container" role="tablist" aria-label="질문 그래프 노드 목록">
+                    <button type="button" class="flow-node-btn active" data-node="scenario" role="tab" aria-selected="true">
+                      <span class="node-num">1</span> ScenarioProfile
+                    </button>
+                    <button type="button" class="flow-node-btn" data-node="scope" role="tab" aria-selected="false">
+                      <span class="node-num">2</span> QuestionScope
+                    </button>
+                    <button type="button" class="flow-node-btn" data-node="intent" role="tab" aria-selected="false">
+                      <span class="node-num">3</span> IntentClassifier
+                    </button>
+                    <button type="button" class="flow-node-btn" data-node="plan" role="tab" aria-selected="false">
+                      <span class="node-num">4</span> RetrievalPlan
+                    </button>
+                    <button type="button" class="flow-node-btn" data-node="cache" role="tab" aria-selected="false">
+                      <span class="node-num">5</span> CacheGuard
+                    </button>
+                    <button type="button" class="flow-node-btn" data-node="validator" role="tab" aria-selected="false">
+                      <span class="node-num">6</span> CitationValidator
+                    </button>
+                  </div>
+                  <div class="flow-content-box" data-flow-content>
+                    <!-- JS renders active node info -->
+                  </div>
+                </div>
                 <ul class="project-summary-list" aria-label="k-safety-law-rag 핵심 진행 내용">
                   <li>
                     <span class="lang-ko"><strong>이중 RAG</strong> Text RAG(500자) + Table RAG(행단위) 분리: 별표/표를 pdfplumber로 추출해 독립 ChromaDB에 임베딩</span>
@@ -655,7 +714,7 @@
                 </a>
               </article>
 
-              <article class="project-card featured-card">
+              <article class="project-card featured-card" data-category="data">
                 <h3>market-pulse</h3>
                 <div class="project-topline">
                   <span>Python · Streamlit · SQLite</span>
@@ -697,7 +756,7 @@
                 </a>
               </article>
 
-              <article class="project-card">
+              <article class="project-card" data-category="game">
                 <h3>Artesia</h3>
                 <div class="project-topline">
                   <span>C# · Unity2D</span>
@@ -738,48 +797,7 @@
                 </a>
               </article>
 
-              <article class="project-card">
-                <h3>ecommerce-data-analysis-practice</h3>
-                <div class="project-topline">
-                  <span>Jupyter Notebook</span>
-                  <a href="https://github.com/kwsahe/ecommerce-data-analysis-practice" target="_blank" rel="noreferrer" aria-label="ecommerce-data-analysis-practice GitHub 저장소 열기">
-                    <svg aria-hidden="true" viewBox="0 0 24 24">
-                      <path d="M7 17 17 7M9 7h8v8" />
-                    </svg>
-                  </a>
-                </div>
-                <div class="project-media">
-                  <img src="./png/pptx_final/image34.png" alt="AI 부동산 시장 예측 대시보드 전체 화면" loading="lazy" />
-                </div>
-                <p>
-                  <span class="lang-ko">SQL, RFM 분석, 머신러닝, 시계열 예측, SQLD까지 직접 설계하고 수행한 이커머스 분석 파이프라인입니다.</span>
-                  <span class="lang-en">An e-commerce analysis pipeline designed and executed covering SQL queries, RFM analysis, machine learning classification, time series forecasting, and SQLD principles.</span>
-                </p>
-                <p class="project-note">
-                  <span class="lang-ko">단독 개발로 분석 주제 선정부터 notebook 실험, RFM·Prophet·SHAP 결과 정리와 대시보드 시각화까지 수행했습니다.</span>
-                  <span class="lang-en">Independently handled everything from selecting analysis topics, running experiments in Jupyter notebooks, summarizing RFM, Prophet, and SHAP results, to dashboard visualization.</span>
-                </p>
-                <div class="project-gallery">
-                  <img src="./png/pptx_final/image32.png" alt="이커머스 분석 feature importance 결과 화면" loading="lazy" />
-                  <img src="./png/pptx_final/image33.png" alt="시계열 예측 결과 그래프 화면" loading="lazy" />
-                  <img src="./png/pptx_final/image36.png" alt="마케팅 모델 혼동 행렬 화면" loading="lazy" />
-                  <img src="./png/pptx_final/image37.png" alt="분석 산점도 결과 화면" loading="lazy" />
-                </div>
-                <div class="tags">
-                  <span>SQL</span>
-                  <span>RFM</span>
-                  <span>Machine Learning</span>
-                  <span>Forecasting</span>
-                </div>
-                <a class="project-github-link" href="https://github.com/kwsahe/ecommerce-data-analysis-practice" target="_blank" rel="noreferrer">
-                  <svg class="github-icon" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true">
-                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-                  </svg>
-                  <span>github.com/kwsahe/ecommerce-data-analysis-practice</span>
-                </a>
-              </article>
-
-              <article class="project-card">
+              <article class="project-card" data-category="data">
                 <h3>english-word-streamlit</h3>
                 <div class="project-topline">
                   <span>Python · Streamlit</span>
@@ -818,7 +836,7 @@
                 </a>
               </article>
 
-              <article class="project-card">
+              <article class="project-card" data-category="data">
                 <h3>O2O-demand-forecasting-solution</h3>
                 <div class="project-topline">
                   <span>Python · Flask · Ollama</span>
