@@ -7,6 +7,7 @@ end-to-end로 배포까지 연결한 데이터 엔지니어 / AI 개발자입니
 
 ### Backend / Data
 ![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white)
 ![Flask](https://img.shields.io/badge/Flask-000000?style=for-the-badge&logo=flask&logoColor=white)
 ![Django](https://img.shields.io/badge/Django-092E20?style=for-the-badge&logo=django&logoColor=white)
 ![SQL](https://img.shields.io/badge/SQL-336791?style=for-the-badge&logo=postgresql&logoColor=white)
@@ -19,12 +20,13 @@ end-to-end로 배포까지 연결한 데이터 엔지니어 / AI 개발자입니
 ![LangChain](https://img.shields.io/badge/LangChain-1C3C3C?style=for-the-badge)
 ![ChromaDB](https://img.shields.io/badge/ChromaDB-FF6B35?style=for-the-badge)
 ![RAG](https://img.shields.io/badge/RAG-1B2B3A?style=for-the-badge)
+![bge-m3](https://img.shields.io/badge/bge--m3-0052CC?style=for-the-badge)
 ![Scikit--learn](https://img.shields.io/badge/Scikit--learn-F7931E?style=for-the-badge&logo=scikitlearn&logoColor=white)
 ![XGBoost](https://img.shields.io/badge/XGBoost-00688B?style=for-the-badge)
 ![Prophet](https://img.shields.io/badge/Prophet-0068C8?style=for-the-badge)
 ![SHAP](https://img.shields.io/badge/SHAP-FF4B4B?style=for-the-badge)
-![Qwen2.5](https://img.shields.io/badge/Qwen2.5-6B3FA0?style=for-the-badge)
 ![EXAONE](https://img.shields.io/badge/EXAONE-E8003D?style=for-the-badge)
+![Qwen2.5](https://img.shields.io/badge/Qwen2.5-6B3FA0?style=for-the-badge)
 ![Google Colab](https://img.shields.io/badge/Google%20Colab-F9AB00?style=for-the-badge&logo=googlecolab&logoColor=white)
 
 ### Web / Tools
@@ -42,7 +44,7 @@ end-to-end로 배포까지 연결한 데이터 엔지니어 / AI 개발자입니
 
 | 프로젝트 | 설명 | 기술 |
 |----------|------|------|
-| [k-safety-law-rag](https://github.com/kwsahe/k-safety-law-rag) | 건설현장 사고 → 산업안전보건법·중대재해처벌법 위반 판단 RAG | Python · LangChain · ChromaDB · Qwen2.5 |
+| [k-safety-law-rag](https://github.com/kwsahe/k-safety-law-rag) | 건설현장 사고 → 산업안전보건법·중대재해처벌법 위반 판단 RAG | Python · LangChain · ChromaDB · EXAONE-4.0-32B · FastAPI |
 | [construction-accident-vl-agent](https://github.com/kwsahe/construction-accident-vl-agent) | CCTV 영상 → 프레임 분석 → 사고 유형 판단 VL Agent | Python · Qwen2.5-VL · TypeScript |
 | [O2O-demand-forecasting-solution](https://github.com/kwsahe/O2O-demand-forecasting-solution) | 공공 API 5종 → 102개 시군구 수요점수 → Flask 서비스 | Python · Flask · Ollama |
 | [ecommerce-data-analysis-practice](https://github.com/kwsahe/ecommerce-data-analysis-practice) | RFM · Prophet · SHAP · ROI 시뮬레이션 end-to-end | Python · XGBoost · Streamlit |

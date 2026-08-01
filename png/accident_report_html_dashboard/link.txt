@@ -1,1 +1,1 @@
-https://github.com/Focus-Report/rag_report/tree/ksh
+https://github.com/kwsahe/k-safety-law-rag

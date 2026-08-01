@@ -227,8 +227,20 @@
                   <span>ChromaDB</span>
                 </div>
                 <div class="tech-logo-item badge-logo-item">
+                  <img src="https://img.shields.io/badge/EXAONE-E8003D?style=flat-square" alt="EXAONE" loading="lazy" />
+                  <span>EXAONE</span>
+                </div>
+                <div class="tech-logo-item badge-logo-item">
                   <img src="https://img.shields.io/badge/Qwen2.5-6B3FA0?style=flat-square" alt="Qwen2.5" loading="lazy" />
                   <span>Qwen2.5</span>
+                </div>
+                <div class="tech-logo-item badge-logo-item">
+                  <img src="https://img.shields.io/badge/bge--m3-0052CC?style=flat-square" alt="bge-m3" loading="lazy" />
+                  <span>bge-m3</span>
+                </div>
+                <div class="tech-logo-item">
+                  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastapi/fastapi-original.svg" width="32" height="32" alt="FastAPI" loading="lazy" />
+                  <span>FastAPI</span>
                 </div>
                 <div class="tech-logo-item">
                   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/unity/unity-original.svg" width="32" height="32" alt="Unity" loading="lazy" />
@@ -246,6 +258,7 @@
                 </h4>
                 <ul>
                   <li>Python</li>
+                  <li>FastAPI</li>
                   <li>C#</li>
                   <li>C++</li>
                   <li>SQL</li>
@@ -272,8 +285,10 @@
                     <span class="lang-ko">RAG / 생성형 AI</span>
                     <span class="lang-en">RAG / Generative AI</span>
                   </li>
+                  <li>EXAONE-4.0 / 3.5</li>
                   <li>LangChain</li>
                   <li>ChromaDB</li>
+                  <li>Citation Validator</li>
                   <li>XGBoost / LightGBM</li>
                   <li>Prophet / SHAP</li>
                   <li>
@@ -304,7 +319,7 @@
                     <span class="lang-ko">데이터베이스 설계</span>
                     <span class="lang-en">Database Design</span>
                   </li>
-                  <li>Flask REST API</li>
+                  <li>FastAPI / Flask REST API</li>
                   <li>
                     <span class="lang-ko">TypeScript 프론트엔드</span>
                     <span class="lang-en">TypeScript Frontend</span>
@@ -602,35 +617,35 @@
                   <span class="lang-en">A RAG system that receives construction site accident scenarios and identifies violated clauses of the Occupational Safety and Health Act & Serious Accident Punishment Act, along with liable parties.</span>
                 </p>
                 <p class="project-note">
-                  <span class="lang-ko">법령 본문과 별표/표를 별도 ChromaDB에 분리 임베딩한 Text RAG + Table RAG 이중 구조로 검색 정확도를 높였습니다. 질문 유형별 direct route와 관리자/일반 계정 분리, 대화 이력 SQLite 저장, CLI+웹 챗봇 UI 2종을 구현했습니다.</span>
-                  <span class="lang-en">Improved retrieval accuracy through a dual structure of Text RAG + Table RAG, separating the law text and tables into independent ChromaDB embeddings. Implemented direct routing by question type, admin/user role separation, SQLite chat history storage, and two interfaces (CLI and Web chatbot UI).</span>
+                  <span class="lang-ko">법령 본문(500자 청킹)과 별표/표(행 단위 청킹)를 별도 ChromaDB에 분리 임베딩한 Text RAG + Table RAG 이중 구조로 수동 평가 정확도를 44.4점에서 97.8점으로 53.4점 향상시켰습니다. 6단계 질문 그래프와 결정형 법령 라우팅, EXAONE-4.0-32B LLM, 출처 검증기(Citation Validator), SQLite 이력 관리, CLI+FastAPI 웹 챗봇 UI 2종을 구현했습니다.</span>
+                  <span class="lang-en">Improved retrieval accuracy from 44.4 to 97.8 (+53.4 points) through a dual structure of Text RAG (500-char chunks) + Table RAG (row chunks), separating law texts and tables into independent ChromaDB embeddings. Implemented a 6-node question graph, EXAONE-4.0-32B LLM reasoning, Citation Validator, SQLite storage, and CLI + FastAPI Web chatbot interfaces.</span>
                 </p>
                 <ul class="project-summary-list" aria-label="k-safety-law-rag 핵심 진행 내용">
                   <li>
-                    <span class="lang-ko"><strong>이중 RAG</strong> Text RAG + Table RAG 분리: 별표/표를 pdfplumber로 추출해 독립 ChromaDB에 임베딩</span>
-                    <span class="lang-en"><strong>Dual RAG</strong> Separated Text RAG & Table RAG: Extracted annexes and tables with pdfplumber and embedded them into a separate ChromaDB</span>
+                    <span class="lang-ko"><strong>이중 RAG</strong> Text RAG(500자) + Table RAG(행단위) 분리: 별표/표를 pdfplumber로 추출해 독립 ChromaDB에 임베딩</span>
+                    <span class="lang-en"><strong>Dual RAG</strong> Separated Text RAG (500-char) & Table RAG (row-level): Extracted annexes with pdfplumber into separate ChromaDB</span>
                   </li>
                   <li>
-                    <span class="lang-ko"><strong>라우팅</strong> 질문 유형별 direct route로 정형 질의 처리, Colab Pro Qwen2.5-14B로 자연어 판단</span>
-                    <span class="lang-en"><strong>Routing</strong> Processes structured queries via direct routing by question type, and utilizes Colab Pro Qwen2.5-14B for natural language reasoning</span>
+                    <span class="lang-ko"><strong>라우팅 & LLM</strong> 질문 유형별 direct route 및 6노드 경량 그래프로 정형 질의 처리, EXAONE-4.0-32B로 법률 추론 수행</span>
+                    <span class="lang-en"><strong>Routing & LLM</strong> Processes queries via direct routes & 6-node graph, leveraging EXAONE-4.0-32B for advanced legal reasoning</span>
                   </li>
                   <li>
-                    <span class="lang-ko"><strong>운영</strong> 관리자/일반 계정 분리 · 대화 이력 SQLite 저장 · CLI + HTML 웹 챗봇 UI 2종</span>
-                    <span class="lang-en"><strong>Operations</strong> Admin/general account separation, SQLite storage for chat history, and both CLI and HTML web chatbot interfaces</span>
+                    <span class="lang-ko"><strong>운영 & 검증</strong> Citation Validator 출처 검증기 · 대화 이력 SQLite 저장 · CLI + FastAPI 웹 챗봇 UI 2종</span>
+                    <span class="lang-en"><strong>Operations & Audit</strong> Citation Validator for legal checks, SQLite chat history storage, and CLI + FastAPI Web chatbot UIs</span>
                   </li>
                 </ul>
                 <div class="tags">
                   <span>pdfplumber</span>
                   <span>ChromaDB</span>
+                  <span>bge-m3</span>
                   <span>BM25</span>
                   <span>Table RAG</span>
                   <span>LangChain</span>
                   <span>direct route</span>
+                  <span>Citation Validator</span>
                   <span>SQLite</span>
-                  <span>Ollama</span>
-                  <span>Colab Pro</span>
-                  <span>Qwen2.5</span>
-                  <span>EXAONE</span>
+                  <span>EXAONE-4.0-32B</span>
+                  <span>FastAPI</span>
                 </div>
                 <a class="project-github-link" href="https://github.com/kwsahe/k-safety-law-rag" target="_blank" rel="noreferrer">
                   <svg class="github-icon" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true">
@@ -990,7 +1005,7 @@
                       <span class="lang-en">Technologies</span>
                     </dt>
                     <dd>
-                      <span>Python · pdfplumber · LangChain · ChromaDB · BAAI/bge-m3 Embedding · Qwen2.5-14B (Colab Pro + ngrok API) · SQLite (chat history) · Flask (web chatbot UI)</span>
+                      <span>Python · pdfplumber · LangChain · ChromaDB · BAAI/bge-m3 Embedding · EXAONE-4.0-32B (Colab Remote API) · SQLite (chat history) · FastAPI (web chatbot UI)</span>
                     </dd>
                   </div>
                   <div>
@@ -999,8 +1014,8 @@
                       <span class="lang-en">My Role</span>
                     </dt>
                     <dd>
-                      <span class="lang-ko">Text RAG + Table RAG 이중 구조 설계, 질문 유형별 direct route 구현, 관리자/일반 계정 분리, SQLite 대화 이력 저장, CLI + HTML 웹 챗봇 UI 2종 구현, 법령 참고 JSON 자동 저장 구조 전체 단독 개발</span>
-                      <span class="lang-en">Sole developer. Designed dual Text+Table RAG structure, implemented question-type direct routing, set up admin/user role separation, configured SQLite chat history, and developed CLI + HTML chatbot interfaces.</span>
+                      <span class="lang-ko">Text RAG(500자 청킹) + Table RAG(행단위 청킹) 이중 구조 설계, 질문 유형별 direct route 및 6노드 경량 질문 그래프 구현, Citation Validator 출처 검증기 구축, 관리자/일반 계정 분리, SQLite 대화 이력 저장, CLI + HTML/FastAPI 웹 챗봇 UI 2종 구현, 법령 참고 JSON 자동 저장 구조 전체 단독 개발 (수동 평가 정확도 44.4점 ➔ 97.8점 달성)</span>
+                      <span class="lang-en">Sole developer. Designed dual Text+Table RAG structure, implemented 6-node question graph and direct routing, built Citation Validator, set up admin/user role separation, configured SQLite chat history, and developed CLI + FastAPI chatbot interfaces (boosted accuracy from 44.4 to 97.8).</span>
                     </dd>
                   </div>
                   <div>
@@ -1009,8 +1024,8 @@
                       <span class="lang-en">Results & Outputs</span>
                     </dt>
                     <dd>
-                      <span class="lang-ko">Qwen2.5-14B 모델이 사고를 중대산업재해로 판단하고, 사망자 1명 발생 및 상시 근로자 5명 이상 사업장 기준을 근거로 중대재해처벌법 제2조와 제3조를 제시하도록 응답을 받았습니다.</span>
-                      <span class="lang-en">The Qwen2.5-14B model correctly classified the incident as a serious industrial accident, citing the occurrence of 1 death and the 5+ regular workers criteria, presenting Articles 2 and 3 of the Serious Accident Punishment Act.</span>
+                      <span class="lang-ko">EXAONE-4.0-32B 모델이 사고를 중대산업재해로 정확히 판단하고, 사망자 1명 발생 및 상시 근로자 5명 이상 사업장 기준을 근거로 중대재해처벌법 제2조와 제3조를 제시하도록 응답을 받았습니다. (Pytest 유닛 테스트 38/38 및 시나리오 검증 30/30 100% 통과)</span>
+                      <span class="lang-en">The EXAONE-4.0-32B model correctly classified the incident as a serious industrial accident, citing the occurrence of 1 death and the 5+ regular workers criteria, presenting Articles 2 and 3 of the Serious Accident Punishment Act (100% PASS on 38/38 unit tests and 30/30 scenarios).</span>
                     </dd>
                   </div>
                   <div>
