@@ -212,17 +212,12 @@ const initLanguageToggle = () => {
   enBtn?.addEventListener('click', () => setLanguage('en'));
 };
 
-// --- Dark/Light Theme Toggle ---
+// --- Dark/Light Theme Toggle (Default: Light Mode) ---
 const initThemeToggle = () => {
   const themeToggleBtn = document.querySelector("[data-theme-toggle]");
-  const savedTheme = localStorage.getItem("theme");
-  const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+  const savedTheme = localStorage.getItem("theme") || "light";
 
-  if (savedTheme) {
-    document.documentElement.setAttribute("data-theme", savedTheme);
-  } else if (prefersDark) {
-    document.documentElement.setAttribute("data-theme", "dark");
-  }
+  document.documentElement.setAttribute("data-theme", savedTheme);
 
   if (themeToggleBtn) {
     themeToggleBtn.addEventListener("click", () => {
