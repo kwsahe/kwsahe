@@ -17,6 +17,9 @@
 ![C++](https://img.shields.io/badge/C%2B%2B-00599C?style=for-the-badge&logo=cplusplus&logoColor=white)
 
 ### AI / ML & Agent
+![ChatGPT](https://img.shields.io/badge/ChatGPT-74aa9c?style=for-the-badge&logo=openai&logoColor=white)
+![Claude Max](https://img.shields.io/badge/Claude%20Max-D97757?style=for-the-badge&logo=anthropic&logoColor=white)
+![Gemini Pro](https://img.shields.io/badge/Gemini%20Pro-8E75C2?style=for-the-badge&logo=googlegemini&logoColor=white)
 ![LangChain](https://img.shields.io/badge/LangChain-1C3C3C?style=for-the-badge)
 ![LangGraph](https://img.shields.io/badge/LangGraph-2B4C7E?style=for-the-badge)
 ![ChromaDB](https://img.shields.io/badge/ChromaDB-FF6B35?style=for-the-badge)
@@ -24,7 +27,7 @@
 ![bge-m3](https://img.shields.io/badge/bge--m3-0052CC?style=for-the-badge)
 ![EXAONE](https://img.shields.io/badge/EXAONE-E8003D?style=for-the-badge)
 ![Qwen2.5](https://img.shields.io/badge/Qwen2.5-6B3FA0?style=for-the-badge)
-![Google Gemini](https://img.shields.io/badge/Google%20Gemini-8E75C2?style=for-the-badge&logo=googlegemini&logoColor=white)
+![PyTorch](https://img.shields.io/badge/PyTorch-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white)
 ![Scikit--learn](https://img.shields.io/badge/Scikit--learn-F7931E?style=for-the-badge&logo=scikitlearn&logoColor=white)
 ![XGBoost](https://img.shields.io/badge/XGBoost-00688B?style=for-the-badge)
 ![Prophet](https://img.shields.io/badge/Prophet-0068C8?style=for-the-badge)
