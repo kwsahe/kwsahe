@@ -593,7 +593,13 @@ a {
   content: "";
 }
 
-.certificate-grid,
+.certificate-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 14px;
+  margin-top: 24px;
+}
+
 .strength-grid,
 .preference-grid {
   display: grid;
