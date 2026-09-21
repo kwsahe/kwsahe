@@ -60,16 +60,3 @@
 | **[english-word-streamlit](https://github.com/kwsahe/english-word-streamlit)** | Google Gemini API 연동 AI 단어 학습 및 토익 빈칸 시험 생성 ([실배포](https://honeyenglish.streamlit.app)) | Python · Streamlit · Google Gemini · Kivy |
 | **[Artesia](https://github.com/kwsahe/Artesia)** | Unity2D 로그라이크 턴제 던전 RPG · 팀장·기획 총괄 | C# · Unity2D |
 
-<br />
-
-<div align="center">
-
-<details>
-  <summary><b>✇ Most Used Languages:</b></summary>
-  <br />
-  <a href="https://github.com/kwsahe">
-    <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=kwsahe&layout=compact&theme=tokyonight" alt="Kwon Sang-heon's Top Languages" />
-  </a>
-</details>
-
-</div>
