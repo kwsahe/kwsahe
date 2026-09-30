@@ -916,6 +916,11 @@ a {
   background: var(--paper);
 }
 
+.link21-gallery {
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+}
+
 .project-card p {
   margin-top: 12px;
 }
@@ -1377,7 +1382,8 @@ html[lang="en"] .lang-ko {
     justify-content: center;
   }
 
-  .project-gallery {
+  .project-gallery,
+  .link21-gallery {
     grid-template-columns: 1fr;
   }
 
