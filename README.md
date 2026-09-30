@@ -1,7 +1,6 @@
-# 권상헌 | AI 엔지니어 · 데이터 개발자
+# 권상헌 | AI 엔지니어 · 풀스택 개발자
 
-현재 링크21(Link21)에 재직 중이며, AI 에이전트 오케스트레이션·RAG 시스템·Vision-Language 모델·데이터 파이프라인을 직접 설계하고  
-실제 서비스 배포까지 연결하는 AI 엔지니어 / 데이터 개발자입니다.
+현재 링크21(Link21)에 재직 중이며, AI 에이전트 오케스트레이션·RAG 시스템·Vision-Language 모델과 실제 프로덕션 웹서비스를 직접 설계하고 배포·운영하는 AI 엔지니어 / 풀스택 개발자입니다.
 
 ## 기술 스택
 
@@ -11,6 +10,7 @@
 ![Flask](https://img.shields.io/badge/Flask-000000?style=for-the-badge&logo=flask&logoColor=white)
 ![Django](https://img.shields.io/badge/Django-092E20?style=for-the-badge&logo=django&logoColor=white)
 ![SQL](https://img.shields.io/badge/SQL-336791?style=for-the-badge&logo=postgresql&logoColor=white)
+![Supabase](https://img.shields.io/badge/Supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white)
 ![SQLite](https://img.shields.io/badge/SQLite-003B57?style=for-the-badge&logo=sqlite&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
 ![C#](https://img.shields.io/badge/C%23-512BD4?style=for-the-badge&logo=csharp&logoColor=white)
@@ -49,6 +49,8 @@
 
 | 프로젝트 | 설명 | 기술 |
 |----------|------|------|
+| **[link21-premium](https://www.link21premium.com/)** *(Live / Private)* | 실제 고객이 사용하는 기업 AI 교육 플랫폼 전반 구축·운영 · 신청 및 관리자 대시보드 ([실배포](https://www.link21premium.com/)) | Next.js 16 · React 19 · TypeScript · Supabase · Tailwind · Vercel |
+| **link21-ai-chatbot** *(Live / Private)* | LINK21 웹서비스 공식 AI 챗봇 0→1 설계·구현 · 의도 라우팅 및 SSE 실시간 스트리밍 ([실배포](https://www.link21premium.com/)) | Next.js · TypeScript · Gemini API · OpenAI API · SSE · Supabase |
 | **[link21-bidpilot-ai](https://github.com/kwsahe/link21-bidpilot-ai)** *(Private)* | 나라장터 공공입찰 공고 자동 수집 · RFP 요구사항 매트릭스 파싱 · 3D Cosmos 시각화 · 제안서 Auditor AI 검증 | Python · FastAPI · Next.js · Three.js · G2B OpenAPI |
 | **[tri-agent-control](https://github.com/kwsahe/tri-agent-control)** | Codex · Antigravity · Claude Code 3개 AI 에이전트 실시간 토론·합의 & 목표 기반 코딩 오케스트레이션 | Python · Multi-Agent · Vanilla JS · Prompt Engineering |
 | **[k-safety-law-rag](https://github.com/kwsahe/k-safety-law-rag)** | 건설현장 사고 시나리오 기반 법령 이중 RAG (Text + Table) 및 출처 검증기 | Python · LangChain · ChromaDB · EXAONE-4.0-32B · FastAPI |

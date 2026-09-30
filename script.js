@@ -169,10 +169,10 @@ const initLanguageToggle = () => {
       enBtn?.classList.remove('active');
       
       // title 및 meta description 변경
-      document.title = "권상헌 | 데이터 엔지니어 & AI 개발자";
+      document.title = "권상헌 | AI 엔지니어 & 풀스택 개발자";
       const metaDesc = document.querySelector('meta[name="description"]');
       if (metaDesc) {
-        metaDesc.setAttribute('content', "RAG 시스템·VL Agent·데이터 파이프라인을 end-to-end로 직접 설계하고 배포까지 연결한 데이터 엔지니어 / AI 개발자 권상헌의 포트폴리오입니다.");
+        metaDesc.setAttribute('content', "AI 에이전트·RAG·Next.js 기반 프로덕션 웹서비스를 기획부터 배포·운영까지 End-to-End로 구축하는 AI 엔지니어 / 풀스택 개발자 권상헌의 포트폴리오입니다.");
       }
       
       // 이력서 파일명 권장 다운로드 속성
@@ -183,10 +183,10 @@ const initLanguageToggle = () => {
       koBtn?.classList.remove('active');
       enBtn?.classList.add('active');
       
-      document.title = "Sangheon Kwon | Data Engineer & AI Developer";
+      document.title = "Sangheon Kwon | AI Engineer & Full-stack Developer";
       const metaDesc = document.querySelector('meta[name="description"]');
       if (metaDesc) {
-        metaDesc.setAttribute('content', "Portfolio of Sangheon Kwon, a Data Engineer and AI Developer who designs and deploys RAG systems, VL Agents, and data pipelines end-to-end.");
+        metaDesc.setAttribute('content', "Portfolio of Sangheon Kwon, an AI Engineer & Full-stack Developer building AI services and production web platforms end-to-end from planning to deployment and operation.");
       }
       
       resumeLinks.forEach((link) => {
@@ -235,6 +235,12 @@ const initProjectFilter = () => {
   const projectCards = document.querySelectorAll(".project-card");
   const detailCards = document.querySelectorAll(".project-detail-card");
 
+  const matchesFilter = (catAttr, targetFilter) => {
+    if (targetFilter === "all") return true;
+    if (!catAttr) return false;
+    return catAttr.split(/\s+/).includes(targetFilter);
+  };
+
   filterButtons.forEach((btn) => {
     btn.addEventListener("click", () => {
       filterButtons.forEach((b) => b.classList.remove("active"));
@@ -244,7 +250,7 @@ const initProjectFilter = () => {
 
       projectCards.forEach((card) => {
         const category = card.getAttribute("data-category");
-        if (filter === "all" || category === filter) {
+        if (matchesFilter(category, filter)) {
           card.classList.remove("is-hidden");
         } else {
           card.classList.add("is-hidden");
@@ -253,7 +259,7 @@ const initProjectFilter = () => {
 
       detailCards.forEach((card) => {
         const category = card.getAttribute("data-category");
-        if (filter === "all" || category === filter) {
+        if (matchesFilter(category, filter)) {
           card.classList.remove("is-hidden");
         } else {
           card.classList.add("is-hidden");
