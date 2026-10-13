@@ -921,9 +921,15 @@ a {
   gap: 12px;
 }
 
-.ai-hub-gallery {
+.ai-hub-gallery,
+.bidpilot-gallery {
   grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
   gap: 12px;
+}
+
+.project-detail-card .bidpilot-gallery {
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 10px;
 }
 
 .project-card p {
@@ -1401,7 +1407,8 @@ html[lang="en"] .lang-ko {
 
   .project-gallery,
   .link21-gallery,
-  .ai-hub-gallery {
+  .ai-hub-gallery,
+  .bidpilot-gallery {
     grid-template-columns: 1fr;
   }
 
