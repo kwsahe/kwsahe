@@ -921,6 +921,11 @@ a {
   gap: 12px;
 }
 
+.ai-hub-gallery {
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 12px;
+}
+
 .project-card p {
   margin-top: 12px;
 }
@@ -1383,7 +1388,8 @@ html[lang="en"] .lang-ko {
   }
 
   .project-gallery,
-  .link21-gallery {
+  .link21-gallery,
+  .ai-hub-gallery {
     grid-template-columns: 1fr;
   }
 
@@ -1560,6 +1566,21 @@ html[lang="en"] .lang-ko {
   font-size: 13px;
   font-weight: 700;
   color: #10b981;
+}
+
+.prelaunch-badge,
+.project-topline .prelaunch-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #d97706;
+}
+
+[data-theme="dark"] .prelaunch-badge,
+[data-theme="dark"] .project-topline .prelaunch-badge {
+  color: #fbbf24;
 }
 
 .live-cta {
