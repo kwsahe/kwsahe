@@ -1165,7 +1165,7 @@
               <article class="project-card featured-card" data-category="data">
                 <h3>market-pulse</h3>
                 <div class="project-topline">
-                  <span>React 19 · Three.js · FastAPI · LangGraph</span>
+                  <span>React 19 · Three.js · FastAPI · SQLite · scikit-learn</span>
                   <a href="https://github.com/kwsahe/market-pulse" target="_blank" rel="noreferrer" aria-label="market-pulse GitHub 저장소 열기">
                     <svg aria-hidden="true" viewBox="0 0 24 24">
                       <path d="M7 17 17 7M9 7h8v8" />
@@ -1173,32 +1173,33 @@
                   </a>
                 </div>
                 <div class="project-media market-hero-media">
-                  <img src="./png/screenshots_market-palse/architecture_flow.png" alt="Market Pulse React 19, FastAPI, LangGraph 구성도 및 데이터 흐름 다이어그램" loading="lazy" />
+                  <img src="./png/screenshots_market-palse/v2_02_desk_3d.png" alt="Market Pulse 3D 데스크 — 부품을 클릭하면 해당 카테고리 시세가 열리는 Three.js 화면" loading="lazy" />
                 </div>
                 <p>
-                  <span class="lang-ko">다나와 PC 부품 및 게이밍/AI 노트북 실시간 자동 수집, 이상치 탐지, 가격 예측 ML, Three.js 3D 데스크 씬을 결합한 풀스택 하드웨어 분석 플랫폼입니다.</span>
-                  <span class="lang-en">A full-stack hardware analytics platform collecting real-time PC component and gaming laptop prices, featuring Three.js 3D desk scenes, FastAPI, and LangGraph.</span>
+                  <span class="lang-ko">다나와 PC 부품·노트북 9개 카테고리 가격을 매일 자동 수집하고, 가격 변동·이상치·스펙 기반 적정가를 한 화면에서 보는 하드웨어 가격 분석 대시보드입니다.</span>
+                  <span class="lang-en">A hardware price analytics dashboard that collects daily prices for 9 PC component and laptop categories from Danawa and surfaces price changes, anomalies, and spec-based fair prices in one place.</span>
                 </p>
                 <p class="project-note">
-                  <span class="lang-ko">FastAPI 13개 REST API와 React 19 SPA를 연동하고, Three.js 3D 부품 인터랙티브 맵, LangGraph StateGraph 체크포인트 자동화, 중고 상품 필터링, 그리고 105개 백엔드 pytest + 프론트엔드 vitest CI/CD를 구현했습니다.</span>
-                  <span class="lang-en">Engineered 13 FastAPI endpoints with React 19 SPA, interactive Three.js 3D gaming room hardware mapping, LangGraph pipeline checkpoints, and 105 pytest & vitest suites.</span>
+                  <span class="lang-ko">FastAPI REST API 17개와 React 19 SPA(10개 화면), Three.js 3D 데스크를 구현했습니다. 미끼가·비정상가·카테고리 오염을 수집 단계에서 걸러내고, 매일 자동 수집 → 검증 → 백업 → 실패 알림까지 무인 운영합니다. pytest 160개 + vitest 22개 CI.</span>
+                  <span class="lang-en">Built 17 FastAPI endpoints, a 10-view React 19 SPA, and a Three.js 3D desk. Filters bait prices, absurd prices, and category contamination at ingestion, and runs unattended daily: scrape → verify → back up → alert on failure. CI with 160 pytest + 22 vitest tests.</span>
                 </p>
                 <div class="project-gallery market-gallery">
-                  <img src="./png/screenshots_market-palse/fixed_01_overview.png" alt="Market Pulse 개요 대시보드 화면" loading="lazy" />
-                  <img src="./png/screenshots_market-palse/fixed_02_nvme_ssd.png" alt="Market Pulse NVMe SSD 가격 분석 화면" loading="lazy" />
-                  <img src="./png/screenshots_market-palse/readme_07_price_change.png" alt="Market Pulse 가격 변동 분석 화면" loading="lazy" />
-                  <img src="./png/screenshots_market-palse/readme_09_prediction.png" alt="Market Pulse 머신러닝 가격 예측 화면" loading="lazy" />
+                  <img src="./png/screenshots_market-palse/v2_01_overview.png" alt="Market Pulse 개요 — 요약 지표와 카테고리별 중앙값·인상/인하 표" loading="lazy" />
+                  <img src="./png/screenshots_market-palse/v2_03_price_changes.png" alt="Market Pulse 가격 변동 리포트 — 직전 수집일 대비 인상·인하 상품" loading="lazy" />
+                  <img src="./png/screenshots_market-palse/v2_04_prediction.png" alt="Market Pulse 가격 예측 — 스펙 기반 적정가와 적정가 점수" loading="lazy" />
+                  <img src="./png/screenshots_market-palse/v2_05_anomalies.png" alt="Market Pulse 이상치 — 카테고리별 통계와 Z-score 이상 가격" loading="lazy" />
                 </div>
                 <div class="tags">
                   <span>React 19</span>
                   <span>TypeScript</span>
                   <span>Three.js</span>
                   <span>FastAPI</span>
-                  <span>LangGraph</span>
                   <span>SQLite</span>
-                  <span>ML Anomaly</span>
-                  <span>vitest</span>
+                  <span>scikit-learn</span>
+                  <span>LangGraph</span>
+                  <span>Recharts</span>
                   <span>pytest</span>
+                  <span>vitest</span>
                 </div>
                 <a class="project-github-link" href="https://github.com/kwsahe/market-pulse" target="_blank" rel="noreferrer">
                   <svg class="github-icon" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true">
@@ -2049,7 +2050,7 @@
               </article>
               <article class="project-detail-card featured-card" data-category="data">
                 <div class="project-detail-heading">
-                  <span>React 19 · Three.js · FastAPI · LangGraph · ChromaDB</span>
+                  <span>React 19 · Three.js · FastAPI · SQLite · scikit-learn · LangGraph</span>
                   <h3>market-pulse</h3>
                 </div>
                 <dl class="project-detail-list">
@@ -2059,8 +2060,8 @@
                       <span class="lang-en">Problem Definition</span>
                     </dt>
                     <dd>
-                      <span class="lang-ko">기존의 정적 금융 대시보드는 글로벌 자산 간의 유기적 상관관계와 거시경제 흐름을 입체적으로 조망하기 어렵고, 데이터 조회와 시황 해석이 분리되어 투자 판단에 지연이 발생합니다.</span>
-                      <span class="lang-en">Traditional static financial dashboards struggle to present multi-dimensional correlations across global assets and macro trends, separating data lookup from contextual analysis and delaying decision-making.</span>
+                      <span class="lang-ko">다나와 가격은 매일 바뀌고, 검색 결과에는 옵션 미끼가·다른 카테고리 상품·비정상 가격이 섞여 있어 단순 수집만으로는 "오늘 실제로 싸졌는지" 판단하기 어렵습니다. 매일 자동으로 모으고, 오염된 데이터를 걸러내고, 변동·이상치·적정가를 한곳에서 보는 도구가 필요했습니다.</span>
+                      <span class="lang-en">Danawa prices change daily, and search results are contaminated with bait pricing, wrong categories, and absurd outliers, making it difficult to judge whether prices actually dropped. A tool was needed to scrape data daily, filter out noisy entries, and surface price changes, anomalies, and fair price estimates in one place.</span>
                     </dd>
                   </div>
                   <div>
@@ -2069,18 +2070,28 @@
                       <span class="lang-en">System Architecture</span>
                     </dt>
                     <dd>
-                      <span class="lang-ko">Yahoo Finance 및 실시간 금융 지표 수집 → SQLite 시계열 DB 적재 → FastAPI 비동기 API 서빙 → LangGraph 다단계 리서치 에이전트(거시지표 분석, 변동성 감지, 포트폴리오 리스크 평가) → React 19 + Three.js 3D 금융 지구본 및 인터랙티브 인터페이스 렌더링.</span>
-                      <span class="lang-en">Yahoo Finance & macro indicators ingestion → SQLite time-series storage → FastAPI async API serving → LangGraph multi-node research agent (macro analysis, volatility detection, risk assessment) → React 19 & Three.js 3D financial globe and interactive UI rendering.</span>
+                      <span class="lang-ko">다나와 검색 수집(robots.txt 준수) → 데이터 품질 필터 → SQLite(WAL) 적재 → 변동·이상치·예측 분석(pandas, scikit-learn) → FastAPI REST API 17개 → React 19 SPA + Three.js 3D 데스크. FastAPI가 API와 화면을 한 주소에서 함께 서빙하고, 공개용 읽기 전용 모드를 지원합니다.</span>
+                      <span class="lang-en">Danawa search scraping (robots.txt compliant) → data quality filters → SQLite (WAL) ingestion → change/anomaly/prediction analytics (pandas, scikit-learn) → 17 FastAPI REST endpoints → React 19 SPA + Three.js 3D desk. FastAPI serves both APIs and the frontend build on a single origin with a public read-only mode.</span>
                     </dd>
                   </div>
                   <div>
                     <dt>
-                      <span class="lang-ko">핵심 기능 및 3D 시각화</span>
-                      <span class="lang-en">Core Features & 3D Visualization</span>
+                      <span class="lang-ko">핵심 기능</span>
+                      <span class="lang-en">Core Features</span>
                     </dt>
                     <dd>
-                      <span class="lang-ko">WebGL 기반 Three.js 3D 지구본에서 글로벌 지수 및 자금 흐름을 시각화하고, RSI·MACD·볼린저 밴드 등 보조지표 자동 계산, 이상 징후 발생 시 LangGraph 에이전트가 인과 관계를 추론해 일일 브리핑 카드를 자동 생성합니다.</span>
-                      <span class="lang-en">Visualizes global indices and capital flows on an interactive Three.js 3D globe, automatically calculates technical indicators (RSI, MACD, Bollinger Bands), and triggers LangGraph agents to reason through anomalies and generate daily briefings.</span>
+                      <span class="lang-ko">카테고리별 중앙값과 인상/인하 집계, 직전 수집일 대비 가격 변동 리포트, Z-score·IQR 이상치 탐지, 스펙 기반 가격 예측(Linear Regression vs Random Forest, GroupKFold 검증)과 적정가 점수, 상품 비교·가격 추이·워치리스트, 부품을 클릭하면 시세가 열리는 Three.js 3D 데스크.</span>
+                      <span class="lang-en">Category medians and increase/decrease summaries, price change reports against the prior collection date, Z-score and IQR anomaly detection, spec-based price predictions (Linear Regression vs. Random Forest, GroupKFold cross-validation) with fair-price scoring, product comparisons, historical trends, watchlists, and a Three.js 3D desk where clicking a component opens its category market panel.</span>
+                    </dd>
+                  </div>
+                  <div>
+                    <dt>
+                      <span class="lang-ko">데이터 품질 &amp; 운영 자동화</span>
+                      <span class="lang-en">Data Quality &amp; Operations Automation</span>
+                    </dt>
+                    <dd>
+                      <span class="lang-ko">옵션 미끼가(같은 상품 대비 용량당 5% 미만)·비정상가(카테고리 중앙값의 100배 초과·1/100 미만, 예: 4억 원대로 잘못 수집된 마우스)·카테고리 오염·중고 상품을 수집 단계에서 제외. Windows 작업 스케줄러로 매일 자동 실행하고, 수집 후 전날 대비 급감·카테고리 소실을 자동 검증해 실패 시 알림, DB 스냅샷을 OneDrive에 7세대 보관합니다.</span>
+                      <span class="lang-en">Filters out option bait prices (&lt;5% unit price of other options of the same item), absurd outliers (&gt;100x or &lt;1/100 of category median, e.g., a gaming mouse mistakenly scraped at 430M KRW), category contamination, and used goods at ingestion. Runs unattended daily via Windows Task Scheduler, triggers Windows alerts if item counts drop &gt;40% or categories vanish, and retains 7 generations of SQLite snapshot backups (VACUUM INTO) on OneDrive.</span>
                     </dd>
                   </div>
                   <div>
@@ -2089,8 +2100,8 @@
                       <span class="lang-en">Technologies</span>
                     </dt>
                     <dd>
-                      <span class="lang-ko">React 19, TypeScript, Three.js, Tailwind CSS, FastAPI, LangGraph, ChromaDB, SQLite, Python.</span>
-                      <span class="lang-en">React 19, TypeScript, Three.js, Tailwind CSS, FastAPI, LangGraph, ChromaDB, SQLite, Python.</span>
+                      <span class="lang-ko">Python, FastAPI, SQLite, pandas, scikit-learn, LangGraph, React 19, TypeScript, Vite, Three.js(@react-three/fiber), Recharts, pytest, vitest, GitHub Actions, Windows 작업 스케줄러.</span>
+                      <span class="lang-en">Python, FastAPI, SQLite, pandas, scikit-learn, LangGraph, React 19, TypeScript, Vite, Three.js (@react-three/fiber), Recharts, pytest, vitest, GitHub Actions, Windows Task Scheduler.</span>
                     </dd>
                   </div>
                   <div>
@@ -2099,8 +2110,18 @@
                       <span class="lang-en">My Role</span>
                     </dt>
                     <dd>
-                      <span class="lang-ko">React 19 기반 3D 인터랙티브 대시보드 UI/UX 설계 및 Three.js 씬 최적화, FastAPI 백엔드 엔드포인트 구축, LangGraph 금융 리서치 에이전트 워크플로우 엔드투엔드 단독 개발.</span>
-                      <span class="lang-en">Designed the React 19 3D interactive dashboard UI/UX and Three.js scene optimizations, built FastAPI endpoints, and engineered the LangGraph financial research agent workflows end-to-end.</span>
+                      <span class="lang-ko">1인 프로젝트로 수집기·DB 스키마·분석/ML·REST API·React 화면·3D 씬 구현, 데이터 품질 필터 설계, 자동 수집·검증·백업 운영 구성까지 전 과정을 진행했습니다.</span>
+                      <span class="lang-en">Sole creator managing the entire lifecycle: scraper, database schema, analytics/ML pipelines, REST APIs, React views, 3D scenes, data quality filter design, and unattended daily scheduling, validation, and backup operations.</span>
+                    </dd>
+                  </div>
+                  <div>
+                    <dt>
+                      <span class="lang-ko">결과 및 한계</span>
+                      <span class="lang-en">Results &amp; Limitations</span>
+                    </dt>
+                    <dd>
+                      <span class="lang-ko">2026년 3월부터 약 4만 건의 가격 스냅샷을 쌓았고, 9개 카테고리 하루 약 790개 상품을 무인으로 수집합니다. 운영 중 발견한 다나와 신규 UI 리다이렉트, 비정상 가격 오수집 같은 문제를 원인 분석 후 재시도·필터로 해결했습니다. 한계: 개인 PC에서 운영해 공개 URL이 없고, 예측 모델 정확도(R² 약 0.6)는 개선 여지가 있습니다.</span>
+                      <span class="lang-en">Accumulated ~40,000 price snapshots since March 2026, unattendedly collecting ~790 products daily across 9 categories. Resolved operational challenges such as Danawa new UI redirects and absurd pricing ingestion through root-cause analysis, retries, and filters. Limitations: operated on a local PC without a public live URL, and predictive model accuracy (Random Forest R² ~0.6) leaves room for future optimization.</span>
                     </dd>
                   </div>
                 </dl>
