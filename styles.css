@@ -1892,3 +1892,221 @@ html[lang="en"] .lang-ko {
   color: #4ade80;
 }
 
+/* ==========================================================================
+   Screenshot Card Carousel Component (Project In-Card Viewer)
+   ========================================================================== */
+.screenshot-carousel {
+  margin: 18px 0 22px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--paper);
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+  position: relative;
+}
+
+[data-theme="dark"] .screenshot-carousel {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+  background: rgba(15, 23, 42, 0.6);
+}
+
+.screenshot-viewport {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9.6;
+  background: #0b1118;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.screenshot-slides {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.screenshot-slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.4s ease, visibility 0.4s ease;
+  pointer-events: none;
+}
+
+.screenshot-slide.active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.screenshot-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  display: block;
+}
+
+/* Hidden container holding the slide's caption markup */
+.slide-caption-src {
+  display: none;
+}
+
+/* Nav Arrows */
+.screenshot-btn-prev,
+.screenshot-btn-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: rgba(15, 23, 42, 0.72);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(8px);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  transition: all 0.2s ease;
+  opacity: 0.85;
+}
+
+.screenshot-btn-prev:hover,
+.screenshot-btn-next:hover {
+  background: var(--gold);
+  color: #1a1a1a;
+  border-color: var(--gold);
+  opacity: 1;
+  transform: translateY(-50%) scale(1.08);
+}
+
+.screenshot-btn-prev {
+  left: 12px;
+}
+
+.screenshot-btn-next {
+  right: 12px;
+}
+
+.screenshot-btn-prev svg,
+.screenshot-btn-next svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Caption bar below the image */
+.screenshot-meta {
+  padding: 12px 16px;
+  background: var(--paper);
+  border-top: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+[data-theme="dark"] .screenshot-meta {
+  background: rgba(15, 23, 42, 0.9);
+}
+
+.screenshot-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+  min-width: 0;
+}
+
+.screenshot-counter {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  border-radius: 12px;
+  background: rgba(200, 151, 58, 0.15);
+  color: var(--gold);
+  border: 1px solid rgba(200, 151, 58, 0.3);
+  white-space: nowrap;
+}
+
+.screenshot-caption-text {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--navy);
+  line-height: 1.4;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Tabs / Pill indicators */
+.screenshot-tabs {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.screenshot-tab-btn {
+  padding: 4px 10px;
+  border-radius: 6px;
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.screenshot-tab-btn:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
+.screenshot-tab-btn.active {
+  background: var(--gold);
+  color: #1a1a1a;
+  border-color: var(--gold);
+}
+
+@media (max-width: 640px) {
+  .screenshot-viewport {
+    aspect-ratio: 16 / 10;
+  }
+  .screenshot-btn-prev,
+  .screenshot-btn-next {
+    width: 32px;
+    height: 32px;
+  }
+  .screenshot-btn-prev { left: 6px; }
+  .screenshot-btn-next { right: 6px; }
+  .screenshot-meta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .screenshot-caption-text {
+    white-space: normal;
+  }
+}
+
+

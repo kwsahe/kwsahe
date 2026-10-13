@@ -662,19 +662,58 @@
                   </div>
                 </div>
 
-                <!-- Screenshots Gallery (Home, Schedule, Admin) -->
-                <div class="project-gallery link21-gallery" aria-label="LINK21 Premium 스크린샷 갤러리">
-                  <div class="gallery-item">
-                    <img src="./png/link21premium/link21-premium-home.png" alt="LINK21 Premium 메인 홈 화면" loading="lazy" onerror="this.style.display='none'" />
-                    <span class="gallery-caption"><span class="lang-ko">메인 홈</span><span class="lang-en">Home</span></span>
+                <!-- Screenshot Card Carousel (Home, Schedule, Admin) -->
+                <div class="screenshot-carousel" data-screenshot-carousel aria-label="LINK21 Premium 스크린샷 갤러리">
+                  <div class="screenshot-viewport">
+                    <div class="screenshot-slides">
+                      <div class="screenshot-slide active" data-index="0">
+                        <img src="./png/link21premium/link21-premium-home.png" alt="LINK21 Premium 메인 홈 화면" loading="lazy" />
+                        <div class="slide-caption-src">
+                          <span class="lang-ko">메인 홈 — 서비스 소개 및 수강 신청 안내</span>
+                          <span class="lang-en">Home — Course catalog and corporate enrollment overview</span>
+                        </div>
+                      </div>
+                      <div class="screenshot-slide" data-index="1">
+                        <img src="./png/link21premium/link21-premium-schedule.png" alt="LINK21 Premium 월별 교육 일정 화면" loading="lazy" />
+                        <div class="slide-caption-src">
+                          <span class="lang-ko">월별 교육 일정 — 개설 과정 캘린더 및 동적 필터링</span>
+                          <span class="lang-en">Schedule — Monthly course schedule and dynamic filtering</span>
+                        </div>
+                      </div>
+                      <div class="screenshot-slide" data-index="2">
+                        <img src="./png/link21premium/link21-premium-admin.png" alt="LINK21 Premium 서비스 운영 관리자 시스템 화면" loading="lazy" />
+                        <div class="slide-caption-src">
+                          <span class="lang-ko">서비스 운영 관리자 시스템 — 신청자 실시간 조회 및 XLSX 내보내기</span>
+                          <span class="lang-en">Operations Admin — Real-time applicant dashboard &amp; XLSX export</span>
+                        </div>
+                      </div>
+                    </div>
+                    <button class="screenshot-btn-prev" type="button" aria-label="이전 스크린샷 보기">
+                      <svg viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>
+                    </button>
+                    <button class="screenshot-btn-next" type="button" aria-label="다음 스크린샷 보기">
+                      <svg viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></svg>
+                    </button>
                   </div>
-                  <div class="gallery-item">
-                    <img src="./png/link21premium/link21-premium-schedule.png" alt="LINK21 Premium 월별 교육 일정 화면" loading="lazy" onerror="this.style.display='none'" />
-                    <span class="gallery-caption"><span class="lang-ko">월별 교육 일정</span><span class="lang-en">Schedule</span></span>
-                  </div>
-                  <div class="gallery-item">
-                    <img src="./png/link21premium/link21-premium-admin.png" alt="LINK21 Premium 서비스 운영 관리자 시스템 화면" loading="lazy" onerror="this.style.display='none'" />
-                    <span class="gallery-caption"><span class="lang-ko">서비스 운영 관리자 시스템</span><span class="lang-en">Operations Admin Dashboard</span></span>
+                  <div class="screenshot-meta">
+                    <div class="screenshot-info">
+                      <span class="screenshot-counter">1 / 3</span>
+                      <span class="screenshot-caption-text">
+                        <span class="lang-ko">메인 홈 — 서비스 소개 및 수강 신청 안내</span>
+                        <span class="lang-en">Home — Course catalog and corporate enrollment overview</span>
+                      </span>
+                    </div>
+                    <div class="screenshot-tabs" role="tablist">
+                      <button type="button" class="screenshot-tab-btn active" role="tab" aria-selected="true" aria-label="메인 홈">
+                        <span class="lang-ko">메인 홈</span><span class="lang-en">Home</span>
+                      </button>
+                      <button type="button" class="screenshot-tab-btn" role="tab" aria-selected="false" aria-label="월별 교육 일정">
+                        <span class="lang-ko">월별 교육 일정</span><span class="lang-en">Schedule</span>
+                      </button>
+                      <button type="button" class="screenshot-tab-btn" role="tab" aria-selected="false" aria-label="관리자 시스템">
+                        <span class="lang-ko">관리자 시스템</span><span class="lang-en">Admin</span>
+                      </button>
+                    </div>
                   </div>
                 </div>
 
@@ -772,23 +811,68 @@
                   </div>
                 </div>
 
-                <!-- Screenshots Gallery (Main, Engraving Preview, AI Cheat Sheet, Admin) -->
-                <div class="project-gallery link21-gallery ai-hub-gallery" aria-label="LINK21 AI Hub 스크린샷 갤러리">
-                  <div class="gallery-item">
-                    <img src="./png/link21-ai-hub-1.png" alt="LINK21 AI Hub 메인 화면" loading="lazy" onerror="this.style.display='none'" />
-                    <span class="gallery-caption"><span class="lang-ko">메인</span><span class="lang-en">Home</span></span>
+                <!-- Screenshot Card Carousel (Main, Engraving Preview, AI Cheat Sheet, Admin) -->
+                <div class="screenshot-carousel" data-screenshot-carousel aria-label="LINK21 AI Hub 스크린샷 갤러리">
+                  <div class="screenshot-viewport">
+                    <div class="screenshot-slides">
+                      <div class="screenshot-slide active" data-index="0">
+                        <img src="./png/link21-ai-hub-1.png" alt="LINK21 AI Hub 메인 화면" loading="lazy" />
+                        <div class="slide-caption-src">
+                          <span class="lang-ko">메인 — 디지털 명함 및 NFC 메탈카드 통합 진입 허브</span>
+                          <span class="lang-en">Home — Digital business card &amp; NFC metal card integrated hub</span>
+                        </div>
+                      </div>
+                      <div class="screenshot-slide" data-index="1">
+                        <img src="./png/link21-ai-hub-2.png" alt="LINK21 AI Hub 메탈카드 각인 미리보기 화면" loading="lazy" />
+                        <div class="slide-caption-src">
+                          <span class="lang-ko">각인 미리보기 — 실물 금속 사진 원근 및 표면 질감 맞춤 레이저 각인 렌더링</span>
+                          <span class="lang-en">Engraving Preview — Laser engraving preview matching physical metallic texture</span>
+                        </div>
+                      </div>
+                      <div class="screenshot-slide" data-index="2">
+                        <img src="./png/link21-ai-hub-3.png" alt="LINK21 AI Hub AI 치트키 화면" loading="lazy" />
+                        <div class="slide-caption-src">
+                          <span class="lang-ko">AI 치트키 200 — 무료 20개 공개 및 리드 신청 시 180개 서버 격리 해금</span>
+                          <span class="lang-en">AI Cheat Sheet 200 — 20 public items, 180 gated via server-side access</span>
+                        </div>
+                      </div>
+                      <div class="screenshot-slide" data-index="3">
+                        <img src="./png/link21-ai-hub-4.png" alt="LINK21 AI Hub 관리자 신청 목록 화면" loading="lazy" />
+                        <div class="slide-caption-src">
+                          <span class="lang-ko">관리자 신청 목록 — 주문 및 치트키 신청 데이터 실시간 관리 대시보드</span>
+                          <span class="lang-en">Admin Portal — Real-time lead ingestion &amp; custom order admin panel</span>
+                        </div>
+                      </div>
+                    </div>
+                    <button class="screenshot-btn-prev" type="button" aria-label="이전 스크린샷 보기">
+                      <svg viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>
+                    </button>
+                    <button class="screenshot-btn-next" type="button" aria-label="다음 스크린샷 보기">
+                      <svg viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></svg>
+                    </button>
                   </div>
-                  <div class="gallery-item">
-                    <img src="./png/link21-ai-hub-2.png" alt="LINK21 AI Hub 메탈카드 각인 미리보기 화면" loading="lazy" onerror="this.style.display='none'" />
-                    <span class="gallery-caption"><span class="lang-ko">메탈카드 각인 미리보기</span><span class="lang-en">Metal Card Engraving Preview</span></span>
-                  </div>
-                  <div class="gallery-item">
-                    <img src="./png/link21-ai-hub-3.png" alt="LINK21 AI Hub AI 치트키 화면" loading="lazy" onerror="this.style.display='none'" />
-                    <span class="gallery-caption"><span class="lang-ko">AI 치트키</span><span class="lang-en">AI Cheat Sheet 200</span></span>
-                  </div>
-                  <div class="gallery-item">
-                    <img src="./png/link21-ai-hub-4.png" alt="LINK21 AI Hub 관리자 신청 목록 화면" loading="lazy" onerror="this.style.display='none'" />
-                    <span class="gallery-caption"><span class="lang-ko">관리자 신청 목록</span><span class="lang-en">Admin Application Management</span></span>
+                  <div class="screenshot-meta">
+                    <div class="screenshot-info">
+                      <span class="screenshot-counter">1 / 4</span>
+                      <span class="screenshot-caption-text">
+                        <span class="lang-ko">메인 — 디지털 명함 및 NFC 메탈카드 통합 진입 허브</span>
+                        <span class="lang-en">Home — Digital business card &amp; NFC metal card integrated hub</span>
+                      </span>
+                    </div>
+                    <div class="screenshot-tabs" role="tablist">
+                      <button type="button" class="screenshot-tab-btn active" role="tab" aria-selected="true" aria-label="메인">
+                        <span class="lang-ko">메인</span><span class="lang-en">Home</span>
+                      </button>
+                      <button type="button" class="screenshot-tab-btn" role="tab" aria-selected="false" aria-label="각인 미리보기">
+                        <span class="lang-ko">각인 미리보기</span><span class="lang-en">Preview</span>
+                      </button>
+                      <button type="button" class="screenshot-tab-btn" role="tab" aria-selected="false" aria-label="AI 치트키">
+                        <span class="lang-ko">AI 치트키</span><span class="lang-en">Cheat Sheet</span>
+                      </button>
+                      <button type="button" class="screenshot-tab-btn" role="tab" aria-selected="false" aria-label="관리자 목록">
+                        <span class="lang-ko">관리자 목록</span><span class="lang-en">Admin</span>
+                      </button>
+                    </div>
                   </div>
                 </div>
 
@@ -887,9 +971,49 @@
                   </div>
                 </div>
 
-                <!-- Chatbot Screenshot -->
-                <div class="project-media">
-                  <img src="./png/link21premium/link21-chatbot.png" alt="LINK21 Production AI Chatbot 대화 화면" loading="lazy" onerror="this.style.display='none'" />
+                <!-- Screenshot Card Carousel (Chat Interface, Live Integration) -->
+                <div class="screenshot-carousel" data-screenshot-carousel aria-label="LINK21 AI Chatbot 스크린샷 갤러리">
+                  <div class="screenshot-viewport">
+                    <div class="screenshot-slides">
+                      <div class="screenshot-slide active" data-index="0">
+                        <img src="./png/link21premium/link21-chatbot.png" alt="LINK21 Production AI Chatbot 대화 화면" loading="lazy" />
+                        <div class="slide-caption-src">
+                          <span class="lang-ko">대화 인터페이스 — 의도 분류 기반 추천 카드 멘션 및 SSE 실시간 스트리밍 대화 위젯</span>
+                          <span class="lang-en">Conversational UI — Intent-routed course recommendations &amp; real-time SSE token streaming</span>
+                        </div>
+                      </div>
+                      <div class="screenshot-slide" data-index="1">
+                        <img src="./png/link21premium/link21-premium-home.png" alt="LINK21 Premium 공식 웹사이트 내 챗봇 연동 화면" loading="lazy" />
+                        <div class="slide-caption-src">
+                          <span class="lang-ko">상용 서비스 연동 — LINK21 Premium 공식 플랫폼 우측 하단 플로팅 상담 위젯 배포</span>
+                          <span class="lang-en">Production Integration — Floating chatbot widget deployed on live commercial platform</span>
+                        </div>
+                      </div>
+                    </div>
+                    <button class="screenshot-btn-prev" type="button" aria-label="이전 스크린샷 보기">
+                      <svg viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>
+                    </button>
+                    <button class="screenshot-btn-next" type="button" aria-label="다음 스크린샷 보기">
+                      <svg viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></svg>
+                    </button>
+                  </div>
+                  <div class="screenshot-meta">
+                    <div class="screenshot-info">
+                      <span class="screenshot-counter">1 / 2</span>
+                      <span class="screenshot-caption-text">
+                        <span class="lang-ko">대화 인터페이스 — 의도 분류 기반 추천 카드 멘션 및 SSE 실시간 스트리밍 대화 위젯</span>
+                        <span class="lang-en">Conversational UI — Intent-routed course recommendations &amp; real-time SSE token streaming</span>
+                      </span>
+                    </div>
+                    <div class="screenshot-tabs" role="tablist">
+                      <button type="button" class="screenshot-tab-btn active" role="tab" aria-selected="true" aria-label="대화 위젯">
+                        <span class="lang-ko">대화 위젯</span><span class="lang-en">Chat UI</span>
+                      </button>
+                      <button type="button" class="screenshot-tab-btn" role="tab" aria-selected="false" aria-label="실서비스 연동">
+                        <span class="lang-ko">실서비스 연동</span><span class="lang-en">Live Site</span>
+                      </button>
+                    </div>
+                  </div>
                 </div>
 
                 <p>
@@ -977,23 +1101,68 @@
                   </div>
                 </div>
 
-                <!-- Screenshots Gallery (Dashboard, Pre-submission Audit, Radar, Eligibility) -->
-                <div class="project-gallery link21-gallery bidpilot-gallery" aria-label="BidPilot AI 스크린샷 갤러리">
-                  <div class="gallery-item">
-                    <img src="./png/bidpilot/bidpilot-01-dashboard-overview.png" alt="공고 하나를 8단계(공고 → 결정) 정거장 지도로 보는 대시보드 · 가상 예시 공고" width="1440" height="900" loading="lazy" onerror="this.style.display='none'" />
-                    <span class="gallery-caption"><span class="lang-ko">대시보드</span><span class="lang-en">Dashboard</span></span>
+                <!-- Screenshot Card Carousel (Dashboard, Pre-submission Audit, Radar, Eligibility) -->
+                <div class="screenshot-carousel" data-screenshot-carousel aria-label="BidPilot AI 스크린샷 갤러리">
+                  <div class="screenshot-viewport">
+                    <div class="screenshot-slides">
+                      <div class="screenshot-slide active" data-index="0">
+                        <img src="./png/bidpilot/bidpilot-01-dashboard-overview.png" alt="공고 하나를 8단계(공고 → 결정) 정거장 지도로 보는 대시보드 · 가상 예시 공고" width="1440" height="900" loading="lazy" />
+                        <div class="slide-caption-src">
+                          <span class="lang-ko">대시보드 — 공고 1건을 8단계(공고 → 결정) 정거장 지도로 파악하는 통합 뷰</span>
+                          <span class="lang-en">Dashboard — 8-stage station roadmap from RFP ingestion to final decision</span>
+                        </div>
+                      </div>
+                      <div class="screenshot-slide" data-index="1">
+                        <img src="./png/bidpilot/bidpilot-03-auditor-finding.png" alt="제출 전 누락 점검이 찾은 수치 불일치와 수정 권고" width="1440" height="900" loading="lazy" />
+                        <div class="slide-caption-src">
+                          <span class="lang-ko">제출 전 점검 — 누락 요구사항 및 수치 불일치를 원문 쪽과 대조 분석</span>
+                          <span class="lang-en">Pre-submission Audit — Flags missing requirements &amp; discrepancies with citations</span>
+                        </div>
+                      </div>
+                      <div class="screenshot-slide" data-index="2">
+                        <img src="./png/bidpilot/bidpilot-04-radar.png" alt="나라장터 · 기업마당 공고를 마감과 검토 우선순위로 배치한 레이더" width="1440" height="900" loading="lazy" />
+                        <div class="slide-caption-src">
+                          <span class="lang-ko">기회 레이더 — 마감 기한과 검토 우선순위로 공고를 배치한 2D/3D 레이더</span>
+                          <span class="lang-en">Opportunity Radar — Tenders positioned by deadlines and prioritization</span>
+                        </div>
+                      </div>
+                      <div class="screenshot-slide" data-index="3">
+                        <img src="./png/bidpilot/bidpilot-06-support-eligibility.png" alt="지원사업 신청 가능 판정과 원문 근거" width="1440" height="900" loading="lazy" />
+                        <div class="slide-caption-src">
+                          <span class="lang-ko">지원사업 판정 — 규칙 엔진 기반 참가·신청 자격 판정(가능/확인필요/불가)</span>
+                          <span class="lang-en">Grant Eligibility — Rule engine eligibility evaluation with verbatim evidence</span>
+                        </div>
+                      </div>
+                    </div>
+                    <button class="screenshot-btn-prev" type="button" aria-label="이전 스크린샷 보기">
+                      <svg viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>
+                    </button>
+                    <button class="screenshot-btn-next" type="button" aria-label="다음 스크린샷 보기">
+                      <svg viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></svg>
+                    </button>
                   </div>
-                  <div class="gallery-item">
-                    <img src="./png/bidpilot/bidpilot-03-auditor-finding.png" alt="제출 전 누락 점검이 찾은 수치 불일치와 수정 권고" width="1440" height="900" loading="lazy" onerror="this.style.display='none'" />
-                    <span class="gallery-caption"><span class="lang-ko">제출 전 점검</span><span class="lang-en">Pre-submission Audit</span></span>
-                  </div>
-                  <div class="gallery-item">
-                    <img src="./png/bidpilot/bidpilot-04-radar.png" alt="나라장터 · 기업마당 공고를 마감과 검토 우선순위로 배치한 레이더" width="1440" height="900" loading="lazy" onerror="this.style.display='none'" />
-                    <span class="gallery-caption"><span class="lang-ko">레이더</span><span class="lang-en">Opportunity Radar</span></span>
-                  </div>
-                  <div class="gallery-item">
-                    <img src="./png/bidpilot/bidpilot-06-support-eligibility.png" alt="지원사업 신청 가능 판정과 원문 근거" width="1440" height="900" loading="lazy" onerror="this.style.display='none'" />
-                    <span class="gallery-caption"><span class="lang-ko">지원사업 판정</span><span class="lang-en">Grant Eligibility</span></span>
+                  <div class="screenshot-meta">
+                    <div class="screenshot-info">
+                      <span class="screenshot-counter">1 / 4</span>
+                      <span class="screenshot-caption-text">
+                        <span class="lang-ko">대시보드 — 공고 1건을 8단계(공고 → 결정) 정거장 지도로 파악하는 통합 뷰</span>
+                        <span class="lang-en">Dashboard — 8-stage station roadmap from RFP ingestion to final decision</span>
+                      </span>
+                    </div>
+                    <div class="screenshot-tabs" role="tablist">
+                      <button type="button" class="screenshot-tab-btn active" role="tab" aria-selected="true" aria-label="대시보드">
+                        <span class="lang-ko">대시보드</span><span class="lang-en">Dashboard</span>
+                      </button>
+                      <button type="button" class="screenshot-tab-btn" role="tab" aria-selected="false" aria-label="제출 전 점검">
+                        <span class="lang-ko">제출 전 점검</span><span class="lang-en">Audit</span>
+                      </button>
+                      <button type="button" class="screenshot-tab-btn" role="tab" aria-selected="false" aria-label="레이더">
+                        <span class="lang-ko">레이더</span><span class="lang-en">Radar</span>
+                      </button>
+                      <button type="button" class="screenshot-tab-btn" role="tab" aria-selected="false" aria-label="지원사업 판정">
+                        <span class="lang-ko">지원사업 판정</span><span class="lang-en">Eligibility</span>
+                      </button>
+                    </div>
                   </div>
                 </div>
 
@@ -1047,8 +1216,59 @@
                     </svg>
                   </a>
                 </div>
-                <div class="project-media" style="padding: 16px; background: rgba(0,0,0,0.2); border-radius: 8px; text-align: center;">
-                  <img src="./png/triagent/antigravity.png" alt="Tri-Agent Control Multi-Agent Orchestration System" style="max-height: 150px; width: auto; margin: 0 auto;" loading="lazy" />
+                <!-- Screenshot Card Carousel (Antigravity, Codex, Claude Code) -->
+                <div class="screenshot-carousel" data-screenshot-carousel aria-label="tri-agent-control 에이전트 갤러리">
+                  <div class="screenshot-viewport">
+                    <div class="screenshot-slides">
+                      <div class="screenshot-slide active" data-index="0">
+                        <img src="./png/triagent/antigravity.png" alt="Google DeepMind Antigravity CLI 에이전트" loading="lazy" />
+                        <div class="slide-caption-src">
+                          <span class="lang-ko">Antigravity — Google DeepMind 기반 태스크 플래닝 및 오케스트레이션 총괄 에이전트</span>
+                          <span class="lang-en">Antigravity — DeepMind-based strategic planning &amp; orchestration controller</span>
+                        </div>
+                      </div>
+                      <div class="screenshot-slide" data-index="1">
+                        <img src="./png/triagent/codex.png" alt="OpenAI Codex CLI 코딩 에이전트" loading="lazy" />
+                        <div class="slide-caption-src">
+                          <span class="lang-ko">Codex — OpenAI 기반 TDD 코드 생성, 함수 구현 및 즉각적 리팩터링 전담 에이전트</span>
+                          <span class="lang-en">Codex — OpenAI-powered turn-based code synthesis &amp; refactoring agent</span>
+                        </div>
+                      </div>
+                      <div class="screenshot-slide" data-index="2">
+                        <img src="./png/triagent/claude.svg" alt="Anthropic Claude Code CLI 코드 리뷰 에이전트" loading="lazy" />
+                        <div class="slide-caption-src">
+                          <span class="lang-ko">Claude Code — Anthropic 기반 교차 비판적 토론, 코드 리뷰 및 린트 정합성 검증 에이전트</span>
+                          <span class="lang-en">Claude Code — Anthropic-based peer critique, cross-model review &amp; verification</span>
+                        </div>
+                      </div>
+                    </div>
+                    <button class="screenshot-btn-prev" type="button" aria-label="이전 스크린샷 보기">
+                      <svg viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>
+                    </button>
+                    <button class="screenshot-btn-next" type="button" aria-label="다음 스크린샷 보기">
+                      <svg viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></svg>
+                    </button>
+                  </div>
+                  <div class="screenshot-meta">
+                    <div class="screenshot-info">
+                      <span class="screenshot-counter">1 / 3</span>
+                      <span class="screenshot-caption-text">
+                        <span class="lang-ko">Antigravity — Google DeepMind 기반 태스크 플래닝 및 오케스트레이션 총괄 에이전트</span>
+                        <span class="lang-en">Antigravity — DeepMind-based strategic planning &amp; orchestration controller</span>
+                      </span>
+                    </div>
+                    <div class="screenshot-tabs" role="tablist">
+                      <button type="button" class="screenshot-tab-btn active" role="tab" aria-selected="true" aria-label="Antigravity">
+                        Antigravity
+                      </button>
+                      <button type="button" class="screenshot-tab-btn" role="tab" aria-selected="false" aria-label="Codex">
+                        Codex
+                      </button>
+                      <button type="button" class="screenshot-tab-btn" role="tab" aria-selected="false" aria-label="Claude Code">
+                        Claude Code
+                      </button>
+                    </div>
+                  </div>
                 </div>
                 <p>
                   <span class="lang-ko">Codex · Antigravity · Claude Code 세 에이전트가 브라우저 대시보드에서 실시간 토론·반박하며 역할을 나누고, 실제로 프로젝트 코드를 함께 작성하는 오케스트레이션 플랫폼입니다.</span>
@@ -1101,12 +1321,48 @@
                     </svg>
                   </a>
                 </div>
-                <div class="project-media-stacked">
-                  <div class="project-media-item">
-                    <img src="./png/k_safety_law_rag_chatbot.png" alt="건설현장 중대재해-산업안전 법령 상담 챗봇 메인 화면" loading="lazy" />
+                <!-- Screenshot Card Carousel (Chatbot UI, System Architecture) -->
+                <div class="screenshot-carousel" data-screenshot-carousel aria-label="k-safety-law-rag 스크린샷 갤러리">
+                  <div class="screenshot-viewport">
+                    <div class="screenshot-slides">
+                      <div class="screenshot-slide active" data-index="0">
+                        <img src="./png/k_safety_law_rag_chatbot.png" alt="건설현장 중대재해-산업안전 법령 상담 챗봇 메인 화면" loading="lazy" />
+                        <div class="slide-caption-src">
+                          <span class="lang-ko">상담 챗봇 — 건설현장 사고 시나리오 입력 및 위반 법령·책임 주체 실시간 상담 UI</span>
+                          <span class="lang-en">Regulation Chatbot — Real-time scenario analysis for SAPA &amp; OSHA violations</span>
+                        </div>
+                      </div>
+                      <div class="screenshot-slide" data-index="1">
+                        <img src="./png/pptx_final/image1.png" alt="RAG Report 프로젝트 아키텍처와 사용 흐름 정리 화면" loading="lazy" />
+                        <div class="slide-caption-src">
+                          <span class="lang-ko">시스템 아키텍처 — Text RAG + Table RAG 이중 ChromaDB 분리 검색 파이프라인</span>
+                          <span class="lang-en">System Architecture — Dual Text+Table ChromaDB retrieval pipeline flow</span>
+                        </div>
+                      </div>
+                    </div>
+                    <button class="screenshot-btn-prev" type="button" aria-label="이전 스크린샷 보기">
+                      <svg viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>
+                    </button>
+                    <button class="screenshot-btn-next" type="button" aria-label="다음 스크린샷 보기">
+                      <svg viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></svg>
+                    </button>
                   </div>
-                  <div class="project-media-item">
-                    <img src="./png/pptx_final/image1.png" alt="RAG Report 프로젝트 아키텍처와 사용 흐름 정리 화면" loading="lazy" />
+                  <div class="screenshot-meta">
+                    <div class="screenshot-info">
+                      <span class="screenshot-counter">1 / 2</span>
+                      <span class="screenshot-caption-text">
+                        <span class="lang-ko">상담 챗봇 — 건설현장 사고 시나리오 입력 및 위반 법령·책임 주체 실시간 상담 UI</span>
+                        <span class="lang-en">Regulation Chatbot — Real-time scenario analysis for SAPA &amp; OSHA violations</span>
+                      </span>
+                    </div>
+                    <div class="screenshot-tabs" role="tablist">
+                      <button type="button" class="screenshot-tab-btn active" role="tab" aria-selected="true" aria-label="상담 챗봇">
+                        <span class="lang-ko">상담 챗봇</span><span class="lang-en">Chatbot UI</span>
+                      </button>
+                      <button type="button" class="screenshot-tab-btn" role="tab" aria-selected="false" aria-label="시스템 아키텍처">
+                        <span class="lang-ko">시스템 아키텍처</span><span class="lang-en">Architecture</span>
+                      </button>
+                    </div>
                   </div>
                 </div>
                 <p>
@@ -1191,8 +1447,79 @@
                     </svg>
                   </a>
                 </div>
-                <div class="project-media market-hero-media">
-                  <img src="./png/screenshots_market-palse/v2_02_desk_3d.png" alt="Market Pulse 3D 데스크 — 부품을 클릭하면 해당 카테고리 시세가 열리는 Three.js 화면" loading="lazy" />
+                <!-- Screenshot Card Carousel (3D Desk, Overview, Price Changes, Prediction, Anomalies) -->
+                <div class="screenshot-carousel" data-screenshot-carousel aria-label="Market Pulse 스크린샷 갤러리">
+                  <div class="screenshot-viewport">
+                    <div class="screenshot-slides">
+                      <div class="screenshot-slide active" data-index="0">
+                        <img src="./png/screenshots_market-palse/v2_02_desk_3d.png" alt="Market Pulse 3D 데스크 — 부품을 클릭하면 해당 카테고리 시세가 열리는 Three.js 화면" loading="lazy" />
+                        <div class="slide-caption-src">
+                          <span class="lang-ko">3D 데스크 — 부품을 클릭하면 해당 카테고리 시세 패널이 열리는 Three.js 화면</span>
+                          <span class="lang-en">3D Desk — Interactive Three.js workstation mapping hardware to price panels</span>
+                        </div>
+                      </div>
+                      <div class="screenshot-slide" data-index="1">
+                        <img src="./png/screenshots_market-palse/v2_01_overview.png" alt="Market Pulse 개요 — 요약 지표와 카테고리별 중앙값·인상/인하 표" loading="lazy" />
+                        <div class="slide-caption-src">
+                          <span class="lang-ko">시장 개요 — 9개 카테고리 요약 지표와 중앙값·가격 인상/인하 상품 표</span>
+                          <span class="lang-en">Market Overview — 9 category summary metrics with price increase/decrease tables</span>
+                        </div>
+                      </div>
+                      <div class="screenshot-slide" data-index="2">
+                        <img src="./png/screenshots_market-palse/v2_03_price_changes.png" alt="Market Pulse 가격 변동 리포트 — 직전 수집일 대비 인상·인하 상품" loading="lazy" />
+                        <div class="slide-caption-src">
+                          <span class="lang-ko">가격 변동 리포트 — 직전 수집일 대비 급등·급락 상품 추적 및 변동 분석</span>
+                          <span class="lang-en">Price Changes — Tracking significant price shifts against previous scrape date</span>
+                        </div>
+                      </div>
+                      <div class="screenshot-slide" data-index="3">
+                        <img src="./png/screenshots_market-palse/v2_04_prediction.png" alt="Market Pulse 가격 예측 — 스펙 기반 적정가와 적정가 점수" loading="lazy" />
+                        <div class="slide-caption-src">
+                          <span class="lang-ko">가격 예측 — 부품 스펙 기반 ML 적정가 추정 모델 및 적정가 점수</span>
+                          <span class="lang-en">Fair Price Prediction — Spec-based machine learning fair-price scoring</span>
+                        </div>
+                      </div>
+                      <div class="screenshot-slide" data-index="4">
+                        <img src="./png/screenshots_market-palse/v2_05_anomalies.png" alt="Market Pulse 이상치 — 카테고리별 통계와 Z-score 이상 가격" loading="lazy" />
+                        <div class="slide-caption-src">
+                          <span class="lang-ko">이상치 탐지 — IQR 및 Z-score 통계 기반 옵션 미끼가 및 이상 가격 감지</span>
+                          <span class="lang-en">Anomaly Detection — Statistical detection of bait pricing &amp; abnormal outliers</span>
+                        </div>
+                      </div>
+                    </div>
+                    <button class="screenshot-btn-prev" type="button" aria-label="이전 스크린샷 보기">
+                      <svg viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>
+                    </button>
+                    <button class="screenshot-btn-next" type="button" aria-label="다음 스크린샷 보기">
+                      <svg viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></svg>
+                    </button>
+                  </div>
+                  <div class="screenshot-meta">
+                    <div class="screenshot-info">
+                      <span class="screenshot-counter">1 / 5</span>
+                      <span class="screenshot-caption-text">
+                        <span class="lang-ko">3D 데스크 — 부품을 클릭하면 해당 카테고리 시세 패널이 열리는 Three.js 화면</span>
+                        <span class="lang-en">3D Desk — Interactive Three.js workstation mapping hardware to price panels</span>
+                      </span>
+                    </div>
+                    <div class="screenshot-tabs" role="tablist">
+                      <button type="button" class="screenshot-tab-btn active" role="tab" aria-selected="true" aria-label="3D 데스크">
+                        <span class="lang-ko">3D 데스크</span><span class="lang-en">3D Desk</span>
+                      </button>
+                      <button type="button" class="screenshot-tab-btn" role="tab" aria-selected="false" aria-label="시장 개요">
+                        <span class="lang-ko">시장 개요</span><span class="lang-en">Overview</span>
+                      </button>
+                      <button type="button" class="screenshot-tab-btn" role="tab" aria-selected="false" aria-label="가격 변동">
+                        <span class="lang-ko">가격 변동</span><span class="lang-en">Changes</span>
+                      </button>
+                      <button type="button" class="screenshot-tab-btn" role="tab" aria-selected="false" aria-label="가격 예측">
+                        <span class="lang-ko">가격 예측</span><span class="lang-en">Prediction</span>
+                      </button>
+                      <button type="button" class="screenshot-tab-btn" role="tab" aria-selected="false" aria-label="이상치">
+                        <span class="lang-ko">이상치</span><span class="lang-en">Anomalies</span>
+                      </button>
+                    </div>
+                  </div>
                 </div>
                 <p>
                   <span class="lang-ko">다나와 PC 부품·노트북 9개 카테고리 가격을 매일 자동 수집하고, 가격 변동·이상치·스펙 기반 적정가를 한 화면에서 보는 하드웨어 가격 분석 대시보드입니다.</span>
@@ -1202,12 +1529,6 @@
                   <span class="lang-ko">FastAPI REST API 17개와 React 19 SPA(10개 화면), Three.js 3D 데스크를 구현했습니다. 미끼가·비정상가·카테고리 오염을 수집 단계에서 걸러내고, 매일 자동 수집 → 검증 → 백업 → 실패 알림까지 무인 운영합니다. pytest 160개 + vitest 22개 CI.</span>
                   <span class="lang-en">Built 17 FastAPI endpoints, a 10-view React 19 SPA, and a Three.js 3D desk. Filters bait prices, absurd prices, and category contamination at ingestion, and runs unattended daily: scrape → verify → back up → alert on failure. CI with 160 pytest + 22 vitest tests.</span>
                 </p>
-                <div class="project-gallery market-gallery">
-                  <img src="./png/screenshots_market-palse/v2_01_overview.png" alt="Market Pulse 개요 — 요약 지표와 카테고리별 중앙값·인상/인하 표" loading="lazy" />
-                  <img src="./png/screenshots_market-palse/v2_03_price_changes.png" alt="Market Pulse 가격 변동 리포트 — 직전 수집일 대비 인상·인하 상품" loading="lazy" />
-                  <img src="./png/screenshots_market-palse/v2_04_prediction.png" alt="Market Pulse 가격 예측 — 스펙 기반 적정가와 적정가 점수" loading="lazy" />
-                  <img src="./png/screenshots_market-palse/v2_05_anomalies.png" alt="Market Pulse 이상치 — 카테고리별 통계와 Z-score 이상 가격" loading="lazy" />
-                </div>
                 <div class="tags">
                   <span>React 19</span>
                   <span>TypeScript</span>
@@ -1239,8 +1560,59 @@
                     </svg>
                   </a>
                 </div>
-                <div class="project-media">
-                  <img src="./png/business_card_poster.png" alt="행사 현장용 QR 디지털 명함 생성 웹앱 포스터 및 안내판 화면" loading="lazy" />
+                <!-- Screenshot Card Carousel (Event Poster, Teal Template, Blue Template) -->
+                <div class="screenshot-carousel" data-screenshot-carousel aria-label="business-card-auto 스크린샷 갤러리">
+                  <div class="screenshot-viewport">
+                    <div class="screenshot-slides">
+                      <div class="screenshot-slide active" data-index="0">
+                        <img src="./png/screenshots_business-card-auto/01_poster.png" alt="행사 현장용 QR 디지털 명함 생성 웹앱 포스터 및 안내판 화면" loading="lazy" />
+                        <div class="slide-caption-src">
+                          <span class="lang-ko">행사 포스터 — 카메라 스캔 즉시 주소록에 매핑되는 vCard 3.0 QR 명함 포스터 및 인쇄 뷰</span>
+                          <span class="lang-en">Event Poster — Instant offline address-book vCard 3.0 QR code business card poster</span>
+                        </div>
+                      </div>
+                      <div class="screenshot-slide" data-index="1">
+                        <img src="./png/screenshots_business-card-auto/02_template_teal.png" alt="Teal Corporate 모던 비즈니스 명함 템플릿" loading="lazy" />
+                        <div class="slide-caption-src">
+                          <span class="lang-ko">Teal Corporate 템플릿 — 모던 기업용 명함 실시간 Canvas 렌더링 및 동적 QR 인코딩</span>
+                          <span class="lang-en">Teal Corporate Template — Real-time business card synthesis &amp; dynamic QR encoding</span>
+                        </div>
+                      </div>
+                      <div class="screenshot-slide" data-index="2">
+                        <img src="./png/screenshots_business-card-auto/03_template_korean.png" alt="Blue Korean 프리셋 고해상도 국문 명함 템플릿" loading="lazy" />
+                        <div class="slide-caption-src">
+                          <span class="lang-ko">Blue Korean 템플릿 — 제로-서버 브라우저 메모리 기반 고해상도 국문 명함 레이아웃</span>
+                          <span class="lang-en">Blue Korean Template — Zero-server browser memory high-resolution typography layout</span>
+                        </div>
+                      </div>
+                    </div>
+                    <button class="screenshot-btn-prev" type="button" aria-label="이전 스크린샷 보기">
+                      <svg viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>
+                    </button>
+                    <button class="screenshot-btn-next" type="button" aria-label="다음 스크린샷 보기">
+                      <svg viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></svg>
+                    </button>
+                  </div>
+                  <div class="screenshot-meta">
+                    <div class="screenshot-info">
+                      <span class="screenshot-counter">1 / 3</span>
+                      <span class="screenshot-caption-text">
+                        <span class="lang-ko">행사 포스터 — 카메라 스캔 즉시 주소록에 매핑되는 vCard 3.0 QR 명함 포스터 및 인쇄 뷰</span>
+                        <span class="lang-en">Event Poster — Instant offline address-book vCard 3.0 QR code business card poster</span>
+                      </span>
+                    </div>
+                    <div class="screenshot-tabs" role="tablist">
+                      <button type="button" class="screenshot-tab-btn active" role="tab" aria-selected="true" aria-label="행사 포스터">
+                        <span class="lang-ko">행사 포스터</span><span class="lang-en">Poster</span>
+                      </button>
+                      <button type="button" class="screenshot-tab-btn" role="tab" aria-selected="false" aria-label="기업 템플릿">
+                        <span class="lang-ko">기업 템플릿</span><span class="lang-en">Teal Template</span>
+                      </button>
+                      <button type="button" class="screenshot-tab-btn" role="tab" aria-selected="false" aria-label="국문 템플릿">
+                        <span class="lang-ko">국문 템플릿</span><span class="lang-en">Korean Preset</span>
+                      </button>
+                    </div>
+                  </div>
                 </div>
                 <p>
                   <span class="lang-ko">행사 현장에서 서버 저장 없이 브라우저 단에서 즉석으로 고해상도 vCard 3.0 QR 디지털 명함을 생성하고 다운로드하는 실서비스 웹앱입니다.</span>
@@ -1289,8 +1661,59 @@
                     </svg>
                   </a>
                 </div>
-                <div class="project-media">
-                  <img src="./png/construction_accident_vl_agent_preview.png" alt="Vision-Language Agent의 CCTV 영상 분석 흐름 및 아키텍처 다이어그램" loading="lazy" />
+                <!-- Screenshot Card Carousel (Analysis Pipeline, Safety Dashboard, Incident Report) -->
+                <div class="screenshot-carousel" data-screenshot-carousel aria-label="construction-accident-vl-agent 스크린샷 갤러리">
+                  <div class="screenshot-viewport">
+                    <div class="screenshot-slides">
+                      <div class="screenshot-slide active" data-index="0">
+                        <img src="./png/construction_accident_vl_agent_preview.png" alt="Vision-Language Agent의 CCTV 영상 분석 흐름 및 아키텍처 다이어그램" loading="lazy" />
+                        <div class="slide-caption-src">
+                          <span class="lang-ko">분석 파이프라인 — CCTV MP4 영상 프레임 추출, Contact Sheet 합성 및 Qwen2.5-VL 추론 흐름</span>
+                          <span class="lang-en">Pipeline Architecture — Frame extraction, Contact Sheet synthesis &amp; Qwen2.5-VL inference flow</span>
+                        </div>
+                      </div>
+                      <div class="screenshot-slide" data-index="1">
+                        <img src="./png/accident_report_html_dashboard/safety_dashboard_capture.png" alt="건설현장 CCTV 안전 모니터링 종합 대시보드 화면" loading="lazy" />
+                        <div class="slide-caption-src">
+                          <span class="lang-ko">현장 안전 모니터링 — 건설현장 CCTV 영상 분석 현황 및 위험 발생 모니터링 대시보드</span>
+                          <span class="lang-en">Safety Monitoring — Construction site CCTV monitoring &amp; hazard detection dashboard</span>
+                        </div>
+                      </div>
+                      <div class="screenshot-slide" data-index="2">
+                        <img src="./png/accident_report_html_dashboard/accident_report_capture.png" alt="사고 유형 판정 및 경위 분석 보고서 화면" loading="lazy" />
+                        <div class="slide-caption-src">
+                          <span class="lang-ko">사고 분석 보고서 — Qwen2.5-VL 기반 사고 유형(추락/낙상 등) 자동 분류 및 경위 상세 리포트</span>
+                          <span class="lang-en">Incident Report — Automated accident classification (fall, collapse) &amp; detailed event narrative</span>
+                        </div>
+                      </div>
+                    </div>
+                    <button class="screenshot-btn-prev" type="button" aria-label="이전 스크린샷 보기">
+                      <svg viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>
+                    </button>
+                    <button class="screenshot-btn-next" type="button" aria-label="다음 스크린샷 보기">
+                      <svg viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></svg>
+                    </button>
+                  </div>
+                  <div class="screenshot-meta">
+                    <div class="screenshot-info">
+                      <span class="screenshot-counter">1 / 3</span>
+                      <span class="screenshot-caption-text">
+                        <span class="lang-ko">분석 파이프라인 — CCTV MP4 영상 프레임 추출, Contact Sheet 합성 및 Qwen2.5-VL 추론 흐름</span>
+                        <span class="lang-en">Pipeline Architecture — Frame extraction, Contact Sheet synthesis &amp; Qwen2.5-VL inference flow</span>
+                      </span>
+                    </div>
+                    <div class="screenshot-tabs" role="tablist">
+                      <button type="button" class="screenshot-tab-btn active" role="tab" aria-selected="true" aria-label="분석 파이프라인">
+                        <span class="lang-ko">파이프라인</span><span class="lang-en">Pipeline</span>
+                      </button>
+                      <button type="button" class="screenshot-tab-btn" role="tab" aria-selected="false" aria-label="안전 모니터링">
+                        <span class="lang-ko">안전 모니터링</span><span class="lang-en">Dashboard</span>
+                      </button>
+                      <button type="button" class="screenshot-tab-btn" role="tab" aria-selected="false" aria-label="사고 보고서">
+                        <span class="lang-ko">사고 보고서</span><span class="lang-en">Report</span>
+                      </button>
+                    </div>
+                  </div>
                 </div>
                 <p>
                   <span class="lang-ko">건설현장 CCTV MP4 영상을 프레임 단위로 분석해 사고 발생 여부, 사고 유형, 사고 원인을 자동 분석하는 Vision-Language Agent 시스템입니다.</span>
@@ -1341,10 +1764,59 @@
                     </svg>
                   </a>
                 </div>
-                <div class="project-gallery o2o-gallery">
-                  <img src="./png/screenshots_O2O-demand-forecasting-solution_v2/01_overview.png" alt="O2O 수요 예측 대시보드 개요 화면" loading="lazy" />
-                  <img src="./png/screenshots_O2O-demand-forecasting-solution_v2/10_map_grade_mode.png" alt="O2O 수요 등급 네이버 지도 모드 화면" loading="lazy" />
-                  <img src="./png/screenshots_O2O-demand-forecasting-solution_v2/11_map_market_mode.png" alt="O2O 시장규모 및 예상 시공비 지도 모드 화면" loading="lazy" />
+                <!-- Screenshot Card Carousel (Overview, Grade Map, Market Map) -->
+                <div class="screenshot-carousel" data-screenshot-carousel aria-label="O2O 수요 예측 솔루션 스크린샷 갤러리">
+                  <div class="screenshot-viewport">
+                    <div class="screenshot-slides">
+                      <div class="screenshot-slide active" data-index="0">
+                        <img src="./png/screenshots_O2O-demand-forecasting-solution_v2/01_overview.png" alt="O2O 수요 예측 대시보드 개요 화면" loading="lazy" />
+                        <div class="slide-caption-src">
+                          <span class="lang-ko">대시보드 개요 — 전국 102개 시군구 수요점수 산출 및 KPI 지표 요약</span>
+                          <span class="lang-en">Dashboard Overview — Renovation demand scores across 102 districts &amp; KPI metrics</span>
+                        </div>
+                      </div>
+                      <div class="screenshot-slide" data-index="1">
+                        <img src="./png/screenshots_O2O-demand-forecasting-solution_v2/10_map_grade_mode.png" alt="O2O 수요 등급 네이버 지도 모드 화면" loading="lazy" />
+                        <div class="slide-caption-src">
+                          <span class="lang-ko">수요 등급 지도 — 네이버 지도 기반 시군구별 인테리어 수요 등급(S+/S0/A+ 등) 시각화</span>
+                          <span class="lang-en">Demand Grade Map — Naver Maps visualization of district renovation demand grades</span>
+                        </div>
+                      </div>
+                      <div class="screenshot-slide" data-index="2">
+                        <img src="./png/screenshots_O2O-demand-forecasting-solution_v2/11_map_market_mode.png" alt="O2O 시장규모 및 예상 시공비 지도 모드 화면" loading="lazy" />
+                        <div class="slide-caption-src">
+                          <span class="lang-ko">시장 규모 지도 — 지역별 예상 시공비 및 인테리어 시장 규모 추정 지도</span>
+                          <span class="lang-en">Market Size Map — Estimated renovation expenditure &amp; market size mapping</span>
+                        </div>
+                      </div>
+                    </div>
+                    <button class="screenshot-btn-prev" type="button" aria-label="이전 스크린샷 보기">
+                      <svg viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>
+                    </button>
+                    <button class="screenshot-btn-next" type="button" aria-label="다음 스크린샷 보기">
+                      <svg viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></svg>
+                    </button>
+                  </div>
+                  <div class="screenshot-meta">
+                    <div class="screenshot-info">
+                      <span class="screenshot-counter">1 / 3</span>
+                      <span class="screenshot-caption-text">
+                        <span class="lang-ko">대시보드 개요 — 전국 102개 시군구 수요점수 산출 및 KPI 지표 요약</span>
+                        <span class="lang-en">Dashboard Overview — Renovation demand scores across 102 districts &amp; KPI metrics</span>
+                      </span>
+                    </div>
+                    <div class="screenshot-tabs" role="tablist">
+                      <button type="button" class="screenshot-tab-btn active" role="tab" aria-selected="true" aria-label="대시보드 개요">
+                        <span class="lang-ko">대시보드 개요</span><span class="lang-en">Overview</span>
+                      </button>
+                      <button type="button" class="screenshot-tab-btn" role="tab" aria-selected="false" aria-label="수요 등급 지도">
+                        <span class="lang-ko">수요 등급 지도</span><span class="lang-en">Grade Map</span>
+                      </button>
+                      <button type="button" class="screenshot-tab-btn" role="tab" aria-selected="false" aria-label="시장 규모 지도">
+                        <span class="lang-ko">시장 규모 지도</span><span class="lang-en">Market Map</span>
+                      </button>
+                    </div>
+                  </div>
                 </div>
                 <p>
                   <span class="lang-ko">전국 102개 시군구 인테리어 수요 점수를 산출하고, 3종 시계열(SARIMA·Prophet·LightGBM)로 거래량을 예측하는 end-to-end 솔루션입니다.</span>
@@ -1397,8 +1869,79 @@
                     </svg>
                   </a>
                 </div>
-                <div class="project-media">
-                  <img src="./png/screenshots_ecommerce-data-analysis-practice/01_dashboard_full.png" alt="이커머스 데이터 분석 및 서울 아파트 시계열 예측 대시보드 화면" loading="lazy" />
+                <!-- Screenshot Card Carousel (Full Dashboard, Key KPIs, Sales Forecast, Jeonse Forecast, Regional Trends) -->
+                <div class="screenshot-carousel" data-screenshot-carousel aria-label="ecommerce-data-analysis-practice 스크린샷 갤러리">
+                  <div class="screenshot-viewport">
+                    <div class="screenshot-slides">
+                      <div class="screenshot-slide active" data-index="0">
+                        <img src="./png/screenshots_ecommerce-data-analysis-practice/01_dashboard_full.png" alt="이커머스 데이터 분석 및 서울 아파트 시계열 예측 대시보드 화면" loading="lazy" />
+                        <div class="slide-caption-src">
+                          <span class="lang-ko">대시보드 전체 — 서울 아파트 가격 시계열 예측 및 데이터 분석 Streamlit 대시보드</span>
+                          <span class="lang-en">Full Dashboard — Real estate time-series forecasting &amp; analytics Streamlit app</span>
+                        </div>
+                      </div>
+                      <div class="screenshot-slide" data-index="1">
+                        <img src="./png/screenshots_ecommerce-data-analysis-practice/02_hero_kpi.png" alt="핵심 KPI 지표 요약 화면" loading="lazy" />
+                        <div class="slide-caption-src">
+                          <span class="lang-ko">핵심 KPI — 서울 25개 구별 아파트 매매/전세 가격 변동률 요약 지표</span>
+                          <span class="lang-en">Key KPIs — District-level apartment sales &amp; rental price trend summary metrics</span>
+                        </div>
+                      </div>
+                      <div class="screenshot-slide" data-index="2">
+                        <img src="./png/screenshots_ecommerce-data-analysis-practice/03_sale_2026_zoom.png" alt="Prophet 모델 기반 2026년 매매가격 예측 화면" loading="lazy" />
+                        <div class="slide-caption-src">
+                          <span class="lang-ko">매매가격 예측 — Prophet 시계열 모델 기반 2026년 서울 아파트 매매가격 전망</span>
+                          <span class="lang-en">Sales Price Forecast — Prophet-based 2026 Seoul apartment sales price projections</span>
+                        </div>
+                      </div>
+                      <div class="screenshot-slide" data-index="3">
+                        <img src="./png/screenshots_ecommerce-data-analysis-practice/04_jeonse_2026_zoom.png" alt="2026년 서울 아파트 전세가격 추이 예측 화면" loading="lazy" />
+                        <div class="slide-caption-src">
+                          <span class="lang-ko">전세가격 예측 — 주간 아파트 가격 동향 데이터를 바탕으로 한 2026년 전세 추이 예측</span>
+                          <span class="lang-en">Jeonse Rental Forecast — 2026 apartment rental price forecast based on weekly trends</span>
+                        </div>
+                      </div>
+                      <div class="screenshot-slide" data-index="4">
+                        <img src="./png/screenshots_ecommerce-data-analysis-practice/05_other_region.png" alt="서울 주요 자치구별 시계열 변동 추세 비교 화면" loading="lazy" />
+                        <div class="slide-caption-src">
+                          <span class="lang-ko">지역별 비교 — 서울 주요 자치구별 매매/전세 시계열 변동 추세 비교 분석</span>
+                          <span class="lang-en">Regional Comparison — Comparative time-series trends across major Seoul districts</span>
+                        </div>
+                      </div>
+                    </div>
+                    <button class="screenshot-btn-prev" type="button" aria-label="이전 스크린샷 보기">
+                      <svg viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>
+                    </button>
+                    <button class="screenshot-btn-next" type="button" aria-label="다음 스크린샷 보기">
+                      <svg viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></svg>
+                    </button>
+                  </div>
+                  <div class="screenshot-meta">
+                    <div class="screenshot-info">
+                      <span class="screenshot-counter">1 / 5</span>
+                      <span class="screenshot-caption-text">
+                        <span class="lang-ko">대시보드 전체 — 서울 아파트 가격 시계열 예측 및 데이터 분석 Streamlit 대시보드</span>
+                        <span class="lang-en">Full Dashboard — Real estate time-series forecasting &amp; analytics Streamlit app</span>
+                      </span>
+                    </div>
+                    <div class="screenshot-tabs" role="tablist">
+                      <button type="button" class="screenshot-tab-btn active" role="tab" aria-selected="true" aria-label="대시보드">
+                        <span class="lang-ko">대시보드</span><span class="lang-en">Dashboard</span>
+                      </button>
+                      <button type="button" class="screenshot-tab-btn" role="tab" aria-selected="false" aria-label="핵심 KPI">
+                        <span class="lang-ko">핵심 KPI</span><span class="lang-en">KPIs</span>
+                      </button>
+                      <button type="button" class="screenshot-tab-btn" role="tab" aria-selected="false" aria-label="매매 예측">
+                        <span class="lang-ko">매매 예측</span><span class="lang-en">Sales</span>
+                      </button>
+                      <button type="button" class="screenshot-tab-btn" role="tab" aria-selected="false" aria-label="전세 예측">
+                        <span class="lang-ko">전세 예측</span><span class="lang-en">Jeonse</span>
+                      </button>
+                      <button type="button" class="screenshot-tab-btn" role="tab" aria-selected="false" aria-label="지역별 비교">
+                        <span class="lang-ko">지역별 비교</span><span class="lang-en">Regions</span>
+                      </button>
+                    </div>
+                  </div>
                 </div>
                 <p>
                   <span class="lang-ko">혼자 설계하고 완주한 23일 데이터 분석 부트캠프 — 트랜잭션 로그 RFM 고객 세분화, SHAP 모델 해석(XAI), 시계열 예측 Streamlit 대시보드 및 SQLD 기록입니다.</span>
@@ -1451,13 +1994,69 @@
                     </svg>
                   </a>
                 </div>
-                <div class="project-media">
-                  <img src="./png/pptx_final/english_word_flow.png" alt="영단어 학습기 프로젝트 흐름도 화면" loading="lazy" />
-                </div>
-                <div class="project-gallery">
-                  <img src="./png/pptx_final/image26.png" alt="영단어 학습기 메인 학습 화면" loading="lazy" />
-                  <img src="./png/pptx_final/image30.png" alt="영단어 학습기 단어장 관리 화면" loading="lazy" />
-                  <img src="./png/pptx_final/image31.png" alt="영단어 학습기 통계 화면" loading="lazy" />
+                <!-- Screenshot Card Carousel (Architecture Flow, Main Study, Vocabulary, Analytics) -->
+                <div class="screenshot-carousel" data-screenshot-carousel aria-label="english-word-streamlit 스크린샷 갤러리">
+                  <div class="screenshot-viewport">
+                    <div class="screenshot-slides">
+                      <div class="screenshot-slide active" data-index="0">
+                        <img src="./png/pptx_final/english_word_flow.png" alt="영단어 학습기 프로젝트 흐름도 화면" loading="lazy" />
+                        <div class="slide-caption-src">
+                          <span class="lang-ko">아키텍처 흐름 — Gemini API 연동 및 Streamlit / Android APK 전체 파이프라인</span>
+                          <span class="lang-en">Architecture Flow — Gemini API integration &amp; Streamlit/Android APK pipeline</span>
+                        </div>
+                      </div>
+                      <div class="screenshot-slide" data-index="1">
+                        <img src="./png/pptx_final/image26.png" alt="영단어 학습기 메인 학습 화면" loading="lazy" />
+                        <div class="slide-caption-src">
+                          <span class="lang-ko">메인 학습 — Google Gemini 실시간 토익 빈칸 문제 출제 및 문맥 해설</span>
+                          <span class="lang-en">Main Study — Real-time Gemini TOEIC quiz generation &amp; contextual explanations</span>
+                        </div>
+                      </div>
+                      <div class="screenshot-slide" data-index="2">
+                        <img src="./png/pptx_final/image30.png" alt="영단어 학습기 단어장 관리 화면" loading="lazy" />
+                        <div class="slide-caption-src">
+                          <span class="lang-ko">단어장 관리 — 북마크 단어 관리 및 localStorage 진도 저장</span>
+                          <span class="lang-en">Word Management — Bookmarked vocabulary &amp; localStorage progress sync</span>
+                        </div>
+                      </div>
+                      <div class="screenshot-slide" data-index="3">
+                        <img src="./png/pptx_final/image31.png" alt="영단어 학습기 통계 화면" loading="lazy" />
+                        <div class="slide-caption-src">
+                          <span class="lang-ko">학습 통계 — 퀴즈 정답률 분석 및 일자별 학습 진도 대시보드</span>
+                          <span class="lang-en">Study Analytics — Quiz accuracy analytics &amp; daily study progress dashboard</span>
+                        </div>
+                      </div>
+                    </div>
+                    <button class="screenshot-btn-prev" type="button" aria-label="이전 스크린샷 보기">
+                      <svg viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>
+                    </button>
+                    <button class="screenshot-btn-next" type="button" aria-label="다음 스크린샷 보기">
+                      <svg viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></svg>
+                    </button>
+                  </div>
+                  <div class="screenshot-meta">
+                    <div class="screenshot-info">
+                      <span class="screenshot-counter">1 / 4</span>
+                      <span class="screenshot-caption-text">
+                        <span class="lang-ko">아키텍처 흐름 — Gemini API 연동 및 Streamlit / Android APK 전체 파이프라인</span>
+                        <span class="lang-en">Architecture Flow — Gemini API integration &amp; Streamlit/Android APK pipeline</span>
+                      </span>
+                    </div>
+                    <div class="screenshot-tabs" role="tablist">
+                      <button type="button" class="screenshot-tab-btn active" role="tab" aria-selected="true" aria-label="아키텍처 흐름">
+                        <span class="lang-ko">아키텍처 흐름</span><span class="lang-en">Architecture</span>
+                      </button>
+                      <button type="button" class="screenshot-tab-btn" role="tab" aria-selected="false" aria-label="메인 학습">
+                        <span class="lang-ko">메인 학습</span><span class="lang-en">Study View</span>
+                      </button>
+                      <button type="button" class="screenshot-tab-btn" role="tab" aria-selected="false" aria-label="단어장 관리">
+                        <span class="lang-ko">단어장 관리</span><span class="lang-en">Vocabulary</span>
+                      </button>
+                      <button type="button" class="screenshot-tab-btn" role="tab" aria-selected="false" aria-label="학습 통계">
+                        <span class="lang-ko">학습 통계</span><span class="lang-en">Analytics</span>
+                      </button>
+                    </div>
+                  </div>
                 </div>
                 <p>
                   <span class="lang-ko">Google Gemini API 연동 AI 단어 학습 및 토익(TOEIC) 빈칸 시험을 자동 생성하는 Streamlit 웹 앱 & Android APK입니다 (클라우드 라이브 배포 중).</span>
@@ -1490,8 +2089,69 @@
                     </svg>
                   </a>
                 </div>
-                <div class="project-media">
-                  <img src="./png/Artesia_preview.png" alt="Artesia 게임 화면 및 프로젝트 대표 이미지" loading="lazy" />
+                <!-- Screenshot Card Carousel (Gameplay, Loop, Architecture, Characters) -->
+                <div class="screenshot-carousel" data-screenshot-carousel aria-label="Artesia 스크린샷 갤러리">
+                  <div class="screenshot-viewport">
+                    <div class="screenshot-slides">
+                      <div class="screenshot-slide active" data-index="0">
+                        <img src="./png/Artesia_preview.png" alt="Artesia 인게임 플레이 대표 화면" loading="lazy" />
+                        <div class="slide-caption-src">
+                          <span class="lang-ko">인게임 플레이 — Unity2D 기반 로그라이크 턴제 던전 RPG 전투 및 탐색 화면</span>
+                          <span class="lang-en">Core Gameplay — Unity2D roguelike turn-based dungeon RPG exploration &amp; combat view</span>
+                        </div>
+                      </div>
+                      <div class="screenshot-slide" data-index="1">
+                        <img src="./png/pptx_final/Artesia_user_gameplay_flow.png" alt="유저 게임 플레이 루프 흐름도" loading="lazy" />
+                        <div class="slide-caption-src">
+                          <span class="lang-ko">유저 플레이 루프 — 시작 → 거점 → 던전 입장 → 턴제 전투 → 파밍 유저 여정 흐름도</span>
+                          <span class="lang-en">User Gameplay Loop — Town, dungeon exploration, turn combat &amp; item farming flowchart</span>
+                        </div>
+                      </div>
+                      <div class="screenshot-slide" data-index="2">
+                        <img src="./png/pptx_final/Artesia_flow.png" alt="시스템 아키텍처 및 이벤트 처리 흐름도" loading="lazy" />
+                        <div class="slide-caption-src">
+                          <span class="lang-ko">시스템 아키텍처 — 턴제 전투 로직, 이벤트 선택 및 결과 분기 처리 시스템 구조</span>
+                          <span class="lang-en">System Architecture — Turn-based combat mechanics &amp; event branching system flow</span>
+                        </div>
+                      </div>
+                      <div class="screenshot-slide" data-index="3">
+                        <img src="./png/pptx_final/Artesia_character.png" alt="캐릭터 스탯 및 던전 레벨 디자인 화면" loading="lazy" />
+                        <div class="slide-caption-src">
+                          <span class="lang-ko">캐릭터 &amp; 던전 — 데이터베이스 ERD 설계 및 캐릭터 스탯·던전 레벨 디자인</span>
+                          <span class="lang-en">Character &amp; Dungeon — Database ERD, character stats &amp; dungeon level design</span>
+                        </div>
+                      </div>
+                    </div>
+                    <button class="screenshot-btn-prev" type="button" aria-label="이전 스크린샷 보기">
+                      <svg viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>
+                    </button>
+                    <button class="screenshot-btn-next" type="button" aria-label="다음 스크린샷 보기">
+                      <svg viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></svg>
+                    </button>
+                  </div>
+                  <div class="screenshot-meta">
+                    <div class="screenshot-info">
+                      <span class="screenshot-counter">1 / 4</span>
+                      <span class="screenshot-caption-text">
+                        <span class="lang-ko">인게임 플레이 — Unity2D 기반 로그라이크 턴제 던전 RPG 전투 및 탐색 화면</span>
+                        <span class="lang-en">Core Gameplay — Unity2D roguelike turn-based dungeon RPG exploration &amp; combat view</span>
+                      </span>
+                    </div>
+                    <div class="screenshot-tabs" role="tablist">
+                      <button type="button" class="screenshot-tab-btn active" role="tab" aria-selected="true" aria-label="인게임 화면">
+                        <span class="lang-ko">인게임</span><span class="lang-en">Gameplay</span>
+                      </button>
+                      <button type="button" class="screenshot-tab-btn" role="tab" aria-selected="false" aria-label="플레이 루프">
+                        <span class="lang-ko">플레이 루프</span><span class="lang-en">Game Loop</span>
+                      </button>
+                      <button type="button" class="screenshot-tab-btn" role="tab" aria-selected="false" aria-label="시스템 구조">
+                        <span class="lang-ko">시스템 구조</span><span class="lang-en">Architecture</span>
+                      </button>
+                      <button type="button" class="screenshot-tab-btn" role="tab" aria-selected="false" aria-label="캐릭터·던전">
+                        <span class="lang-ko">캐릭터·던전</span><span class="lang-en">Characters</span>
+                      </button>
+                    </div>
+                  </div>
                 </div>
                 <p>
                   <span class="lang-ko">Unity2D 기반 로그라이크 턴제 던전 RPG로, 팀장 겸 PM으로서 기획 총괄, 데이터베이스 ERD 설계 및 핵심 플레이 루프 구현을 주도했습니다.</span>
