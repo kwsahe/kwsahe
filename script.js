@@ -130,8 +130,8 @@ const initScrollReveal = () => {
 
   const observerOptions = {
     root: null,
-    rootMargin: "0px 0px -80px 0px", // 뷰포트 하단보다 80px 여유를 두어 진입 시 부드럽게 활성화
-    threshold: 0.08,
+    rootMargin: "0px 0px 50px 0px", // 뷰포트 진입 50px 전 미리 부드럽게 활성화
+    threshold: 0, // 높이가 큰 섹션에서도 뷰포트 진입 즉시 감지 (임계값 0.08 설정 시 1,000px 이상 대형 섹션에서 뷰포트 높이 초과로 트리거 실패 방지)
   };
 
   const revealObserver = new IntersectionObserver((entries, observer) => {
