@@ -2753,32 +2753,28 @@
                       <span class="lang-en">Problem Definition</span>
                     </dt>
                     <dd>
-                      <span class="lang-ko">건설현장 사고 상황 입력 시 중대재해처벌법·산업안전보건법 조항과 위반 가능성을 신속·정확하게 판단할 법령 RAG 파트가 필요했습니다. 기존 Colab GPU 서버(Qwen·EXAONE)를 그대로 유지하면서 Claude Opus 5.5 API를 선택형 LLM으로 추가 연동하고, 각 모델 특성에 맞는 답변 경로 분리와 엄격한 출처 검증 체계 고도화가 요구되었습니다.</span>
-                      <span class="lang-en">Needed a legal RAG component to quickly and accurately assess violated clauses and liabilities under SAPA and OSHA upon construction accident input. While preserving the existing Colab GPU setup (Qwen/EXAONE), needed to integrate Claude Opus 5.5 API as an optional LLM provider, decouple answer pathways tailored to model capabilities, and enforce strict citation validation.</span>
+                      <span class="lang-ko">건설현장 사고 발생 시 중대재해처벌법·산업안전보건법 위반 가능성을 신속·정확하게 판단할 법령 RAG 시스템입니다. 기존 Colab GPU 오픈소스 모델(Qwen·EXAONE)을 유지하면서 고성능 Claude Opus 5.5를 선택형으로 추가 연동하고, 각 모델 특성에 맞춘 답변 경로 분리와 엄격한 출처 검증 체계를 구축하고자 했습니다.</span>
+                      <span class="lang-en">A legal RAG system designed to swiftly and accurately assess statutory liabilities under the SAPA and OSHA during construction incidents. While maintaining the existing Colab GPU setup (Qwen/EXAONE), integrated Claude Opus 5.5 as an optional LLM provider, established dedicated answer pathways tailored to model capabilities, and enforced strict legal citation validation.</span>
                     </dd>
                   </div>
                   <div>
                     <dt>
-                      <span class="lang-ko">데이터 흐름 & 아키텍처</span>
-                      <span class="lang-en">Data Flow & Architecture</span>
+                      <span class="lang-ko">데이터 흐름 &amp; 아키텍처</span>
+                      <span class="lang-en">Data Flow &amp; Architecture</span>
                     </dt>
                     <dd>
-                      <span class="lang-ko">법령 PDF를 pdfplumber로 본문·표 분리 추출 → Text(500자)·Table(행단위) 각각 ChromaDB에 독립 임베딩 → 통합 retriever로 유사도 합산 → <code>call_llm_blocking</code> 단일 진입점에서 <code>.env</code>의 <code>LLM_PROVIDER</code>(<code>anthropic</code> / <code>remote_openai</code>) 설정 한 줄로 분기합니다(설정 변경 후 서버 재시작).<br />
-Claude 모드의 웹 채팅에서는 <code>rag/claude_chat.py</code> 전용 경로(<code>claude_rag_generation</code>)가 가동되어 기존 고정형 템플릿을 건너뛰고 검색 근거 전체(33~49건, 1.3만~1.8만 자)와 전용 법률 프롬프트를 주입합니다. 관리자 화면은 토큰을 소비하지 않는 Models API로 0.5초 만에 연결을 점검합니다.</span>
-                      <span class="lang-en">Extract law texts and tables via pdfplumber → Embed into separate ChromaDB collections → Combined retriever calculates similarity sum → Unified branching in <code>call_llm_blocking</code> via a single-line <code>LLM_PROVIDER</code> (<code>anthropic</code> / <code>remote_openai</code>) in <code>.env</code>.<br />
-Under Claude mode, web chat uses the dedicated <code>rag/claude_chat.py</code> pipeline (<code>claude_rag_generation</code>), bypassing rigid templates and injecting all retrieved contexts (33~49 articles, ~13k~18k chars) with custom legal reasoning prompts. Admin UI verifies connectivity in 0.5s via token-free Models API.</span>
+                      <span class="lang-ko">법령 PDF에서 본문(500자)과 표(행 단위)를 pdfplumber로 분리 추출해 ChromaDB에 독립 임베딩하고 통합 검색기로 유사도를 합산합니다. <code>call_llm_blocking</code> 단일 진입점에서 <code>.env</code>의 <code>LLM_PROVIDER</code> 설정 한 줄로 Colab 모델과 Claude Opus 5.5를 분기하며, 관리자 화면은 Models API로 토큰 소모 없이 0.5초 만에 연결 상태를 점검합니다.</span>
+                      <span class="lang-en">Extracts statutory text chunks (500 chars) and tables row-by-row via pdfplumber into separate ChromaDB collections, merging them with a combined retriever. In <code>call_llm_blocking</code>, a single configuration line (<code>LLM_PROVIDER</code>) smoothly branches execution between Colab open-source models and Claude Opus 5.5, while the admin console verifies connectivity in 0.5s via the token-free Models API.</span>
                     </dd>
                   </div>
                   <div>
                     <dt>
-                      <span class="lang-ko">시나리오 및 테스트셋 검증</span>
-                      <span class="lang-en">Scenario & Benchmark Verification</span>
+                      <span class="lang-ko">핵심 로직</span>
+                      <span class="lang-en">Core Logic</span>
                     </dt>
                     <dd>
-                      <span class="lang-ko">1) 아파트 신축 현장 철제 자재 낙하 사망 사고의 중대산업재해 해당 여부 질의<br />
-2) 리튬전지 공장 화재 종합 테스트셋(23명 사망, 파견·도급 혼재, 이주노동자) 5문항 웹 실측 검증: Q1 위험물·교육·비상구, Q2 다수 사망·처벌 수위, Q3 파견·도급 책임 구조, Q4 형식적 위험성평가·반복 전조, Q5 종합 보고서</span>
-                      <span class="lang-en">1) Inquiry on fatal steel material drop incident at apartment construction site for SAPA qualification.<br />
-2) Comprehensive lithium battery factory fire benchmark (23 fatalities, mixed dispatch/subcontract, migrant workers) across 5 live web scenarios: Q1 Hazmat/Education/Exit, Q2 Multi-fatalities & Penalties, Q3 Dispatch Liability Structure, Q4 Superficial Risk Assessment & Recurring Signs, Q5 Comprehensive Synthesis Report.</span>
+                      <span class="lang-ko">Claude 전용 경로(<code>rag/claude_chat.py</code>)는 고정 템플릿을 건너뛰고 검색 근거 전체(33~49건, 최대 1.8만 자)와 심층 법률 프롬프트를 직접 주입합니다. 출처 검증기에는 조문 머리(<code>제N조(</code>) 정규식 패턴 검사를 적용해 목차나 단순 인용 조각이 본문으로 오탐되는 문제를 차단하고, 실제 법령 본문과의 일치성을 엄격히 대조합니다.</span>
+                      <span class="lang-en">The dedicated Claude pathway (<code>rag/claude_chat.py</code>) bypasses fixed templates, injecting full retrieved statutory contexts (33~49 clauses, up to 18k chars) with deep legal reasoning prompts. The citation validator enforces strict clause-heading regex (<code>Article N(</code>) matching to eliminate false-positive citations from tables of contents or cross-references.</span>
                     </dd>
                   </div>
                   <div>
@@ -2787,53 +2783,38 @@ Under Claude mode, web chat uses the dedicated <code>rag/claude_chat.py</code> p
                       <span class="lang-en">Technologies</span>
                     </dt>
                     <dd>
-                      <span>Python · Claude Opus 5.5 (Anthropic Python SDK 2.3.0) · ChromaDB · EXAONE-4.0-32B & Qwen (Colab OpenAI-compatible API) · BAAI/bge-m3 · pdfplumber · LangChain · FastAPI · SQLite</span>
+                      <span class="lang-ko">Python, Claude Opus 5.5 (Anthropic Python SDK 2.3.0), ChromaDB, EXAONE-4.0-32B &amp; Qwen (Colab OpenAI-compatible API), BAAI/bge-m3, pdfplumber, LangChain, FastAPI, SQLite, pytest.</span>
+                      <span class="lang-en">Python, Claude Opus 5.5 (Anthropic Python SDK 2.3.0), ChromaDB, EXAONE-4.0-32B &amp; Qwen (Colab OpenAI-compatible API), BAAI/bge-m3, pdfplumber, LangChain, FastAPI, SQLite, pytest.</span>
                     </dd>
                   </div>
                   <div>
                     <dt>
-                      <span class="lang-ko">내 역할 & 주요 구현</span>
-                      <span class="lang-en">My Role & Key Implementation</span>
+                      <span class="lang-ko">내 역할</span>
+                      <span class="lang-en">My Role</span>
                     </dt>
                     <dd>
-                      <span class="lang-ko">단독 개발. Text RAG + Table RAG 이중 ChromaDB 구조 설계, <code>call_llm_blocking</code> 함수 내 Claude Opus 5.5 어댑터 연동 및 <code>rag/claude_chat.py</code> 전용 RAG 답변 파이프라인 신규 구축, Qwen 형식 메시지의 Claude 규격 변환(system 최상위 분리, <code>/no_think</code> 제거, temperature 미전송, max_tokens 16,000 확장), 목차·인용 조각을 조문 본문으로 표시하던 리튬 보조 검색의 원인 분석과 수정(조문 머리 <code>제N조(</code> 확인), 결측 조항(산안법 제29조) 국가법령정보센터 공식 조문 보강, chromadb 1.5.9 고정(이상 PR #2·#4 검토 중), 6개 PR 관리(#1·#3·#5·#6 병합 / #2·#4 검토 중).</span>
-                      <span class="lang-en">Sole developer. Designed dual Text+Table ChromaDB RAG, integrated Claude Opus 5.5 adapter within <code>call_llm_blocking</code>, developed <code>rag/claude_chat.py</code> dedicated RAG generation pipeline, handled message schema conversion (system top-level, stripped <code>/no_think</code>, omitted temperature, expanded max_tokens to 16,000), traced and fixed lithium retrieval that tagged table-of-contents and cross-reference chunks as article text (now requires the <code>Article N(</code> heading), added the official OSHA Art. 29 text, pinned chromadb 1.5.9 (PRs #2 and #4 under review), and managed 6 PRs (#1, #3, #5, #6 merged / #2, #4 under review).</span>
+                      <span class="lang-ko">단독 개발. Text+Table 이중 RAG 구조 설계, Claude Opus 5.5 API 어댑터 연동 및 메시지 규격 변환(시스템 프롬프트 분리, 토큰 16,000 확장), 리튬 보조 검색의 목차 오탐 원인 분석 및 결측 조항(산안법 제29조) 공식 보강(PR #4), ChromaDB 1.5.9 고정(PR #2) 등 6개 PR의 라이프사이클을 관리했습니다.</span>
+                      <span class="lang-en">Sole developer. Designed the dual Text+Table RAG pipeline, integrated Claude Opus 5.5 adapters with custom message schema conversion (system prompt separation, 16,000 max tokens), analyzed and resolved retrieval mislabeling with official statutory text (PR #4), pinned ChromaDB 1.5.9 (PR #2), and managed 6 PR lifecycles.</span>
                     </dd>
                   </div>
                   <div>
                     <dt>
-                      <span class="lang-ko">정량 성과 및 답변 결과</span>
-                      <span class="lang-en">Results & Quantitative Impact</span>
+                      <span class="lang-ko">결과 및 성과</span>
+                      <span class="lang-en">Results &amp; Impact</span>
                     </dt>
                     <dd>
-                      <span class="lang-ko"><strong>1) 종합 평가 대폭 향상:</strong> 리튬전지 화재 종합 테스트셋 웹 실측 평균 점수 기존 결정형 78.8점(불합격) → <strong>Claude 전용 경로 90.0점(합격, 합격선 80점)</strong> 달성 (Q2 다수 사망·처벌 수위 96점, Q4 형식적 위험성평가 96점, Q5 종합 보고서 95점). 중대재해처벌법 제3조 적용(상시 55명 ≥ 5명), 명목상이 아닌 실질 경영책임자 판단, 비상구 기준(3m·50m) 사실 대입, 유족 합의 감경 요소 정밀 분석. (점수는 테스트 파일의 평가 기준표로 Claude Code가 채점, 사람 검토 전)<br />
-<strong>2) 테스트 커버리지:</strong> Pytest 유닛·회귀·웹 보안 및 Claude 어댑터 테스트 38개 → <strong>41개 100% 통과</strong>.<br />
-<strong>3) 근거 검색 & 화면 형식:</strong> 수정 PR(#4) 적용 시 리튬 화재 5개 문항에서 제29·63·64조 실제 본문 검색 15/15, Claude 답변 화면 형식 위반 0건.</span>
-                      <span class="lang-en"><strong>1) Benchmark Elevation:</strong> Comprehensive lithium fire test set average raised from 78.8 (FAIL) to <strong>90.0 (PASS, threshold 80)</strong> via Claude dedicated route (Q2 Multi-fatalities: 96, Q4 Risk Assessment: 96, Q5 Synthesis: 95). Accurately deduced SAPA Art. 3 application (55 regular workers >= 5), de facto vs nominal management liability, emergency exit physical criteria (3m/50m), and settlement mitigating factors. (Scored by Claude Code against the test set rubric, without human review.)<br />
-<strong>2) Test Gate:</strong> Expanded Pytest unit, regression, security, and Claude adapter tests from 38 to <strong>41 (100% PASS)</strong>.<br />
-<strong>3) Retrieval & UI Compliance:</strong> With PR #4, 15/15 retrievals return the actual text of OSHA Art. 29/63/64; 0 UI formatting violations in Claude answers.</span>
-                    </dd>
-                  </div>
-                  <div>
-                    <dt>
-                      <span class="lang-ko">대표 문제 해결 사례</span>
-                      <span class="lang-en">Troubleshooting Case Studies</span>
-                    </dt>
-                    <dd>
-                      <span class="lang-ko"><strong>1) 출처 검증기가 통과시킨 엉뚱한 근거:</strong> 리튬 보조 검색기가 조 번호와 키워드만 들어 있으면 목차나 단순 인용 조항을 본문으로 잘못 매핑하던 문제를 조문 머리 <code>제N조(</code> 정규식 패턴 검증으로 차단하고, 발췌본 PDF에 누락되었던 산안법 제29조를 국가법령정보센터 공식 조문으로 보강(PR #4, 검토 중).<br />
-<strong>2) 새 환경 벡터 DB KeyError: '_type' 해결:</strong> <code>requirements.txt</code>의 chromadb 0.5.23과 저장소의 1.x DB 충돌 및 Windows Python 3.12 빌드 누락 문제를 chromadb 1.5.9 고정(PR #2, 검토 중)으로 해결하고, <code>CHROMA_PATH</code> 환경변수로 DB 복사본을 분리 참조하도록 구성해 원본 DB 오염 방지.</span>
-                      <span class="lang-en"><strong>1) False Citation Passes:</strong> Resolved issue where auxiliary retrieval matched table-of-contents or cross-references by enforcing strict <code>Article N(</code> clause-heading regex, and reinforced missing OSHA Article 29 using official legal texts (PR #4, under review).<br />
-<strong>2) Resolved Vector DB KeyError '_type':</strong> Fixed chromadb version conflict (0.5.23 vs 1.x) and Windows Python 3.12 wheel incompatibility by pinning chromadb to 1.5.9 (PR #2, under review), isolating test runs to cloned DBs via <code>CHROMA_PATH</code> to protect committed data.</span>
+                      <span class="lang-ko">리튬전지 공장 화재 종합 테스트셋 웹 실측에서 평균 점수 78.8점(불합격) → Claude 전용 경로 90.0점(합격, 기준 80점)으로 품질을 향상시켰습니다. 실질 경영책임자 판단 및 비상구 기준(3m·50m) 등 복합 법리를 정밀 분석했으며, 41개 단위·회귀 테스트 100% 통과와 답변 UI 형식 위반 0건을 달성했습니다.</span>
+                      <span class="lang-en">Elevated response quality from 78.8 (FAIL) to 90.0 (PASS, threshold 80) in comprehensive lithium fire web benchmarks. Accurately analyzed complex legal tenets such as de facto executive liability and emergency exit criteria (3m/50m), passing 41/41 unit/regression tests with zero UI layout violations.</span>
                     </dd>
                   </div>
                   <div>
                     <dt>
                       <span class="lang-ko">한계와 다음 단계</span>
-                      <span class="lang-en">Limitations & Next Steps</span>
+                      <span class="lang-en">Limitations &amp; Next Steps</span>
                     </dt>
                     <dd>
-                      <span class="lang-ko">Claude 전용 경로의 응답 시간(68~125초, 검색 근거 1.3만~1.8만 자 분석 및 4천~9천 자 생성)을 배포 기준(60초) 이내로 개선하기 위해 답변 스트리밍 표시와 effort 조정을 검토할 예정입니다. CLI는 아직 기존 경로를 쓰고, 출처 검증기는 호·목 단위 인용을 경고로 표시하는 한계가 있습니다.</span>
-                      <span class="lang-en">To optimize Claude dedicated pathway latency (68~125s from reading ~13k~18k chars and producing 4k~9k char outputs) toward the 60s target, next steps are streaming answers as they are generated and tuning effort. The CLI still uses the original path, and the citation validator flags paragraph/sub-item citations as warnings.</span>
+                      <span class="lang-ko">대량 법령 분석에 따른 긴 응답 시간(68~125초)을 배포 기준(60초) 이내로 단축하기 위해 실시간 답변 스트리밍과 파라미터 조정을 적용할 계획이며, 웹에 이어 CLI 환경에도 Claude 전용 경로를 확대 도입할 예정입니다.</span>
+                      <span class="lang-en">Plan to reduce the latency of analyzing extensive statutory contexts (68~125s) toward the deployment goal (&lt;60s) via real-time answer streaming and parameter tuning, while extending dedicated Claude pathways to CLI environments.</span>
                     </dd>
                   </div>
                 </dl>
