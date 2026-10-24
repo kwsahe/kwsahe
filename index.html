@@ -316,7 +316,7 @@
                     <span class="lang-en">RAG System Architecture (Dual ChromaDB)</span>
                   </li>
                   <li>LangGraph 워크플로우 · LangChain</li>
-                  <li>EXAONE-4.0 · Qwen2.5-VL · bge-m3</li>
+                  <li>Claude Opus 5.5 · EXAONE-4.0 · Qwen · bge-m3</li>
                   <li>Citation Validator (출처 정합성 검증)</li>
                   <li>Computer Vision (OpenCV, YOLO 어댑터)</li>
                   <li>PyTorch · Scikit-learn · XGBoost · Prophet · SHAP</li>
@@ -332,7 +332,7 @@
                   <li>프라이버시 우선 제로-서버(Zero-Server) 설계</li>
                   <li>vCard 3.0 QR 인코딩 & 모바일 인앱브라우저 대응</li>
                   <li>Colab 원격 GPU 모델 서버 (OpenAI API 호환)</li>
-                  <li>38개 회귀 테스트 배포 게이트 & pytest / vitest CI</li>
+                  <li>41개 회귀 테스트 배포 게이트 & pytest / vitest CI</li>
                   <li>Git / GitHub Actions CI/CD</li>
                 </ul>
               </div>
@@ -1314,7 +1314,7 @@
               <article class="project-card" data-category="rag">
                 <h3>k-safety-law-rag</h3>
                 <div class="project-topline">
-                  <span>Python · RAG · EXAONE-4.0-32B · FastAPI</span>
+                  <span>Python · RAG · Claude Opus 5.5 / EXAONE · FastAPI</span>
                   <a href="https://github.com/kwsahe/k-safety-law-rag" target="_blank" rel="noreferrer" aria-label="k-safety-law-rag GitHub 저장소 열기">
                     <svg aria-hidden="true" viewBox="0 0 24 24">
                       <path d="M7 17 17 7M9 7h8v8" />
@@ -1370,8 +1370,8 @@
                   <span class="lang-en">A dual RAG system that analyzes construction accident scenarios to identify violated clauses of the Serious Accident Punishment Act and OSHA.</span>
                 </p>
                 <p class="project-note">
-                  <span class="lang-ko">법령 본문(500자 청킹)과 별표/표(행 단위 청킹)를 별도 ChromaDB에 분리 임베딩한 Text RAG + Table RAG 이중 구조로 검색 정확도를 44.4점에서 97.8점으로 53.4점 향상시켰습니다. 6단계 질문 그래프, EXAONE-4.0-32B LLM, 출처 검증기(Citation Validator), CSRF/세션 보안 및 38개 회귀 테스트 배포 게이트를 구축했습니다.</span>
-                  <span class="lang-en">Improved retrieval accuracy from 44.4 to 97.8 (+53.4 pts) via separate Text & Table ChromaDB embeddings. Implemented a 6-node question graph, EXAONE-4.0-32B reasoning, Citation Validator, and 38 regression tests.</span>
+                  <span class="lang-ko">법령 본문(500자 청킹)과 별표/표(행 단위 청킹)를 별도 ChromaDB에 분리 임베딩한 이중 RAG에 더해, Claude Opus 5.5 API 연동과 모델별 전용 RAG 답변 경로를 구축했습니다. .env 한 줄로 Colab(Qwen·EXAONE)과 Claude를 즉시 전환하며, 리튬전지 화재 종합 테스트셋 웹 실측 평균 78.8점(불합격) → 90.0점(합격)을 달성했습니다. 조문 머리('제N조(') 엄격 대조 출처 검증기, 결측 조항 공식 보강 및 41개 회귀 테스트 배포 게이트를 통과했습니다.</span>
+                  <span class="lang-en">Engineered dual Text+Table ChromaDB RAG and integrated Claude Opus 5.5 with model-specific RAG answer pathways. Instant one-line .env switching between Colab (Qwen/EXAONE) and Claude, raising comprehensive benchmark score from 78.8 to 90.0 (PASS). Enforces strict clause heading ('Article N(') citation validation, supplemented missing law bodies, and passed 41 regression tests.</span>
                 </p>
 
                 <!-- Interactive Flow Widget -->
@@ -1410,16 +1410,18 @@
                     <span class="lang-en"><strong>Dual RAG</strong> Separated Text & Table ChromaDB embeddings using pdfplumber</span>
                   </li>
                   <li>
-                    <span class="lang-ko"><strong>라우팅 & LLM</strong> 질문 유형별 direct route 및 6노드 그래프 질의 처리, EXAONE-4.0-32B 법률 추론 수행</span>
-                    <span class="lang-en"><strong>Routing & LLM</strong> Direct routing & 6-node graph with EXAONE-4.0-32B legal reasoning</span>
+                    <span class="lang-ko"><strong>Claude 연동 & 전용 RAG 분기</strong> LLM_PROVIDER 한 줄 전환, Claude 전용 경로에서 검색 근거 전체(33~49건)를 주입해 리튬 화재 종합 테스트 78.8점→90.0점 달성</span>
+                    <span class="lang-en"><strong>Claude & Dedicated RAG Route</strong> Single-line LLM_PROVIDER switch; injects 33~49 retrieved clauses in Claude route, raising comprehensive score from 78.8 to 90.0</span>
                   </li>
                   <li>
-                    <span class="lang-ko"><strong>보안 & 배포 게이트</strong> Citation Validator 검증 · CSRF 방어 · 38개 회귀 테스트 배포 게이트 통과</span>
-                    <span class="lang-en"><strong>Security & Gate</strong> Citation Validator, CSRF protection, and 38 passing deployment regression tests</span>
+                    <span class="lang-ko"><strong>출처 검증 & 품질 게이트</strong> 조문 머리('제N조(') 정규식 대조로 오탐 방지 · 결측 조항 공식 보강 · 41개 회귀 테스트 100% 통과</span>
+                    <span class="lang-en"><strong>Validation & Gate</strong> Strict clause-heading regex match to eliminate false citations, supplemented missing clauses, 41/41 regression tests passing</span>
                   </li>
                 </ul>
                 <div class="tags">
-                  <span>ChromaDB</span>
+                  <span>ChromaDB 1.5.9</span>
+                  <span>Claude Opus 5.5</span>
+                  <span>Anthropic API</span>
                   <span>bge-m3</span>
                   <span>Table RAG</span>
                   <span>LangChain</span>
@@ -2701,7 +2703,7 @@
               </article>
 <article class="project-detail-card" data-category="rag">
                 <div class="project-detail-heading">
-                  <span>Python · RAG · Safety Management</span>
+                  <span>Python · RAG · Claude Opus 5.5 · Safety Management</span>
                   <h3>k-safety-law-rag</h3>
                 </div>
                 <dl class="project-detail-list">
@@ -2711,28 +2713,32 @@
                       <span class="lang-en">Problem Definition</span>
                     </dt>
                     <dd>
-                      <span class="lang-ko">건설현장 안전관리 프로젝트에서 사고 상황을 입력했을 때 관련 중대재해처벌법, 산업안전보건법 조항과 위반 가능성을 빠르게 확인할 수 있는 관련법령 RAG 파트가 필요했습니다.</span>
-                      <span class="lang-en">Needed a regulation RAG component to quickly check relevant clauses of the Serious Accident Punishment Act and Occupational Safety and Health Act, along with violation probability, when accident details are input in a site safety management project.</span>
+                      <span class="lang-ko">건설현장 사고 상황 입력 시 중대재해처벌법·산업안전보건법 조항과 위반 가능성을 신속·정확하게 판단할 법령 RAG 파트가 필요했습니다. 기존 Colab GPU 서버(Qwen·EXAONE)를 그대로 유지하면서 Claude Opus 5.5 API를 선택형 LLM으로 추가 연동하고, 각 모델 특성에 맞는 답변 경로 분리와 엄격한 출처 검증 체계 고도화가 요구되었습니다.</span>
+                      <span class="lang-en">Needed a legal RAG component to quickly and accurately assess violated clauses and liabilities under SAPA and OSHA upon construction accident input. While preserving the existing Colab GPU setup (Qwen/EXAONE), needed to integrate Claude Opus 5.5 API as an optional LLM provider, decouple answer pathways tailored to model capabilities, and enforce strict citation validation.</span>
                     </dd>
                   </div>
                   <div>
                     <dt>
-                      <span class="lang-ko">데이터 흐름</span>
-                      <span class="lang-en">Data Flow</span>
+                      <span class="lang-ko">데이터 흐름 & 아키텍처</span>
+                      <span class="lang-en">Data Flow & Architecture</span>
                     </dt>
                     <dd>
-                      <span class="lang-ko">법령 PDF를 pdfplumber로 본문·표 분리 추출 → Text·Table 각각 ChromaDB에 임베딩 → 통합 retriever로 유사도 합산 → 질문 유형 판단(direct route / LLM route) → 위반 조항·책임 주체·법령 페이지 출력</span>
-                      <span class="lang-en">Extract law texts and tables separately via pdfplumber → Embed Text and Tables into separate ChromaDB → Combined retriever calculates similarity sum → Route query type (direct route vs. LLM route) → Output violated clauses, responsible parties, and reference pages.</span>
+                      <span class="lang-ko">법령 PDF를 pdfplumber로 본문·표 분리 추출 → Text(500자)·Table(행단위) 각각 ChromaDB 1.5.9에 독립 임베딩 → 통합 retriever로 유사도 합산 → <code>call_llm_blocking</code> 단일 진입점에서 <code>.env</code>의 <code>LLM_PROVIDER</code>(<code>anthropic</code> / <code>remote_openai</code>) 설정 한 줄로 무중단 분기합니다.<br />
+Claude 모드에서는 <code>rag/claude_chat.py</code> 전용 경로(<code>claude_rag_generation</code>)가 가동되어 기존 고정형 템플릿을 건너뛰고 검색 근거 전체(33~49건, 1.3만~1.8만 자)와 전용 법률 프롬프트를 주입합니다. 관리자 화면은 토큰을 소비하지 않는 Models API로 0.5초 만에 연결을 점검합니다.</span>
+                      <span class="lang-en">Extract law texts and tables via pdfplumber → Embed into separate ChromaDB 1.5.9 instances → Combined retriever calculates similarity sum → Unified branching in <code>call_llm_blocking</code> via a single-line <code>LLM_PROVIDER</code> (<code>anthropic</code> / <code>remote_openai</code>) in <code>.env</code>.<br />
+Under Claude mode, the dedicated <code>rag/claude_chat.py</code> pipeline (<code>claude_rag_generation</code>) activates, bypassing rigid templates and injecting all retrieved contexts (33~49 articles, ~13k~18k chars) with custom legal reasoning prompts. Admin UI verifies connectivity in 0.5s via token-free Models API.</span>
                     </dd>
                   </div>
                   <div>
                     <dt>
-                      <span class="lang-ko">시나리오 검증</span>
-                      <span class="lang-en">Scenario Verification</span>
+                      <span class="lang-ko">시나리오 및 테스트셋 검증</span>
+                      <span class="lang-en">Scenario & Benchmark Verification</span>
                     </dt>
                     <dd>
-                      <span class="lang-ko">아파트 신축 현장에서 철제 자재 낙하로 근로자가 사망한 사례를 입력하고, 해당 사고가 중대재해처벌법상 중대산업재해에 해당하는지와 판단 근거를 함께 질의했습니다.</span>
-                      <span class="lang-en">Input a case where a worker died due to falling steel materials at an apartment construction site, and queried whether this falls under serious industrial accidents under the Serious Accident Punishment Act, along with the reasoning.</span>
+                      <span class="lang-ko">1) 아파트 신축 현장 철제 자재 낙하 사망 사고의 중대산업재해 해당 여부 질의<br />
+2) 리튬전지 공장 화재 종합 테스트셋(23명 사망, 파견·도급 혼재, 이주노동자) 5문항 웹 실측 검증: Q1 위험물·교육·비상구, Q2 다수 사망·처벌 수위, Q3 파견·도급 책임 구조, Q4 형식적 위험성평가·반복 전조, Q5 종합 보고서</span>
+                      <span class="lang-en">1) Inquiry on fatal steel material drop incident at apartment construction site for SAPA qualification.<br />
+2) Comprehensive lithium battery factory fire benchmark (23 fatalities, mixed dispatch/subcontract, migrant workers) across 5 live web scenarios: Q1 Hazmat/Education/Exit, Q2 Multi-fatalities & Penalties, Q3 Dispatch Liability Structure, Q4 Superficial Risk Assessment & Recurring Signs, Q5 Comprehensive Synthesis Report.</span>
                     </dd>
                   </div>
                   <div>
@@ -2741,47 +2747,53 @@
                       <span class="lang-en">Technologies</span>
                     </dt>
                     <dd>
-                      <span>Python · pdfplumber · LangChain · ChromaDB · BAAI/bge-m3 Embedding · EXAONE-4.0-32B (Colab Remote API) · SQLite (chat history) · FastAPI (web chatbot UI)</span>
+                      <span>Python · Claude Opus 5.5 (Anthropic Python SDK 2.3.0) · ChromaDB 1.5.9 · EXAONE-4.0-32B & Qwen (Colab OpenAI-compatible API) · BAAI/bge-m3 · pdfplumber · LangChain · FastAPI · SQLite</span>
                     </dd>
                   </div>
                   <div>
                     <dt>
-                      <span class="lang-ko">내 역할</span>
-                      <span class="lang-en">My Role</span>
+                      <span class="lang-ko">내 역할 & 주요 구현</span>
+                      <span class="lang-en">My Role & Key Implementation</span>
                     </dt>
                     <dd>
-                      <span class="lang-ko">Text RAG(500자 청킹) + Table RAG(행단위 청킹) 이중 구조 설계, 질문 유형별 direct route 및 6노드 경량 질문 그래프 구현, Citation Validator 출처 검증기 구축, 관리자/일반 계정 분리, SQLite 대화 이력 저장, CLI + HTML/FastAPI 웹 챗봇 UI 2종 구현, 법령 참고 JSON 자동 저장 구조 전체 단독 개발 (수동 평가 정확도 44.4점 ➔ 97.8점 달성)</span>
-                      <span class="lang-en">Sole developer. Designed dual Text+Table RAG structure, implemented 6-node question graph and direct routing, built Citation Validator, set up admin/user role separation, configured SQLite chat history, and developed CLI + FastAPI chatbot interfaces (boosted accuracy from 44.4 to 97.8).</span>
+                      <span class="lang-ko">단독 개발. Text RAG + Table RAG 이중 ChromaDB 구조 설계, <code>call_llm_blocking</code> 함수 내 Claude Opus 5.5 어댑터 연동 및 <code>rag/claude_chat.py</code> 전용 RAG 답변 파이프라인 신규 구축, Qwen 형식 메시지의 Claude 규격 변환(system 최상위 분리, <code>/no_think</code> 제거, temperature 미전송, max_tokens 16,000 확장), 조문 머리(<code>제N조(</code>) 정규식 대조 기반 Citation Validator 출처 검증기 고도화, 결측 조항(산안법 제29조) 국가법령정보센터 공식 조문 보강, chromadb 1.5.9 고정, 4개 PR 라이프사이클 관리(#1, #3 병합 / #2, #4 검토 중).</span>
+                      <span class="lang-en">Sole developer. Designed dual Text+Table ChromaDB RAG, integrated Claude Opus 5.5 adapter within <code>call_llm_blocking</code>, developed <code>rag/claude_chat.py</code> dedicated RAG generation pipeline, handled message schema conversion (system top-level, stripped <code>/no_think</code>, omitted temperature, expanded max_tokens to 16,000), strengthened Citation Validator with strict clause-heading (<code>Article N(</code>) regex matching, supplemented missing OSHA Art. 29 from official statute portal, pinned chromadb 1.5.9, and managed 4 PRs (#1, #3 merged / #2, #4 under review).</span>
                     </dd>
                   </div>
                   <div>
                     <dt>
-                      <span class="lang-ko">답변 결과</span>
-                      <span class="lang-en">Results & Outputs</span>
+                      <span class="lang-ko">정량 성과 및 답변 결과</span>
+                      <span class="lang-en">Results & Quantitative Impact</span>
                     </dt>
                     <dd>
-                      <span class="lang-ko">EXAONE-4.0-32B 모델이 사고를 중대산업재해로 정확히 판단하고, 사망자 1명 발생 및 상시 근로자 5명 이상 사업장 기준을 근거로 중대재해처벌법 제2조와 제3조를 제시하도록 응답을 받았습니다. (Pytest 유닛 테스트 38/38 및 시나리오 검증 30/30 100% 통과)</span>
-                      <span class="lang-en">The EXAONE-4.0-32B model correctly classified the incident as a serious industrial accident, citing the occurrence of 1 death and the 5+ regular workers criteria, presenting Articles 2 and 3 of the Serious Accident Punishment Act (100% PASS on 38/38 unit tests and 30/30 scenarios).</span>
+                      <span class="lang-ko"><strong>1) 종합 평가 대폭 향상:</strong> 리튬전지 화재 종합 테스트셋 웹 실측 평균 점수 기존 결정형 78.8점(불합격) → <strong>Claude 전용 경로 90.0점(합격, 합격선 80점)</strong> 달성 (Q2 다수 사망·처벌 수위 96점, Q4 형식적 위험성평가 96점, Q5 종합 보고서 95점). 중대재해처벌법 제3조 적용(상시 55명 ≥ 5명), 명목상이 아닌 실질 경영책임자 판단, 비상구 기준(3m·50m) 사실 대입, 유족 합의 감경 요소 정밀 분석.<br />
+<strong>2) 테스트 커버리지:</strong> Pytest 유닛·회귀·웹 보안 및 Claude 어댑터 테스트 38개 → <strong>41개 100% 통과</strong>.<br />
+<strong>3) 출처 검증 & 화면 형식:</strong> 리튬 화재 5개 문항 전수 실제 조문 본문 검색 일치(15/15), 화면 형식 위반 0건.</span>
+                      <span class="lang-en"><strong>1) Benchmark Elevation:</strong> Comprehensive lithium fire test set average raised from 78.8 (FAIL) to <strong>90.0 (PASS, threshold 80)</strong> via Claude dedicated route (Q2 Multi-fatalities: 96, Q4 Risk Assessment: 96, Q5 Synthesis: 95). Accurately deduced SAPA Art. 3 application (55 regular workers >= 5), de facto vs nominal management liability, emergency exit physical criteria (3m/50m), and settlement mitigating factors.<br />
+<strong>2) Test Gate:</strong> Expanded Pytest unit, regression, security, and Claude adapter tests from 38 to <strong>41 (100% PASS)</strong>.<br />
+<strong>3) Citation & UI Compliance:</strong> 15/15 verified matches against actual statutory bodies, 0 markdown/UI layout violations.</span>
                     </dd>
                   </div>
                   <div>
                     <dt>
-                      <span class="lang-ko">결과 화면</span>
-                      <span class="lang-en">Result Interface</span>
+                      <span class="lang-ko">대표 문제 해결 사례</span>
+                      <span class="lang-en">Troubleshooting Case Studies</span>
                     </dt>
                     <dd>
-                      <span class="lang-ko">건설현장 안전관리 화면에서 사고 정보, 위반 판단, 판단 근거, 관련 법령 조항, 참고 근거 유사도, 응답 시간을 함께 확인할 수 있도록 구성했습니다.</span>
-                      <span class="lang-en">Configured the interface to display accident info, violation judgment, reasoning grounds, relevant clauses, reference similarity score, and API response time.</span>
+                      <span class="lang-ko"><strong>1) 출처 검증기가 통과시킨 엉뚱한 근거 해결:</strong> 리튬 보조 검색기가 조 번호와 키워드만 들어 있으면 목차나 단순 인용 조항을 본문으로 잘못 매핑하던 문제를 조문 머리 <code>제N조(</code> 정규식 패턴 검증으로 차단하고, 발췌본 PDF에 누락되었던 산안법 제29조를 국가법령정보센터 공식 조문으로 보강(PR #4).<br />
+<strong>2) 새 환경 벡터 DB KeyError: '_type' 해결:</strong> <code>requirements.txt</code>의 chromadb 0.5.23과 저장소의 1.x DB 충돌 및 Windows Python 3.12 빌드 누락 문제를 chromadb 1.5.9 고정(PR #2)으로 해결하고, <code>CHROMA_PATH</code> 환경변수로 DB 복사본을 분리 참조하도록 구성해 원본 DB 오염 방지.</span>
+                      <span class="lang-en"><strong>1) Fixed False Citation Passes:</strong> Resolved issue where auxiliary retrieval matched table-of-contents or cross-references by enforcing strict <code>Article N(</code> clause-heading regex, and reinforced missing OSHA Article 29 using official legal texts (PR #4).<br />
+<strong>2) Resolved Vector DB KeyError '_type':</strong> Fixed chromadb version conflict (0.5.23 vs 1.x) and Windows Python 3.12 wheel incompatibility by pinning chromadb to 1.5.9 (PR #2), isolating test runs to cloned DBs via <code>CHROMA_PATH</code> to protect committed data.</span>
                     </dd>
                   </div>
                   <div>
                     <dt>
-                      <span class="lang-ko">한계와 개선점</span>
-                      <span class="lang-en">Limitations & Improvements</span>
+                      <span class="lang-ko">한계와 다음 단계</span>
+                      <span class="lang-en">Limitations & Next Steps</span>
                     </dt>
                     <dd>
-                      <span class="lang-ko">법령 조항의 최신성 관리와 답변 검증 체계를 더 강화하고, 사고 유형별 평가 기준을 구조화하면 실무 적용성이 높아질 수 있습니다.</span>
-                      <span class="lang-en">Strengthening version management for regulations, enhancing verification metrics, and structuring evaluation criteria by accident type would improve practical utility.</span>
+                      <span class="lang-ko">Claude 전용 경로의 응답 시간(68~125초, 검색 근거 1.3만~1.8만 자 분석 및 4천~9천 자 생성)을 배포 기준(60초) 이내로 개선하기 위해 Server-Sent Events(SSE) 스트리밍 표시 및 추론 effort 옵션 조율을 검토 중이며, CLI 환경 전용 경로 확장 및 호·목 단위 인용 검증기 고도화를 추진하고 있습니다.</span>
+                      <span class="lang-en">To optimize Claude dedicated pathway latency (68~125s from reading ~13k~18k chars and producing 4k~9k char outputs) toward the 60s target, currently evaluating Server-Sent Events (SSE) streaming and reasoning effort controls. Also planning CLI route expansion and paragraph/sub-item citation validator granularity.</span>
                     </dd>
                   </div>
                 </dl>

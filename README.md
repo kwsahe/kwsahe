@@ -53,7 +53,7 @@
 | **link21-ai-chatbot** *(Live / Private)* | LINK21 웹서비스 공식 AI 챗봇 0→1 설계·구현 · 의도 라우팅 및 SSE 실시간 스트리밍 ([실배포](https://www.link21premium.com/)) | Next.js · TypeScript · Gemini API · OpenAI API · SSE · Supabase |
 | **[link21-bidpilot-ai](https://github.com/kwsahe/link21-bidpilot-ai)** *(Private)* | 나라장터 공공입찰 공고 자동 수집 · RFP 요구사항 매트릭스 파싱 · 3D Cosmos 시각화 · 제안서 Auditor AI 검증 | Python · FastAPI · Next.js · Three.js · G2B OpenAPI |
 | **[tri-agent-control](https://github.com/kwsahe/tri-agent-control)** | Codex · Antigravity · Claude Code 3개 AI 에이전트 실시간 토론·합의 & 목표 기반 코딩 오케스트레이션 | Python · Multi-Agent · Vanilla JS · Prompt Engineering |
-| **[k-safety-law-rag](https://github.com/kwsahe/k-safety-law-rag)** | 건설현장 사고 시나리오 기반 법령 이중 RAG (Text + Table) 및 출처 검증기 | Python · LangChain · ChromaDB · EXAONE-4.0-32B · FastAPI |
+| **[k-safety-law-rag](https://github.com/kwsahe/k-safety-law-rag)** | 건설현장 법령 이중 RAG · Claude Opus 5.5 연동 및 모델별 답변 경로 분리 (종합 테스트 90.0점) | Python · Claude Opus 5.5 · Anthropic API · ChromaDB · EXAONE · FastAPI |
 | **[market-pulse](https://github.com/kwsahe/market-pulse)** | PC/노트북 실시간 수집 · React 19 + Three.js 3D 씬 · FastAPI 13개 엔드포인트 · LangGraph 파이프라인 | React 19 · TypeScript · Three.js · FastAPI · LangGraph · ML |
 | **[business-card-auto](https://business-card-auto.vercel.app)** *(Private)* | 행사 현장용 프라이버시 우선 vCard 3.0 QR 디지털 명함 웹앱 ([실배포](https://business-card-auto.vercel.app)) | Next.js 15 · TypeScript · Canvas · Tailwind CSS · Vercel |
 | **[construction-accident-vl-agent](https://github.com/kwsahe/construction-accident-vl-agent)** | CCTV 영상 → 프레임 Contact Sheet 분석 → 사고 판단 VL Agent & YOLO 어댑터 | Python · Qwen2.5-VL · OpenCV · YOLO · TypeScript |
