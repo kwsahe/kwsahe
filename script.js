@@ -303,8 +303,8 @@ const initInteractiveFlowWidget = () => {
     },
     validator: {
       title: "6. CitationValidatorNode (출처 검증기)",
-      desc: "LLM이 생성한 최종 답변 내 조항, 별표, 법령명을 실제 검색 근거(Context)와 1:1 대조 검증합니다. 조문 머리('제N조(') 엄격 패턴 검증을 도입하여 허위 출처 인용 및 목차 오탐을 차단하고, 미검증 조항 인용 시 WARN/FAIL을 부착합니다.",
-      code: `{\n  "validation_status": "PASS",\n  "strict_heading_check": true,\n  "matched_articles": ["중대재해처벌법 제2조", "제3조", "산업안전보건법 제29조", "제63조"],\n  "unverified_citations": []\n}`
+      desc: "LLM이 생성한 최종 답변 내 조항, 별표, 법령명을 실제 검색 근거(Context)와 1:1 대조 검증하여 미검증 조항 인용 시 WARN/FAIL을 부착하고 관리자 대시보드로 피드백합니다.",
+      code: `{\n  "validation_status": "PASS",\n  "matched_articles": ["중대재해처벌법 제2조", "제3조", "시행규칙 별표 5 제23호"],\n  "unverified_citations": []\n}`
     }
   };
 
