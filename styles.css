@@ -1014,6 +1014,27 @@ a {
   margin: 0 !important;
 }
 
+/* 상세 카드 시연 영상 — 슬라이드 자동 넘김(4.5초)과 분리해 끝까지 볼 수 있게 둔다 */
+.project-demo {
+  margin: 18px 0 0;
+}
+
+.project-demo video {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: #0d0f14;
+}
+
+.project-demo figcaption {
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
 .project-detail-list {
   display: grid;
   gap: 16px;

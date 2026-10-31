@@ -2824,6 +2824,13 @@
                   <span>React 19 · Three.js · FastAPI · SQLite · scikit-learn · LangGraph</span>
                   <h3>market-pulse</h3>
                 </div>
+                <figure class="project-demo">
+                  <video src="./png/screenshots_market-palse/demo_desk.mp4" poster="./png/screenshots_market-palse/demo_desk_poster.jpg" controls muted playsinline preload="metadata" aria-label="Market Pulse 시연 영상 — 3D 데스크에서 부품을 고르고 상품 상세의 가격 추이로 이어지는 흐름"></video>
+                  <figcaption>
+                    <span class="lang-ko">시연 영상 (23초) — 3D 데스크에서 CPU·그래픽카드·NVMe SSD를 차례로 고르면 카메라가 이동하고 시세 패널이 열리며, 최저가 상품을 누르면 상세 화면의 가격 추이로 이어집니다.</span>
+                    <span class="lang-en">Demo (23s) — selecting CPU, GPU, and NVMe SSD on the 3D desk moves the camera and opens each market panel; clicking the cheapest item leads to its price history.</span>
+                  </figcaption>
+                </figure>
                 <dl class="project-detail-list">
                   <div>
                     <dt>
@@ -2887,12 +2894,22 @@
                   </div>
                   <div>
                     <dt>
+                      <span class="lang-ko">문제 해결 사례</span>
+                      <span class="lang-en">Problems Solved</span>
+                    </dt>
+                    <dd>
+                      <span class="lang-ko"><strong>다나와 새 검색 화면</strong> — 검색 요청의 25~73%가 새 화면으로 넘어가 카테고리가 하루치 통째로 비었습니다. 두 화면을 모두 읽는 수집기로 바꾸고, 같은 시각 두 화면에서 저장될 894행이 상품명·옵션·가격·상품코드까지 일치함을 확인했습니다.<br /><strong>미끼가·비정상가</strong> — 1만 원으로 수집된 4TB SSD가 가격 변동 1위(-99%)를, 4.4억 원으로 수집된 마우스가 카테고리 평균가(708만 원)를 왜곡했습니다. "같은 상품 다른 용량 단가의 5% 미만", "카테고리 중앙값의 100배 초과·1/100 미만" 기준을 누적 데이터(비교 가능한 옵션 10,699행)로 정해 수집 단계에서 걸렀습니다.<br /><strong>카테고리 오염</strong> — 검색어 "CPU 프로세서"가 스마트폰 AP 스펙에 매칭돼 CPU가 진짜 2행 + 폰·태블릿 84행이 됐는데도 실행은 "성공"으로 기록됐습니다. 검색어 교체, 카테고리별 스펙 필터, 결과 데이터 모양을 검사하는 검증 단계(직전 대비 40% 급감·카테고리 소실 시 실패)로 막았습니다.<br /><strong>무인 운영</strong> — 손으로 실행하던 시기 수집률 17.1%(164일 중 28일)를 작업 스케줄러, 창 없는 실행, VACUUM INTO 백업, 실패 알림으로 82.7%까지 올렸습니다. 빠진 날은 모두 PC가 꺼져 있던 날입니다.</span>
+                      <span class="lang-en"><strong>Danawa's new search UI</strong> — 25–73% of searches were redirected to a redesigned UI, emptying whole categories for a day. Replaced retries with a scraper that reads both UIs, and verified 894 rows captured from both at the same time match on name, option, price, and product code.<br /><strong>Bait and absurd prices</strong> — a 4TB SSD scraped at ₩10,000 topped the price-change report (-99%), and a mouse scraped at ₩439.8M pushed the category average to ₩7.08M. Filtered at ingestion with thresholds set from accumulated data (10,699 comparable option rows): under 5% of sibling options' unit price, or beyond 100× / 1/100 of the category median.<br /><strong>Category contamination</strong> — the query "CPU processor" matched smartphone AP specs, turning the CPU category into 2 real CPUs + 84 phones and tablets while the run still logged "success". Fixed with a new query, per-category spec filters, and a verification step that checks the shape of the result data (fails on a 40% drop or a vanished category).<br /><strong>Unattended operation</strong> — raised the collection rate from 17.1% (28 of 164 days, run by hand) to 82.7% with Task Scheduler, windowless runs, VACUUM INTO backups, and failure alerts. Every missed day was a day the PC was off.</span>
+                    </dd>
+                  </div>
+                  <div>
+                    <dt>
                       <span class="lang-ko">결과 및 한계</span>
                       <span class="lang-en">Results &amp; Limitations</span>
                     </dt>
                     <dd>
-                      <span class="lang-ko">2026년 3월부터 약 5만 3천 건의 가격 스냅샷을 쌓았고, 9개 카테고리 하루 약 800개 상품을 무인으로 수집합니다. 다나와가 검색 요청의 25~73%를 새 화면으로 넘겨 카테고리가 통째로 빠지던 문제는 두 화면을 모두 읽는 수집기로 바꿔 해결했고(같은 시각 두 화면에서 894행이 완전히 일치함을 확인), 비정상 가격 오수집은 원인 분석 후 필터로 막았습니다. 한계: 개인 PC에서 운영해 공개 URL이 없고, 예측 모델 정확도(R² 약 0.6)는 개선 여지가 있습니다.</span>
-                      <span class="lang-en">Accumulated ~53,000 price snapshots since March 2026, unattendedly collecting ~800 products daily across 9 categories. When Danawa began redirecting 25–73% of searches to a new UI and whole categories went missing, replaced retries with a scraper that reads both UIs (894 rows verified identical across both at the same time); absurd price ingestion was traced to its root cause and blocked with filters. Limitations: operated on a local PC without a public live URL, and predictive model accuracy (Random Forest R² ~0.6) leaves room for future optimization.</span>
+                      <span class="lang-ko">2026년 3월부터 약 5만 3천 건의 가격 스냅샷을 쌓았고, 9개 카테고리 하루 약 800개 상품을 무인으로 수집합니다. pytest 167개·vitest 22개로 수집·분석·API를 검증합니다. 한계: 개인 PC에서 운영해 공개 URL이 없고, 카테고리마다 검색 결과 1페이지(상품 40개)만 모아 순위 변동이 규모 변화처럼 보일 수 있으며, 예측 모델 정확도(R² 약 0.6)는 개선 여지가 있습니다.</span>
+                      <span class="lang-en">Accumulated ~53,000 price snapshots since March 2026, unattendedly collecting ~800 products daily across 9 categories, verified by 167 pytest + 22 vitest tests. Limitations: runs on a local PC without a public URL; only the first search page (40 products) per category is collected, so ranking shifts can look like size changes; and the prediction model (Random Forest R² ~0.6) leaves room for improvement.</span>
                     </dd>
                   </div>
                 </dl>
