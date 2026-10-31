@@ -1524,8 +1524,8 @@
                       <div class="screenshot-slide" data-index="4">
                         <img src="./png/screenshots_market-palse/v2_05_anomalies.png" alt="Market Pulse 이상치 — 카테고리별 통계와 Z-score 이상 가격" loading="lazy" />
                         <div class="slide-caption-src">
-                          <span class="lang-ko">이상치 탐지 — IQR 및 Z-score 통계 기반 옵션 미끼가 및 이상 가격 감지</span>
-                          <span class="lang-en">Anomaly Detection — Statistical detection of bait pricing &amp; abnormal outliers</span>
+                          <span class="lang-ko">이상치 탐지 — 카테고리별 통계와 Z-score·IQR 기준으로 크게 벗어난 가격 표시</span>
+                          <span class="lang-en">Anomaly Detection — Category statistics with Z-score &amp; IQR price outliers</span>
                         </div>
                       </div>
                     </div>
@@ -1568,8 +1568,8 @@
                   <span class="lang-en">A hardware price analytics dashboard that collects daily prices for 9 PC component and laptop categories from Danawa and surfaces price changes, anomalies, and spec-based fair prices in one place.</span>
                 </p>
                 <p class="project-note">
-                  <span class="lang-ko">FastAPI REST API 17개와 React 19 SPA(10개 화면), Three.js 3D 데스크를 구현했습니다. 미끼가·비정상가·카테고리 오염을 수집 단계에서 걸러내고, 매일 자동 수집 → 검증 → 백업 → 실패 알림까지 무인 운영합니다. pytest 160개 + vitest 22개 CI.</span>
-                  <span class="lang-en">Built 17 FastAPI endpoints, a 10-view React 19 SPA, and a Three.js 3D desk. Filters bait prices, absurd prices, and category contamination at ingestion, and runs unattended daily: scrape → verify → back up → alert on failure. CI with 160 pytest + 22 vitest tests.</span>
+                  <span class="lang-ko">FastAPI REST API 17개와 React 19 SPA(10개 화면), Three.js 3D 데스크를 구현했습니다. 미끼가·비정상가·카테고리 오염을 수집 단계에서 걸러내고, 매일 자동 수집 → 검증 → 백업 → 실패 알림까지 무인 운영합니다. pytest 167개 + vitest 22개 CI.</span>
+                  <span class="lang-en">Built 17 FastAPI endpoints, a 10-view React 19 SPA, and a Three.js 3D desk. Filters bait prices, absurd prices, and category contamination at ingestion, and runs unattended daily: scrape → verify → back up → alert on failure. CI with 167 pytest + 22 vitest tests.</span>
                 </p>
                 <div class="tags">
                   <span>React 19</span>
@@ -2862,7 +2862,7 @@
                     </dt>
                     <dd>
                       <span class="lang-ko">옵션 미끼가(같은 상품 대비 용량당 5% 미만)·비정상가(카테고리 중앙값의 100배 초과·1/100 미만, 예: 4억 원대로 잘못 수집된 마우스)·카테고리 오염·중고 상품을 수집 단계에서 제외. Windows 작업 스케줄러로 매일 자동 실행하고, 수집 후 전날 대비 급감·카테고리 소실을 자동 검증해 실패 시 알림, DB 스냅샷을 OneDrive에 7세대 보관합니다.</span>
-                      <span class="lang-en">Filters out option bait prices (&lt;5% unit price of other options of the same item), absurd outliers (&gt;100x or &lt;1/100 of category median, e.g., a gaming mouse mistakenly scraped at 430M KRW), category contamination, and used goods at ingestion. Runs unattended daily via Windows Task Scheduler, triggers Windows alerts if item counts drop &gt;40% or categories vanish, and retains 7 generations of SQLite snapshot backups (VACUUM INTO) on OneDrive.</span>
+                      <span class="lang-en">Filters out option bait prices (&lt;5% unit price of other options of the same item), absurd outliers (&gt;100x or &lt;1/100 of category median, e.g., a gaming mouse mistakenly scraped at 439.8M KRW), category contamination, and used goods at ingestion. Runs unattended daily via Windows Task Scheduler, triggers Windows alerts if item counts drop &gt;40% or categories vanish, and retains 7 generations of SQLite snapshot backups (VACUUM INTO) on OneDrive.</span>
                     </dd>
                   </div>
                   <div>
@@ -2891,8 +2891,8 @@
                       <span class="lang-en">Results &amp; Limitations</span>
                     </dt>
                     <dd>
-                      <span class="lang-ko">2026년 3월부터 약 4만 건의 가격 스냅샷을 쌓았고, 9개 카테고리 하루 약 790개 상품을 무인으로 수집합니다. 운영 중 발견한 다나와 신규 UI 리다이렉트, 비정상 가격 오수집 같은 문제를 원인 분석 후 재시도·필터로 해결했습니다. 한계: 개인 PC에서 운영해 공개 URL이 없고, 예측 모델 정확도(R² 약 0.6)는 개선 여지가 있습니다.</span>
-                      <span class="lang-en">Accumulated ~40,000 price snapshots since March 2026, unattendedly collecting ~790 products daily across 9 categories. Resolved operational challenges such as Danawa new UI redirects and absurd pricing ingestion through root-cause analysis, retries, and filters. Limitations: operated on a local PC without a public live URL, and predictive model accuracy (Random Forest R² ~0.6) leaves room for future optimization.</span>
+                      <span class="lang-ko">2026년 3월부터 약 5만 3천 건의 가격 스냅샷을 쌓았고, 9개 카테고리 하루 약 800개 상품을 무인으로 수집합니다. 다나와가 검색 요청의 25~73%를 새 화면으로 넘겨 카테고리가 통째로 빠지던 문제는 두 화면을 모두 읽는 수집기로 바꿔 해결했고(같은 시각 두 화면에서 894행이 완전히 일치함을 확인), 비정상 가격 오수집은 원인 분석 후 필터로 막았습니다. 한계: 개인 PC에서 운영해 공개 URL이 없고, 예측 모델 정확도(R² 약 0.6)는 개선 여지가 있습니다.</span>
+                      <span class="lang-en">Accumulated ~53,000 price snapshots since March 2026, unattendedly collecting ~800 products daily across 9 categories. When Danawa began redirecting 25–73% of searches to a new UI and whole categories went missing, replaced retries with a scraper that reads both UIs (894 rows verified identical across both at the same time); absurd price ingestion was traced to its root cause and blocked with filters. Limitations: operated on a local PC without a public live URL, and predictive model accuracy (Random Forest R² ~0.6) leaves room for future optimization.</span>
                     </dd>
                   </div>
                 </dl>
