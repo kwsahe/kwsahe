@@ -1568,8 +1568,8 @@
                   <span class="lang-en">A hardware price analytics dashboard that collects daily prices for 9 PC component and laptop categories from Danawa and surfaces price changes, anomalies, and spec-based fair prices in one place.</span>
                 </p>
                 <p class="project-note">
-                  <span class="lang-ko">FastAPI REST API 17개와 React 19 SPA(10개 화면), Three.js 3D 데스크를 구현했습니다. 미끼가·비정상가·카테고리 오염을 수집 단계에서 걸러내고, 매일 자동 수집 → 검증 → 백업 → 실패 알림까지 무인 운영합니다. pytest 167개 + vitest 22개 CI.</span>
-                  <span class="lang-en">Built 17 FastAPI endpoints, a 10-view React 19 SPA, and a Three.js 3D desk. Filters bait prices, absurd prices, and category contamination at ingestion, and runs unattended daily: scrape → verify → back up → alert on failure. CI with 167 pytest + 22 vitest tests.</span>
+                  <span class="lang-ko">FastAPI REST API 17개와 React 19 SPA(10개 화면), Three.js 3D 데스크를 구현했습니다. 미끼가·비정상가·카테고리 오염을 수집 단계에서 걸러내고, 매일 자동 수집 → 검증 → 백업 → 실패 알림까지 무인 운영합니다. pytest 167개 + vitest 26개 CI.</span>
+                  <span class="lang-en">Built 17 FastAPI endpoints, a 10-view React 19 SPA, and a Three.js 3D desk. Filters bait prices, absurd prices, and category contamination at ingestion, and runs unattended daily: scrape → verify → back up → alert on failure. CI with 167 pytest + 26 vitest tests.</span>
                 </p>
                 <div class="tags">
                   <span>React 19</span>
@@ -1588,6 +1588,9 @@
                     <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
                   </svg>
                   <span>github.com/kwsahe/market-pulse</span>
+                </a>
+                <a class="project-github-link" href="https://kwsahe.github.io/market-pulse/" target="_blank" rel="noreferrer">
+                  <span class="live-badge">🟢 <span class="lang-ko">데모 열기 (2026-10-31 수집분)</span><span class="lang-en">Open demo (Oct 31, 2026 data)</span></span>
                 </a>
               </article>
 
@@ -2908,8 +2911,8 @@
                       <span class="lang-en">Results &amp; Limitations</span>
                     </dt>
                     <dd>
-                      <span class="lang-ko">2026년 3월부터 약 5만 3천 건의 가격 스냅샷을 쌓았고, 9개 카테고리 하루 약 800개 상품을 무인으로 수집합니다. pytest 167개·vitest 22개로 수집·분석·API를 검증합니다. 한계: 개인 PC에서 운영해 공개 URL이 없고, 카테고리마다 검색 결과 1페이지(상품 40개)만 모아 순위 변동이 규모 변화처럼 보일 수 있으며, 예측 모델 정확도(R² 약 0.6)는 개선 여지가 있습니다.</span>
-                      <span class="lang-en">Accumulated ~53,000 price snapshots since March 2026, unattendedly collecting ~800 products daily across 9 categories, verified by 167 pytest + 22 vitest tests. Limitations: runs on a local PC without a public URL; only the first search page (40 products) per category is collected, so ranking shifts can look like size changes; and the prediction model (Random Forest R² ~0.6) leaves room for improvement.</span>
+                      <span class="lang-ko">2026년 3월부터 약 5만 3천 건의 가격 스냅샷을 쌓았고, 9개 카테고리 하루 약 800개 상품을 무인으로 수집합니다. pytest 167개·vitest 26개로 수집·분석·API를 검증합니다. 한계: 실시간 서버는 개인 PC에서 운영해 공개 데모는 한 수집일의 스냅샷(GitHub Pages 정적 데모)이고, 카테고리마다 검색 결과 1페이지(상품 40개)만 모아 순위 변동이 규모 변화처럼 보일 수 있으며, 예측 모델 정확도(R² 약 0.6)는 개선 여지가 있습니다.</span>
+                      <span class="lang-en">Accumulated ~53,000 price snapshots since March 2026, unattendedly collecting ~800 products daily across 9 categories, verified by 167 pytest + 26 vitest tests. Limitations: the live server runs on a local PC, so the public demo is a single-day snapshot (static GitHub Pages build); only the first search page (40 products) per category is collected, so ranking shifts can look like size changes; and the prediction model (Random Forest R² ~0.6) leaves room for improvement.</span>
                     </dd>
                   </div>
                 </dl>

@@ -1480,6 +1480,11 @@ html[lang="en"] .lang-ko {
   color: var(--gold);
 }
 
+/* 저장소 링크 아래에 데모 링크가 이어질 때는 한 묶음으로 보이게 간격을 좁힌다 */
+.project-github-link + .project-github-link {
+  margin-top: 8px;
+}
+
 .project-github-link .github-icon {
   width: 14px;
   height: 14px;
