@@ -1423,12 +1423,12 @@
                   </div>
                 </div>
                 <p>
-                  <span class="lang-ko">Claude Code(구현) · Antigravity(테스트) · Codex(검토) 세 AI 코딩 CLI에 역할을 고정해, 사용자가 계획을 승인하면 구현 → 테스트 → 자동 검증 → 검토를 사이클로 반복하고 사이클마다 Git에 커밋하는 코딩 파이프라인입니다.</span>
-                  <span class="lang-en">A coding pipeline that gives three AI coding CLIs fixed roles — Claude Code implements, Antigravity tests, Codex reviews — and, once the user approves the plan, repeats implement → test → auto-validation → review cycles with a Git commit per cycle.</span>
+                  <span class="lang-ko">Claude Code(구현) · Antigravity(테스트) · Codex(검토) 세 AI 코딩 CLI에 역할을 고정해, 사용자가 계획을 승인하면 구현 → 테스트 → 자동 검증 → 검토를 사이클로 반복하고(Git 저장소일 때 사이클마다 커밋) 별도 토론 모드도 제공하는 코딩 파이프라인입니다.</span>
+                  <span class="lang-en">A coding pipeline that gives three AI coding CLIs fixed roles — Claude Code implements, Antigravity tests, Codex reviews — and, once the user approves the plan, repeats implement → test → auto-validation → review cycles (committing per cycle in Git repositories), alongside a separate discussion mode.</span>
                 </p>
                 <p class="project-note">
-                  <span class="lang-ko">세션마다 별도 git worktree에서 작업해 사용자 폴더의 브랜치와 파일을 건드리지 않습니다. 이 파이프라인으로 회의실 예약 풀스택 앱(FastAPI + React)을 기능 6개로 나눠 만들었고, 검토 단계가 구현 담당이 놓친 문제 5건(동시성 결함 3건 포함)을 잡아 다음 사이클에서 고쳤습니다. 실사용 중 드러난 파이프라인 자체의 문제도 원인부터 고치고 기록했습니다.</span>
-                  <span class="lang-en">Each session works in its own git worktree, leaving the user's branch and files untouched. Using the pipeline, a full-stack meeting-room booking app (FastAPI + React) was built in six features; the review stage caught 5 issues the implementer missed (including 3 concurrency bugs), each fixed in the next cycle. Problems in the pipeline itself that surfaced during this field test were root-caused, fixed and logged.</span>
+                  <span class="lang-ko">작업 폴더가 Git 저장소일 때 세션마다 별도 git worktree에서 작업해 사용자 폴더의 브랜치와 파일을 건드리지 않습니다. 이 파이프라인으로 회의실 예약 풀스택 앱(FastAPI + React)을 기능 6개로 나눠 만들었고, 검토 단계가 구현 · 테스트 단계가 놓친 문제 5건(동시성 결함 3건 포함)을 잡아 4건은 다음 사이클에서, 사이클 한도(3회)에 걸린 1건은 마무리 세션에서 고쳤습니다. 실사용 중 드러난 파이프라인 자체의 문제도 원인부터 고치고 기록했습니다.</span>
+                  <span class="lang-en">When the target folder is a Git repository, each session works in its own git worktree, leaving the user's branch and files untouched. Using the pipeline, a full-stack meeting-room booking app (FastAPI + React) was built in six features; the review stage caught 5 issues missed in the implement and test stages (including 3 concurrency bugs) — 4 fixed in the next cycle and 1 (after hitting the 3-cycle limit) in a follow-up session. Problems in the pipeline itself that surfaced during this field test were root-caused, fixed and logged.</span>
                 </p>
                 <ul class="project-summary-list" aria-label="tri-agent-control 핵심 진행 내용">
                   <li>
@@ -1436,12 +1436,12 @@
                     <span class="lang-en"><strong>Fixed-role Pipeline</strong> One plan → approval → [implement · test · auto-validation · review] cycles; the reviewer must end with REVIEW: PASS/CHANGES, and a missing verdict never counts as a pass</span>
                   </li>
                   <li>
-                    <span class="lang-ko"><strong>실사용 검증</strong> 회의실 예약 앱 6기능 · 커밋 12개 · 테스트 106개 · 검토가 잡은 문제 5건</span>
-                    <span class="lang-en"><strong>Field-tested</strong> Meeting-room booking app: 6 features · 12 commits · 106 tests · 5 issues caught in review</span>
+                    <span class="lang-ko"><strong>실사용 검증</strong> 회의실 예약 앱 6기능 · 커밋 12개(파이프라인 사이클 커밋 11개) · 테스트 106개 · 검토가 잡은 문제 5건</span>
+                    <span class="lang-en"><strong>Field-tested</strong> Meeting-room booking app: 6 features · 12 commits (11 pipeline cycle commits) · 106 tests · 5 issues caught in review</span>
                   </li>
                   <li>
-                    <span class="lang-ko"><strong>안전장치와 평가</strong> 세션별 worktree, 사이클 경계에서만 확인하는 한도(시간 · 토큰 · diff), 숨김 테스트 평가 하니스(14과제), 회귀 테스트 384개</span>
-                    <span class="lang-en"><strong>Safeguards &amp; Evaluation</strong> Per-session worktrees, limits checked only between cycles (time · tokens · diff), hidden-test evaluation harness (14 tasks), 384 regression tests</span>
+                    <span class="lang-ko"><strong>안전장치와 평가</strong> Git 저장소 세션별 worktree, 사이클 경계에서만 확인하는 한도(시간 · 토큰 · diff), 숨김 테스트 평가 하니스(14과제), 회귀 테스트 384개</span>
+                    <span class="lang-en"><strong>Safeguards &amp; Evaluation</strong> Per-session worktrees (for Git repos), limits checked only between cycles (time · tokens · diff), hidden-test evaluation harness (14 tasks), 384 regression tests</span>
                   </li>
                 </ul>
                 <div class="tags">
@@ -3002,8 +3002,8 @@
                       <span class="lang-en">Pipeline Architecture</span>
                     </dt>
                     <dd>
-                      <span class="lang-ko">브라우저 대시보드 ↔ Python 오케스트레이터(표준 라이브러리 HTTP 서버) ↔ 3개 CLI 하위 프로세스. 계획(Claude, 읽기 전용) → 사용자 승인 → [구현 Claude → 테스트 Antigravity(테스트 파일만 수정) → 자동 검증(pytest · npm test · build) → 검토 Codex(읽기 전용)]를 사이클로 반복하고, 검토 PASS와 검증 통과가 함께 나오면 끝냅니다. 사이클마다 에이전트가 바꾼 파일만 커밋합니다.</span>
-                      <span class="lang-en">Browser dashboard ↔ Python orchestrator (standard-library HTTP server) ↔ 3 CLI subprocesses. Plan (Claude, read-only) → user approval → [implement (Claude) → test (Antigravity, test files only) → auto-validation (pytest · npm test · build) → review (Codex, read-only)] repeats until the review passes and validation is green. Each cycle commits only the files the agents changed.</span>
+                      <span class="lang-ko">브라우저 대시보드 ↔ Python 오케스트레이터(표준 라이브러리 ThreadingHTTPServer, 순차 CLI 실행 및 스레드 기반 실시간 출력 스트리밍) ↔ 3개 CLI 하위 프로세스. 계획(Claude, 읽기 전용) → 사용자 승인 → [구현 Claude → 테스트 Antigravity(테스트 파일만 수정) → 자동 검증(pytest · npm test · build) → 검토 Codex(읽기 전용)]를 사이클로 반복하고, 검토 PASS와 검증 통과가 함께 나오면 끝냅니다(자동 검증 명령이 없는 프로젝트는 경고와 함께 검토 PASS로 종료). Git 저장소일 때 사이클마다 에이전트가 바꾼 파일만 세션 브랜치에 커밋하며, 별도 모드로 강점·역할을 논의하는 토론 모드도 지원합니다.</span>
+                      <span class="lang-en">Browser dashboard ↔ Python orchestrator (standard-library ThreadingHTTPServer, sequential CLI execution with threaded real-time output streaming) ↔ 3 CLI subprocesses. Plan (Claude, read-only) → user approval → [implement (Claude) → test (Antigravity, test files only) → auto-validation (pytest · npm test · build) → review (Codex, read-only)] repeats until the review passes and validation is green (or with a warning on REVIEW: PASS when no validation command exists). In Git repositories, each cycle commits only the files changed by the agents to the session branch; a separate discussion mode is also available.</span>
                     </dd>
                   </div>
                   <div>
@@ -3012,8 +3012,8 @@
                       <span class="lang-en">Safeguards</span>
                     </dt>
                     <dd>
-                      <span class="lang-ko">세션마다 별도 git worktree에서 작업해 사용자 폴더의 브랜치와 파일을 건드리지 않고, 가상환경 · node_modules는 복사하지 않고 연결합니다. 시간 · 토큰 · diff 한도는 사이클 경계에서만 확인해 진행 중인 작업이 검증 없이 버려지지 않게 했고, 구현 담당에게는 테스트 · 빌드 명령만 승인 없이 허용합니다.</span>
-                      <span class="lang-en">Each session runs in its own git worktree, so the user's branch and files are never touched; virtual environments and node_modules are linked, not copied. Time, token and diff limits are checked only between cycles so in-flight work is never discarded unvalidated, and the implementer may run only test and build commands without approval.</span>
+                      <span class="lang-ko">작업 폴더가 Git 저장소일 때 세션마다 별도 git worktree에서 작업해 사용자 폴더의 브랜치와 파일을 건드리지 않고(Git 저장소가 아니거나 worktree 생성 실패 시 사용자 폴더에서 직접 작업·미커밋), 가상환경 · node_modules는 복사하지 않고 연결합니다. 시간 · 토큰 · diff 한도는 사이클 경계에서만 확인해 진행 중인 작업이 검증 없이 버려지지 않게 했고, 구현 담당에게는 테스트 · 빌드 명령만 승인 없이 허용합니다.</span>
+                      <span class="lang-en">When the target folder is a Git repository, each session runs in its own git worktree so the user's branch and files are never touched (falling back to working directly in the folder without commits if not a Git repo); virtual environments and node_modules are linked, not copied. Time, token and diff limits are checked only between cycles so in-flight work is never discarded unvalidated, and the implementer may run only test and build commands without approval.</span>
                     </dd>
                   </div>
                   <div>
@@ -3022,8 +3022,8 @@
                       <span class="lang-en">Field Test</span>
                     </dt>
                     <dd>
-                      <span class="lang-ko">회의실 예약 풀스택 앱(FastAPI + SQLite, React + Vite)을 기능 6개로 나눠 이 파이프라인으로 만들었습니다(커밋 12개, 테스트 106개). 검토 단계가 구현 담당이 놓친 문제 5건(테스트 누락, 반복 예약의 임의 제한, 자동 갱신 동시성 결함 3건)을 잡아 다음 사이클에서 고쳤고, 그 과정에서 드러난 파이프라인 문제(하위 폴더 의존성 연결, 캐시 읽기가 토큰 한도를 채움, 사이클 중간 한도로 작업 유실 등)를 원인부터 고쳐 기록했습니다.</span>
-                      <span class="lang-en">Built a full-stack meeting-room booking app (FastAPI + SQLite, React + Vite) in six features through the pipeline (12 commits, 106 tests). The review stage caught 5 issues the implementer missed — a test gap, an arbitrary limit on recurring bookings, and 3 auto-refresh concurrency bugs — each fixed in the next cycle. Pipeline problems that surfaced along the way (nested dependency folders, cache reads exhausting the token limit, mid-cycle limits discarding work, and more) were root-caused, fixed and logged.</span>
+                      <span class="lang-ko">회의실 예약 풀스택 앱(FastAPI + SQLite, React + Vite)을 기능 6개로 나눠 이 파이프라인으로 만들었습니다(전체 커밋 12개 중 첫 뼈대 커밋 1개를 제외한 파이프라인 사이클 커밋 11개, 테스트 106개). 검토 단계가 구현 · 테스트 단계가 놓친 문제 5건(기능 1의 테스트 누락 1건, 기능 4의 반복 예약 임의 제한 1건, 기능 6의 자동 갱신 동시성 결함 3건)을 잡아 4건은 다음 사이클에서 고쳤고, 사이클 한도(3회)에 걸린 세 번째 동시성 결함 1건은 별도 마무리 세션에서 고쳤습니다. 그 과정에서 드러난 파이프라인 문제(하위 폴더 의존성 연결, 캐시 읽기가 토큰 한도를 채움, 사이클 중간 한도로 작업 유실 등)를 원인부터 고쳐 기록했습니다.</span>
+                      <span class="lang-en">Built a full-stack meeting-room booking app (FastAPI + SQLite, React + Vite) in six features through the pipeline (11 pipeline cycle commits out of 12 total commits after the initial scaffold commit, 106 tests). The review stage caught 5 issues missed in the implement and test stages — a test gap in Feature 1, an arbitrary limit on recurring bookings in Feature 4, and 3 auto-refresh concurrency bugs in Feature 6 — with 4 fixed in the next cycle and the 3rd concurrency bug (after hitting the 3-cycle limit) fixed in a follow-up session. Pipeline problems that surfaced along the way (nested dependency folders, cache reads exhausting the token limit, mid-cycle limits discarding work, and more) were root-caused, fixed and logged.</span>
                     </dd>
                   </div>
                   <div>
