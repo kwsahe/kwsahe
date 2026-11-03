@@ -1262,10 +1262,10 @@
                         </div>
                       </div>
                       <div class="screenshot-slide" data-index="2">
-                        <img src="./png/jarvis/jarvis-03-publish-gate.png" alt="인스타그램 릴스 대본과, 12~15초 구간 분량 초과로 게시를 막은 판정 상자" width="605" height="784" loading="lazy" />
+                        <img src="./png/jarvis/jarvis-03-publish-gate.png" alt="숏폼 영상 대본의 40~45초 구간과, 대사 분량 초과로 게시를 막은 판정 상자" width="605" height="794" loading="lazy" />
                         <div class="slide-caption-src">
-                          <span class="lang-ko">게시 판정 — 자동 보완 1회 뒤에도 3초 구간에 58음절이 남아 게시 차단, 줄일 양을 안내</span>
-                          <span class="lang-en">Publish gate — still 58 syllables in a 3-second segment after one auto-revision, so publishing is blocked with a fix</span>
+                          <span class="lang-ko">게시 판정 — 자동 보완 1회 뒤에도 5초 구간에 47음절(목표 30음절)이 남아 게시 차단, 줄일 양을 안내</span>
+                          <span class="lang-en">Publish gate — still 47 syllables in a 5-second segment (target 30) after one auto-revision, so publishing is blocked with a fix</span>
                         </div>
                       </div>
                       <div class="screenshot-slide" data-index="3">
@@ -2890,7 +2890,7 @@
                     <span class="gallery-caption"><span class="lang-ko">말로 부탁하기</span><span class="lang-en">Ask Jarvis</span></span>
                   </div>
                   <div class="gallery-item">
-                    <img src="./png/jarvis/jarvis-03-publish-gate.png" alt="인스타그램 릴스 대본과, 12~15초 구간 분량 초과로 게시를 막은 판정 상자" width="605" height="784" loading="lazy" onerror="this.style.display='none'" />
+                    <img src="./png/jarvis/jarvis-03-publish-gate.png" alt="숏폼 영상 대본의 40~45초 구간과, 대사 분량 초과로 게시를 막은 판정 상자" width="605" height="794" loading="lazy" onerror="this.style.display='none'" />
                     <span class="gallery-caption"><span class="lang-ko">게시 판정</span><span class="lang-en">Publish Gate</span></span>
                   </div>
                   <div class="gallery-item">
@@ -2974,8 +2974,8 @@
                       <span class="lang-en">Results &amp; Limitations</span>
                     </dt>
                     <dd>
-                      <span class="lang-ko">사내 운영 중이며, 실제 행사 홍보 1건을 19명 체인으로 돌린 운영 실측에서 279초가 걸렸고 수정 뒤 19건 중 18건이 게시 가능으로 판정됐습니다(남은 1건은 릴스 구간 분량 초과). 단위 869 · 통합 252 · 화면 렌더 19개의 자동 테스트를 갖췄습니다. 한계: 게시 판정 규칙에 아직 오탐이 있어(예: 원고 속 '피해야 할 표현' 목록을 약속으로 잡음) 사람의 최종 확인이 전제이고, 업무 시간 절감은 측정하지 않아 수치로 쓰지 않았습니다. 사내 단일 workspace 전용입니다.</span>
-                      <span class="lang-en">In internal production. A production run of one real event promotion through all 19 agents took 279 seconds, and after fixes 18 of 19 results were judged publishable (the remaining one exceeded a Reels segment length). Backed by 869 unit, 252 integration and 19 rendering tests. Limitations: the publish gate still produces false positives (e.g., flagging a draft's "phrases to avoid" list as a promise), so a human makes the final call; time savings were not measured and are not claimed. Single internal workspace only.</span>
+                      <span class="lang-ko">사내 운영 중이며, 실제 행사 홍보 1건을 19명 체인으로 돌린 운영 실측에서 279초가 걸렸고 수정 뒤 19건 중 18건이 게시 가능으로 판정됐습니다(남은 1건은 릴스 구간 분량 초과). 단위 873 · 통합 252 · 화면 렌더 19개의 자동 테스트를 갖췄습니다. 결과를 검수하며 찾은 게시 판정 오탐('피해야 할 표현' 목록을 약속으로 읽음, 영상 설명란 문구를 대사 분량으로 셈)은 재현 테스트와 함께 고쳐 운영에 반영했습니다. 한계: '합격 보장 대신'처럼 돌려 쓴 부정 표현은 아직 다 알아보지 못해 오탐이 남아 있으므로 사람의 최종 확인이 전제이고, 업무 시간 절감은 측정하지 않아 수치로 쓰지 않았습니다. 사내 단일 workspace 전용입니다.</span>
+                      <span class="lang-en">In internal production. A production run of one real event promotion through all 19 agents took 279 seconds, and after fixes 18 of 19 results were judged publishable (the remaining one exceeded a Reels segment length). Backed by 873 unit, 252 integration and 19 rendering tests. Publish-gate false positives found in review (reading a "phrases to avoid" list as promises, counting a video's post-description lines as spoken script) were fixed with regression tests and shipped to production. Limitations: indirect negations such as "instead of a pass guarantee" are not all recognized yet, so false positives remain and a human makes the final call; time savings were not measured and are not claimed. Single internal workspace only.</span>
                     </dd>
                   </div>
                 </dl>
