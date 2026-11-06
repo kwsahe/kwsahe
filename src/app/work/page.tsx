@@ -47,9 +47,29 @@ const POPULAR_TECH = [
   "Vitest",
 ];
 
-function WorkGridContent() {
-  const { locale } = useAppStore();
+function WorkUrlParamSync({
+  onTech,
+  onCategory,
+}: {
+  onTech: (t: string) => void;
+  onCategory: (c: ProjectCategory) => void;
+}) {
   const searchParams = useSearchParams();
+  useEffect(() => {
+    const techParam = searchParams.get("tech");
+    const catParam = searchParams.get("category") as ProjectCategory | null;
+    if (techParam) {
+      onTech(techParam);
+    }
+    if (catParam && CATEGORIES.includes(catParam)) {
+      onCategory(catParam);
+    }
+  }, [searchParams, onTech, onCategory]);
+  return null;
+}
+
+export default function WorkPage() {
+  const { locale } = useAppStore();
   const [selectedCategory, setSelectedCategory] = useState<
     "All" | ProjectCategory
   >("All");
@@ -61,17 +81,6 @@ function WorkGridContent() {
   const [sortBy, setSortBy] = useState<"featured" | "status" | "name">(
     "featured"
   );
-
-  useEffect(() => {
-    const techParam = searchParams.get("tech");
-    const catParam = searchParams.get("category") as ProjectCategory | null;
-    if (techParam) {
-      setSelectedTech(techParam);
-    }
-    if (catParam && CATEGORIES.includes(catParam)) {
-      setSelectedCategory(catParam);
-    }
-  }, [searchParams]);
 
   const filteredProjects = useMemo(() => {
     const q = searchQuery.trim().toLowerCase();
@@ -148,6 +157,12 @@ function WorkGridContent() {
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8 space-y-8">
+      <Suspense fallback={null}>
+        <WorkUrlParamSync
+          onTech={setSelectedTech}
+          onCategory={setSelectedCategory}
+        />
+      </Suspense>
       {/* Header */}
       <div className="flex flex-col justify-between gap-4 border-b border-[var(--border-subtle)] pb-6 lg:flex-row lg:items-end">
         <div>
@@ -228,7 +243,9 @@ function WorkGridContent() {
 
             <button
               type="button"
+              data-testid="reset-filters-btn"
               onClick={resetFilters}
+              aria-label={locale === "ko" ? "필터 초기화" : "Reset filters"}
               title={locale === "ko" ? "필터 초기화" : "Reset filters"}
               className="inline-flex items-center gap-1 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-elevated)] px-3 py-2.5 text-xs font-mono text-[var(--text-muted)] hover:text-[var(--text-primary)] cursor-pointer"
             >
@@ -339,19 +356,5 @@ function WorkGridContent() {
         </div>
       )}
     </div>
-  );
-}
-
-export default function WorkPage() {
-  return (
-    <Suspense
-      fallback={
-        <div className="mx-auto max-w-7xl px-4 py-12 font-mono text-xs text-[var(--accent-blue)]">
-          LOADING PROJECT ATLAS...
-        </div>
-      }
-    >
-      <WorkGridContent />
-    </Suspense>
   );
 }

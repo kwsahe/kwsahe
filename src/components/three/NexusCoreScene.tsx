@@ -8,115 +8,45 @@ import React, {
   Component,
   ReactNode,
 } from "react";
+import Link from "next/link";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { OrbitControls, Line } from "@react-three/drei";
+import { OrbitControls } from "@react-three/drei";
 import * as THREE from "three";
 import { useAppStore } from "@/store/useAppStore";
+import {
+  NEXUS_CORE_SATELLITES,
+  NexusSatelliteSpec,
+} from "@/data/portfolio-data";
 
-interface SatelliteSpec {
-  id: string;
-  label: string;
-  metric: string;
-  orbitRadius: number;
-  speed: number;
-  phase: number;
-  tiltX: number;
-  tiltZ: number;
-  color: string;
-}
-
-const SATELLITES: SatelliteSpec[] = [
-  {
-    id: "jarvis",
-    label: "JARVIS OFFICE",
-    metric: "19 Agents · Publish Gate",
-    orbitRadius: 2.35,
-    speed: 0.38,
-    phase: 0,
-    tiltX: 0.35,
-    tiltZ: 0.15,
-    color: "#6FA8FF",
-  },
-  {
-    id: "aihub",
-    label: "LINK21 AI HUB",
-    metric: "Live · 515 Vitest",
-    orbitRadius: 2.55,
-    speed: -0.31,
-    phase: 1.1,
-    tiltX: -0.42,
-    tiltZ: 0.28,
-    color: "#25C8BD",
-  },
-  {
-    id: "bidpilot",
-    label: "BidPilot AI",
-    metric: "188/191 · 2,659 Tests",
-    orbitRadius: 2.2,
-    speed: 0.29,
-    phase: 2.2,
-    tiltX: 0.22,
-    tiltZ: -0.45,
-    color: "#AB83FF",
-  },
-  {
-    id: "triagent",
-    label: "tri-agent-control",
-    metric: "3-CLI · 384 Tests",
-    orbitRadius: 2.65,
-    speed: -0.26,
-    phase: 3.3,
-    tiltX: 0.52,
-    tiltZ: 0.12,
-    color: "#6FA8FF",
-  },
-  {
-    id: "marketpulse",
-    label: "Market Pulse",
-    metric: "57.6k Rows · R² 0.78",
-    orbitRadius: 2.4,
-    speed: 0.34,
-    phase: 4.4,
-    tiltX: -0.28,
-    tiltZ: -0.32,
-    color: "#25C8BD",
-  },
-  {
-    id: "ksafety",
-    label: "k-safety-law-rag",
-    metric: "Dual RAG · 90.0 Eval",
-    orbitRadius: 2.5,
-    speed: -0.24,
-    phase: 5.3,
-    tiltX: -0.18,
-    tiltZ: 0.48,
-    color: "#AB83FF",
-  },
-];
-
-function computeSatellitePosition(
-  sat: SatelliteSpec,
-  t: number
-): [number, number, number] {
+function computeSatellitePositionToOut(
+  sat: NexusSatelliteSpec,
+  t: number,
+  out: [number, number, number]
+): void {
   const angle = sat.phase + t * sat.speed;
-  const x0 = Math.cos(angle) * sat.orbitRadius;
-  const z0 = Math.sin(angle) * sat.orbitRadius;
-  const y =
+  const cosA = Math.cos(angle);
+  const sinA = Math.sin(angle);
+  out[0] = cosA * sat.orbitRadius;
+  out[1] =
     Math.sin(angle * 1.3) * Math.sin(sat.tiltX) * 1.15 +
-    Math.cos(angle) * Math.sin(sat.tiltZ) * 0.65;
-  return [x0, y, z0];
+    cosA * Math.sin(sat.tiltZ) * 0.65;
+  out[2] = sinA * sat.orbitRadius;
 }
 
 function CoreAssembly({
   reducedMotion,
-  scrollRatio,
+  isTabVisibleRef,
+  scrollRatioRef,
   activeSat,
   setActiveSat,
+  isMobile,
 }: {
   reducedMotion: boolean;
-  scrollRatio: number;
+  isTabVisibleRef: React.MutableRefObject<boolean>;
+  scrollRatioRef: React.MutableRefObject<number>;
   activeSat: string | null;
   setActiveSat: (id: string | null) => void;
+  isMobile: boolean;
 }) {
   const rootRef = useRef<THREE.Group>(null);
   const latticeRef = useRef<THREE.Mesh>(null);
@@ -124,14 +54,62 @@ function CoreAssembly({
   const ring1Ref = useRef<THREE.Mesh>(null);
   const ring2Ref = useRef<THREE.Mesh>(null);
   const ring3Ref = useRef<THREE.Mesh>(null);
+  const satGroupRefs = useRef<Array<THREE.Group | null>>([]);
   const clockRef = useRef(0);
-  const [satPositions, setSatPositions] = useState<Array<[number, number, number]>>(() =>
-    SATELLITES.map((s) => computeSatellitePosition(s, 0))
-  );
+  const scratchPos = useRef<[number, number, number]>([0, 0, 0]);
 
-  // Subtle particle positions
-  const particlePositions = useMemo(() => {
-    const count = 140;
+  // Pre-allocate 1 BufferGeometry + LineBasicMaterial per satellite beam (zero per-frame allocations)
+  const beamResources = useMemo(() => {
+    return NEXUS_CORE_SATELLITES.map((sat) => {
+      const initialPos: [number, number, number] = [0, 0, 0];
+      computeSatellitePositionToOut(sat, 0, initialPos);
+      const positions = new Float32Array([
+        0,
+        0,
+        0,
+        initialPos[0],
+        initialPos[1],
+        initialPos[2],
+      ]);
+      const geometry = new THREE.BufferGeometry();
+      const attr = new THREE.BufferAttribute(positions, 3);
+      attr.setUsage(THREE.DynamicDrawUsage);
+      geometry.setAttribute("position", attr);
+
+      const material = new THREE.LineBasicMaterial({
+        color: new THREE.Color(sat.color),
+        transparent: true,
+        opacity: 0.35,
+      });
+
+      const lineObj = new THREE.Line(geometry, material);
+      return { geometry, attr, material, lineObj, initialPos };
+    });
+  }, []);
+
+  // Update beam opacity only when activeSat changes (UI state)
+  useEffect(() => {
+    beamResources.forEach((res, idx) => {
+      const sat = NEXUS_CORE_SATELLITES[idx];
+      const isSelected = sat.id === activeSat;
+      res.material.opacity = isSelected ? 0.88 : 0.32;
+      res.material.needsUpdate = true;
+    });
+  }, [activeSat, beamResources]);
+
+  // Dispose custom beam geometries & materials on unmount
+  useEffect(() => {
+    return () => {
+      beamResources.forEach((res) => {
+        res.geometry.dispose();
+        res.material.dispose();
+      });
+    };
+  }, [beamResources]);
+
+  // Restrained particle field (adaptive count for mobile vs desktop)
+  const particleGeometry = useMemo(() => {
+    const count = isMobile ? 72 : 140;
     const arr = new Float32Array(count * 3);
     for (let i = 0; i < count; i++) {
       const r = 2.8 + (i % 7) * 0.28;
@@ -141,10 +119,19 @@ function CoreAssembly({
       arr[i * 3 + 1] = r * Math.sin(phi) * Math.sin(theta);
       arr[i * 3 + 2] = r * Math.cos(phi);
     }
-    return arr;
-  }, []);
+    const geom = new THREE.BufferGeometry();
+    geom.setAttribute("position", new THREE.BufferAttribute(arr, 3));
+    return geom;
+  }, [isMobile]);
+
+  useEffect(() => {
+    return () => {
+      particleGeometry.dispose();
+    };
+  }, [particleGeometry]);
 
   useFrame((state, delta) => {
+    if (!isTabVisibleRef.current) return;
     const clampedDelta = Math.min(delta, 0.05);
 
     if (!reducedMotion) {
@@ -166,10 +153,27 @@ function CoreAssembly({
       if (ring3Ref.current) {
         ring3Ref.current.rotation.y += clampedDelta * 0.19;
       }
+
+      // Directly mutate satellite Group positions and beam BufferAttributes (0 React state updates)
+      const t = clockRef.current;
+      const out = scratchPos.current;
+      for (let i = 0; i < NEXUS_CORE_SATELLITES.length; i++) {
+        computeSatellitePositionToOut(NEXUS_CORE_SATELLITES[i], t, out);
+        const grp = satGroupRefs.current[i];
+        if (grp) {
+          grp.position.set(out[0], out[1], out[2]);
+        }
+        const beam = beamResources[i];
+        if (beam) {
+          beam.attr.setXYZ(1, out[0], out[1], out[2]);
+          beam.attr.needsUpdate = true;
+        }
+      }
     }
 
     if (rootRef.current) {
-      const targetRotX = scrollRatio * 0.45 + state.pointer.y * 0.18;
+      const targetRotX =
+        scrollRatioRef.current * 0.45 + state.pointer.y * 0.18;
       const targetRotY = state.pointer.x * 0.28;
       rootRef.current.rotation.x = THREE.MathUtils.lerp(
         rootRef.current.rotation.x,
@@ -182,21 +186,13 @@ function CoreAssembly({
         0.08
       );
     }
-
-    // Update satellite positions every few frames or smoothly
-    if (!reducedMotion) {
-      const next = SATELLITES.map((s) =>
-        computeSatellitePosition(s, clockRef.current)
-      );
-      setSatPositions(next);
-    }
   });
 
   return (
     <group ref={rootRef}>
       {/* Central Glowing Inner Sphere */}
       <mesh ref={innerCoreRef}>
-        <sphereGeometry args={[0.72, 32, 32]} />
+        <sphereGeometry args={[0.72, 28, 28]} />
         <meshStandardMaterial
           color="#6FA8FF"
           emissive="#4378FF"
@@ -235,7 +231,7 @@ function CoreAssembly({
 
       {/* Orbital Ring 1 — Electric Blue */}
       <mesh ref={ring1Ref} rotation={[Math.PI / 2.6, 0.25, 0]}>
-        <torusGeometry args={[1.85, 0.016, 16, 96]} />
+        <torusGeometry args={[1.85, 0.016, 14, 80]} />
         <meshStandardMaterial
           color="#6FA8FF"
           emissive="#6FA8FF"
@@ -247,7 +243,7 @@ function CoreAssembly({
 
       {/* Orbital Ring 2 — Violet */}
       <mesh ref={ring2Ref} rotation={[-Math.PI / 3.1, -0.45, 0.3]}>
-        <torusGeometry args={[2.18, 0.014, 16, 96]} />
+        <torusGeometry args={[2.18, 0.014, 14, 80]} />
         <meshStandardMaterial
           color="#AB83FF"
           emissive="#AB83FF"
@@ -259,7 +255,7 @@ function CoreAssembly({
 
       {/* Orbital Ring 3 — Telemetry Cyan */}
       <mesh ref={ring3Ref} rotation={[0.42, Math.PI / 4, -0.5]}>
-        <torusGeometry args={[2.52, 0.012, 16, 96]} />
+        <torusGeometry args={[2.52, 0.012, 14, 80]} />
         <meshStandardMaterial
           color="#25C8BD"
           emissive="#25C8BD"
@@ -269,23 +265,22 @@ function CoreAssembly({
         />
       </mesh>
 
-      {/* Orbiting Data Nodes & Energy Beams */}
-      {SATELLITES.map((sat, idx) => {
-        const pos = satPositions[idx] ?? [sat.orbitRadius, 0, 0];
+      {/* 6 Flagship Orbiting Project Satellites & Pre-Allocated Energy Beams */}
+      {NEXUS_CORE_SATELLITES.map((sat, idx) => {
         const isSelected = activeSat === sat.id;
+        const beam = beamResources[idx];
         return (
           <group key={sat.id}>
-            <Line
-              points={[[0, 0, 0], pos]}
-              color={sat.color}
-              lineWidth={isSelected ? 2.2 : 1.0}
-              transparent
-              opacity={isSelected ? 0.85 : 0.32}
-            />
-            <group position={pos}>
+            <primitive object={beam.lineObj} />
+            <group
+              ref={(el) => {
+                satGroupRefs.current[idx] = el;
+              }}
+              position={beam.initialPos}
+            >
               {isSelected && (
                 <mesh>
-                  <torusGeometry args={[0.24, 0.015, 16, 40]} />
+                  <torusGeometry args={[0.24, 0.015, 14, 36]} />
                   <meshStandardMaterial
                     color="#25C8BD"
                     emissive="#25C8BD"
@@ -296,11 +291,11 @@ function CoreAssembly({
               <mesh
                 onClick={(e) => {
                   e.stopPropagation();
-                  setActiveSat(isSelected ? null : sat.id);
+                  setActiveSat(sat.id);
                 }}
                 onPointerOver={() => setActiveSat(sat.id)}
               >
-                <sphereGeometry args={[isSelected ? 0.14 : 0.1, 20, 20]} />
+                <sphereGeometry args={[isSelected ? 0.14 : 0.1, 18, 18]} />
                 <meshStandardMaterial
                   color={sat.color}
                   emissive={sat.color}
@@ -313,13 +308,7 @@ function CoreAssembly({
       })}
 
       {/* Restrained Particle Field */}
-      <points>
-        <bufferGeometry>
-          <bufferAttribute
-            attach="attributes-position"
-            args={[particlePositions, 3]}
-          />
-        </bufferGeometry>
+      <points geometry={particleGeometry}>
         <pointsMaterial
           color="#6FA8FF"
           size={0.032}
@@ -418,9 +407,11 @@ function StaticCoreFallback({ locale }: { locale: "ko" | "en" }) {
 export function NexusCoreScene() {
   const { locale, reducedMotion } = useAppStore();
   const containerRef = useRef<HTMLDivElement>(null);
+  const scrollRatioRef = useRef<number>(0);
+  const isTabVisibleRef = useRef<boolean>(true);
   const [webglAvailable, setWebglAvailable] = useState(true);
   const [inView, setInView] = useState(true);
-  const [scrollRatio, setScrollRatio] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
   const [activeSat, setActiveSat] = useState<string | null>("jarvis");
 
   useEffect(() => {
@@ -434,6 +425,13 @@ export function NexusCoreScene() {
     } catch {
       setWebglAvailable(false);
     }
+
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile, { passive: true });
+    return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
   useEffect(() => {
@@ -446,39 +444,49 @@ export function NexusCoreScene() {
     observer.observe(el);
 
     const onScroll = () => {
-      const ratio = Math.min(window.scrollY / 700, 1);
-      setScrollRatio(ratio);
+      scrollRatioRef.current = Math.min(window.scrollY / 700, 1);
     };
+    const onVisibilityChange = () => {
+      isTabVisibleRef.current = !document.hidden;
+    };
+
     window.addEventListener("scroll", onScroll, { passive: true });
+    document.addEventListener("visibilitychange", onVisibilityChange);
 
     return () => {
       observer.disconnect();
       window.removeEventListener("scroll", onScroll);
+      document.removeEventListener("visibilitychange", onVisibilityChange);
     };
   }, []);
 
   const selectedSpec =
-    SATELLITES.find((s) => s.id === activeSat) ?? SATELLITES[0];
+    NEXUS_CORE_SATELLITES.find((s) => s.id === activeSat) ??
+    NEXUS_CORE_SATELLITES[0];
 
   return (
     <div
       ref={containerRef}
+      data-testid="nexus-core-scene"
       className="relative h-[380px] sm:h-[440px] lg:h-[500px] w-full rounded-3xl border border-[var(--border-subtle)] bg-[#070B14]/90 shadow-2xl overflow-hidden"
       style={{ backgroundImage: "var(--hero-radial)" }}
+      role="region"
       aria-label={
         locale === "ko"
-          ? "인터랙티브 3D AI 코어 시각화 (드래그하여 회전 가능)"
-          : "Interactive 3D AI Core Visualization (Drag to rotate)"
+          ? "인터랙티브 3D AI 코어 시각화 (대표 6개 위성 노드 탐색 가능)"
+          : "Interactive 3D AI Core Visualization (6 Flagship Satellite Nodes)"
       }
     >
       {/* Top Telemetry Bar */}
       <div className="pointer-events-none absolute left-4 right-4 top-3.5 z-10 flex items-center justify-between text-[11px] font-mono">
         <div className="flex items-center gap-2 rounded-full border border-white/10 bg-[#070B14]/80 px-3 py-1 text-[#6FA8FF] backdrop-blur-sm">
           <span className="h-2 w-2 rounded-full bg-[#25C8BD]" />
-          <span>NEXUS CORE v3.0 · WEBGL ACTIVE</span>
+          <span>NEXUS CORE v3.1 · 6 FLAGSHIP SATELLITES</span>
         </div>
         <span className="hidden sm:inline-block rounded-full border border-white/10 bg-[#070B14]/80 px-2.5 py-1 text-[#A5B0C6]">
-          {locale === "ko" ? "드래그 회전 · 노드 클릭" : "Drag to Rotate · Click Nodes"}
+          {locale === "ko"
+            ? "드래그 회전 · 위성 클릭"
+            : "Drag to Rotate · Click Satellites"}
         </span>
       </div>
 
@@ -489,22 +497,44 @@ export function NexusCoreScene() {
         <WebGLErrorBoundary fallback={<StaticCoreFallback locale={locale} />}>
           {inView && (
             <Canvas
-              dpr={[1, 1.75]}
+              dpr={[1, 1.5]}
               camera={{ position: [0, 0.3, 6.1], fov: 44 }}
               frameloop={reducedMotion ? "demand" : "always"}
-              gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
+              gl={{
+                antialias: true,
+                alpha: true,
+                powerPreference: "high-performance",
+              }}
             >
               <ambientLight intensity={0.75} />
-              <directionalLight position={[4, 6, 4]} intensity={1.4} color="#F5F7FB" />
-              <pointLight position={[-3.5, 2.5, 3]} intensity={2.2} color="#6FA8FF" />
-              <pointLight position={[3.5, -2.5, 2]} intensity={1.9} color="#AB83FF" />
-              <pointLight position={[0, 3, -3]} intensity={1.4} color="#25C8BD" />
+              <directionalLight
+                position={[4, 6, 4]}
+                intensity={1.4}
+                color="#F5F7FB"
+              />
+              <pointLight
+                position={[-3.5, 2.5, 3]}
+                intensity={2.2}
+                color="#6FA8FF"
+              />
+              <pointLight
+                position={[3.5, -2.5, 2]}
+                intensity={1.9}
+                color="#AB83FF"
+              />
+              <pointLight
+                position={[0, 3, -3]}
+                intensity={1.4}
+                color="#25C8BD"
+              />
 
               <CoreAssembly
                 reducedMotion={reducedMotion}
-                scrollRatio={scrollRatio}
+                isTabVisibleRef={isTabVisibleRef}
+                scrollRatioRef={scrollRatioRef}
                 activeSat={activeSat}
                 setActiveSat={setActiveSat}
+                isMobile={isMobile}
               />
 
               <OrbitControls
@@ -521,17 +551,34 @@ export function NexusCoreScene() {
 
       {/* Bottom Interactive Node Selector HUD */}
       <div className="absolute bottom-3 left-3 right-3 z-10 flex flex-col gap-2 rounded-2xl border border-white/10 bg-[#0B1220]/90 p-3 backdrop-blur-md">
-        <div className="flex items-center justify-between text-xs font-mono">
-          <span className="font-bold text-[#F5F7FB]">
-            {selectedSpec.label}
-          </span>
-          <span className="text-[#25C8BD]">{selectedSpec.metric}</span>
+        <div className="flex flex-wrap items-center justify-between gap-2 text-xs font-mono">
+          <div className="flex items-center gap-2">
+            <span className="font-bold text-[#F5F7FB]">
+              {selectedSpec.label}
+            </span>
+            <span className="text-[#25C8BD]">{selectedSpec.metric}</span>
+          </div>
+          <Link
+            href={`/work/${selectedSpec.slug}`}
+            className="text-[11px] font-semibold text-[#6FA8FF] hover:underline"
+          >
+            {locale === "ko" ? "케이스 스터디 →" : "Case Study →"}
+          </Link>
         </div>
-        <div className="flex flex-wrap gap-1.5">
-          {SATELLITES.map((s) => (
+        <div
+          role="group"
+          aria-label={
+            locale === "ko"
+              ? "대표 6개 프로젝트 위성 선택"
+              : "Select Flagship Project Satellite"
+          }
+          className="flex flex-wrap gap-1.5"
+        >
+          {NEXUS_CORE_SATELLITES.map((s) => (
             <button
               key={s.id}
               type="button"
+              aria-pressed={activeSat === s.id}
               onClick={() => setActiveSat(s.id)}
               className={`rounded-md px-2 py-0.5 font-mono text-[10px] transition-colors cursor-pointer ${
                 activeSat === s.id

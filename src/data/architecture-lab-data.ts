@@ -1,4 +1,4 @@
-import { LocalizedText } from "./portfolio-data";
+import { LocalizedText, VERIFIED_PROJECT_METRICS } from "./portfolio-data";
 
 export type LabLayerType =
   | "INPUT"
@@ -28,6 +28,7 @@ export interface LabEdge {
   from: string;
   to: string;
   label: LocalizedText;
+  kind?: "primary" | "branch" | "feedback";
 }
 
 export interface LabSystem {
@@ -62,12 +63,7 @@ export const LAB_SYSTEMS: LabSystem[] = [
       ko: "[시뮬레이션 안내] 실제 OpenAI API/사내 D1을 호출하지 않고, 실제 행사 19건 검증에서 수집된 아키텍처 상태 전이와 게시 판정(Publish Gate) 흐름을 재현합니다.",
       en: "[Simulation Mode] Replays verified state transitions and Publish Gate checks from the 19-event validation without calling live OpenAI/D1 endpoints.",
     },
-    metrics: [
-      "19 AI Agents (8 Strategy + 11 Creative)",
-      "279s Full Chain Execution",
-      "18/19 Events Pass · 2 False Positives Fixed",
-      "873 Unit · 252 Int · 19 Render Tests",
-    ],
+    metrics: [...VERIFIED_PROJECT_METRICS["link21-ai-jarvis-office"].labMetrics],
     nodes: [
       {
         id: "jarvis-intake",
@@ -274,11 +270,12 @@ export const LAB_SYSTEMS: LabSystem[] = [
       },
     ],
     edges: [
-      { from: "jarvis-intake", to: "jarvis-workers-api", label: { ko: "2회 확인된 브리프", en: "Double-Confirmed Brief" } },
-      { from: "jarvis-workers-api", to: "jarvis-strategy-room", label: { ko: "멱등성 & V1/V2 세션", en: "Idempotent Session" } },
-      { from: "jarvis-strategy-room", to: "jarvis-production-room", label: { ko: "D1 체크포인트 & 요약 맥락", en: "D1 Checkpoint & Summary" } },
-      { from: "jarvis-production-room", to: "jarvis-publish-gate", label: { ko: "9채널 원고 + 완성도 점수", en: "Manuscripts + Readiness" } },
-      { from: "jarvis-publish-gate", to: "jarvis-output-render", label: { ko: "게시 가능 판정 통과분", en: "Publish Gate Approved" } },
+      { from: "jarvis-intake", to: "jarvis-workers-api", kind: "primary", label: { ko: "2회 확인된 브리프", en: "Double-Confirmed Brief" } },
+      { from: "jarvis-workers-api", to: "jarvis-strategy-room", kind: "primary", label: { ko: "멱등성 & V1/V2 세션", en: "Idempotent Session" } },
+      { from: "jarvis-strategy-room", to: "jarvis-production-room", kind: "primary", label: { ko: "D1 체크포인트 & 요약 맥락", en: "D1 Checkpoint & Summary" } },
+      { from: "jarvis-production-room", to: "jarvis-publish-gate", kind: "primary", label: { ko: "9채널 원고 + 완성도 점수", en: "Manuscripts + Readiness" } },
+      { from: "jarvis-publish-gate", to: "jarvis-production-room", kind: "feedback", label: { ko: "위반 감지 시 자동 보완 1회", en: "1-Pass Auto-Remediation" } },
+      { from: "jarvis-publish-gate", to: "jarvis-output-render", kind: "primary", label: { ko: "게시 가능 판정 통과분", en: "Publish Gate Approved" } },
     ],
   },
   {
@@ -300,12 +297,7 @@ export const LAB_SYSTEMS: LabSystem[] = [
       ko: "[시뮬레이션 안내] 사내 로컬 시스템(v1.0.1)의 8단계 정거장 파이프라인과 2,659개 자동 시험에서 검증된 공고 판정·감사 데이터 흐름을 재현합니다.",
       en: "[Simulation Mode] Simulates the 8-station procurement pipeline validated across 2,659 automated tests and 36 audit cycles.",
     },
-    metrics: [
-      "188/191 Eligibility Match",
-      "RFP Matrix P 0.795 · R 0.843 · 100% Page Match",
-      "2,659 Automated Tests · 36 QA Cycles",
-      "571 Commits · Local v1.0.1",
-    ],
+    metrics: [...VERIFIED_PROJECT_METRICS["link21-bidpilot-ai"].labMetrics],
     nodes: [
       {
         id: "bid-collector",
@@ -414,10 +406,10 @@ export const LAB_SYSTEMS: LabSystem[] = [
       },
     ],
     edges: [
-      { from: "bid-collector", to: "bid-parser", label: { ko: "원본 공고문 & RFP", en: "Raw Notice & RFP" } },
-      { from: "bid-parser", to: "bid-eligibility", label: { ko: "쪽 번호 보존 블록", en: "Page-Indexed Blocks" } },
-      { from: "bid-eligibility", to: "bid-matrix", label: { ko: "적격 공고 (188/191 검증)", en: "Qualified Notice" } },
-      { from: "bid-matrix", to: "bid-auditor", label: { ko: "요구사항 표 + 제안서 초안", en: "Matrix + Draft DOCX" } },
+      { from: "bid-collector", to: "bid-parser", kind: "primary", label: { ko: "원본 공고문 & RFP", en: "Raw Notice & RFP" } },
+      { from: "bid-parser", to: "bid-eligibility", kind: "primary", label: { ko: "쪽 번호 보존 블록", en: "Page-Indexed Blocks" } },
+      { from: "bid-eligibility", to: "bid-matrix", kind: "primary", label: { ko: "적격 공고 (188/191 검증)", en: "Qualified Notice" } },
+      { from: "bid-matrix", to: "bid-auditor", kind: "primary", label: { ko: "요구사항 표 + 제안서 초안", en: "Matrix + Draft DOCX" } },
     ],
   },
   {
@@ -439,12 +431,7 @@ export const LAB_SYSTEMS: LabSystem[] = [
       ko: "[시뮬레이션 안내] 회의실 예약 웹앱 6기능 실사용 검증(11개 사이클 커밋, 106개 테스트, 동시성 결함 등 5건 검출·해결)의 실제 사이클 흐름을 재현합니다.",
       en: "[Simulation Mode] Replays the verified 6-feature meeting room app field test (11 cycle commits, 106 tests, 5 defects caught by Codex review).",
     },
-    metrics: [
-      "11 Cycle Commits (12 Total) · 106 App Tests",
-      "5 Missed Defects Caught by Codex (3 Concurrency)",
-      "384 Internal Regression Tests",
-      "14-Task Hidden-Test Eval Harness",
-    ],
+    metrics: [...VERIFIED_PROJECT_METRICS["tri-agent-control"].labMetrics],
     nodes: [
       {
         id: "tri-plan-worktree",
@@ -553,10 +540,11 @@ export const LAB_SYSTEMS: LabSystem[] = [
       },
     ],
     edges: [
-      { from: "tri-plan-worktree", to: "tri-implement", label: { ko: "승인 계획 & worktree", en: "Approved Plan & Worktree" } },
-      { from: "tri-implement", to: "tri-test", label: { ko: "구현 코드 diff", en: "Implemented Code Diff" } },
-      { from: "tri-test", to: "tri-verify", label: { ko: "테스트 파일 한정 추가", en: "Test-Only Additions" } },
-      { from: "tri-verify", to: "tri-review-commit", label: { ko: "테스트·빌드 통과 로그", en: "Test & Build Logs" } },
+      { from: "tri-plan-worktree", to: "tri-implement", kind: "primary", label: { ko: "승인 계획 & worktree", en: "Approved Plan & Worktree" } },
+      { from: "tri-implement", to: "tri-test", kind: "primary", label: { ko: "구현 코드 diff", en: "Implemented Code Diff" } },
+      { from: "tri-test", to: "tri-verify", kind: "primary", label: { ko: "테스트 파일 한정 추가", en: "Test-Only Additions" } },
+      { from: "tri-verify", to: "tri-review-commit", kind: "primary", label: { ko: "테스트·빌드 통과 로그", en: "Test & Build Logs" } },
+      { from: "tri-review-commit", to: "tri-implement", kind: "feedback", label: { ko: "REVIEW: CHANGES (다음 사이클 수정)", en: "REVIEW: CHANGES Rework" } },
     ],
   },
   {
@@ -578,12 +566,7 @@ export const LAB_SYSTEMS: LabSystem[] = [
       ko: "[시뮬레이션 안내] 다나와 9개 카테고리 57,690건 스냅샷 수집부터 오염 필터링, 로그 가격 ML 추론, 3D 데스크 바인딩까지의 파이프라인을 시뮬레이션합니다.",
       en: "[Simulation Mode] Simulates the daily 57,690-snapshot ETL, bait-price filtering, log-price ML inference, and Three.js 3D desk binding.",
     },
-    metrics: [
-      "57,690 Snapshots · 9 Categories",
-      "Log-Price ML R² 0.78 · 81.1% Interval Hit",
-      "CPU Median Error 28.0% → 17.5%",
-      "17 FastAPI Endpoints · 222 Tests (196+26)",
-    ],
+    metrics: [...VERIFIED_PROJECT_METRICS["market-pulse"].labMetrics],
     nodes: [
       {
         id: "mp-scraper",
@@ -671,9 +654,10 @@ export const LAB_SYSTEMS: LabSystem[] = [
       },
     ],
     edges: [
-      { from: "mp-scraper", to: "mp-filter", label: { ko: "57,690건 원시 스냅샷", en: "57,690 Raw Snapshots" } },
-      { from: "mp-filter", to: "mp-ml", label: { ko: "정제 시세 & 이상치 분리", en: "Cleaned Prices & Outliers" } },
-      { from: "mp-ml", to: "mp-api-ui", label: { ko: "적정가 · 80% 범위 · R² 0.78", en: "Fair Price & 80% Interval" } },
+      { from: "mp-scraper", to: "mp-filter", kind: "primary", label: { ko: "57,690건 원시 스냅샷", en: "57,690 Raw Snapshots" } },
+      { from: "mp-filter", to: "mp-ml", kind: "primary", label: { ko: "정제 시세 데이터셋", en: "Cleaned Hardware Prices" } },
+      { from: "mp-filter", to: "mp-api-ui", kind: "branch", label: { ko: "이상치(Anomaly) 리포트 직행", en: "Anomaly Audit Feed" } },
+      { from: "mp-ml", to: "mp-api-ui", kind: "primary", label: { ko: "적정가 · 80% 범위 · R² 0.78", en: "Fair Price & 80% Interval" } },
     ],
   },
   {
@@ -695,12 +679,7 @@ export const LAB_SYSTEMS: LabSystem[] = [
       ko: "[시뮬레이션 안내] 23명 사망 리튬전지 화재 시나리오 등에서 종합 점수 78.8점 → 90.0점(합격)을 달성한 6단계 법령 추론 및 출처 검증 흐름을 재현합니다.",
       en: "[Simulation Mode] Replays the 6-node legal RAG pipeline that raised benchmark accuracy from 78.8 to 90.0 on the 23-fatality lithium battery fire scenario.",
     },
-    metrics: [
-      "78.8 (Fail) → 90.0 (Pass) Benchmark Score",
-      "Sentencing 96 · Final Report 95",
-      "33–49 Clauses (Up to 18k Chars) Injected",
-      "41/41 Unit & Regression Tests Passing",
-    ],
+    metrics: [...VERIFIED_PROJECT_METRICS["k-safety-law-rag"].labMetrics],
     nodes: [
       {
         id: "ks-scenario",
@@ -788,9 +767,10 @@ export const LAB_SYSTEMS: LabSystem[] = [
       },
     ],
     edges: [
-      { from: "ks-scenario", to: "ks-dual-rag", label: { ko: "구조화 사실 & 7대 의도", en: "Structured Facts & Intent" } },
-      { from: "ks-dual-rag", to: "ks-claude-route", label: { ko: "33~49건 (최대 1.8만 자)", en: "33–49 Clauses (18k Chars)" } },
-      { from: "ks-claude-route", to: "ks-citation-validator", label: { ko: "법령 답변 초안", en: "Draft Legal Verdict" } },
+      { from: "ks-scenario", to: "ks-dual-rag", kind: "primary", label: { ko: "구조화 사실 & 7대 의도", en: "Structured Facts & Intent" } },
+      { from: "ks-scenario", to: "ks-claude-route", kind: "branch", label: { ko: "정형 조문 Direct Route", en: "Deterministic Direct Route" } },
+      { from: "ks-dual-rag", to: "ks-claude-route", kind: "primary", label: { ko: "33~49건 (최대 1.8만 자)", en: "33–49 Clauses (18k Chars)" } },
+      { from: "ks-claude-route", to: "ks-citation-validator", kind: "primary", label: { ko: "법령 답변 초안", en: "Draft Legal Verdict" } },
     ],
   },
   {
@@ -812,12 +792,7 @@ export const LAB_SYSTEMS: LabSystem[] = [
       ko: "[시뮬레이션 안내] link21premium.com 상용 위젯의 의도 분류 → 과정 컨텍스트 주입 → SSE 토큰 스트리밍 및 추천 과정 카드 렌더링 흐름을 재현합니다.",
       en: "[Simulation Mode] Simulates the intent classification, Supabase curriculum lookup, SSE token stream, and course card rendering pipeline.",
     },
-    metrics: [
-      "0→1 Custom Built (Widget + Router + SSE)",
-      "Real-Time Supabase Curriculum Injection",
-      "Dual-Provider (OpenAI ⇄ Gemini) Failover",
-      "Live Production on link21premium.com",
-    ],
+    metrics: [...VERIFIED_PROJECT_METRICS["link21-ai-chatbot"].labMetrics],
     nodes: [
       {
         id: "chat-widget",
@@ -884,8 +859,8 @@ export const LAB_SYSTEMS: LabSystem[] = [
       },
     ],
     edges: [
-      { from: "chat-widget", to: "chat-intent", label: { ko: "검증 질의", en: "Validated Query" } },
-      { from: "chat-intent", to: "chat-sse", label: { ko: "실시간 과정 컨텍스트 프롬프트", en: "Grounded Course Prompt" } },
+      { from: "chat-widget", to: "chat-intent", kind: "primary", label: { ko: "검증 질의", en: "Validated Query" } },
+      { from: "chat-intent", to: "chat-sse", kind: "primary", label: { ko: "실시간 과정 컨텍스트 프롬프트", en: "Grounded Course Prompt" } },
     ],
   },
 ];

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { ProjectData, PROJECTS_DATA } from "@/data/portfolio-data";
 import { useAppStore } from "@/store/useAppStore";
@@ -18,11 +18,46 @@ import {
   ShieldCheck,
   Wrench,
   BookOpen,
+  Maximize2,
+  X,
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react";
 
 export function CaseStudyView({ project }: { project: ProjectData }) {
   const { locale } = useAppStore();
   const [activeSlide, setActiveSlide] = useState(0);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const openModalBtnRef = useRef<HTMLButtonElement>(null);
+  const closeModalBtnRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    if (!isModalOpen) return;
+    closeModalBtnRef.current?.focus();
+
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        e.preventDefault();
+        setIsModalOpen(false);
+        openModalBtnRef.current?.focus();
+      } else if (e.key === "ArrowLeft" && project.slides.length > 1) {
+        e.preventDefault();
+        setActiveSlide(
+          (i) => (i - 1 + project.slides.length) % project.slides.length
+        );
+      } else if (e.key === "ArrowRight" && project.slides.length > 1) {
+        e.preventDefault();
+        setActiveSlide((i) => (i + 1) % project.slides.length);
+      }
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [isModalOpen, project.slides.length]);
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    openModalBtnRef.current?.focus();
+  };
 
   const currentIdx = PROJECTS_DATA.findIndex((p) => p.slug === project.slug);
   const prevProject =
@@ -151,13 +186,108 @@ export function CaseStudyView({ project }: { project: ProjectData }) {
             </span>
           </div>
 
-          <div className="overflow-hidden rounded-2xl border border-[var(--border-subtle)] bg-[#070B14]">
-            <img
-              src={assetPath(slide.src)}
-              alt={slide.alt}
-              className="max-h-[540px] w-full object-contain mx-auto"
-            />
+          <div className="relative overflow-hidden rounded-2xl border border-[var(--border-subtle)] bg-[#070B14]">
+            <button
+              ref={openModalBtnRef}
+              type="button"
+              data-testid="open-lightbox-btn"
+              onClick={() => setIsModalOpen(true)}
+              aria-label={
+                locale === "ko"
+                  ? "스크린샷 크게 보기 (모달 열기)"
+                  : "Enlarge screenshot in modal"
+              }
+              className="group relative block w-full cursor-zoom-in focus:outline-none"
+            >
+              <img
+                src={assetPath(slide.src)}
+                alt={slide.alt}
+                className="max-h-[540px] w-full object-contain mx-auto"
+              />
+              <span className="absolute bottom-3 right-3 inline-flex items-center gap-1.5 rounded-lg border border-white/15 bg-[#070B14]/85 px-3 py-1.5 font-mono text-xs text-[#F5F7FB] backdrop-blur-sm transition-colors group-hover:border-[#6FA8FF] group-hover:text-[#6FA8FF]">
+                <Maximize2 className="h-3.5 w-3.5" />
+                <span>{locale === "ko" ? "확대 보기" : "Zoom Image"}</span>
+              </span>
+            </button>
           </div>
+
+          {/* Accessible Lightbox Modal */}
+          {isModalOpen && (
+            <div
+              role="dialog"
+              aria-modal="true"
+              aria-label={`${project.name} ${locale === "ko" ? "스크린샷 확대 모달" : "Screenshot Lightbox"}`}
+              data-testid="case-study-lightbox"
+              className="fixed inset-0 z-50 flex items-center justify-center bg-[#070B14]/95 p-4 backdrop-blur-md"
+              onClick={closeModal}
+            >
+              <div
+                className="relative flex max-h-[92vh] max-w-6xl w-full flex-col overflow-hidden rounded-2xl border border-white/15 bg-[#0B1220] p-4 shadow-2xl"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <div className="flex items-center justify-between border-b border-white/10 pb-3 mb-3">
+                  <div className="font-mono text-xs text-[#D4DCEB]">
+                    <span className="font-bold text-[#6FA8FF]">
+                      [{activeSlide + 1}/{project.slides.length}]
+                    </span>{" "}
+                    {slide.caption[locale]}
+                  </div>
+                  <button
+                    ref={closeModalBtnRef}
+                    type="button"
+                    data-testid="close-lightbox-btn"
+                    onClick={closeModal}
+                    aria-label={
+                      locale === "ko" ? "확대 모달 닫기 (Esc)" : "Close modal (Esc)"
+                    }
+                    className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-white/15 bg-white/5 text-[#F5F7FB] hover:bg-[#6FA8FF] hover:text-[#070B14] cursor-pointer"
+                  >
+                    <X className="h-4 w-4" />
+                  </button>
+                </div>
+
+                <div className="relative flex-1 overflow-auto flex items-center justify-center bg-[#070B14] rounded-xl p-2">
+                  <img
+                    src={assetPath(slide.src)}
+                    alt={slide.alt}
+                    className="max-h-[75vh] w-auto max-w-full object-contain"
+                  />
+                  {project.slides.length > 1 && (
+                    <>
+                      <button
+                        type="button"
+                        data-testid="lightbox-prev-btn"
+                        onClick={() =>
+                          setActiveSlide(
+                            (i) =>
+                              (i - 1 + project.slides.length) %
+                              project.slides.length
+                          )
+                        }
+                        aria-label={
+                          locale === "ko" ? "이전 이미지" : "Previous image"
+                        }
+                        className="absolute left-3 top-1/2 -translate-y-1/2 flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-[#070B14]/85 text-white hover:bg-[#6FA8FF] hover:text-[#070B14] cursor-pointer"
+                      >
+                        <ChevronLeft className="h-5 w-5" />
+                      </button>
+                      <button
+                        type="button"
+                        data-testid="lightbox-next-btn"
+                        onClick={() =>
+                          setActiveSlide((i) => (i + 1) % project.slides.length)
+                        }
+                        aria-label={locale === "ko" ? "다음 이미지" : "Next image"}
+                        className="absolute right-3 top-1/2 -translate-y-1/2 flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-[#070B14]/85 text-white hover:bg-[#6FA8FF] hover:text-[#070B14] cursor-pointer"
+                      >
+                        <ChevronRight className="h-5 w-5" />
+                      </button>
+                    </>
+                  )}
+                </div>
+              </div>
+            </div>
+          )}
 
           {project.slides.length > 1 && (
             <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-4">
