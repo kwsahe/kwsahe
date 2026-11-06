@@ -24,8 +24,12 @@ test.describe("Projects Atlas (/work)", () => {
     await expect(page.getByText("LINK21 AI JARVIS OFFICE").first()).toBeVisible();
     await expect(page.getByText("LINK21 BidPilot AI").first()).toBeVisible();
 
-    // Tech stack filter
+    // Tech stack filter (expand mobile collapsible filters if on mobile viewport)
     await page.getByRole("button", { name: "All", exact: true }).first().click();
+    const mobileFilterToggle = page.getByTestId("toggle-mobile-filters-btn");
+    if (await mobileFilterToggle.isVisible()) {
+      await mobileFilterToggle.click();
+    }
     await page.getByRole("button", { name: "ChromaDB", exact: true }).click();
     await expect(page.getByText("k-safety-law-rag").first()).toBeVisible();
 

@@ -549,7 +549,7 @@ export const PROJECTS_DATA: ProjectData[] = [
       en: "Live Production (aihub.link21premium.com)",
     },
     isPrivateRepo: true,
-    featuredOrder: 2,
+    featuredOrder: 3,
     categories: ["Production", "AI / RAG", "Automation"],
     role: {
       ko: "기획 · 인프라 · 구현 · 검수 · 배포 전담 (Vitest 515개 · 마이그레이션 9개)",
@@ -695,7 +695,7 @@ export const PROJECTS_DATA: ProjectData[] = [
       en: "Internal Tool · Local v1.0.1 (571 Commits)",
     },
     isPrivateRepo: true,
-    featuredOrder: 3,
+    featuredOrder: 2,
     categories: ["Internal AI", "AI / RAG", "Automation"],
     role: {
       ko: "단독 설계 · 구현 · 검증 (571 커밋 · 자동 시험 2,659개 · 검수→수정 36회)",
@@ -837,7 +837,7 @@ export const PROJECTS_DATA: ProjectData[] = [
       en: "Live Production (link21premium.com)",
     },
     isPrivateRepo: true,
-    featuredOrder: 4,
+    featuredOrder: 6,
     categories: ["Production"],
     role: {
       ko: "웹서비스 0→1 단독 개발 및 라이브 운영 전담",
@@ -959,7 +959,7 @@ export const PROJECTS_DATA: ProjectData[] = [
       en: "Open Source · 384 Regression Tests",
     },
     isPrivateRepo: false,
-    featuredOrder: 5,
+    featuredOrder: 4,
     categories: ["Automation", "AI / RAG", "Experimental"],
     role: {
       ko: "단독 설계 · 구현 · 실사용 검증 및 평가 하니스 구축",
@@ -1108,7 +1108,7 @@ export const PROJECTS_DATA: ProjectData[] = [
       en: "Live Demo (Updated Daily) · 222 Tests",
     },
     isPrivateRepo: false,
-    featuredOrder: 6,
+    featuredOrder: 5,
     categories: ["Data & Analytics", "Production", "AI / RAG"],
     role: {
       ko: "데이터 수집 파이프라인 · ML 적정가 모델 · FastAPI 17개 API · React 19 + Three.js 프론트엔드 단독 개발",
@@ -2415,8 +2415,10 @@ export const VERIFIED_PROJECT_METRICS = {
 export interface NexusSatelliteSpec {
   id: string;
   slug: string;
+  labSystemId?: string;
   label: string;
   metric: string;
+  archSummary: LocalizedText;
   orbitRadius: number;
   speed: number;
   phase: number;
@@ -2429,59 +2431,83 @@ export const NEXUS_CORE_SATELLITES: NexusSatelliteSpec[] = [
   {
     id: "jarvis",
     slug: "link21-ai-jarvis-office",
+    labSystemId: "link21-ai-jarvis-office",
     label: "JARVIS OFFICE",
     metric: VERIFIED_PROJECT_METRICS["link21-ai-jarvis-office"].shortMetric,
+    archSummary: {
+      ko: "Cloudflare Workers + D1 · 19명 AI 직원 체인(279s) & 점수와 분리된 게시 판정",
+      en: "Cloudflare Workers + D1 · 19-Agent Chain (279s) & Separated Publish Gate",
+    },
     orbitRadius: 2.35,
-    speed: 0.38,
+    speed: 0.34,
     phase: 0,
     tiltX: 0.35,
     tiltZ: 0.15,
     color: "#6FA8FF",
   },
   {
+    id: "bidpilot",
+    slug: "link21-bidpilot-ai",
+    labSystemId: "link21-bidpilot-ai",
+    label: "BidPilot AI",
+    metric: VERIFIED_PROJECT_METRICS["link21-bidpilot-ai"].shortMetric,
+    archSummary: {
+      ko: "FastAPI + Next.js 16 · 공고 쪽 보존 파싱 · 규칙 자격 판정(188/191) · 제안서 감사",
+      en: "FastAPI + Next.js 16 · Page-Preserved RFP Parser & Rule Eligibility (188/191)",
+    },
+    orbitRadius: 2.22,
+    speed: 0.27,
+    phase: 1.05,
+    tiltX: 0.24,
+    tiltZ: -0.44,
+    color: "#AB83FF",
+  },
+  {
     id: "aihub",
     slug: "link21-ai-hub",
     label: "LINK21 AI HUB",
     metric: VERIFIED_PROJECT_METRICS["link21-ai-hub"].shortMetric,
-    orbitRadius: 2.55,
-    speed: -0.31,
-    phase: 1.1,
+    archSummary: {
+      ko: "Next.js 16 + Supabase(9 Migrations) · 메탈 각인 미리보기 · OpenCV 비식별화",
+      en: "Next.js 16 + Supabase (9 Migrations) · Metal Engraving Preview & OpenCV Masking",
+    },
+    orbitRadius: 2.52,
+    speed: -0.29,
+    phase: 2.1,
     tiltX: -0.42,
     tiltZ: 0.28,
     color: "#25C8BD",
   },
   {
-    id: "bidpilot",
-    slug: "link21-bidpilot-ai",
-    label: "BidPilot AI",
-    metric: VERIFIED_PROJECT_METRICS["link21-bidpilot-ai"].shortMetric,
-    orbitRadius: 2.2,
-    speed: 0.29,
-    phase: 2.2,
-    tiltX: 0.22,
-    tiltZ: -0.45,
-    color: "#AB83FF",
-  },
-  {
     id: "triagent",
     slug: "tri-agent-control",
+    labSystemId: "tri-agent-control",
     label: "tri-agent-control",
     metric: VERIFIED_PROJECT_METRICS["tri-agent-control"].shortMetric,
-    orbitRadius: 2.65,
-    speed: -0.26,
-    phase: 3.3,
-    tiltX: 0.52,
+    archSummary: {
+      ko: "Python + git worktree · Claude(구현)·Antigravity(테스트)·Codex(검토) 고정 역할",
+      en: "Python + git worktree · Fixed-Role Claude / Antigravity / Codex Pipeline",
+    },
+    orbitRadius: 2.64,
+    speed: -0.24,
+    phase: 3.15,
+    tiltX: 0.5,
     tiltZ: 0.12,
     color: "#6FA8FF",
   },
   {
     id: "marketpulse",
     slug: "market-pulse",
+    labSystemId: "market-pulse",
     label: "Market Pulse",
     metric: VERIFIED_PROJECT_METRICS["market-pulse"].shortMetric,
+    archSummary: {
+      ko: "FastAPI(17 APIs) + Three.js · 57,690건 시세 수집 · 오염 필터 · 로그 가격 ML(R² 0.78)",
+      en: "FastAPI (17 APIs) + Three.js · 57,690 Snapshots · Anomaly Filter & Log-Price ML",
+    },
     orbitRadius: 2.4,
-    speed: 0.34,
-    phase: 4.4,
+    speed: 0.31,
+    phase: 4.2,
     tiltX: -0.28,
     tiltZ: -0.32,
     color: "#25C8BD",
@@ -2489,13 +2515,18 @@ export const NEXUS_CORE_SATELLITES: NexusSatelliteSpec[] = [
   {
     id: "ksafety",
     slug: "k-safety-law-rag",
+    labSystemId: "k-safety-law-rag",
     label: "k-safety-law-rag",
     metric: VERIFIED_PROJECT_METRICS["k-safety-law-rag"].shortMetric,
-    orbitRadius: 2.5,
-    speed: -0.24,
-    phase: 5.3,
+    archSummary: {
+      ko: "Claude Opus 5.5 + Dual ChromaDB(bge-m3) · 본문+별표 이중 검색 & 조문 정규식 검증",
+      en: "Claude Opus 5.5 + Dual ChromaDB (bge-m3) · Text+Table RAG & Regex Citation Gate",
+    },
+    orbitRadius: 2.48,
+    speed: -0.22,
+    phase: 5.25,
     tiltX: -0.18,
-    tiltZ: 0.48,
+    tiltZ: 0.46,
     color: "#AB83FF",
   },
 ];

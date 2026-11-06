@@ -10,7 +10,13 @@ import {
 import { useAppStore } from "@/store/useAppStore";
 import { ProjectCard } from "@/components/ui/ProjectCard";
 import { cn } from "@/lib/utils";
-import { Search, SlidersHorizontal, RotateCcw } from "lucide-react";
+import {
+  Search,
+  SlidersHorizontal,
+  RotateCcw,
+  ChevronDown,
+  ChevronUp,
+} from "lucide-react";
 
 const CATEGORIES: Array<"All" | ProjectCategory> = [
   "All",
@@ -81,6 +87,13 @@ export default function WorkPage() {
   const [sortBy, setSortBy] = useState<"featured" | "status" | "name">(
     "featured"
   );
+  const [mobileAdvancedOpen, setMobileAdvancedOpen] = useState<boolean>(false);
+
+  const activeFilterCount =
+    (selectedCategory !== "All" ? 1 : 0) +
+    (selectedStatus !== "All" ? 1 : 0) +
+    (selectedTech !== "All" ? 1 : 0) +
+    (searchQuery.trim().length > 0 ? 1 : 0);
 
   const filteredProjects = useMemo(() => {
     const q = searchQuery.trim().toLowerCase();
@@ -163,6 +176,7 @@ export default function WorkPage() {
           onCategory={setSelectedCategory}
         />
       </Suspense>
+
       {/* Header */}
       <div className="flex flex-col justify-between gap-4 border-b border-[var(--border-subtle)] pb-6 lg:flex-row lg:items-end">
         <div>
@@ -174,24 +188,30 @@ export default function WorkPage() {
               ? "전체 프로젝트 아틀라스"
               : "Engineering Projects Atlas"}
           </h1>
-          <p className="mt-2 max-w-3xl text-sm text-[var(--text-secondary)]">
+          <p className="mt-2 max-w-3xl text-sm sm:text-base text-[var(--text-secondary)]">
             {locale === "ko"
               ? "상용 프로덕션 웹서비스, 사내 19명 AI 직원 시스템, 공공입찰 자동화 도구, 3-CLI 코딩 오케스트레이션, 법령 이중 RAG 및 데이터 분석 프로젝트 14종을 카테고리·운영 상태·기술 스택별로 비교해 보세요."
               : "Filter and compare all 14 verified projects across Live Production, Internal AI Tools, RAG/Multi-Agent systems, and Data/ML pipelines."}
           </p>
         </div>
 
-        <div className="font-mono text-xs text-[var(--accent-cyan)]">
-          {locale === "ko"
-            ? `표시 중: ${filteredProjects.length} / 전체 ${PROJECTS_DATA.length}개`
-            : `Showing ${filteredProjects.length} of ${PROJECTS_DATA.length} projects`}
+        <div className="inline-flex items-center gap-2 self-start lg:self-auto rounded-full border border-[var(--accent-cyan)]/35 bg-[var(--accent-cyan)]/10 px-3.5 py-1.5 font-mono text-xs font-bold text-[var(--accent-cyan)]">
+          <span>
+            {locale === "ko"
+              ? `표시 중: ${filteredProjects.length} / 전체 ${PROJECTS_DATA.length}개`
+              : `Showing ${filteredProjects.length} of ${PROJECTS_DATA.length} projects`}
+          </span>
         </div>
       </div>
 
       {/* Filter & Search Control Panel */}
       <section
-        aria-label={locale === "ko" ? "프로젝트 검색 및 필터" : "Project search and filters"}
-        className="surface-panel rounded-2xl p-5 space-y-4"
+        aria-label={
+          locale === "ko"
+            ? "프로젝트 검색 및 필터"
+            : "Project search and filters"
+        }
+        className="surface-panel rounded-2xl p-4 sm:p-6 space-y-4"
       >
         {/* Search + Sort Row */}
         <div className="grid grid-cols-1 gap-3 md:grid-cols-12">
@@ -209,7 +229,9 @@ export default function WorkPage() {
                   ? "프로젝트 이름, 기술 스택(FastAPI, Cloudflare, RAG...), 검증 지표 검색..."
                   : "Search by project name, tech stack (FastAPI, Cloudflare, RAG...), or metrics..."
               }
-              aria-label={locale === "ko" ? "프로젝트 검색어 입력" : "Search projects"}
+              aria-label={
+                locale === "ko" ? "프로젝트 검색어 입력" : "Search projects"
+              }
               className="w-full rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-elevated)] pl-10 pr-4 py-2.5 text-sm text-[var(--text-primary)] placeholder:text-[var(--text-muted)] focus:border-[var(--accent-blue)] focus:outline-none"
             />
           </div>
@@ -228,13 +250,17 @@ export default function WorkPage() {
               onChange={(e) =>
                 setSortBy(e.target.value as "featured" | "status" | "name")
               }
-              className="w-full rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-elevated)] px-3 py-2.5 text-xs font-mono text-[var(--text-primary)]"
+              className="w-full rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-elevated)] px-3 py-2.5 text-xs font-mono font-semibold text-[var(--text-primary)]"
             >
               <option value="featured">
-                {locale === "ko" ? "정렬: 대표 우선순위" : "Sort: Featured Priority"}
+                {locale === "ko"
+                  ? "정렬: 대표 우선순위"
+                  : "Sort: Featured Priority"}
               </option>
               <option value="status">
-                {locale === "ko" ? "정렬: 실서비스/운영 상태순" : "Sort: Operational Status"}
+                {locale === "ko"
+                  ? "정렬: 실서비스/운영 상태순"
+                  : "Sort: Operational Status"}
               </option>
               <option value="name">
                 {locale === "ko" ? "정렬: 이름순 (A-Z)" : "Sort: Name (A-Z)"}
@@ -247,17 +273,39 @@ export default function WorkPage() {
               onClick={resetFilters}
               aria-label={locale === "ko" ? "필터 초기화" : "Reset filters"}
               title={locale === "ko" ? "필터 초기화" : "Reset filters"}
-              className="inline-flex items-center gap-1 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-elevated)] px-3 py-2.5 text-xs font-mono text-[var(--text-muted)] hover:text-[var(--text-primary)] cursor-pointer"
+              className="inline-flex items-center gap-1.5 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-elevated)] px-3 py-2.5 text-xs font-mono font-semibold text-[var(--text-muted)] hover:text-[var(--text-primary)] cursor-pointer shrink-0"
             >
               <RotateCcw className="h-3.5 w-3.5" />
+              <span className="hidden sm:inline">
+                {locale === "ko" ? "초기화" : "Reset"}
+              </span>
             </button>
           </div>
         </div>
 
-        {/* Category Filter Tabs */}
+        {/* Category Filter Tabs (Always Visible) */}
         <div className="space-y-1.5">
-          <div className="font-mono text-[11px] uppercase tracking-wider text-[var(--text-muted)]">
-            {locale === "ko" ? "카테고리 (Category)" : "Category"}
+          <div className="flex items-center justify-between">
+            <span className="font-mono text-xs font-semibold uppercase tracking-wider text-[var(--text-muted)]">
+              {locale === "ko" ? "카테고리 (Category)" : "Category"}
+            </span>
+            <button
+              type="button"
+              onClick={() => setMobileAdvancedOpen((o) => !o)}
+              aria-expanded={mobileAdvancedOpen}
+              className="inline-flex items-center gap-1 font-mono text-xs font-bold text-[var(--accent-blue)] md:hidden cursor-pointer"
+            >
+              <span>
+                {locale === "ko"
+                  ? `상세 필터 (${selectedStatus !== "All" || selectedTech !== "All" ? "적용 중" : "운영 상태 · 기술 스택"})`
+                  : "More Filters (Status & Tech)"}
+              </span>
+              {mobileAdvancedOpen ? (
+                <ChevronUp className="h-3.5 w-3.5" />
+              ) : (
+                <ChevronDown className="h-3.5 w-3.5" />
+              )}
+            </button>
           </div>
           <div className="flex flex-wrap gap-1.5">
             {CATEGORIES.map((cat) => (
@@ -269,7 +317,7 @@ export default function WorkPage() {
                 className={cn(
                   "rounded-lg border px-3 py-1.5 font-mono text-xs transition-all cursor-pointer",
                   selectedCategory === cat
-                    ? "border-[var(--accent-blue)] bg-[var(--accent-blue)] text-[#070B14] font-bold"
+                    ? "border-[var(--accent-blue)] bg-[#6FA8FF] text-[#070B14] font-bold shadow-sm"
                     : "border-[var(--border-subtle)] bg-[var(--bg-elevated)] text-[var(--text-muted)] hover:text-[var(--text-primary)]"
                 )}
               >
@@ -279,11 +327,18 @@ export default function WorkPage() {
           </div>
         </div>
 
-        {/* Status & Tech Filter Row */}
-        <div className="grid grid-cols-1 gap-4 pt-1 lg:grid-cols-2">
+        {/* Status & Tech Filter Row (Always visible on md+, collapsible on mobile) */}
+        <div
+          className={cn(
+            "grid-cols-1 gap-4 pt-1 lg:grid-cols-2",
+            mobileAdvancedOpen ? "grid" : "hidden md:grid"
+          )}
+        >
           <div className="space-y-1.5">
-            <div className="font-mono text-[11px] uppercase tracking-wider text-[var(--text-muted)]">
-              {locale === "ko" ? "실제 운영 상태 (Operational Status)" : "Operational Status"}
+            <div className="font-mono text-xs font-semibold uppercase tracking-wider text-[var(--text-muted)]">
+              {locale === "ko"
+                ? "실제 운영 상태 (Operational Status)"
+                : "Operational Status"}
             </div>
             <div className="flex flex-wrap gap-1.5">
               {STATUSES.map((st) => (
@@ -293,7 +348,7 @@ export default function WorkPage() {
                   onClick={() => setSelectedStatus(st)}
                   aria-pressed={selectedStatus === st}
                   className={cn(
-                    "rounded-lg border px-2.5 py-1 font-mono text-[11px] transition-colors cursor-pointer",
+                    "rounded-lg border px-2.5 py-1 font-mono text-xs transition-colors cursor-pointer",
                     selectedStatus === st
                       ? "border-[var(--accent-cyan)] bg-[#25C8BD]/20 text-[var(--accent-cyan)] font-bold"
                       : "border-[var(--border-subtle)] bg-[var(--bg-elevated)] text-[var(--text-muted)] hover:text-[var(--text-primary)]"
@@ -306,7 +361,7 @@ export default function WorkPage() {
           </div>
 
           <div className="space-y-1.5">
-            <div className="font-mono text-[11px] uppercase tracking-wider text-[var(--text-muted)]">
+            <div className="font-mono text-xs font-semibold uppercase tracking-wider text-[var(--text-muted)]">
               {locale === "ko" ? "주요 기술 스택 (Tech Stack)" : "Tech Stack"}
             </div>
             <div className="flex flex-wrap gap-1.5">
@@ -317,7 +372,7 @@ export default function WorkPage() {
                   onClick={() => setSelectedTech(tech)}
                   aria-pressed={selectedTech === tech}
                   className={cn(
-                    "rounded-lg border px-2.5 py-1 font-mono text-[11px] transition-colors cursor-pointer",
+                    "rounded-lg border px-2.5 py-1 font-mono text-xs transition-colors cursor-pointer",
                     selectedTech === tech
                       ? "border-[var(--accent-violet)] bg-[#AB83FF]/20 text-[var(--accent-violet)] font-bold"
                       : "border-[var(--border-subtle)] bg-[var(--bg-elevated)] text-[var(--text-muted)] hover:text-[var(--text-primary)]"
@@ -329,6 +384,44 @@ export default function WorkPage() {
             </div>
           </div>
         </div>
+
+        {/* Active Filter Summary Bar */}
+        {activeFilterCount > 0 && (
+          <div className="flex flex-wrap items-center justify-between gap-2 border-t border-[var(--border-subtle)] pt-3 text-xs font-mono">
+            <div className="flex flex-wrap items-center gap-1.5">
+              <span className="text-[var(--text-muted)]">
+                {locale === "ko" ? "활성 필터:" : "Active filters:"}
+              </span>
+              {selectedCategory !== "All" && (
+                <span className="rounded-md bg-[var(--accent-blue)]/15 px-2 py-0.5 font-bold text-[var(--accent-blue)]">
+                  Category: {selectedCategory}
+                </span>
+              )}
+              {selectedStatus !== "All" && (
+                <span className="rounded-md bg-[var(--accent-cyan)]/15 px-2 py-0.5 font-bold text-[var(--accent-cyan)]">
+                  Status: {selectedStatus}
+                </span>
+              )}
+              {selectedTech !== "All" && (
+                <span className="rounded-md bg-[var(--accent-violet)]/15 px-2 py-0.5 font-bold text-[var(--accent-violet)]">
+                  Tech: {selectedTech}
+                </span>
+              )}
+              {searchQuery.trim() && (
+                <span className="rounded-md bg-[var(--bg-elevated)] px-2 py-0.5 font-bold text-[var(--text-primary)]">
+                  &ldquo;{searchQuery.trim()}&rdquo;
+                </span>
+              )}
+            </div>
+            <button
+              type="button"
+              onClick={resetFilters}
+              className="font-bold text-[var(--accent-blue)] hover:underline cursor-pointer"
+            >
+              {locale === "ko" ? "모두 해제" : "Clear all"}
+            </button>
+          </div>
+        )}
       </section>
 
       {/* Project Grid */}
@@ -342,10 +435,12 @@ export default function WorkPage() {
           <button
             type="button"
             onClick={resetFilters}
-            className="inline-flex items-center gap-1.5 rounded-xl bg-[var(--accent-blue)] px-4 py-2 text-xs font-bold text-[#070B14] cursor-pointer"
+            className="inline-flex items-center gap-1.5 rounded-xl bg-[#6FA8FF] px-4 py-2.5 text-xs font-bold text-[#070B14] cursor-pointer"
           >
             <RotateCcw className="h-3.5 w-3.5" />
-            <span>{locale === "ko" ? "전체 프로젝트 보기" : "Reset All Filters"}</span>
+            <span>
+              {locale === "ko" ? "전체 프로젝트 보기" : "Reset All Filters"}
+            </span>
           </button>
         </div>
       ) : (

@@ -15,8 +15,13 @@ import {
   LAB_SYSTEMS,
   LabSystem,
   LabNode,
+  LabLayerType,
 } from "@/data/architecture-lab-data";
-import { buildSimulationSteps, SimulationStep } from "@/lib/lab-graph";
+import {
+  buildSimulationPaths,
+  SimulationStep,
+  SimulationPath,
+} from "@/lib/lab-graph";
 import { useAppStore } from "@/store/useAppStore";
 import { cn } from "@/lib/utils";
 import {
@@ -34,7 +39,58 @@ import {
   ArrowRight,
   Terminal,
   GitBranch,
+  Code2,
 } from "lucide-react";
+
+const LAYER_META: Record<
+  LabLayerType,
+  { color: string; badgeBg: string; label: string }
+> = {
+  INPUT: {
+    color: "#6FA8FF",
+    badgeBg: "bg-[#6FA8FF]/15 text-[#6FA8FF] border-[#6FA8FF]/40",
+    label: "INPUT",
+  },
+  API: {
+    color: "#38BDF8",
+    badgeBg: "bg-sky-400/15 text-sky-300 border-sky-400/40",
+    label: "API",
+  },
+  ORCHESTRATOR: {
+    color: "#AB83FF",
+    badgeBg: "bg-[#AB83FF]/15 text-[#AB83FF] border-[#AB83FF]/40",
+    label: "ORCHESTRATOR",
+  },
+  AI_DATA: {
+    color: "#818CF8",
+    badgeBg: "bg-indigo-400/15 text-indigo-300 border-indigo-400/40",
+    label: "AI / DATA",
+  },
+  VALIDATION: {
+    color: "#25C8BD",
+    badgeBg: "bg-[#25C8BD]/15 text-[#25C8BD] border-[#25C8BD]/40",
+    label: "VALIDATION",
+  },
+  OUTPUT: {
+    color: "#F59E0B",
+    badgeBg: "bg-amber-400/15 text-amber-300 border-amber-400/40",
+    label: "OUTPUT",
+  },
+};
+
+function wrapSvgLabel(rawLabel: string): [string, string] {
+  const cleaned = rawLabel.replace(/^\d+\.\s*/, "").trim();
+  if (cleaned.length <= 15) {
+    return [cleaned, ""];
+  }
+  const mid = Math.min(15, Math.floor(cleaned.length / 2) + 2);
+  const spaceIdx = cleaned.lastIndexOf(" ", mid);
+  const splitAt = spaceIdx >= 5 ? spaceIdx : 14;
+  const line1 = cleaned.slice(0, splitAt).trim();
+  const rest = cleaned.slice(splitAt).trim();
+  const line2 = rest.length > 16 ? `${rest.slice(0, 15)}…` : rest;
+  return [line1, line2];
+}
 
 class LabWebGLBoundary extends Component<
   { fallback: ReactNode; children: ReactNode },
@@ -122,7 +178,7 @@ function PacketTraveler({
     }
     const t = progressRef.current;
     const x = THREE.MathUtils.lerp(fromPos[0], toPos[0], t);
-    const arcLift = isCycleFeedback ? Math.sin(t * Math.PI) * 0.75 : 0;
+    const arcLift = isCycleFeedback ? Math.sin(t * Math.PI) * 0.85 : 0;
     const y = THREE.MathUtils.lerp(fromPos[1], toPos[1], t) + arcLift;
     const z = THREE.MathUtils.lerp(fromPos[2], toPos[2], t);
     meshRef.current.position.set(x, y, z);
@@ -130,11 +186,11 @@ function PacketTraveler({
 
   return (
     <mesh ref={meshRef} position={fromPos}>
-      <sphereGeometry args={[0.14, 16, 16]} />
+      <sphereGeometry args={[0.15, 18, 18]} />
       <meshStandardMaterial
         color={isCycleFeedback ? "#AB83FF" : "#25C8BD"}
         emissive={isCycleFeedback ? "#AB83FF" : "#25C8BD"}
-        emissiveIntensity={2.6}
+        emissiveIntensity={2.4}
       />
     </mesh>
   );
@@ -144,6 +200,7 @@ function Lab3DGraph({
   system,
   selectedNodeId,
   activeStep,
+  activePathEdges,
   onSelectNode,
   isPlaying,
   reducedMotion,
@@ -154,6 +211,7 @@ function Lab3DGraph({
   system: LabSystem;
   selectedNodeId: string;
   activeStep: SimulationStep;
+  activePathEdges: Set<string>;
   onSelectNode: (id: string) => void;
   isPlaying: boolean;
   reducedMotion: boolean;
@@ -181,41 +239,61 @@ function Lab3DGraph({
         const toNode = nodeMap.get(edge.to);
         if (!fromNode || !toNode) return null;
 
+        const edgeKey = `${edge.from}->${edge.to}`;
         const isActiveSimEdge =
           activeStep.edge.from === edge.from && activeStep.edge.to === edge.to;
+        const isInCurrentPath = activePathEdges.has(edgeKey);
         const isConnectedToSelected =
           edge.from === selectedNodeId || edge.to === selectedNodeId;
         const isFeedback = edge.kind === "feedback";
+        const isBranch = edge.kind === "branch";
 
-        // For feedback/branch edges, add a subtle midpoint arc so bidirectional edges don't overlap
-        const points: Array<[number, number, number]> = isFeedback
-          ? [
-              fromNode.position,
-              [
-                (fromNode.position[0] + toNode.position[0]) / 2,
-                Math.max(fromNode.position[1], toNode.position[1]) + 0.9,
-                (fromNode.position[2] + toNode.position[2]) / 2 + 0.3,
-              ],
-              toNode.position,
-            ]
-          : [fromNode.position, toNode.position];
+        const points: Array<[number, number, number]> =
+          isFeedback || isBranch
+            ? [
+                fromNode.position,
+                [
+                  (fromNode.position[0] + toNode.position[0]) / 2,
+                  Math.max(fromNode.position[1], toNode.position[1]) +
+                    (isFeedback ? 0.95 : -0.85),
+                  (fromNode.position[2] + toNode.position[2]) / 2 + 0.3,
+                ],
+                toNode.position,
+              ]
+            : [fromNode.position, toNode.position];
 
         const edgeColor = isActiveSimEdge
           ? "#25C8BD"
           : isFeedback
             ? "#AB83FF"
-            : isConnectedToSelected
-              ? "#6FA8FF"
-              : "#475569";
+            : isBranch
+              ? "#F59E0B"
+              : isConnectedToSelected || isInCurrentPath
+                ? "#6FA8FF"
+                : "#475569";
 
         return (
-          <group key={`${edge.from}->${edge.to}`}>
+          <group key={edgeKey}>
             <Line
               points={points}
               color={edgeColor}
-              lineWidth={isActiveSimEdge ? 3.0 : isConnectedToSelected ? 2.0 : 1.2}
+              lineWidth={
+                isActiveSimEdge
+                  ? 3.2
+                  : isConnectedToSelected
+                    ? 2.2
+                    : isInCurrentPath
+                      ? 1.7
+                      : 1.1
+              }
               transparent
-              opacity={isActiveSimEdge ? 0.98 : isConnectedToSelected ? 0.72 : 0.35}
+              opacity={
+                isActiveSimEdge
+                  ? 1.0
+                  : isInCurrentPath
+                    ? 0.78
+                    : 0.32
+              }
             />
           </group>
         );
@@ -237,11 +315,13 @@ function Lab3DGraph({
         const isSelected = node.id === selectedNodeId;
         const isSimEndpoint =
           node.id === activeStep.fromNode.id || node.id === activeStep.toNode.id;
+        const layerColor = LAYER_META[node.layer]?.color ?? node.color;
+
         return (
           <group key={node.id} position={node.position}>
             {isSelected && (
               <mesh>
-                <torusGeometry args={[0.52, 0.022, 14, 42]} />
+                <torusGeometry args={[0.54, 0.025, 14, 42]} />
                 <meshStandardMaterial
                   color="#25C8BD"
                   emissive="#25C8BD"
@@ -251,11 +331,11 @@ function Lab3DGraph({
             )}
             {!isSelected && isSimEndpoint && (
               <mesh>
-                <torusGeometry args={[0.44, 0.014, 12, 36]} />
+                <torusGeometry args={[0.45, 0.016, 12, 36]} />
                 <meshStandardMaterial
                   color="#6FA8FF"
                   emissive="#6FA8FF"
-                  emissiveIntensity={1.2}
+                  emissiveIntensity={1.3}
                 />
               </mesh>
             )}
@@ -265,14 +345,24 @@ function Lab3DGraph({
                 e.stopPropagation();
                 onSelectNode(node.id);
               }}
+              onPointerOver={() => {
+                if (typeof document !== "undefined") {
+                  document.body.style.cursor = "pointer";
+                }
+              }}
+              onPointerOut={() => {
+                if (typeof document !== "undefined") {
+                  document.body.style.cursor = "auto";
+                }
+              }}
             >
-              <dodecahedronGeometry args={[isSelected ? 0.38 : 0.3, 0]} />
+              <dodecahedronGeometry args={[isSelected ? 0.39 : 0.32, 0]} />
               <meshStandardMaterial
-                color={node.color}
-                emissive={node.color}
-                emissiveIntensity={isSelected ? 1.8 : 0.75}
-                metalness={0.75}
-                roughness={0.2}
+                color={layerColor}
+                emissive={layerColor}
+                emissiveIntensity={isSelected ? 1.75 : 0.85}
+                metalness={0.72}
+                roughness={0.22}
               />
             </mesh>
           </group>
@@ -286,23 +376,25 @@ function Lab2DSvgView({
   system,
   selectedNodeId,
   activeStep,
+  activePathEdges,
   onSelectNode,
   locale,
 }: {
   system: LabSystem;
   selectedNodeId: string;
   activeStep: SimulationStep;
+  activePathEdges: Set<string>;
   onSelectNode: (id: string) => void;
   locale: "ko" | "en";
 }) {
   const count = system.nodes.length;
-  const spacing = 780 / Math.max(count - 1, 1);
+  const spacing = 840 / Math.max(count - 1, 1);
 
   const nodeCoords = useMemo(() => {
     const map = new Map<string, { cx: number; cy: number; idx: number }>();
     system.nodes.forEach((node, idx) => {
-      const cx = 90 + idx * spacing;
-      const cy = idx % 2 === 0 ? 95 : 175;
+      const cx = 100 + idx * spacing;
+      const cy = idx % 2 === 0 ? 96 : 194;
       map.set(node.id, { cx, cy, idx });
     });
     return map;
@@ -311,7 +403,7 @@ function Lab2DSvgView({
   return (
     <div
       data-testid="lab-2d-svg-view"
-      className="flex h-full w-full flex-col justify-between overflow-x-auto p-4 sm:p-6 ops-grid-bg"
+      className="flex h-full w-full flex-col justify-between overflow-x-auto p-4 sm:p-5 ops-grid-bg"
       role="region"
       aria-label={
         locale === "ko"
@@ -319,18 +411,20 @@ function Lab2DSvgView({
           : "2D SVG Architecture Pipeline Diagram"
       }
     >
-      <div className="flex flex-wrap items-center justify-between gap-2 text-xs font-mono text-[#A5B0C6]">
-        <span>OPS COMMAND · 2D TOPOLOGY VIEW (GRAPH-ACCURATE)</span>
-        <span className="text-[#25C8BD]">
-          {activeStep.fromNode.label[locale]} → {activeStep.toNode.label[locale]} (
-          {activeStep.edge.label[locale]})
+      <div className="flex flex-wrap items-center justify-between gap-2 text-xs font-mono text-[#DCE4F2]">
+        <span className="font-bold text-[#6FA8FF]">
+          OPS COMMAND · 2D TOPOLOGY VIEW (CONTIGUOUS GRAPH)
+        </span>
+        <span className="rounded-md bg-[#25C8BD]/15 px-2.5 py-0.5 text-[#25C8BD] font-semibold">
+          {activeStep.fromNode.label[locale]} → {activeStep.toNode.label[locale]}{" "}
+          ({activeStep.edge.label[locale]})
         </span>
       </div>
 
-      {/* SVG Diagram rendering actual system.edges */}
+      {/* SVG Diagram rendering actual system.edges with full 2-line node labels */}
       <svg
-        viewBox="0 0 960 270"
-        className="my-2 w-full h-auto select-none"
+        viewBox="0 0 1040 290"
+        className="my-2 w-full min-w-[680px] h-auto select-none"
         role="img"
         aria-label={system.title[locale]}
       >
@@ -338,7 +432,7 @@ function Lab2DSvgView({
           <marker
             id="arrowCyan"
             viewBox="0 0 10 10"
-            refX="7"
+            refX="8"
             refY="5"
             markerWidth="6"
             markerHeight="6"
@@ -347,15 +441,37 @@ function Lab2DSvgView({
             <path d="M 0 1 L 10 5 L 0 9 z" fill="#25C8BD" />
           </marker>
           <marker
+            id="arrowBlue"
+            viewBox="0 0 10 10"
+            refX="8"
+            refY="5"
+            markerWidth="5.5"
+            markerHeight="5.5"
+            orient="auto-start-reverse"
+          >
+            <path d="M 0 1 L 10 5 L 0 9 z" fill="#6FA8FF" />
+          </marker>
+          <marker
             id="arrowViolet"
             viewBox="0 0 10 10"
-            refX="7"
+            refX="8"
             refY="5"
             markerWidth="6"
             markerHeight="6"
             orient="auto-start-reverse"
           >
             <path d="M 0 1 L 10 5 L 0 9 z" fill="#AB83FF" />
+          </marker>
+          <marker
+            id="arrowAmber"
+            viewBox="0 0 10 10"
+            refX="8"
+            refY="5"
+            markerWidth="6"
+            markerHeight="6"
+            orient="auto-start-reverse"
+          >
+            <path d="M 0 1 L 10 5 L 0 9 z" fill="#F59E0B" />
           </marker>
         </defs>
 
@@ -365,62 +481,90 @@ function Lab2DSvgView({
           const to = nodeCoords.get(edge.to);
           if (!from || !to) return null;
 
+          const edgeKey = `${edge.from}->${edge.to}`;
           const isActiveEdge =
-            activeStep.edge.from === edge.from && activeStep.edge.to === edge.to;
+            activeStep.edge.from === edge.from &&
+            activeStep.edge.to === edge.to;
+          const isInCurrentPath = activePathEdges.has(edgeKey);
           const isFeedback = edge.kind === "feedback" || to.idx < from.idx;
-          const isSkipBranch = Math.abs(to.idx - from.idx) > 1;
+          const isBranch =
+            edge.kind === "branch" || Math.abs(to.idx - from.idx) > 1;
 
           const strokeColor = isActiveEdge
             ? "#25C8BD"
             : isFeedback
               ? "#AB83FF"
-              : "#6FA8FF";
+              : isBranch
+                ? "#F59E0B"
+                : "#6FA8FF";
 
-          if (isFeedback || isSkipBranch) {
+          const edgeOpacity = isActiveEdge ? 1 : isInCurrentPath ? 0.88 : 0.35;
+
+          if (isFeedback || isBranch) {
             const midX = (from.cx + to.cx) / 2;
-            const controlY = isFeedback ? 18 : 252;
+            const controlY = isFeedback ? 14 : 276;
+            const labelY = isFeedback ? 34 : 264;
             const d = `M ${from.cx} ${from.cy} Q ${midX} ${controlY} ${to.cx} ${to.cy}`;
             return (
-              <g key={`${edge.from}->${edge.to}`}>
+              <g key={edgeKey} opacity={edgeOpacity}>
                 <path
                   d={d}
                   fill="none"
                   stroke={strokeColor}
-                  strokeWidth={isActiveEdge ? 3 : 1.75}
-                  strokeDasharray={isActiveEdge ? "none" : "6 4"}
+                  strokeWidth={isActiveEdge ? 3.2 : 1.8}
+                  strokeDasharray={
+                    isActiveEdge ? "none" : isFeedback ? "6 4" : "4 4"
+                  }
                   markerEnd={
-                    isFeedback ? "url(#arrowViolet)" : "url(#arrowCyan)"
+                    isActiveEdge
+                      ? "url(#arrowCyan)"
+                      : isFeedback
+                        ? "url(#arrowViolet)"
+                        : "url(#arrowAmber)"
                   }
                 />
-                {isActiveEdge && (
-                  <circle
-                    cx={midX}
-                    cy={(from.cy + to.cy) / 2 + (isFeedback ? -28 : 28)}
-                    r={6}
-                    fill="#25C8BD"
-                  />
-                )}
+                <rect
+                  x={midX - 68}
+                  y={labelY - 10}
+                  width={136}
+                  height={18}
+                  rx={6}
+                  fill="#070B14"
+                  stroke={strokeColor}
+                  strokeWidth={0.9}
+                />
+                <text
+                  x={midX}
+                  y={labelY + 2}
+                  textAnchor="middle"
+                  fill={strokeColor}
+                  fontSize="9.5"
+                  fontFamily="monospace"
+                  fontWeight="bold"
+                >
+                  {edge.label[locale].slice(0, 18)}
+                </text>
               </g>
             );
           }
 
           return (
-            <g key={`${edge.from}->${edge.to}`}>
+            <g key={edgeKey} opacity={edgeOpacity}>
               <line
                 x1={from.cx}
                 y1={from.cy}
                 x2={to.cx}
                 y2={to.cy}
                 stroke={strokeColor}
-                strokeWidth={isActiveEdge ? 3 : 1.75}
-                strokeDasharray={isActiveEdge ? "none" : "5 4"}
-                markerEnd="url(#arrowCyan)"
+                strokeWidth={isActiveEdge ? 3.2 : 2.0}
+                strokeDasharray={isActiveEdge ? "none" : "none"}
+                markerEnd={isActiveEdge ? "url(#arrowCyan)" : "url(#arrowBlue)"}
               />
               {isActiveEdge && (
                 <circle
                   cx={(from.cx + to.cx) / 2}
                   cy={(from.cy + to.cy) / 2}
-                  r={6}
+                  r={6.5}
                   fill="#25C8BD"
                 />
               )}
@@ -428,15 +572,17 @@ function Lab2DSvgView({
           );
         })}
 
-        {/* Nodes */}
-        {system.nodes.map((node) => {
+        {/* Nodes with 2-line wrapped titles & layer color accents */}
+        {system.nodes.map((node, idx) => {
           const coord = nodeCoords.get(node.id);
           if (!coord) return null;
           const { cx, cy } = coord;
           const isSelected = node.id === selectedNodeId;
-          const isSimActive =
-            node.id === activeStep.fromNode.id ||
-            node.id === activeStep.toNode.id;
+          const isSimFrom = node.id === activeStep.fromNode.id;
+          const isSimTo = node.id === activeStep.toNode.id;
+          const isSimActive = isSimFrom || isSimTo;
+          const layerInfo = LAYER_META[node.layer];
+          const [line1, line2] = wrapSvgLabel(node.label[locale]);
 
           return (
             <g
@@ -445,10 +591,10 @@ function Lab2DSvgView({
               className="cursor-pointer"
             >
               <rect
-                x={cx - 68}
-                y={cy - 34}
-                width={136}
-                height={68}
+                x={cx - 76}
+                y={cy - 38}
+                width={152}
+                height={76}
                 rx={12}
                 fill={isSelected ? "#182338" : "#0D1526"}
                 stroke={
@@ -456,38 +602,60 @@ function Lab2DSvgView({
                     ? "#25C8BD"
                     : isSimActive
                       ? "#6FA8FF"
-                      : node.color
+                      : layerInfo.color
                 }
-                strokeWidth={isSelected ? 2.6 : isSimActive ? 2.0 : 1.3}
+                strokeWidth={isSelected ? 2.8 : isSimActive ? 2.2 : 1.4}
+              />
+              {/* Layer Header Strip */}
+              <rect
+                x={cx - 66}
+                y={cy - 30}
+                width={132}
+                height={16}
+                rx={4}
+                fill="rgba(111, 168, 255, 0.12)"
               />
               <text
                 x={cx}
-                y={cy - 10}
+                y={cy - 19}
                 textAnchor="middle"
-                fill="#6FA8FF"
-                fontSize="10"
+                fill={layerInfo.color}
+                fontSize="9.5"
                 fontFamily="monospace"
                 fontWeight="bold"
               >
-                {node.layer}
+                0{idx + 1} · {layerInfo.label}
               </text>
+              {/* 2-Line Node Label */}
               <text
                 x={cx}
-                y={cy + 10}
+                y={line2 ? cy + 2 : cy + 9}
                 textAnchor="middle"
                 fill="#F5F7FB"
                 fontSize="11"
                 fontWeight="bold"
               >
-                {node.label[locale].slice(0, 17)}
+                {line1}
               </text>
+              {line2 && (
+                <text
+                  x={cx}
+                  y={cy + 18}
+                  textAnchor="middle"
+                  fill="#DCE4F2"
+                  fontSize="10.5"
+                  fontWeight="600"
+                >
+                  {line2}
+                </text>
+              )}
             </g>
           );
         })}
       </svg>
 
       {/* Accessible Node Button Strip */}
-      <div className="flex flex-wrap gap-2">
+      <div className="flex flex-wrap gap-1.5 pt-1">
         {system.nodes.map((n) => (
           <button
             key={n.id}
@@ -495,10 +663,10 @@ function Lab2DSvgView({
             aria-pressed={n.id === selectedNodeId}
             onClick={() => onSelectNode(n.id)}
             className={cn(
-              "rounded-lg border px-3 py-1.5 font-mono text-xs transition-colors cursor-pointer",
+              "rounded-lg border px-2.5 py-1 font-mono text-xs transition-colors cursor-pointer",
               n.id === selectedNodeId
-                ? "border-[#25C8BD] bg-[#25C8BD]/15 text-[#F5F7FB] font-bold"
-                : "border-white/10 bg-[#0B1220] text-[#A5B0C6] hover:text-white"
+                ? "border-[#25C8BD] bg-[#25C8BD]/20 text-[#F5F7FB] font-bold"
+                : "border-white/10 bg-[#0B1220] text-[#DCE4F2] hover:text-white"
             )}
           >
             {n.label[locale]}
@@ -526,8 +694,30 @@ export function ArchitectureLabScene({
     [systemId]
   );
 
-  // Build verified graph simulation steps from system.edges
-  const simSteps = useMemo(() => buildSimulationSteps(system), [system]);
+  // Build all valid contiguous simulation paths for the current system
+  const simPaths = useMemo(() => buildSimulationPaths(system), [system]);
+  const [selectedPathId, setSelectedPathId] = useState<
+    "primary" | "remediation" | "branch"
+  >(simPaths[0]?.id ?? "primary");
+
+  const activePath: SimulationPath = useMemo(
+    () =>
+      simPaths.find((p) => p.id === selectedPathId) ??
+      simPaths[0] ?? {
+        id: "primary",
+        label: { ko: "기본 경로", en: "Primary Path" },
+        description: { ko: "표준 데이터 흐름", en: "Standard flow" },
+        steps: [],
+      },
+    [simPaths, selectedPathId]
+  );
+
+  const simSteps = activePath.steps;
+
+  const activePathEdges = useMemo(
+    () => new Set(simSteps.map((s) => `${s.edge.from}->${s.edge.to}`)),
+    [simSteps]
+  );
 
   // Separate Node Selection State from Packet Simulation Step State
   const [selectedNodeId, setSelectedNodeId] = useState<string>(
@@ -550,6 +740,8 @@ export function ArchitectureLabScene({
 
   // Reset only when switching to a different system (NOT when toggling 2D/3D)
   useEffect(() => {
+    const defaultPath = buildSimulationPaths(system)[0];
+    setSelectedPathId(defaultPath?.id ?? "primary");
     setSelectedNodeId(system.nodes[0].id);
     setSimStepIndex(0);
     setZoomActive(false);
@@ -564,6 +756,9 @@ export function ArchitectureLabScene({
         canvas.getContext("experimental-webgl");
       if (!gl) {
         setWebglSupported(false);
+        setViewMode("2d");
+      } else if (window.innerWidth < 768) {
+        // Default mobile viewports to 2D SVG topology for immediate readability
         setViewMode("2d");
       }
     } catch {
@@ -594,7 +789,12 @@ export function ArchitectureLabScene({
 
   // Advance simulation along directed graph edges in 2D mode
   useEffect(() => {
-    if (!isPlaying || reducedMotion || viewMode === "3d" || simSteps.length === 0)
+    if (
+      !isPlaying ||
+      reducedMotion ||
+      viewMode === "3d" ||
+      simSteps.length === 0
+    )
       return;
     const timer = window.setInterval(() => {
       setSimStepIndex((prev) => (prev + 1) % simSteps.length);
@@ -604,10 +804,7 @@ export function ArchitectureLabScene({
 
   const handleAdvanceStep = () => {
     if (simSteps.length === 0) return;
-    setSimStepIndex((prev) => {
-      const nextIdx = (prev + 1) % simSteps.length;
-      return nextIdx;
-    });
+    setSimStepIndex((prev) => (prev + 1) % simSteps.length);
   };
 
   const handleManualStepClick = () => {
@@ -624,6 +821,11 @@ export function ArchitectureLabScene({
     setZoomActive(false);
   };
 
+  const handleSelectPath = (pathId: "primary" | "remediation" | "branch") => {
+    setSelectedPathId(pathId);
+    setSimStepIndex(0);
+  };
+
   const activeStep: SimulationStep =
     simSteps[simStepIndex] ??
     simSteps[0] ?? {
@@ -633,12 +835,14 @@ export function ArchitectureLabScene({
       toNode: system.nodes[1] ?? system.nodes[0],
       isBranch: false,
       isCycleFeedback: false,
+      passNumber: 1,
     };
 
   const selectedNode =
     system.nodes.find((n) => n.id === selectedNodeId) ?? system.nodes[0];
   const selectedNodeOrder =
     system.nodes.findIndex((n) => n.id === selectedNode.id) + 1;
+  const selectedLayerMeta = LAYER_META[selectedNode.layer];
 
   return (
     <div
@@ -650,13 +854,13 @@ export function ArchitectureLabScene({
       )}
     >
       {/* Top System Selector Tabs */}
-      <div className="surface-panel rounded-2xl p-4">
+      <div className="surface-panel rounded-2xl p-4 sm:p-5 space-y-3.5">
         <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
           <div>
             <span className="font-mono text-xs font-bold uppercase tracking-wider text-[var(--accent-cyan)]">
               OPS COMMAND · SYSTEM ARCHITECTURE SELECTOR
             </span>
-            <h2 className="mt-1 text-lg font-bold text-[var(--text-primary)]">
+            <h2 className="mt-1 text-lg sm:text-xl font-extrabold text-[var(--text-primary)]">
               {system.title[locale]}
             </h2>
           </div>
@@ -676,7 +880,7 @@ export function ArchitectureLabScene({
                   aria-selected={active}
                   onClick={() => setSystemId(s.id)}
                   className={cn(
-                    "rounded-xl border px-3 py-1.5 font-mono text-xs font-semibold transition-all cursor-pointer",
+                    "rounded-xl border px-3 py-1.5 font-mono text-xs font-bold transition-all cursor-pointer",
                     active
                       ? "border-[#6FA8FF] bg-[#6FA8FF] text-[#070B14] shadow-md"
                       : "border-[var(--border-subtle)] bg-[var(--bg-elevated)] text-[var(--text-muted)] hover:text-[var(--text-primary)]"
@@ -690,16 +894,19 @@ export function ArchitectureLabScene({
         </div>
 
         {/* Simulation vs Production Honesty Banner */}
-        <div className="mt-3 flex flex-wrap items-center justify-between gap-2 rounded-xl border border-[#25C8BD]/30 bg-[#25C8BD]/10 px-3.5 py-2 text-xs text-[var(--text-primary)]">
+        <div className="flex flex-wrap items-center justify-between gap-2 rounded-xl border border-[#25C8BD]/35 bg-[#25C8BD]/10 px-3.5 py-2.5 text-xs text-[var(--text-primary)]">
           <div className="flex items-center gap-2">
-            <Cpu className="h-4 w-4 shrink-0 text-[#25C8BD]" aria-hidden="true" />
+            <Cpu
+              className="h-4 w-4 shrink-0 text-[var(--accent-cyan)]"
+              aria-hidden="true"
+            />
             <span>{system.simulationNotice[locale]}</span>
           </div>
           <div className="flex flex-wrap gap-1.5">
             {system.metrics.map((m) => (
               <span
                 key={m}
-                className="rounded-md bg-[#070B14]/70 px-2 py-0.5 font-mono text-[11px] text-[#25C8BD]"
+                className="rounded-md bg-[#070B14]/80 px-2.5 py-0.5 font-mono text-[11px] font-semibold text-[#25C8BD]"
               >
                 {m}
               </span>
@@ -714,7 +921,7 @@ export function ArchitectureLabScene({
         <div className="lg:col-span-7 flex flex-col rounded-2xl border border-[var(--border-subtle)] bg-[#070B14] overflow-hidden shadow-2xl">
           {/* Stage Control Toolbar */}
           <div className="flex flex-wrap items-center justify-between gap-2 border-b border-white/10 bg-[#0D1526] px-4 py-3">
-            <div className="flex items-center gap-1.5">
+            <div className="flex flex-wrap items-center gap-1.5">
               <button
                 type="button"
                 data-testid="lab-play-pause-btn"
@@ -747,8 +954,10 @@ export function ArchitectureLabScene({
                 type="button"
                 data-testid="lab-step-btn"
                 onClick={handleManualStepClick}
-                aria-label={locale === "ko" ? "다음 연결 단계로 이동" : "Next edge step"}
-                className="inline-flex items-center gap-1 rounded-lg border border-white/15 bg-white/5 px-2.5 py-1.5 font-mono text-xs text-[#F5F7FB] hover:bg-white/10 cursor-pointer"
+                aria-label={
+                  locale === "ko" ? "다음 연결 단계로 이동" : "Next edge step"
+                }
+                className="inline-flex items-center gap-1 rounded-lg border border-white/15 bg-white/5 px-2.5 py-1.5 font-mono text-xs font-semibold text-[#F5F7FB] hover:bg-white/10 cursor-pointer"
               >
                 <StepForward className="h-3.5 w-3.5" />
                 <span>{locale === "ko" ? "다음 단계" : "Step"}</span>
@@ -758,8 +967,10 @@ export function ArchitectureLabScene({
                 type="button"
                 data-testid="lab-reset-btn"
                 onClick={handleReset}
-                aria-label={locale === "ko" ? "시뮬레이션 초기화" : "Reset simulation"}
-                className="inline-flex items-center gap-1 rounded-lg border border-white/15 bg-white/5 px-2.5 py-1.5 font-mono text-xs text-[#A5B0C6] hover:text-white cursor-pointer"
+                aria-label={
+                  locale === "ko" ? "시뮬레이션 초기화" : "Reset simulation"
+                }
+                className="inline-flex items-center gap-1 rounded-lg border border-white/15 bg-white/5 px-2.5 py-1.5 font-mono text-xs text-[#DCE4F2] hover:text-white cursor-pointer"
               >
                 <RotateCcw className="h-3.5 w-3.5" />
                 <span>{locale === "ko" ? "초기화" : "Reset"}</span>
@@ -775,8 +986,8 @@ export function ArchitectureLabScene({
                   className={cn(
                     "rounded-lg border px-2.5 py-1.5 font-mono text-xs transition-colors cursor-pointer",
                     zoomActive
-                      ? "border-[#25C8BD] bg-[#25C8BD]/20 text-[#25C8BD]"
-                      : "border-white/15 bg-white/5 text-[#A5B0C6] hover:text-white"
+                      ? "border-[#25C8BD] bg-[#25C8BD]/20 text-[#25C8BD] font-bold"
+                      : "border-white/15 bg-white/5 text-[#DCE4F2] hover:text-white"
                   )}
                 >
                   {zoomActive
@@ -793,20 +1004,24 @@ export function ArchitectureLabScene({
                 type="button"
                 data-testid="lab-viewmode-btn"
                 onClick={() => setViewMode((m) => (m === "3d" ? "2d" : "3d"))}
-                className="inline-flex items-center gap-1.5 rounded-lg border border-[#AB83FF]/50 bg-[#AB83FF]/15 px-3 py-1.5 font-mono text-xs font-semibold text-[#AB83FF] hover:bg-[#AB83FF]/25 cursor-pointer"
+                className="inline-flex items-center gap-1.5 rounded-lg border border-[#AB83FF]/50 bg-[#AB83FF]/15 px-3 py-1.5 font-mono text-xs font-bold text-[#AB83FF] hover:bg-[#AB83FF]/25 cursor-pointer"
               >
                 {viewMode === "3d" ? (
                   <>
                     <Layers className="h-3.5 w-3.5" />
                     <span>
-                      {locale === "ko" ? "2D 다이어그램 전환" : "Switch to 2D SVG"}
+                      {locale === "ko"
+                        ? "2D 다이어그램 전환"
+                        : "Switch to 2D SVG"}
                     </span>
                   </>
                 ) : (
                   <>
                     <Box className="h-3.5 w-3.5" />
                     <span>
-                      {locale === "ko" ? "3D WebGL 전환" : "Switch to 3D WebGL"}
+                      {locale === "ko"
+                        ? "3D WebGL 전환"
+                        : "Switch to 3D WebGL"}
                     </span>
                   </>
                 )}
@@ -831,13 +1046,52 @@ export function ArchitectureLabScene({
             </div>
           </div>
 
+          {/* Simulation Path Selector (Branch / Remediation vs Primary Happy Path) */}
+          {simPaths.length > 1 && (
+            <div
+              data-testid="lab-path-selector"
+              className="flex flex-wrap items-center justify-between gap-2 border-b border-white/10 bg-[#0B1220] px-4 py-2.5 text-xs font-mono"
+            >
+              <div className="flex flex-wrap items-center gap-1.5">
+                <span className="text-[#A8B4CA] font-semibold">
+                  {locale === "ko" ? "시뮬레이션 경로:" : "Simulation Path:"}
+                </span>
+                {simPaths.map((p) => {
+                  const isCurrentPath = p.id === activePath.id;
+                  return (
+                    <button
+                      key={p.id}
+                      type="button"
+                      data-testid={`lab-path-btn-${p.id}`}
+                      aria-pressed={isCurrentPath}
+                      onClick={() => handleSelectPath(p.id)}
+                      className={cn(
+                        "rounded-lg border px-2.5 py-1 text-[11px] transition-colors cursor-pointer",
+                        isCurrentPath
+                          ? "border-[#25C8BD] bg-[#25C8BD]/20 text-[#25C8BD] font-bold"
+                          : "border-white/10 bg-white/5 text-[#DCE4F2] hover:text-white"
+                      )}
+                    >
+                      {p.label[locale]} ({p.steps.length}{" "}
+                      {locale === "ko" ? "단계" : "steps"})
+                    </button>
+                  );
+                })}
+              </div>
+              <span className="text-[11px] text-[#A8B4CA]">
+                {activePath.description[locale]}
+              </span>
+            </div>
+          )}
+
           {/* 3D Canvas or 2D SVG Stage */}
-          <div className="relative h-[420px] sm:h-[480px] w-full">
+          <div className="relative h-[390px] sm:h-[440px] w-full">
             {viewMode === "2d" || !webglSupported ? (
               <Lab2DSvgView
                 system={system}
                 selectedNodeId={selectedNode.id}
                 activeStep={activeStep}
+                activePathEdges={activePathEdges}
                 onSelectNode={(id) => {
                   setSelectedNodeId(id);
                 }}
@@ -850,6 +1104,7 @@ export function ArchitectureLabScene({
                     system={system}
                     selectedNodeId={selectedNode.id}
                     activeStep={activeStep}
+                    activePathEdges={activePathEdges}
                     onSelectNode={setSelectedNodeId}
                     locale={locale}
                   />
@@ -877,6 +1132,7 @@ export function ArchitectureLabScene({
                     system={system}
                     selectedNodeId={selectedNode.id}
                     activeStep={activeStep}
+                    activePathEdges={activePathEdges}
                     onSelectNode={(id) => {
                       setSelectedNodeId(id);
                       setZoomActive(true);
@@ -895,7 +1151,7 @@ export function ArchitectureLabScene({
                   />
                 </Canvas>
                 {/* 3D Stage Active Node & Edge Transition HUD Overlay */}
-                <div className="pointer-events-none absolute inset-x-3 bottom-3 flex flex-wrap items-center justify-between gap-2 rounded-xl border border-white/10 bg-[#070B14]/90 px-3.5 py-2 backdrop-blur-md">
+                <div className="pointer-events-none absolute inset-x-3 bottom-3 flex flex-wrap items-center justify-between gap-2 rounded-xl border border-white/15 bg-[#070B14]/90 px-3.5 py-2 backdrop-blur-md">
                   <div className="flex items-center gap-2 font-mono text-xs">
                     <span className="inline-block h-2 w-2 rounded-full bg-[#25C8BD]" />
                     <span className="font-bold text-[#F5F7FB]">
@@ -906,7 +1162,7 @@ export function ArchitectureLabScene({
                       {selectedNode.layer}
                     </span>
                   </div>
-                  <div className="flex items-center gap-1.5 font-mono text-[11px] text-[#25C8BD]">
+                  <div className="flex items-center gap-1.5 font-mono text-[11px] font-semibold text-[#25C8BD]">
                     <GitBranch className="h-3.5 w-3.5" />
                     <span data-testid="lab-active-edge-hud">
                       EDGE [{simStepIndex + 1}/{simSteps.length}]:{" "}
@@ -918,9 +1174,30 @@ export function ArchitectureLabScene({
             )}
           </div>
 
-          {/* Bottom Node Selection & Edge Simulation Strip */}
-          <div className="border-t border-white/10 bg-[#0B1220] px-4 py-3">
-            <div className="flex flex-wrap items-center justify-between gap-2 text-xs font-mono text-[#A5B0C6] mb-2">
+          {/* Layer & Edge Legend Bar */}
+          <div className="flex flex-wrap items-center justify-between gap-2 border-t border-white/10 bg-[#090F1D] px-4 py-2 font-mono text-[11px] text-[#DCE4F2]">
+            <div className="flex flex-wrap items-center gap-3">
+              {Object.entries(LAYER_META).map(([key, meta]) => (
+                <span key={key} className="inline-flex items-center gap-1.5">
+                  <span
+                    className="h-2 w-2 rounded-full"
+                    style={{ backgroundColor: meta.color }}
+                  />
+                  <span>{meta.label}</span>
+                </span>
+              ))}
+            </div>
+            <div className="flex flex-wrap items-center gap-3 text-[10px] text-[#A8B4CA]">
+              <span>━ Primary</span>
+              <span className="text-[#AB83FF]">┅ Feedback (1-Pass)</span>
+              <span className="text-[#F59E0B]">┅ Branch</span>
+              <span className="text-[#25C8BD]">● Active Packet</span>
+            </div>
+          </div>
+
+          {/* Bottom Node Selection & Contiguous Edge Step Strip */}
+          <div className="border-t border-white/10 bg-[#0B1220] px-4 py-3 space-y-2.5">
+            <div className="flex flex-wrap items-center justify-between gap-2 text-xs font-mono text-[#DCE4F2]">
               <span data-testid="lab-sim-step-indicator">
                 {locale === "ko" ? "패킷 이동 경로:" : "Packet Flow Edge:"}{" "}
                 <strong className="text-[#25C8BD]">
@@ -928,6 +1205,11 @@ export function ArchitectureLabScene({
                 </strong>{" "}
                 ({activeStep.fromNode.label[locale]} →{" "}
                 {activeStep.toNode.label[locale]})
+                {activeStep.isCycleFeedback && (
+                  <span className="ml-1.5 rounded bg-[#AB83FF]/20 px-1.5 py-0.5 text-[10px] font-bold text-[#AB83FF]">
+                    FEEDBACK 1-PASS
+                  </span>
+                )}
               </span>
               <span data-testid="lab-selected-node-indicator">
                 {locale === "ko" ? "선택된 노드:" : "Selected Node:"}{" "}
@@ -936,6 +1218,41 @@ export function ArchitectureLabScene({
                 </strong>
               </span>
             </div>
+
+            {/* Interactive Step Progress Bar */}
+            <div
+              className="flex items-center gap-1 overflow-x-auto pb-1"
+              role="group"
+              aria-label={
+                locale === "ko" ? "시뮬레이션 단계 선택" : "Simulation step selector"
+              }
+            >
+              {simSteps.map((st, idx) => {
+                const isCurrent = idx === simStepIndex;
+                return (
+                  <button
+                    key={`${st.edge.from}->${st.edge.to}-${idx}`}
+                    type="button"
+                    onClick={() => {
+                      setSimStepIndex(idx);
+                      setSelectedNodeId(st.toNode.id);
+                    }}
+                    className={cn(
+                      "whitespace-nowrap rounded-md border px-2 py-1 font-mono text-[10px] transition-colors cursor-pointer",
+                      isCurrent
+                        ? "border-[#25C8BD] bg-[#25C8BD]/20 text-[#25C8BD] font-bold"
+                        : st.isCycleFeedback
+                          ? "border-[#AB83FF]/40 bg-[#AB83FF]/10 text-[#AB83FF]"
+                          : "border-white/10 bg-white/5 text-[#A8B4CA] hover:text-white"
+                    )}
+                  >
+                    S{idx + 1}: {st.edge.label[locale]}
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Node Inspector Quick Buttons */}
             <div className="grid grid-cols-2 gap-1.5 sm:grid-cols-3 md:grid-cols-6">
               {system.nodes.map((node, idx) => {
                 const active = node.id === selectedNode.id;
@@ -948,12 +1265,12 @@ export function ArchitectureLabScene({
                     aria-pressed={active}
                     onClick={() => setSelectedNodeId(node.id)}
                     className={cn(
-                      "rounded-lg border px-2 py-1.5 text-left font-mono text-[11px] transition-all cursor-pointer truncate",
+                      "rounded-lg border px-2.5 py-1.5 text-left font-mono text-xs transition-all cursor-pointer truncate",
                       active
-                        ? "border-[#25C8BD] bg-[#25C8BD]/15 text-[#F5F7FB] font-bold"
+                        ? "border-[#25C8BD] bg-[#25C8BD]/20 text-[#F5F7FB] font-bold"
                         : isPacketTarget
-                          ? "border-[#6FA8FF]/50 bg-[#6FA8FF]/10 text-[#D4DCEB]"
-                          : "border-white/10 bg-white/5 text-[#A5B0C6] hover:text-white"
+                          ? "border-[#6FA8FF]/55 bg-[#6FA8FF]/15 text-[#DCE4F2]"
+                          : "border-white/10 bg-white/5 text-[#A8B4CA] hover:text-white"
                     )}
                   >
                     {idx + 1}. {node.label[locale].replace(/^\d+\.\s*/, "")}
@@ -964,97 +1281,131 @@ export function ArchitectureLabScene({
           </div>
         </div>
 
-        {/* Right: Node Telemetry & Verification Inspector */}
+        {/* Right: Node Telemetry & Verification Inspector (Ordered 1..8 per Phase 8-4) */}
         <div
           data-testid="lab-node-inspector"
           className="lg:col-span-5 flex flex-col justify-between rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-surface)] p-5 sm:p-6 shadow-xl"
         >
-          <div className="space-y-5">
-            <div className="flex items-center justify-between border-b border-[var(--border-subtle)] pb-4">
+          <div className="space-y-4">
+            {/* 1. Node Name & Layer Badge */}
+            <div className="flex items-start justify-between gap-2 border-b border-[var(--border-subtle)] pb-4">
               <div>
-                <span className="inline-flex items-center gap-1.5 rounded-md bg-[#6FA8FF]/15 px-2.5 py-0.5 font-mono text-[11px] font-bold text-[var(--accent-blue)]">
-                  NODE LAYER · {selectedNode.layer}
+                <span
+                  className={cn(
+                    "inline-flex items-center gap-1.5 rounded-md border px-2.5 py-0.5 font-mono text-xs font-bold",
+                    selectedLayerMeta.badgeBg
+                  )}
+                >
+                  NODE LAYER · {selectedLayerMeta.label}
                 </span>
                 <h3
                   data-testid="lab-inspector-title"
-                  className="mt-2 text-xl font-bold text-[var(--text-primary)]"
+                  className="mt-2 text-xl font-extrabold text-[var(--text-primary)]"
                 >
                   {selectedNode.label[locale]}
                 </h3>
               </div>
-              <span className="font-mono text-xs text-[var(--text-muted)]">
-                NODE {selectedNodeOrder} OF {system.nodes.length}
+              <span className="shrink-0 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-elevated)] px-2.5 py-1 font-mono text-xs font-bold text-[var(--accent-blue)]">
+                NODE {selectedNodeOrder} / {system.nodes.length}
               </span>
             </div>
 
-            <p className="text-sm leading-relaxed text-[var(--text-secondary)]">
-              {selectedNode.role[locale]}
-            </p>
+            {/* 2. Role */}
+            <div>
+              <div className="font-mono text-xs font-bold uppercase tracking-wider text-[var(--text-muted)]">
+                {locale === "ko" ? "01. 노드 핵심 역할 (ROLE)" : "01. NODE ROLE"}
+              </div>
+              <p className="mt-1 text-sm sm:text-[15px] leading-relaxed text-[var(--text-secondary)]">
+                {selectedNode.role[locale]}
+              </p>
+            </div>
 
-            {/* Input / Output Specs */}
+            {/* 3 & 4. Input / Output Specs */}
             <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-              <div className="rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-elevated)] p-3">
-                <div className="font-mono text-[11px] font-semibold text-[var(--accent-blue)]">
-                  {locale === "ko" ? "입력값 (INPUT)" : "INPUT SPEC"}
+              <div className="rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-elevated)] p-3.5">
+                <div className="font-mono text-xs font-bold text-[var(--accent-blue)]">
+                  {locale === "ko" ? "02. 입력 (INPUT)" : "02. INPUT SPEC"}
                 </div>
-                <p className="mt-1 text-xs leading-relaxed text-[var(--text-primary)]">
+                <p className="mt-1 text-xs sm:text-[13px] leading-relaxed text-[var(--text-primary)]">
                   {selectedNode.inputSpec[locale]}
                 </p>
               </div>
-              <div className="rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-elevated)] p-3">
-                <div className="font-mono text-[11px] font-semibold text-[var(--accent-cyan)]">
-                  {locale === "ko" ? "출력값 (OUTPUT)" : "OUTPUT SPEC"}
+              <div className="rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-elevated)] p-3.5">
+                <div className="font-mono text-xs font-bold text-[var(--accent-cyan)]">
+                  {locale === "ko" ? "03. 출력 (OUTPUT)" : "03. OUTPUT SPEC"}
                 </div>
-                <p className="mt-1 text-xs leading-relaxed text-[var(--text-primary)]">
+                <p className="mt-1 text-xs sm:text-[13px] leading-relaxed text-[var(--text-primary)]">
                   {selectedNode.outputSpec[locale]}
                 </p>
               </div>
             </div>
 
-            {/* Processing Steps */}
+            {/* 5. Key Technologies */}
+            <div>
+              <div className="flex items-center gap-1.5 font-mono text-xs font-bold uppercase tracking-wider text-[var(--text-muted)]">
+                <Code2 className="h-3.5 w-3.5 text-[var(--accent-violet)]" />
+                <span>
+                  {locale === "ko" ? "04. 주요 기술 (KEY TECH)" : "04. KEY TECHNOLOGIES"}
+                </span>
+              </div>
+              <div className="mt-2 flex flex-wrap gap-1.5">
+                {selectedNode.tech.map((t) => (
+                  <span
+                    key={t}
+                    className="rounded-md border border-[var(--border-subtle)] bg-[var(--bg-elevated)] px-2.5 py-1 font-mono text-xs font-medium text-[var(--accent-blue)]"
+                  >
+                    {t}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            {/* 6. Processing Logic Steps */}
             <div>
               <h4 className="font-mono text-xs font-bold uppercase tracking-wider text-[var(--text-muted)]">
-                {locale === "ko" ? "세부 처리 단계 (PROCESSING STEPS)" : "PROCESSING STEPS"}
+                {locale === "ko"
+                  ? "05. 처리 로직 (PROCESSING LOGIC)"
+                  : "05. PROCESSING LOGIC"}
               </h4>
               <ul className="mt-2 space-y-1.5">
                 {selectedNode.steps.map((step, i) => (
                   <li
                     key={i}
-                    className="flex items-start gap-2 text-xs text-[var(--text-secondary)]"
+                    className="flex items-start gap-2 text-xs sm:text-[13px] leading-relaxed text-[var(--text-secondary)]"
                   >
-                    <ArrowRight className="mt-0.5 h-3.5 w-3.5 shrink-0 text-[var(--accent-blue)]" />
+                    <ArrowRight className="mt-1 h-3.5 w-3.5 shrink-0 text-[var(--accent-blue)]" />
                     <span>{step[locale]}</span>
                   </li>
                 ))}
               </ul>
             </div>
 
-            {/* Error Handling & Verification */}
+            {/* 7. Error Handling & 8. Verification */}
             <div className="space-y-2.5">
-              <div className="rounded-xl border border-[#F2B84B]/30 bg-[#F2B84B]/10 p-3">
-                <div className="flex items-center gap-1.5 font-mono text-[11px] font-bold text-[#F2B84B]">
+              <div className="rounded-xl border border-amber-500/35 bg-amber-500/10 p-3.5">
+                <div className="flex items-center gap-1.5 font-mono text-xs font-bold text-amber-500 dark:text-amber-300">
                   <AlertTriangle className="h-3.5 w-3.5" />
                   <span>
                     {locale === "ko"
-                      ? "오류 처리 & 가드레일 (ERROR HANDLING)"
-                      : "ERROR HANDLING & GUARDRAILS"}
+                      ? "06. 오류 처리 & 가드레일 (ERROR HANDLING)"
+                      : "06. ERROR HANDLING & GUARDRAILS"}
                   </span>
                 </div>
-                <p className="mt-1 text-xs text-[var(--text-primary)]">
+                <p className="mt-1 text-xs sm:text-[13px] leading-relaxed text-[var(--text-primary)]">
                   {selectedNode.errorHandling[locale]}
                 </p>
               </div>
 
-              <div className="rounded-xl border border-[#2EC27E]/30 bg-[#2EC27E]/10 p-3">
-                <div className="flex items-center gap-1.5 font-mono text-[11px] font-bold text-[#2EC27E]">
+              <div className="rounded-xl border border-emerald-500/35 bg-emerald-500/10 p-3.5">
+                <div className="flex items-center gap-1.5 font-mono text-xs font-bold text-emerald-600 dark:text-[#2EC27E]">
                   <ShieldCheck className="h-3.5 w-3.5" />
                   <span>
                     {locale === "ko"
-                      ? "실제 검증 방법 (VERIFICATION)"
-                      : "VERIFICATION & TEST EVIDENCE"}
+                      ? "07. 검증 결과 (VERIFICATION)"
+                      : "07. VERIFICATION & TEST EVIDENCE"}
                   </span>
                 </div>
-                <p className="mt-1 text-xs text-[var(--text-primary)]">
+                <p className="mt-1 text-xs sm:text-[13px] leading-relaxed text-[var(--text-primary)]">
                   {selectedNode.verification[locale]}
                 </p>
               </div>
@@ -1062,31 +1413,17 @@ export function ArchitectureLabScene({
 
             {/* Sample Payload Telemetry */}
             <div>
-              <div className="flex items-center gap-1.5 font-mono text-[11px] font-bold text-[var(--text-muted)]">
+              <div className="flex items-center gap-1.5 font-mono text-xs font-bold text-[var(--text-muted)]">
                 <Terminal className="h-3.5 w-3.5 text-[var(--accent-cyan)]" />
                 <span>
                   {locale === "ko"
-                    ? "샘플 상태 페이로드 (TELEMETRY PAYLOAD)"
-                    : "SAMPLE TELEMETRY PAYLOAD"}
+                    ? "08. 샘플 상태 페이로드 (TELEMETRY PAYLOAD)"
+                    : "08. SAMPLE TELEMETRY PAYLOAD"}
                 </span>
               </div>
-              <pre className="mt-1.5 overflow-x-auto rounded-xl border border-white/10 bg-[#070B14] p-3 font-mono text-[11px] text-[#25C8BD]">
+              <pre className="mt-1.5 overflow-x-auto rounded-xl border border-white/10 bg-[#070B14] p-3 font-mono text-xs text-[#25C8BD]">
                 <code>{selectedNode.samplePayload}</code>
               </pre>
-            </div>
-          </div>
-
-          {/* Tech Stack Pills */}
-          <div className="mt-5 border-t border-[var(--border-subtle)] pt-4">
-            <div className="flex flex-wrap gap-1.5">
-              {selectedNode.tech.map((t) => (
-                <span
-                  key={t}
-                  className="rounded-md border border-[var(--border-subtle)] bg-[var(--bg-elevated)] px-2.5 py-1 font-mono text-[11px] text-[var(--text-secondary)]"
-                >
-                  {t}
-                </span>
-              ))}
             </div>
           </div>
         </div>

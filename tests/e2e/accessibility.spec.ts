@@ -1,7 +1,8 @@
 import { test, expect } from "@playwright/test";
+import AxeBuilder from "@axe-core/playwright";
 
 test.describe("WCAG 2.2 AA Accessibility & Asset Integrity", () => {
-  test("verifies semantic landmarks, skip-to-content keyboard link, accessible button names, and zero broken images", async ({
+  test("verifies semantic landmarks, skip-to-content keyboard link, accessible button names, zero broken images, and axe-core checks", async ({
     page,
   }) => {
     await page.goto("./");
@@ -31,7 +32,17 @@ test.describe("WCAG 2.2 AA Accessibility & Asset Integrity", () => {
     });
     expect(unnamedButtons).toEqual([]);
 
-    // 4. Verify zero broken images on Work page
+    // 4. Automated axe-core WCAG 2.2 AA check on Home (Dark mode)
+    const darkAxeResults = await new AxeBuilder({ page })
+      .withTags(["wcag2a", "wcag2aa", "wcag21aa"])
+      .exclude("canvas")
+      .analyze();
+    const darkCritical = darkAxeResults.violations.filter(
+      (v) => v.impact === "critical"
+    );
+    expect(darkCritical).toEqual([]);
+
+    // 5. Verify zero broken images on Work page
     await page.goto("./work/");
     await page.waitForTimeout(500);
     const brokenImages = await page.evaluate(() => {

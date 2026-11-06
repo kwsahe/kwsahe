@@ -1,4 +1,7 @@
 import { LabSystem, LabNode, LabEdge } from "@/data/architecture-lab-data";
+import { LocalizedText } from "@/data/portfolio-data";
+
+export type SimulationPathMode = "default" | "primary" | "branch" | "remediation";
 
 export interface SimulationStep {
   stepIndex: number;
@@ -7,6 +10,14 @@ export interface SimulationStep {
   toNode: LabNode;
   isBranch: boolean;
   isCycleFeedback: boolean;
+  passNumber: number;
+}
+
+export interface SimulationPath {
+  id: "primary" | "remediation" | "branch";
+  label: LocalizedText;
+  description: LocalizedText;
+  steps: SimulationStep[];
 }
 
 export interface LabGraphValidationResult {
@@ -126,7 +137,10 @@ export function validateLabGraph(system: LabSystem): LabGraphValidationResult {
     .map((n) => n.id);
 
   return {
-    valid: errors.length === 0 && system.nodes.length >= 2 && system.edges.length >= 1,
+    valid:
+      errors.length === 0 &&
+      system.nodes.length >= 2 &&
+      system.edges.length >= 1,
     systemId: system.id,
     nodeCount: system.nodes.length,
     edgeCount: system.edges.length,
@@ -142,20 +156,35 @@ export function validateLabGraph(system: LabSystem): LabGraphValidationResult {
 }
 
 /**
- * Builds a deterministic, cycle-safe sequence of SimulationSteps purely from `system.edges`.
- *
- * Branching & Cycle Policy:
- * 1. Traversal starts at the graph's entry node (`nodes[0]`) and follows directed `system.edges`.
- * 2. When a node has multiple outgoing edges:
- *    - If an unvisited `"feedback"` edge exists (e.g., auto-remediation or review rework loop),
- *      it is traversed at most ONCE so the simulation demonstrates the feedback loop without infinite cycling,
- *      and subsequent visits to the node take the `"primary"` forward edge.
- *    - If an unvisited `"branch"` edge exists alongside a `"primary"` edge, the primary path is completed
- *      and any remaining unvisited reachable edges are appended in topological order so 100% of valid
- *      connected edges can be stepped through.
- * 3. Disconnected/invalid edges are excluded.
+ * Verifies that a sequence of SimulationSteps is 100% contiguous:
+ * every step's `toNode.id` must equal the next step's `fromNode.id` (no teleportation).
  */
-export function buildSimulationSteps(system: LabSystem): SimulationStep[] {
+export function isPathContiguous(steps: SimulationStep[]): boolean {
+  if (steps.length === 0) return false;
+  for (let i = 0; i < steps.length - 1; i++) {
+    if (steps[i].toNode.id !== steps[i + 1].fromNode.id) {
+      return false;
+    }
+  }
+  return true;
+}
+
+/**
+ * Internal helper that walks a contiguous path from `nodes[0]` to a terminal node
+ * according to the requested strategy (`"primary"`, `"remediation"`, or `"branch"`).
+ *
+ * Continuity Guarantee:
+ * - Every transition starts strictly from `currentId` (the `to` node of the previous step).
+ * - In `"remediation"` mode, each `"feedback"` edge is taken at most ONCE; subsequent
+ *   visits to nodes re-traverse `"primary"` edges forward until the terminal node is reached.
+ * - In `"branch"` mode, when a node has an outgoing `"branch"` edge, it takes the `"branch"`
+ *   edge and then continues along `"primary"` edges to the terminal node.
+ * - In `"primary"` mode, only `"primary"` (or default) forward edges are taken.
+ */
+function traceContiguousPath(
+  system: LabSystem,
+  strategy: "primary" | "remediation" | "branch"
+): SimulationStep[] {
   const nodeMap = new Map<string, LabNode>();
   const nodeOrder = new Map<string, number>();
   system.nodes.forEach((n, idx) => {
@@ -168,7 +197,7 @@ export function buildSimulationSteps(system: LabSystem): SimulationStep[] {
     adj.set(n.id, []);
   }
 
-  const validEdges: LabEdge[] = [];
+  let validEdgeCount = 0;
   for (const edge of system.edges) {
     if (
       nodeMap.has(edge.from) &&
@@ -176,65 +205,83 @@ export function buildSimulationSteps(system: LabSystem): SimulationStep[] {
       edge.from !== edge.to
     ) {
       adj.get(edge.from)!.push(edge);
-      validEdges.push(edge);
+      validEdgeCount++;
     }
   }
 
-  if (system.nodes.length < 2 || validEdges.length === 0) {
+  if (system.nodes.length < 2 || validEdgeCount === 0) {
     return [];
   }
 
-  const usedEdges = new Set<string>();
-  const rawTransitions: LabEdge[] = [];
-  const maxSteps = validEdges.length * 2 + 4;
+  const feedbackUsed = new Set<string>();
+  const branchUsed = new Set<string>();
+  const edgeVisitCount = new Map<string, number>();
+  const rawSteps: Array<{ edge: LabEdge; passNumber: number }> = [];
 
   let currentId = system.nodes[0].id;
+  const maxSteps = system.nodes.length * 3 + 4;
   let guard = 0;
 
   while (guard < maxSteps) {
     guard++;
     const outgoing = adj.get(currentId) ?? [];
-    const unusedOutgoing = outgoing.filter(
-      (e) => !usedEdges.has(`${e.from}->${e.to}`)
-    );
-
-    if (unusedOutgoing.length === 0) {
+    if (outgoing.length === 0) {
       break;
     }
 
-    // Policy: If there is an unused feedback edge from this node, take it once first
-    // so the cycle returns to this node and then proceeds along the primary edge.
-    const feedbackEdge = unusedOutgoing.find((e) => e.kind === "feedback");
-    const primaryEdge = unusedOutgoing.find(
+    const feedbackEdge = outgoing.find(
+      (e) =>
+        (e.kind === "feedback" ||
+          (nodeOrder.get(e.to) ?? 0) < (nodeOrder.get(e.from) ?? 0)) &&
+        !feedbackUsed.has(`${e.from}->${e.to}`)
+    );
+    const branchEdge = outgoing.find(
+      (e) => e.kind === "branch" && !branchUsed.has(`${e.from}->${e.to}`)
+    );
+    const primaryEdge = outgoing.find(
       (e) => !e.kind || e.kind === "primary"
     );
-    const branchEdge = unusedOutgoing.find((e) => e.kind === "branch");
 
-    let chosen: LabEdge;
-    if (feedbackEdge) {
+    let chosen: LabEdge | undefined;
+
+    if (strategy === "remediation" && feedbackEdge) {
       chosen = feedbackEdge;
+      feedbackUsed.add(`${chosen.from}->${chosen.to}`);
+    } else if (strategy === "branch" && branchEdge) {
+      chosen = branchEdge;
+      branchUsed.add(`${chosen.from}->${chosen.to}`);
     } else if (primaryEdge) {
-      chosen = primaryEdge;
-    } else {
-      chosen = branchEdge ?? unusedOutgoing[0];
+      // Prevent infinite cycles if a graph only has a primary cycle with no terminal exit
+      const key = `${primaryEdge.from}->${primaryEdge.to}`;
+      const visits = edgeVisitCount.get(key) ?? 0;
+      const maxAllowedVisits = feedbackUsed.size > 0 ? 2 : 1;
+      if (visits < maxAllowedVisits) {
+        chosen = primaryEdge;
+      }
+    } else if (strategy === "primary" && outgoing.length > 0) {
+      // Fallback if a node only has non-feedback outgoing edges
+      const nonFeedback = outgoing.find((e) => e.kind !== "feedback");
+      if (nonFeedback) {
+        const key = `${nonFeedback.from}->${nonFeedback.to}`;
+        if ((edgeVisitCount.get(key) ?? 0) < 1) {
+          chosen = nonFeedback;
+        }
+      }
+    }
+
+    if (!chosen) {
+      break;
     }
 
     const edgeKey = `${chosen.from}->${chosen.to}`;
-    usedEdges.add(edgeKey);
-    rawTransitions.push(chosen);
+    const nextPass = (edgeVisitCount.get(edgeKey) ?? 0) + 1;
+    edgeVisitCount.set(edgeKey, nextPass);
+
+    rawSteps.push({ edge: chosen, passNumber: nextPass });
     currentId = chosen.to;
   }
 
-  // Append any remaining valid parallel branch edges (e.g., secondary branch out of an earlier node)
-  for (const edge of validEdges) {
-    const edgeKey = `${edge.from}->${edge.to}`;
-    if (!usedEdges.has(edgeKey)) {
-      usedEdges.add(edgeKey);
-      rawTransitions.push(edge);
-    }
-  }
-
-  return rawTransitions.map((edge, idx) => {
+  return rawSteps.map(({ edge, passNumber }, idx) => {
     const fromNode = nodeMap.get(edge.from)!;
     const toNode = nodeMap.get(edge.to)!;
     const fromOrder = nodeOrder.get(edge.from) ?? 0;
@@ -250,6 +297,101 @@ export function buildSimulationSteps(system: LabSystem): SimulationStep[] {
       toNode,
       isBranch,
       isCycleFeedback,
+      passNumber,
     };
   });
+}
+
+/**
+ * Returns all valid, 100%-contiguous simulation paths for a LabSystem.
+ * - Every system has a `"primary"` (Normal / Happy Path) flow.
+ * - Systems with `"feedback"` edges also provide a `"remediation"` path (e.g., Publish Gate 1-pass auto-remediation or Codex REVIEW: CHANGES rework loop) that returns to the upstream node and then completes forward to the terminal node.
+ * - Systems with `"branch"` edges also provide a `"branch"` path (e.g., Anomaly Audit fast-track or Deterministic Direct Route).
+ */
+export function buildSimulationPaths(system: LabSystem): SimulationPath[] {
+  const hasFeedback = system.edges.some((e) => e.kind === "feedback");
+  const hasBranch = system.edges.some((e) => e.kind === "branch");
+
+  const primarySteps = traceContiguousPath(system, "primary");
+  const paths: SimulationPath[] = [];
+
+  if (hasFeedback) {
+    const remediationSteps = traceContiguousPath(system, "remediation");
+    paths.push({
+      id: "remediation",
+      label: {
+        ko: "보완·재검증 포함 경로 (Remediation Flow)",
+        en: "Auto-Remediation & Re-Verify Flow",
+      },
+      description: {
+        ko: "검증 게이트에서 위반·수정 사항 감지 시 이전 단계로 피드백(1회)하여 보완한 뒤 최종 출력까지 도달하는 연속 경로",
+        en: "Triggers 1 bounded feedback remediation pass upon validation gate check, then completes forward to final output",
+      },
+      steps: remediationSteps,
+    });
+  }
+
+  paths.push({
+    id: "primary",
+    label: {
+      ko: "정상 기본 경로 (Primary Happy Path)",
+      en: "Primary Happy Path",
+    },
+    description: {
+      ko: "입력 노드부터 최종 출력 노드까지 1차 검증을 통과하며 순차 이동하는 표준 파이프라인 경로",
+      en: "Standard forward pipeline traversal from intake node to final output node",
+    },
+    steps: primarySteps,
+  });
+
+  if (hasBranch) {
+    const branchSteps = traceContiguousPath(system, "branch");
+    paths.push({
+      id: "branch",
+      label: {
+        ko: "분기·직행 경로 (Branch / Direct Route)",
+        en: "Branch / Fast-Track Route",
+      },
+      description: {
+        ko: "특정 조건(이상치 리포트 직행 또는 정형 조문 Direct Route)에서 분기 간선을 따라 최종 출력으로 합류하는 연속 경로",
+        en: "Follows conditional branch edge (Anomaly feed or Direct Statutory Route) and merges into final output",
+      },
+      steps: branchSteps,
+    });
+  }
+
+  return paths;
+}
+
+/**
+ * Builds a deterministic, cycle-safe, and strictly CONTIGUOUS sequence of SimulationSteps
+ * from `system.edges` (`steps[i].toNode.id === steps[i+1].fromNode.id` for all steps).
+ */
+export function buildSimulationSteps(
+  system: LabSystem,
+  mode: SimulationPathMode = "default"
+): SimulationStep[] {
+  const hasFeedback = system.edges.some((e) => e.kind === "feedback");
+  const hasBranch = system.edges.some((e) => e.kind === "branch");
+
+  if (mode === "primary") {
+    return traceContiguousPath(system, "primary");
+  }
+  if (mode === "branch") {
+    return hasBranch
+      ? traceContiguousPath(system, "branch")
+      : traceContiguousPath(system, "primary");
+  }
+  if (mode === "remediation") {
+    return hasFeedback
+      ? traceContiguousPath(system, "remediation")
+      : traceContiguousPath(system, "primary");
+  }
+
+  // "default" mode: use remediation path if feedback edge exists (so cycle is shown contiguously),
+  // otherwise use the primary contiguous path.
+  if (hasFeedback) {
+    return traceContiguousPath(system, "remediation");
+  }
+  return traceContiguousPath(system, "primary");
 }
