@@ -20,9 +20,19 @@ export async function generateMetadata({
   if (!project) {
     return { title: "Project Not Found | Sangheon Kwon" };
   }
+  const canonicalUrl = `https://kwsahe.github.io/kwsahe/work/${project.slug}/`;
   return {
     title: `${project.name} — Case Study | 권상헌 (Sangheon Kwon)`,
-    description: project.oneLiner.ko,
+    description: `${project.oneLiner.ko} (${project.oneLiner.en})`,
+    alternates: {
+      canonical: canonicalUrl,
+    },
+    openGraph: {
+      title: `${project.name} — Engineering Case Study | 권상헌`,
+      description: project.oneLiner.ko,
+      url: canonicalUrl,
+      type: "article",
+    },
   };
 }
 

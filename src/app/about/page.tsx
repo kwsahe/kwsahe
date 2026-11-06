@@ -22,6 +22,8 @@ import {
   GitBranch as Github,
   ArrowUpRight,
   CheckCircle2,
+  Cpu,
+  Layers,
 } from "lucide-react";
 
 const DEV_PROCESS_STEPS = [
@@ -76,7 +78,7 @@ export default function AboutPage() {
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8 space-y-16">
-      {/* ════════════ PROFILE & CORE BIO ════════════ */}
+      {/* ════════════ 01. WHO I AM & 02. WHAT I BUILD ════════════ */}
       <section
         aria-labelledby="about-heading"
         className="grid grid-cols-1 gap-8 lg:grid-cols-12"
@@ -121,10 +123,10 @@ export default function AboutPage() {
               </div>
               <div className="flex justify-between gap-2">
                 <dt className="text-[var(--text-muted)]">
-                  {locale === "ko" ? "생년월일" : "Birth Date"}
+                  {locale === "ko" ? "전문 분야" : "Specialization"}
                 </dt>
-                <dd className="font-mono text-[var(--text-primary)]">
-                  {PROFILE_DATA.birthDate}
+                <dd className="font-mono text-[var(--text-primary)] text-right">
+                  AI Backend · RAG · Full-Stack
                 </dd>
               </div>
               <div className="flex justify-between gap-2">
@@ -192,13 +194,13 @@ export default function AboutPage() {
           </div>
         </aside>
 
-        {/* Right Narrative & Engineering Domains */}
+        {/* Right Narrative (01. Who I Am) & Core Domains (02. What I Build) */}
         <div className="lg:col-span-8 surface-panel rounded-3xl p-6 sm:p-10 space-y-6">
           <div>
             <span className="font-mono text-xs font-bold uppercase tracking-wider text-[var(--accent-blue)]">
-              ABOUT · AI SERVICE BACKEND & FULL-STACK ENGINEER
+              01 · WHO I AM · AI SERVICE BACKEND & FULL-STACK ENGINEER
             </span>
-            <h2 className="mt-1 text-2xl font-extrabold text-[var(--text-primary)] sm:text-3xl">
+            <h2 className="mt-1.5 text-2xl font-extrabold text-[var(--text-primary)] sm:text-3xl leading-snug">
               {PROFILE_DATA.aboutNarrative[0][locale]}
             </h2>
           </div>
@@ -208,108 +210,106 @@ export default function AboutPage() {
             <p>{PROFILE_DATA.aboutNarrative[2][locale]}</p>
           </div>
 
-          {/* 3 Engineering Focus Cards */}
-          <div className="grid grid-cols-1 gap-4 pt-2 sm:grid-cols-3">
-            <div className="rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-elevated)] p-4">
-              <div className="font-mono text-xs font-bold text-[var(--accent-blue)]">
-                AI SYSTEM ARCHITECTURE
-              </div>
-              <p className="mt-2 text-xs leading-relaxed text-[var(--text-secondary)]">
-                {locale === "ko"
-                  ? "19명 AI 에이전트 체인(JARVIS), 3-CLI 역할 분리(TriAgent), 이중 ChromaDB 법령 RAG(K-Safety), 의도 라우팅 챗봇(링키)"
-                  : "19-agent chain (JARVIS), 3-CLI role isolation (TriAgent), dual ChromaDB legal RAG (K-Safety), and intent-routed chatbot."}
-              </p>
+          {/* 02. What I Build — 3 Engineering Focus Cards */}
+          <div className="pt-2 space-y-3 border-t border-[var(--border-subtle)]">
+            <div className="flex items-center gap-2">
+              <Layers className="h-4 w-4 text-[var(--accent-cyan)]" />
+              <span className="font-mono text-xs font-bold uppercase tracking-wider text-[var(--accent-cyan)]">
+                02 · WHAT I BUILD — PRODUCTION AI & BACKEND DOMAINS
+              </span>
             </div>
-            <div className="rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-elevated)] p-4">
-              <div className="font-mono text-xs font-bold text-[var(--accent-cyan)]">
-                BACKEND & DATA PIPELINES
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+              <div className="rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-elevated)] p-4">
+                <div className="font-mono text-xs font-bold text-[var(--accent-blue)]">
+                  AI SYSTEM ARCHITECTURE
+                </div>
+                <p className="mt-2 text-xs leading-relaxed text-[var(--text-secondary)]">
+                  {locale === "ko"
+                    ? "19명 AI 에이전트 체인(JARVIS), 3-CLI 역할 분리(TriAgent), 이중 ChromaDB 법령 RAG(K-Safety), 의도 라우팅 챗봇(링키)"
+                    : "19-agent chain (JARVIS), 3-CLI role isolation (TriAgent), dual ChromaDB legal RAG (K-Safety), and intent-routed chatbot."}
+                </p>
               </div>
-              <p className="mt-2 text-xs leading-relaxed text-[var(--text-secondary)]">
-                {locale === "ko"
-                  ? "FastAPI 17개 API, Cloudflare Workers + D1 분산 SQL, 다나와 5.8만 건 수집·로그 가격 ML 예측(R² 0.78), 공공 API 5종 ETL"
-                  : "FastAPI backends, Cloudflare Workers + D1, 57.6k-row daily hardware ETL + log-price ML (R² 0.78), and 5-API public data pipelines."}
-              </p>
-            </div>
-            <div className="rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-elevated)] p-4">
-              <div className="font-mono text-xs font-bold text-[var(--accent-violet)]">
-                FULL-STACK & PRODUCTION QA
+              <div className="rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-elevated)] p-4">
+                <div className="font-mono text-xs font-bold text-[var(--accent-cyan)]">
+                  BACKEND & DATA PIPELINES
+                </div>
+                <p className="mt-2 text-xs leading-relaxed text-[var(--text-secondary)]">
+                  {locale === "ko"
+                    ? "FastAPI 17개 API, Cloudflare Workers + D1 분산 SQL, 다나와 5.8만 건 수집·로그 가격 ML 예측(R² 0.78), 공공 API 5종 ETL"
+                    : "FastAPI backends, Cloudflare Workers + D1, 57.6k-row daily hardware ETL + log-price ML (R² 0.78), and 5-API public data pipelines."}
+                </p>
               </div>
-              <p className="mt-2 text-xs leading-relaxed text-[var(--text-secondary)]">
-                {locale === "ko"
-                  ? "Next.js 16 + React 19 + Three.js 상용 서비스 구축·운영 및 4,700개 이상의 단위·통합·렌더·회귀 테스트 검증"
-                  : "Next.js 16 + React 19 + Three.js production web platforms backed by 4,700+ automated unit, integration, and render tests."}
-              </p>
+              <div className="rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-elevated)] p-4">
+                <div className="font-mono text-xs font-bold text-[var(--accent-violet)]">
+                  FULL-STACK & PRODUCTION QA
+                </div>
+                <p className="mt-2 text-xs leading-relaxed text-[var(--text-secondary)]">
+                  {locale === "ko"
+                    ? "Next.js 16 + React 19 + Three.js 상용 서비스 구축·운영 및 4,700개 이상의 단위·통합·렌더·회귀 테스트 검증"
+                    : "Next.js 16 + React 19 + Three.js production web platforms backed by 4,700+ automated unit, integration, and render tests."}
+                </p>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ════════════ EXPERIENCE TIMELINE ════════════ */}
-      <section aria-labelledby="experience-heading" className="space-y-6">
-        <div className="flex items-center gap-2.5">
-          <Briefcase className="h-5 w-5 text-[var(--accent-blue)]" />
+      {/* ════════════ 03. HOW I WORK (4-STAGE ENGINEERING PROCESS) ════════════ */}
+      <section aria-labelledby="process-heading" className="space-y-5">
+        <div>
+          <div className="flex items-center gap-2">
+            <Cpu className="h-5 w-5 text-[var(--accent-cyan)]" />
+            <span className="font-mono text-xs font-bold uppercase tracking-wider text-[var(--accent-cyan)]">
+              03 · HOW I WORK — 4-STAGE AI ENGINEERING PROCESS
+            </span>
+          </div>
           <h2
-            id="experience-heading"
-            className="text-2xl font-extrabold text-[var(--text-primary)]"
+            id="process-heading"
+            className="mt-1 text-2xl font-extrabold text-[var(--text-primary)]"
           >
-            {locale === "ko" ? "경력 타임라인 (Experience)" : "Professional Experience"}
+            {locale === "ko"
+              ? "설계부터 검증·운영까지의 4단계 아키텍처 원칙"
+              : "4-Stage Engineering Process from Architecture to Production"}
           </h2>
         </div>
 
-        <div className="space-y-6">
-          {EXPERIENCE_DATA.map((exp, idx) => (
-            <article
-              key={idx}
-              className="surface-panel rounded-3xl p-6 sm:p-8 space-y-4"
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {DEV_PROCESS_STEPS.map((p) => (
+            <div
+              key={p.step}
+              className="surface-panel rounded-2xl p-6 space-y-3 border border-[var(--border-subtle)]"
             >
-              <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[var(--border-subtle)] pb-4">
-                <div>
-                  <div className="flex items-center gap-2.5">
-                    <h3 className="text-xl font-bold text-[var(--text-primary)]">
-                      {exp.company[locale]}
-                    </h3>
-                    {exp.isCurrent && (
-                      <span className="rounded-full bg-[#25C8BD]/15 px-2.5 py-0.5 font-mono text-xs font-bold text-[#25C8BD]">
-                        {locale === "ko" ? "재직 중" : "Current"}
-                      </span>
-                    )}
-                  </div>
-                  <p className="mt-1 font-mono text-xs font-semibold text-[var(--accent-blue)]">
-                    {exp.role[locale]}
-                  </p>
-                </div>
-                <span className="font-mono text-xs text-[var(--text-muted)]">
-                  {exp.period[locale]}
-                </span>
-              </div>
-
-              <ul className="space-y-2.5 text-sm text-[var(--text-secondary)]">
-                {exp.bullets.map((b, i) => (
-                  <li key={i} className="flex items-start gap-2.5">
-                    <CheckCircle2 className="mt-1 h-4 w-4 shrink-0 text-[var(--accent-cyan)]" />
-                    <span className="leading-relaxed">{b[locale]}</span>
-                  </li>
-                ))}
-              </ul>
-            </article>
+              <span className="inline-block rounded-md bg-[#6FA8FF]/15 px-2.5 py-1 font-mono text-xs font-bold text-[var(--accent-blue)]">
+                STEP {p.step}
+              </span>
+              <h3 className="text-base font-bold text-[var(--text-primary)]">
+                {p.title[locale]}
+              </h3>
+              <p className="text-xs leading-relaxed text-[var(--text-secondary)]">
+                {p.desc[locale]}
+              </p>
+            </div>
           ))}
         </div>
       </section>
 
-      {/* ════════════ TECH STACK CONNECTED TO PROJECTS ════════════ */}
+      {/* ════════════ 04. ENGINEERING SKILLS CONNECTED TO PROJECTS ════════════ */}
       <section aria-labelledby="skills-heading" className="space-y-6">
         <div>
           <div className="flex items-center gap-2.5">
             <Code2 className="h-5 w-5 text-[var(--accent-violet)]" />
-            <h2
-              id="skills-heading"
-              className="text-2xl font-extrabold text-[var(--text-primary)]"
-            >
-              {locale === "ko"
-                ? "기술 스택 & 실제 적용 프로젝트 매핑"
-                : "Tech Stack Mapped to Verified Projects"}
-            </h2>
+            <span className="font-mono text-xs font-bold uppercase tracking-wider text-[var(--accent-violet)]">
+              04 · ENGINEERING SKILLS MAPPED TO VERIFIED PROJECTS
+            </span>
           </div>
+          <h2
+            id="skills-heading"
+            className="mt-1 text-2xl font-extrabold text-[var(--text-primary)]"
+          >
+            {locale === "ko"
+              ? "기술 스택 & 실제 적용 프로젝트 매핑"
+              : "Tech Stack Mapped to Verified Projects"}
+          </h2>
           <p className="mt-1 text-sm text-[var(--text-muted)]">
             {locale === "ko"
               ? "단순 기술 나열이 아닌, 각 기술을 실제로 사용해 구현·검증한 프로젝트 케이스 스터디로 바로 이동할 수 있습니다."
@@ -365,6 +365,63 @@ export default function AboutPage() {
                   </div>
                 ))}
               </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      {/* ════════════ 05. EXPERIENCE TIMELINE ════════════ */}
+      <section aria-labelledby="experience-heading" className="space-y-6">
+        <div>
+          <div className="flex items-center gap-2.5">
+            <Briefcase className="h-5 w-5 text-[var(--accent-blue)]" />
+            <span className="font-mono text-xs font-bold uppercase tracking-wider text-[var(--accent-blue)]">
+              05 · PROFESSIONAL EXPERIENCE & EDUCATION
+            </span>
+          </div>
+          <h2
+            id="experience-heading"
+            className="mt-1 text-2xl font-extrabold text-[var(--text-primary)]"
+          >
+            {locale === "ko" ? "경력 타임라인 (Experience)" : "Professional Experience"}
+          </h2>
+        </div>
+
+        <div className="space-y-6">
+          {EXPERIENCE_DATA.map((exp, idx) => (
+            <article
+              key={idx}
+              className="surface-panel rounded-3xl p-6 sm:p-8 space-y-4"
+            >
+              <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[var(--border-subtle)] pb-4">
+                <div>
+                  <div className="flex items-center gap-2.5">
+                    <h3 className="text-xl font-bold text-[var(--text-primary)]">
+                      {exp.company[locale]}
+                    </h3>
+                    {exp.isCurrent && (
+                      <span className="rounded-full bg-[#25C8BD]/15 px-2.5 py-0.5 font-mono text-xs font-bold text-[#25C8BD]">
+                        {locale === "ko" ? "재직 중" : "Current"}
+                      </span>
+                    )}
+                  </div>
+                  <p className="mt-1 font-mono text-xs font-semibold text-[var(--accent-blue)]">
+                    {exp.role[locale]}
+                  </p>
+                </div>
+                <span className="font-mono text-xs text-[var(--text-muted)]">
+                  {exp.period[locale]}
+                </span>
+              </div>
+
+              <ul className="space-y-2.5 text-sm text-[var(--text-secondary)]">
+                {exp.bullets.map((b, i) => (
+                  <li key={i} className="flex items-start gap-2.5">
+                    <CheckCircle2 className="mt-1 h-4 w-4 shrink-0 text-[var(--accent-cyan)]" />
+                    <span className="leading-relaxed">{b[locale]}</span>
+                  </li>
+                ))}
+              </ul>
             </article>
           ))}
         </div>
@@ -454,42 +511,6 @@ export default function AboutPage() {
           </div>
         </section>
       </div>
-
-      {/* ════════════ ENGINEERING PROCESS ════════════ */}
-      <section aria-labelledby="process-heading" className="space-y-5">
-        <div>
-          <span className="font-mono text-xs font-bold uppercase tracking-wider text-[var(--accent-cyan)]">
-            HOW I ENGINEER AI SYSTEMS
-          </span>
-          <h2
-            id="process-heading"
-            className="mt-1 text-2xl font-extrabold text-[var(--text-primary)]"
-          >
-            {locale === "ko"
-              ? "설계부터 운영까지의 4단계 개발 프로세스"
-              : "4-Stage Engineering Process"}
-          </h2>
-        </div>
-
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {DEV_PROCESS_STEPS.map((p) => (
-            <div
-              key={p.step}
-              className="surface-panel rounded-2xl p-5 space-y-2.5"
-            >
-              <span className="inline-block rounded-md bg-[#6FA8FF]/15 px-2.5 py-1 font-mono text-xs font-bold text-[var(--accent-blue)]">
-                STEP {p.step}
-              </span>
-              <h3 className="text-base font-bold text-[var(--text-primary)]">
-                {p.title[locale]}
-              </h3>
-              <p className="text-xs leading-relaxed text-[var(--text-secondary)]">
-                {p.desc[locale]}
-              </p>
-            </div>
-          ))}
-        </div>
-      </section>
     </div>
   );
 }

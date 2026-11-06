@@ -11,8 +11,8 @@
 This repository powers the interactive 3D engineering portfolio of **Sangheon Kwon (권상헌)**, built to visually and technically demonstrate end-to-end AI system capabilities — from multi-agent orchestration and hybrid RAG verification to cloud edge deployment (`Cloudflare Workers + D1`, `Supabase`, `FastAPI`, `Docker`).
 
 ### Key Highlights
-- **NEXUS CORE (Hero & 3D AI Core)**: Interactive Three.js / React Three Fiber 3D AI Core representing 8 core architectural subsystems and 14 connected project satellites.
-- **SYSTEM ATLAS (Work & 14 Case Studies)**: Filterable, searchable, and sortable engineering catalog with 9-section deep-dive Case Studies and 54 verified screenshots.
+- **NEXUS CORE (Hero & 3D AI Core)**: Interactive Three.js / React Three Fiber 3D AI Core featuring a metallic lattice core, triple orbital rings, and **6 flagship project satellites** (while the complete **14 engineering projects** are explored in the System Atlas).
+- **SYSTEM ATLAS (Work & 14 Case Studies)**: Filterable, searchable, and sortable engineering catalog of all 14 projects with 9-section deep-dive Case Studies and 54 verified screenshots.
 - **OPS COMMAND (3D & 2D Architecture Lab)**: Interactive system topology simulator (`/lab`) for 6 flagship architectures (`JARVIS Office`, `BidPilot AI`, `tri-agent-control`, `Market Pulse`, `K-Safety Law RAG`, `Linky AI Chatbot`) with real-time packet flow stepping and node I/O telemetry inspection.
 - **Full Bilingual (`KO` / `EN`) & Theme (`Dark` / `Light`) + Accessibility (`3D Motion ON/OFF`) Support**.
 

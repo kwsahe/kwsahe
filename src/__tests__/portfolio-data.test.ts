@@ -149,11 +149,17 @@ describe("PORTFOLIO 3D REBORN — Verified Data Integrity", () => {
     );
   });
 
-  it("returns 6 featured projects sorted by featuredOrder", () => {
+  it("returns 6 featured projects sorted by featuredOrder (Top 4 Flagship + 2 Secondary Featured)", () => {
     const featured = getFeaturedProjects();
     expect(featured.length).toBe(6);
-    expect(featured[0].slug).toBe("link21-ai-jarvis-office");
-    expect(featured[1].slug).toBe("link21-ai-hub");
+    expect(featured.map((p) => p.slug)).toEqual([
+      "link21-ai-jarvis-office",
+      "link21-bidpilot-ai",
+      "link21-ai-hub",
+      "tri-agent-control",
+      "market-pulse",
+      "link21-premium",
+    ]);
   });
 
   it("includes verified experience, education, and 4 certificates", () => {

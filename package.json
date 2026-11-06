@@ -1,6 +1,6 @@
 {
   "name": "portfolio-3d-reborn",
-  "version": "3.0.0",
+  "version": "3.2.0",
   "private": true,
   "description": "Sangheon Kwon — AI Service Backend Engineer 3D Engineering Portfolio (NEXUS CORE × SYSTEM ATLAS × OPS COMMAND)",
   "scripts": {
@@ -24,6 +24,7 @@
     "zustand": "^5.0.16"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.14.0",
     "@playwright/test": "^1.65.0",
     "@tailwindcss/postcss": "^4.3.4",
     "@testing-library/dom": "^10.4.0",

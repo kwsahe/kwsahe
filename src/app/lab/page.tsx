@@ -1,35 +1,36 @@
 "use client";
 
-import React, { Suspense } from "react";
-import dynamic from "next/dynamic";
+import React, { Suspense, useState, useEffect } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useAppStore } from "@/store/useAppStore";
 import { LAB_SYSTEMS } from "@/data/architecture-lab-data";
+import { ArchitectureLabScene } from "@/components/three/ArchitectureLabScene";
 import { ArrowRight, ShieldCheck, Terminal } from "lucide-react";
 
-const ArchitectureLabScene = dynamic(
-  () =>
-    import("@/components/three/ArchitectureLabScene").then(
-      (mod) => mod.ArchitectureLabScene
-    ),
-  {
-    ssr: false,
-    loading: () => (
-      <div className="flex h-[520px] w-full items-center justify-center rounded-3xl border border-[var(--border-subtle)] bg-[#070B14] font-mono text-xs text-[#25C8BD]">
-        LOADING OPS COMMAND 3D ARCHITECTURE TOPOLOGY...
-      </div>
-    ),
-  }
-);
-
-function LabPageInner() {
-  const { locale } = useAppStore();
+function LabUrlSystemSync({
+  onSystemChange,
+}: {
+  onSystemChange: (sysId: string | undefined) => void;
+}) {
   const searchParams = useSearchParams();
-  const systemParam = searchParams.get("system") ?? undefined;
+  useEffect(() => {
+    const sys = searchParams.get("system") ?? undefined;
+    if (sys) onSystemChange(sys);
+  }, [searchParams, onSystemChange]);
+  return null;
+}
+
+export default function LabPage() {
+  const { locale } = useAppStore();
+  const [systemParam, setSystemParam] = useState<string | undefined>(undefined);
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8 space-y-12">
+      <Suspense fallback={null}>
+        <LabUrlSystemSync onSystemChange={setSystemParam} />
+      </Suspense>
+
       {/* Header */}
       <div className="border-b border-[var(--border-subtle)] pb-6">
         <span className="inline-flex items-center gap-1.5 font-mono text-xs font-bold uppercase tracking-wider text-[var(--accent-cyan)]">
@@ -126,19 +127,5 @@ function LabPageInner() {
         </div>
       </section>
     </div>
-  );
-}
-
-export default function LabPage() {
-  return (
-    <Suspense
-      fallback={
-        <div className="mx-auto max-w-7xl px-4 py-12 font-mono text-xs text-[#25C8BD]">
-          INITIALIZING ARCHITECTURE LAB...
-        </div>
-      }
-    >
-      <LabPageInner />
-    </Suspense>
   );
 }

@@ -5,34 +5,34 @@
   --bg-primary: #070B14;
   --bg-surface: #121A2B;
   --bg-elevated: #182338;
-  --bg-glass: rgba(18, 26, 43, 0.88);
+  --bg-glass: rgba(18, 26, 43, 0.92);
   --text-primary: #F5F7FB;
-  --text-secondary: #D4DCEB;
-  --text-muted: #A5B0C6;
+  --text-secondary: #DCE4F2;
+  --text-muted: #A8B4CA;
   --accent-blue: #6FA8FF;
   --accent-violet: #AB83FF;
   --accent-cyan: #25C8BD;
-  --border-subtle: rgba(111, 168, 255, 0.16);
-  --border-strong: rgba(111, 168, 255, 0.34);
-  --card-shadow: 0 18px 40px -15px rgba(2, 6, 16, 0.72);
-  --hero-radial: radial-gradient(circle at 72% 42%, rgba(111, 168, 255, 0.16) 0%, rgba(171, 131, 255, 0.10) 32%, rgba(7, 11, 20, 0) 70%);
+  --border-subtle: rgba(111, 168, 255, 0.18);
+  --border-strong: rgba(111, 168, 255, 0.42);
+  --card-shadow: 0 18px 42px -15px rgba(2, 6, 16, 0.76);
+  --hero-radial: radial-gradient(circle at 72% 42%, rgba(111, 168, 255, 0.15) 0%, rgba(171, 131, 255, 0.09) 34%, rgba(7, 11, 20, 0) 70%);
 }
 
 [data-theme="light"] {
   --bg-primary: #F8FAFC;
   --bg-surface: #FFFFFF;
   --bg-elevated: #F1F5F9;
-  --bg-glass: rgba(255, 255, 255, 0.92);
-  --text-primary: #182338;
-  --text-secondary: #2B3A55;
+  --bg-glass: rgba(255, 255, 255, 0.94);
+  --text-primary: #0F172A;
+  --text-secondary: #1E293B;
   --text-muted: #475569;
-  --accent-blue: #2563EB;
-  --accent-violet: #7C3AED;
-  --accent-cyan: #0D9488;
-  --border-subtle: rgba(24, 35, 56, 0.12);
-  --border-strong: rgba(37, 99, 235, 0.32);
-  --card-shadow: 0 14px 32px -12px rgba(15, 23, 42, 0.08);
-  --hero-radial: radial-gradient(circle at 72% 42%, rgba(37, 99, 235, 0.10) 0%, rgba(124, 58, 237, 0.07) 35%, rgba(248, 250, 252, 0) 70%);
+  --accent-blue: #1D4ED8;
+  --accent-violet: #6D28D9;
+  --accent-cyan: #0F766E;
+  --border-subtle: rgba(15, 23, 42, 0.15);
+  --border-strong: rgba(29, 78, 216, 0.38);
+  --card-shadow: 0 14px 32px -12px rgba(15, 23, 42, 0.09);
+  --hero-radial: radial-gradient(circle at 72% 42%, rgba(29, 78, 216, 0.09) 0%, rgba(109, 40, 217, 0.06) 35%, rgba(248, 250, 252, 0) 70%);
 }
 
 * {
@@ -50,7 +50,9 @@ body {
   min-height: 100vh;
   background-color: var(--bg-primary);
   color: var(--text-primary);
-  line-height: 1.65;
+  line-height: 1.7;
+  word-break: keep-all;
+  overflow-wrap: break-word;
   overflow-x: hidden;
   transition: background-color 0.22s ease, color 0.22s ease;
 }

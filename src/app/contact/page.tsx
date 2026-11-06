@@ -8,12 +8,12 @@ import { assetPath } from "@/lib/utils";
 import {
   Mail,
   GitBranch as Github,
-  Phone,
   Download,
   ExternalLink,
   ArrowRight,
   MapPin,
   Briefcase,
+  Cpu,
 } from "lucide-react";
 
 export default function ContactPage() {
@@ -35,8 +35,8 @@ export default function ContactPage() {
         </h1>
         <p className="max-w-3xl text-base leading-relaxed text-[var(--text-secondary)]">
           {locale === "ko"
-            ? "AI 서비스 백엔드 엔지니어 · AI 엔지니어 · 풀스택 개발자 포지션 제안, 기술 인터뷰, 프로젝트 협업 문의는 아래 이메일·전화·GitHub로 연락해 주세요."
-            : "For AI Service Backend Engineer, AI Engineer, or Full-stack Developer opportunities and technical discussions, reach out directly via Email, Phone, or GitHub."}
+            ? "AI 서비스 백엔드 엔지니어 · AI 엔지니어 · 풀스택 개발자 포지션 제안, 기술 인터뷰, 프로젝트 협업 문의는 아래 이메일·GitHub·이력서 채널로 연락해 주세요."
+            : "For AI Service Backend Engineer, AI Engineer, or Full-stack Developer opportunities and technical discussions, reach out directly via Email, GitHub, or Resume PDF."}
         </p>
 
         {/* Primary Contact Cards */}
@@ -73,20 +73,22 @@ export default function ContactPage() {
             </div>
           </a>
 
-          <a
-            href={`tel:${PROFILE_DATA.phone.replace(/-/g, "")}`}
-            className="flex flex-col justify-between rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-elevated)] p-5 transition-all hover:border-[var(--accent-blue)]"
+          <Link
+            href="/lab"
+            className="flex flex-col justify-between rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-elevated)] p-5 transition-all hover:border-[var(--accent-cyan)]"
           >
-            <Phone className="h-5 w-5 text-[var(--accent-cyan)]" />
+            <Cpu className="h-5 w-5 text-[var(--accent-cyan)]" />
             <div className="mt-4">
               <div className="font-mono text-xs text-[var(--text-muted)]">
-                PHONE
+                ARCHITECTURE LAB
               </div>
               <div className="mt-1 font-mono text-sm font-bold text-[var(--text-primary)]">
-                {PROFILE_DATA.phone}
+                {locale === "ko"
+                  ? "6대 AI 시스템 그래프 탐색 →"
+                  : "Explore 6 AI System Graphs →"}
               </div>
             </div>
-          </a>
+          </Link>
 
           <a
             href={assetPath(PROFILE_DATA.resumePdf)}

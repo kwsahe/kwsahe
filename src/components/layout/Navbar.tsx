@@ -60,33 +60,37 @@ export function Navbar() {
         "sticky top-0 z-50 w-full transition-all duration-200",
         scrolled
           ? "backdrop-blur-md bg-[var(--bg-glass)] border-b border-[var(--border-subtle)] shadow-lg"
-          : "bg-transparent border-b border-transparent"
+          : "bg-[var(--bg-primary)]/85 backdrop-blur-sm border-b border-[var(--border-subtle)]/50"
       )}
     >
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3.5 sm:px-6 lg:px-8">
+      <div className="mx-auto flex max-w-7xl items-center justify-between gap-2 px-4 py-3 sm:px-6 lg:px-8">
         {/* Brand */}
         <Link
           href="/"
-          className="group flex items-center gap-3 rounded-lg focus:outline-none"
-          aria-label={locale === "ko" ? "권상헌 포트폴리오 홈" : "Sangheon Kwon Portfolio Home"}
+          className="group flex shrink-0 items-center gap-2.5 rounded-lg focus:outline-none"
+          aria-label={
+            locale === "ko"
+              ? "권상헌 포트폴리오 홈"
+              : "Sangheon Kwon Portfolio Home"
+          }
         >
-          <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-[#6FA8FF] via-[#AB83FF] to-[#25C8BD] text-sm font-bold text-[#070B14] shadow-md transition-transform group-hover:scale-105">
+          <span className="flex h-9 w-9 sm:h-10 sm:w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-[#6FA8FF] via-[#AB83FF] to-[#25C8BD] text-sm font-extrabold text-[#070B14] shadow-md transition-transform group-hover:scale-105">
             SH
           </span>
           <div className="flex flex-col">
-            <span className="text-base font-bold tracking-tight text-[var(--text-primary)]">
+            <span className="whitespace-nowrap text-sm sm:text-base font-extrabold tracking-tight text-[var(--text-primary)]">
               {locale === "ko" ? "권상헌" : "Sangheon Kwon"}
             </span>
-            <span className="font-mono text-[11px] font-medium tracking-wider text-[var(--accent-blue)]">
+            <span className="whitespace-nowrap font-mono text-[10px] sm:text-[11px] font-semibold tracking-wider text-[var(--accent-blue)]">
               AI SERVICE BACKEND
             </span>
           </div>
         </Link>
 
-        {/* Desktop Nav */}
+        {/* Desktop & Tablet Nav (single-line, never wraps) */}
         <nav
           aria-label={locale === "ko" ? "주요 내비게이션" : "Primary Navigation"}
-          className="hidden md:flex items-center gap-1 rounded-full border border-[var(--border-subtle)] bg-[var(--bg-surface)]/90 px-2 py-1"
+          className="hidden md:flex items-center gap-0.5 lg:gap-1 rounded-full border border-[var(--border-subtle)] bg-[var(--bg-surface)]/95 px-1.5 py-1 shadow-sm"
         >
           {NAV_ITEMS.map((item) => {
             const active = isActive(item.href);
@@ -96,9 +100,9 @@ export function Navbar() {
                 href={item.href}
                 aria-current={active ? "page" : undefined}
                 className={cn(
-                  "rounded-full px-3.5 py-1.5 text-sm font-medium transition-colors",
+                  "whitespace-nowrap rounded-full px-2.5 py-1.5 text-xs lg:px-3.5 lg:text-sm font-medium transition-colors",
                   active
-                    ? "bg-[#6FA8FF]/18 text-[var(--accent-blue)] font-semibold border border-[#6FA8FF]/40"
+                    ? "bg-[var(--accent-blue)]/18 text-[var(--accent-blue)] font-bold border border-[var(--accent-blue)]/40"
                     : "text-[var(--text-muted)] hover:text-[var(--text-primary)]"
                 )}
               >
@@ -109,7 +113,7 @@ export function Navbar() {
         </nav>
 
         {/* Controls */}
-        <div className="flex items-center gap-2">
+        <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
           {/* Language Switcher */}
           <div
             role="group"
@@ -121,9 +125,9 @@ export function Navbar() {
               onClick={() => setLocale("ko")}
               aria-pressed={locale === "ko"}
               className={cn(
-                "rounded-md px-2 py-1 font-semibold transition-colors cursor-pointer",
+                "rounded-md px-2 py-1 font-bold transition-colors cursor-pointer",
                 locale === "ko"
-                  ? "bg-[var(--accent-blue)] text-[#070B14]"
+                  ? "bg-[var(--accent-blue)] text-white dark:text-[#070B14]"
                   : "text-[var(--text-muted)] hover:text-[var(--text-primary)]"
               )}
             >
@@ -134,9 +138,9 @@ export function Navbar() {
               onClick={() => setLocale("en")}
               aria-pressed={locale === "en"}
               className={cn(
-                "rounded-md px-2 py-1 font-semibold transition-colors cursor-pointer",
+                "rounded-md px-2 py-1 font-bold transition-colors cursor-pointer",
                 locale === "en"
-                  ? "bg-[var(--accent-blue)] text-[#070B14]"
+                  ? "bg-[var(--accent-blue)] text-white dark:text-[#070B14]"
                   : "text-[var(--text-muted)] hover:text-[var(--text-primary)]"
               )}
             >
@@ -159,9 +163,9 @@ export function Navbar() {
                   : "Toggle reduced motion"
             }
             className={cn(
-              "hidden sm:inline-flex items-center gap-1.5 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-surface)] px-2.5 py-1.5 text-xs font-mono transition-colors cursor-pointer",
+              "hidden sm:inline-flex items-center gap-1.5 whitespace-nowrap rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-surface)] px-2.5 py-1.5 text-xs font-mono transition-colors cursor-pointer",
               reducedMotion
-                ? "text-[var(--accent-cyan)] border-[var(--accent-cyan)]/50"
+                ? "text-[var(--accent-cyan)] border-[var(--accent-cyan)]/50 font-bold"
                 : "text-[var(--text-muted)] hover:text-[var(--text-primary)]"
             )}
           >
@@ -170,7 +174,13 @@ export function Navbar() {
             ) : (
               <Sparkles className="h-3.5 w-3.5" aria-hidden="true" />
             )}
-            <span>{reducedMotion ? (locale === "ko" ? "모션축소" : "Low-Motion") : "3D"}</span>
+            <span>
+              {reducedMotion
+                ? locale === "ko"
+                  ? "모션축소"
+                  : "Low-Motion"
+                : "3D"}
+            </span>
           </button>
 
           {/* Theme Toggle */}
@@ -191,15 +201,19 @@ export function Navbar() {
             {theme === "dark" ? (
               <Sun className="h-4 w-4 text-[#6FA8FF]" aria-hidden="true" />
             ) : (
-              <Moon className="h-4 w-4 text-[#2563EB]" aria-hidden="true" />
+              <Moon className="h-4 w-4 text-[#1D4ED8]" aria-hidden="true" />
             )}
           </button>
 
           {/* Resume Download (Desktop) */}
           <a
             href={assetPath("/assets/resume-kwon-sangheon.pdf")}
-            download={locale === "ko" ? "resume-kwon-sangheon.pdf" : "Resume_Kwon_Sangheon.pdf"}
-            className="hidden lg:inline-flex items-center gap-1.5 rounded-lg bg-[#6FA8FF] px-3.5 py-2 text-xs font-bold text-[#070B14] transition-transform hover:scale-[1.02] hover:bg-[#82b4ff]"
+            download={
+              locale === "ko"
+                ? "resume-kwon-sangheon.pdf"
+                : "Resume_Kwon_Sangheon.pdf"
+            }
+            className="hidden xl:inline-flex items-center gap-1.5 whitespace-nowrap rounded-lg bg-[#6FA8FF] px-3.5 py-2 text-xs font-bold text-[#070B14] transition-transform hover:scale-[1.02] hover:bg-[#82b4ff]"
           >
             <Download className="h-3.5 w-3.5" aria-hidden="true" />
             <span>{locale === "ko" ? "이력서 PDF" : "Resume PDF"}</span>
@@ -211,10 +225,16 @@ export function Navbar() {
             onClick={() => setMobileOpen((v) => !v)}
             aria-expanded={mobileOpen}
             aria-controls="mobile-nav-drawer"
-            aria-label={locale === "ko" ? "메뉴 열기/닫기" : "Toggle navigation menu"}
+            aria-label={
+              locale === "ko" ? "메뉴 열기/닫기" : "Toggle navigation menu"
+            }
             className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-surface)] text-[var(--text-primary)] md:hidden cursor-pointer"
           >
-            {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            {mobileOpen ? (
+              <X className="h-5 w-5" />
+            ) : (
+              <Menu className="h-5 w-5" />
+            )}
           </button>
         </div>
       </div>
@@ -224,7 +244,7 @@ export function Navbar() {
         <nav
           id="mobile-nav-drawer"
           aria-label={locale === "ko" ? "모바일 메뉴" : "Mobile Navigation"}
-          className="border-b border-[var(--border-subtle)] bg-[var(--bg-surface)] px-4 py-4 md:hidden"
+          className="border-b border-[var(--border-subtle)] bg-[var(--bg-surface)] px-4 py-4 md:hidden shadow-xl"
         >
           <div className="flex flex-col gap-1.5">
             {NAV_ITEMS.map((item) => {
@@ -237,7 +257,7 @@ export function Navbar() {
                   className={cn(
                     "rounded-lg px-3.5 py-2.5 text-sm font-medium transition-colors",
                     active
-                      ? "bg-[#6FA8FF]/15 text-[var(--accent-blue)] font-semibold"
+                      ? "bg-[var(--accent-blue)]/15 text-[var(--accent-blue)] font-bold"
                       : "text-[var(--text-secondary)] hover:bg-[var(--bg-elevated)]"
                   )}
                 >
@@ -245,7 +265,7 @@ export function Navbar() {
                 </Link>
               );
             })}
-            <div className="mt-2 flex flex-wrap items-center gap-2 pt-2 border-t border-[var(--border-subtle)]">
+            <div className="mt-2 flex flex-wrap items-center gap-2 pt-3 border-t border-[var(--border-subtle)]">
               <button
                 type="button"
                 onClick={toggleReducedMotion}
@@ -268,7 +288,11 @@ export function Navbar() {
                 className="inline-flex items-center gap-1.5 rounded-lg bg-[#6FA8FF] px-3.5 py-2 text-xs font-bold text-[#070B14]"
               >
                 <Download className="h-3.5 w-3.5" />
-                <span>{locale === "ko" ? "이력서 PDF 다운로드" : "Download Resume PDF"}</span>
+                <span>
+                  {locale === "ko"
+                    ? "이력서 PDF 다운로드"
+                    : "Download Resume PDF"}
+                </span>
               </a>
             </div>
           </div>

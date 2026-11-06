@@ -18,7 +18,7 @@
 2. **Flagship Selection**:
    - Verifies Top 4 Flagship projects (`link21-ai-jarvis-office`, `link21-bidpilot-ai`, `tri-agent-control`, `market-pulse`).
 3. **Physical Screenshot Asset Verification**:
-   - Iterates through all 54 screenshot references across the 14 projects and asserts `fs.existsSync(path.join(process.cwd(), "public", slide.src))` is `true` for 100% of slides, plus the resume PDF (`public/assets/resume/권상헌_이력서.pdf`).
+   - Iterates through all 54 screenshot references across the 14 projects and asserts `fs.existsSync(path.join(process.cwd(), "public", slide.src))` is `true` for 100% of slides, plus the resume PDF (`public/assets/resume-kwon-sangheon.pdf`).
 4. **Bilingual KO/EN Completeness**:
    - Asserts non-empty Korean and English strings for title, summary, problem, role, architecture, implementation, verification, challenges, and limitations across all 14 projects.
 5. **Architecture Lab Node/Edge Integrity**:
@@ -29,7 +29,7 @@
 ## 3. Browser Functional & Responsive Checklist
 
 - [x] **Home (`/kwsahe/`)**:
-  - Real WebGL 3D `NexusCoreScene` renders interactive central AI core, 8 orbital subsystem nodes, and 14 outer project satellites.
+  - Real WebGL 3D `NexusCoreScene` renders interactive central AI core, triple orbital rings, and 6 flagship project satellites (with all 14 projects accessible in the System Atlas).
   - Scroll-triggered GSAP reveal transitions cleanly into Flagship 4, Featured Work, Architecture Lab preview, Core Capabilities, Experience, and Contact CTA.
 - [x] **Work (`/kwsahe/work/`)**:
   - Category filter (`All`, `AI Agent`, `RAG / LLM`, `Data / ML`, `Enterprise Web`, `Automation`, `Game`), real-time search input, and sorting (`Featured`, `Latest`, `Verified`) operate without page reload.
@@ -40,4 +40,4 @@
   - Switching across all 6 systems (`JARVIS Office`, `BidPilot AI`, `tri-agent-control`, `Market Pulse`, `K-Safety Law RAG`, `Linky AI Chatbot`) updates the 3D WebGL scene, 2D SVG topology diagram, packet simulation steps, and right-hand Node Telemetry Inspector.
   - Play / Pause / Step / Reset, Camera Focus, 3D/2D Mode Switch, and Fullscreen controls work as expected.
 - [x] **About (`/kwsahe/about/`) & Contact (`/kwsahe/contact/`)**:
-  - Profile, narrative, experience, interactive Tech Stack → Project links, education, 4 certificates (including AI-901), and direct resume PDF download (`/kwsahe/assets/resume/권상헌_이력서.pdf`) verified.
+  - Profile, narrative, experience, interactive Tech Stack → Project links, education, 4 certificates (including AI-901), and direct resume PDF download (`/kwsahe/assets/resume-kwon-sangheon.pdf`) verified.
