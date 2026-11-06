@@ -36,7 +36,7 @@ jobs:
       - name: Run Vitest unit & data verification suite
         run: npm run test
 
-      - name: Build Next.js Static Export (output: "export", basePath: "/kwsahe")
+      - name: "Build Next.js Static Export"
         run: npm run build
 
       - name: Ensure .nojekyll in static output
