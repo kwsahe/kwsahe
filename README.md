@@ -1,8 +1,11 @@
 <div align="center">
 
-# 권상헌 (Sangheon Kwon)
-### AI Service Backend Engineer · AI Engineer · Full-Stack Developer
-**"From Architecture to Production"**
+<a href="https://kwsahe.github.io/kwsahe/">
+  <img src="./public/assets/github-profile-banner.svg" alt="Sangheon Kwon — NEXUS CORE × SYSTEM ATLAS Portfolio Banner" width="100%" />
+</a>
+
+<br/>
+<br/>
 
 현재 **주식회사 링크21(Link21 Inc.)** 에 재직 중이며,  
 19명 AI 에이전트 오케스트레이션 · 공공입찰 하이브리드 RAG · 3-CLI 코딩 파이프라인 · 상용 웹 플랫폼을  

@@ -1,0 +1,197 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 340" width="100%" height="100%" role="img" aria-label="Sangheon Kwon — AI Service Backend Engineer &amp; Full-Stack Developer">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#060A12" />
+      <stop offset="50%" stop-color="#0B1222" />
+      <stop offset="100%" stop-color="#08101E" />
+    </linearGradient>
+
+    <radialGradient id="coreGlow" cx="78%" cy="50%" r="42%">
+      <stop offset="0%" stop-color="#25C8BD" stop-opacity="0.24" />
+      <stop offset="45%" stop-color="#6FA8FF" stop-opacity="0.10" />
+      <stop offset="100%" stop-color="#060A12" stop-opacity="0" />
+    </radialGradient>
+
+    <radialGradient id="leftGlow" cx="18%" cy="25%" r="40%">
+      <stop offset="0%" stop-color="#6FA8FF" stop-opacity="0.14" />
+      <stop offset="100%" stop-color="#060A12" stop-opacity="0" />
+    </radialGradient>
+
+    <linearGradient id="accentLine" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#6FA8FF" />
+      <stop offset="50%" stop-color="#25C8BD" />
+      <stop offset="100%" stop-color="#AB83FF" stop-opacity="0.2" />
+    </linearGradient>
+
+    <linearGradient id="titleGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#F8FAFC" />
+      <stop offset="65%" stop-color="#E2E8F0" />
+      <stop offset="100%" stop-color="#93C5FD" />
+    </linearGradient>
+
+    <linearGradient id="ringGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#25C8BD" stop-opacity="0.75" />
+      <stop offset="50%" stop-color="#6FA8FF" stop-opacity="0.35" />
+      <stop offset="100%" stop-color="#AB83FF" stop-opacity="0.65" />
+    </linearGradient>
+
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#111C33" stop-opacity="0.88" />
+      <stop offset="100%" stop-color="#0B1324" stop-opacity="0.88" />
+    </linearGradient>
+
+    <pattern id="atlasGrid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#1E293B" stroke-width="0.7" stroke-opacity="0.55" />
+    </pattern>
+
+    <pattern id="subGrid" width="200" height="200" patternUnits="userSpaceOnUse">
+      <path d="M 200 0 L 0 0 0 200" fill="none" stroke="#334155" stroke-width="1" stroke-opacity="0.45" />
+    </pattern>
+  </defs>
+
+  <!-- Base Background -->
+  <rect width="1200" height="340" rx="18" fill="url(#bgGrad)" />
+  <rect width="1200" height="340" rx="18" fill="url(#atlasGrid)" />
+  <rect width="1200" height="340" rx="18" fill="url(#subGrid)" />
+  <rect width="1200" height="340" rx="18" fill="url(#coreGlow)" />
+  <rect width="1200" height="340" rx="18" fill="url(#leftGlow)" />
+
+  <!-- Outer Frame Border -->
+  <rect x="1.5" y="1.5" width="1197" height="337" rx="16.5" fill="none" stroke="#1E293B" stroke-width="1.5" />
+  <rect x="12" y="12" width="1176" height="316" rx="12" fill="none" stroke="#334155" stroke-width="0.75" stroke-dasharray="6 6" stroke-opacity="0.6" />
+
+  <!-- Top Left HUD Telemetry Bar -->
+  <g transform="translate(56, 38)">
+    <rect x="0" y="0" width="356" height="28" rx="14" fill="#0F172A" stroke="#1E293B" stroke-width="1" />
+    <circle cx="16" cy="14" r="4.5" fill="#25C8BD" />
+    <circle cx="16" cy="14" r="8" fill="none" stroke="#25C8BD" stroke-width="1" stroke-opacity="0.45" />
+    <text x="32" y="18" fill="#94A3B8" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace" font-size="11" font-weight="600" letter-spacing="1.2">
+      NEXUS CORE × SYSTEM ATLAS // v3.2 LIVE
+    </text>
+  </g>
+
+  <!-- Right-Side 3D Nexus Core & System Atlas Schematic -->
+  <g transform="translate(955, 170)">
+    <!-- Ambient Radar Circles -->
+    <circle cx="0" cy="0" r="138" fill="none" stroke="#1E293B" stroke-width="1" stroke-dasharray="3 6" />
+    <circle cx="0" cy="0" r="108" fill="none" stroke="url(#ringGrad1)" stroke-width="1.2" stroke-opacity="0.55" />
+    <circle cx="0" cy="0" r="76" fill="none" stroke="#334155" stroke-width="1" />
+
+    <!-- Tilted Orbital Rings -->
+    <ellipse cx="0" cy="0" rx="132" ry="46" transform="rotate(-24)" fill="none" stroke="url(#ringGrad1)" stroke-width="1.8" />
+    <ellipse cx="0" cy="0" rx="132" ry="46" transform="rotate(32)" fill="none" stroke="#6FA8FF" stroke-width="1.2" stroke-opacity="0.45" stroke-dasharray="8 5" />
+    <ellipse cx="0" cy="0" rx="92" ry="32" transform="rotate(-62)" fill="none" stroke="#AB83FF" stroke-width="1.2" stroke-opacity="0.5" />
+
+    <!-- Connection Spokes -->
+    <line x1="0" y1="0" x2="-112" y2="-48" stroke="#25C8BD" stroke-width="1.2" stroke-opacity="0.55" />
+    <line x1="0" y1="0" x2="96" y2="-64" stroke="#6FA8FF" stroke-width="1.2" stroke-opacity="0.55" />
+    <line x1="0" y1="0" x2="118" y2="38" stroke="#25C8BD" stroke-width="1.2" stroke-opacity="0.55" />
+    <line x1="0" y1="0" x2="-86" y2="74" stroke="#AB83FF" stroke-width="1.2" stroke-opacity="0.55" />
+    <line x1="0" y1="0" x2="14" y2="-106" stroke="#38BDF8" stroke-width="1.2" stroke-opacity="0.45" />
+    <line x1="0" y1="0" x2="-18" y2="108" stroke="#6FA8FF" stroke-width="1.2" stroke-opacity="0.45" />
+
+    <!-- Center Core Octahedron / Sphere -->
+    <circle cx="0" cy="0" r="34" fill="#0B1528" stroke="#25C8BD" stroke-width="2" />
+    <polygon points="0,-24 22,0 0,24 -22,0" fill="#132644" stroke="#6FA8FF" stroke-width="1.4" />
+    <polygon points="0,-14 13,0 0,14 -13,0" fill="#25C8BD" fill-opacity="0.35" stroke="#25C8BD" stroke-width="1" />
+    <circle cx="0" cy="0" r="4.5" fill="#F8FAFC" />
+
+    <!-- Satellite Node 1: JARVIS (Top Left) -->
+    <g transform="translate(-112, -48)">
+      <circle cx="0" cy="0" r="7" fill="#0B1324" stroke="#25C8BD" stroke-width="2.2" />
+      <circle cx="0" cy="0" r="2.8" fill="#25C8BD" />
+      <rect x="-78" y="-12" width="64" height="20" rx="5" fill="#0F172A" stroke="#1E293B" stroke-width="1" />
+      <text x="-46" y="2" text-anchor="middle" fill="#25C8BD" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="9.5" font-weight="700">JARVIS 19</text>
+    </g>
+
+    <!-- Satellite Node 2: BIDPILOT (Top Right) -->
+    <g transform="translate(96, -64)">
+      <circle cx="0" cy="0" r="7" fill="#0B1324" stroke="#6FA8FF" stroke-width="2.2" />
+      <circle cx="0" cy="0" r="2.8" fill="#6FA8FF" />
+      <rect x="14" y="-11" width="68" height="20" rx="5" fill="#0F172A" stroke="#1E293B" stroke-width="1" />
+      <text x="48" y="3" text-anchor="middle" fill="#93C5FD" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="9.5" font-weight="700">BIDPILOT</text>
+    </g>
+
+    <!-- Satellite Node 3: TRI-AGENT (Bottom Right) -->
+    <g transform="translate(118, 38)">
+      <circle cx="0" cy="0" r="7" fill="#0B1324" stroke="#25C8BD" stroke-width="2.2" />
+      <circle cx="0" cy="0" r="2.8" fill="#25C8BD" />
+      <rect x="14" y="-10" width="72" height="20" rx="5" fill="#0F172A" stroke="#1E293B" stroke-width="1" />
+      <text x="50" y="4" text-anchor="middle" fill="#25C8BD" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="9.5" font-weight="700">TRI-AGENT</text>
+    </g>
+
+    <!-- Satellite Node 4: AI HUB (Bottom Left) -->
+    <g transform="translate(-86, 74)">
+      <circle cx="0" cy="0" r="7" fill="#0B1324" stroke="#AB83FF" stroke-width="2.2" />
+      <circle cx="0" cy="0" r="2.8" fill="#AB83FF" />
+      <rect x="-74" y="-10" width="60" height="20" rx="5" fill="#0F172A" stroke="#1E293B" stroke-width="1" />
+      <text x="-44" y="4" text-anchor="middle" fill="#C4B5FD" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="9.5" font-weight="700">AI HUB</text>
+    </g>
+
+    <!-- Satellite Node 5: DUAL RAG (Top) -->
+    <g transform="translate(14, -106)">
+      <circle cx="0" cy="0" r="5.5" fill="#0B1324" stroke="#38BDF8" stroke-width="2" />
+      <rect x="-34" y="-28" width="68" height="18" rx="4" fill="#0F172A" stroke="#1E293B" stroke-width="1" />
+      <text x="0" y="-16" text-anchor="middle" fill="#7DD3FC" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="9" font-weight="700">DUAL RAG</text>
+    </g>
+
+    <!-- Satellite Node 6: MARKET PULSE (Bottom) -->
+    <g transform="translate(-18, 108)">
+      <circle cx="0" cy="0" r="5.5" fill="#0B1324" stroke="#6FA8FF" stroke-width="2" />
+      <rect x="-44" y="10" width="88" height="18" rx="4" fill="#0F172A" stroke="#1E293B" stroke-width="1" />
+      <text x="0" y="22" text-anchor="middle" fill="#93C5FD" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="9" font-weight="700">MARKET PULSE</text>
+    </g>
+  </g>
+
+  <!-- Main Typography Block (Left) -->
+  <g transform="translate(56, 114)">
+    <text x="0" y="0" fill="url(#titleGrad)" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="40" font-weight="800" letter-spacing="-0.5">
+      권상헌  |  Sangheon Kwon
+    </text>
+
+    <text x="2" y="34" fill="#6FA8FF" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace" font-size="14.5" font-weight="700" letter-spacing="1.4">
+      AI SERVICE BACKEND ENGINEER · AI ENGINEER · FULL-STACK DEVELOPER
+    </text>
+
+    <rect x="2" y="49" width="520" height="2" rx="1" fill="url(#accentLine)" />
+
+    <text x="2" y="78" fill="#CBD5E1" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="15" font-weight="500">
+      "From Architecture to Production" — 멀티에이전트 오케스트레이션 · 하이브리드 RAG · 검증 자동화 · 풀스택 웹 플랫폼
+    </text>
+  </g>
+
+  <!-- Bottom 4 Telemetry Metric Cards -->
+  <g transform="translate(56, 232)">
+    <!-- Card 1 -->
+    <g transform="translate(0, 0)">
+      <rect width="166" height="68" rx="10" fill="url(#cardGrad)" stroke="#1E293B" stroke-width="1.2" />
+      <line x1="14" y1="0" x2="64" y2="0" stroke="#6FA8FF" stroke-width="2" />
+      <text x="16" y="28" fill="#F8FAFC" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="20" font-weight="800">14 Systems</text>
+      <text x="16" y="49" fill="#94A3B8" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="10.5" font-weight="600">END-TO-END CASE STUDIES</text>
+    </g>
+
+    <!-- Card 2 -->
+    <g transform="translate(180, 0)">
+      <rect width="176" height="68" rx="10" fill="url(#cardGrad)" stroke="#1E293B" stroke-width="1.2" />
+      <line x1="14" y1="0" x2="64" y2="0" stroke="#25C8BD" stroke-width="2" />
+      <text x="16" y="28" fill="#25C8BD" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="20" font-weight="800">19 AI Agents</text>
+      <text x="16" y="49" fill="#94A3B8" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="10.5" font-weight="600">279s CHAIN &amp; PUBLISH GATE</text>
+    </g>
+
+    <!-- Card 3 -->
+    <g transform="translate(370, 0)">
+      <rect width="176" height="68" rx="10" fill="url(#cardGrad)" stroke="#1E293B" stroke-width="1.2" />
+      <line x1="14" y1="0" x2="64" y2="0" stroke="#AB83FF" stroke-width="2" />
+      <text x="16" y="28" fill="#C4B5FD" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="20" font-weight="800">4,700+ Tests</text>
+      <text x="16" y="49" fill="#94A3B8" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="10.5" font-weight="600">AUTOMATED VERIFICATION</text>
+    </g>
+
+    <!-- Card 4 -->
+    <g transform="translate(560, 0)">
+      <rect width="166" height="68" rx="10" fill="url(#cardGrad)" stroke="#1E293B" stroke-width="1.2" />
+      <line x1="14" y1="0" x2="64" y2="0" stroke="#38BDF8" stroke-width="2" />
+      <text x="16" y="28" fill="#7DD3FC" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="20" font-weight="800">6 Lab Graphs</text>
+      <text x="16" y="49" fill="#94A3B8" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="10.5" font-weight="600">3D ARCHITECTURE SIM</text>
+    </g>
+  </g>
+</svg>
