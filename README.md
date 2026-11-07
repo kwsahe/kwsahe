@@ -1,64 +1,65 @@
-# 권상헌 (Sangheon Kwon) — PORTFOLIO 3D REBORN v3.0
+# 권상헌 | AI 엔지니어 · 풀스택 개발자
 
-> **"From Architecture to Production"**  
-> **AI Service Backend Engineer · AI Engineer · Full-Stack Developer**  
-> **Design Concept:** `NEXUS CORE × SYSTEM ATLAS × OPS COMMAND`
+현재 링크21(Link21)에 재직 중이며, AI 에이전트 오케스트레이션·RAG 시스템·Vision-Language 모델과 실제 프로덕션 웹서비스를 직접 설계하고 배포·운영하는 AI 엔지니어 / 풀스택 개발자입니다.
 
----
+## 기술 스택
 
-## 1. Overview
+### Backend / Data
+![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white)
+![Flask](https://img.shields.io/badge/Flask-000000?style=for-the-badge&logo=flask&logoColor=white)
+![Django](https://img.shields.io/badge/Django-092E20?style=for-the-badge&logo=django&logoColor=white)
+![SQL](https://img.shields.io/badge/SQL-336791?style=for-the-badge&logo=postgresql&logoColor=white)
+![Supabase](https://img.shields.io/badge/Supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white)
+![SQLite](https://img.shields.io/badge/SQLite-003B57?style=for-the-badge&logo=sqlite&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
+![C#](https://img.shields.io/badge/C%23-512BD4?style=for-the-badge&logo=csharp&logoColor=white)
+![C++](https://img.shields.io/badge/C%2B%2B-00599C?style=for-the-badge&logo=cplusplus&logoColor=white)
 
-This repository powers the interactive 3D engineering portfolio of **Sangheon Kwon (권상헌)**, built to visually and technically demonstrate end-to-end AI system capabilities — from multi-agent orchestration and hybrid RAG verification to cloud edge deployment (`Cloudflare Workers + D1`, `Supabase`, `FastAPI`, `Docker`).
+### AI / ML & Agent
+![ChatGPT](https://img.shields.io/badge/ChatGPT-74aa9c?style=for-the-badge&logo=openai&logoColor=white)
+![Claude Max](https://img.shields.io/badge/Claude%20Max-D97757?style=for-the-badge&logo=anthropic&logoColor=white)
+![Gemini Pro](https://img.shields.io/badge/Gemini%20Pro-8E75C2?style=for-the-badge&logo=googlegemini&logoColor=white)
+![LangChain](https://img.shields.io/badge/LangChain-1C3C3C?style=for-the-badge)
+![LangGraph](https://img.shields.io/badge/LangGraph-2B4C7E?style=for-the-badge)
+![ChromaDB](https://img.shields.io/badge/ChromaDB-FF6B35?style=for-the-badge)
+![RAG](https://img.shields.io/badge/RAG-1B2B3A?style=for-the-badge)
+![bge-m3](https://img.shields.io/badge/bge--m3-0052CC?style=for-the-badge)
+![EXAONE](https://img.shields.io/badge/EXAONE-E8003D?style=for-the-badge)
+![Qwen2.5](https://img.shields.io/badge/Qwen2.5-6B3FA0?style=for-the-badge)
+![PyTorch](https://img.shields.io/badge/PyTorch-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white)
+![Scikit--learn](https://img.shields.io/badge/Scikit--learn-F7931E?style=for-the-badge&logo=scikitlearn&logoColor=white)
+![XGBoost](https://img.shields.io/badge/XGBoost-00688B?style=for-the-badge)
+![Prophet](https://img.shields.io/badge/Prophet-0068C8?style=for-the-badge)
+![SHAP](https://img.shields.io/badge/SHAP-FF4B4B?style=for-the-badge)
 
-### Key Highlights
-- **NEXUS CORE (Hero & 3D AI Core)**: Interactive Three.js / React Three Fiber 3D AI Core featuring a metallic lattice core, triple orbital rings, and **6 flagship project satellites** (while the complete **14 engineering projects** are explored in the System Atlas).
-- **SYSTEM ATLAS (Work & 14 Case Studies)**: Filterable, searchable, and sortable engineering catalog of all 14 projects with 9-section deep-dive Case Studies and 54 verified screenshots.
-- **OPS COMMAND (3D & 2D Architecture Lab)**: Interactive system topology simulator (`/lab`) for 6 flagship architectures (`JARVIS Office`, `BidPilot AI`, `tri-agent-control`, `Market Pulse`, `K-Safety Law RAG`, `Linky AI Chatbot`) with real-time packet flow stepping and node I/O telemetry inspection.
-- **Full Bilingual (`KO` / `EN`) & Theme (`Dark` / `Light`) + Accessibility (`3D Motion ON/OFF`) Support**.
+### Frontend & Product
+![Next.js](https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)
+![React](https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black)
+![Three.js](https://img.shields.io/badge/Three.js-000000?style=for-the-badge&logo=threedotjs&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
+![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)
+![Vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)
 
----
+## 포트폴리오
 
-## 2. Tech Stack
+[포트폴리오 바로가기](https://kwsahe.github.io/kwsahe/)
 
-| Layer | Technology |
-|---|---|
-| **Framework** | Next.js 16 (App Router, Static Export `output: "export"`) + React 19 |
-| **Language** | TypeScript 5.8 (Strict Mode) |
-| **3D / WebGL** | Three.js (`r187`), `@react-three/fiber` v9, `@react-three/drei` v10 |
-| **Motion & Styling** | GSAP 3.15 (`ScrollTrigger`), Tailwind CSS v4 |
-| **State Management** | Zustand v5 (Persisted `locale`, `theme`, `motionEnabled`, Lab simulation state) |
-| **Testing & QA** | Vitest v5 (Data & Asset Integrity), Playwright (Headless Chromium E2E) |
-| **Deployment** | GitHub Actions Static Export → GitHub Pages (`https://kwsahe.github.io/kwsahe/`) |
+## 주요 프로젝트
 
----
+| 프로젝트 | 설명 | 기술 |
+|----------|------|------|
+| **[link21-premium](https://www.link21premium.com/)** *(Live / Private)* | 실제 고객이 사용하는 기업 AI 교육 플랫폼 전반 구축·운영 · 신청 및 관리자 대시보드 ([실배포](https://www.link21premium.com/)) | Next.js 16 · React 19 · TypeScript · Supabase · Tailwind · Vercel |
+| **link21-ai-chatbot** *(Live / Private)* | LINK21 웹서비스 공식 AI 챗봇 0→1 설계·구현 · 의도 라우팅 및 SSE 실시간 스트리밍 ([실배포](https://www.link21premium.com/)) | Next.js · TypeScript · Gemini API · OpenAI API · SSE · Supabase |
+| **[link21-bidpilot-ai](https://github.com/kwsahe/link21-bidpilot-ai)** *(Private)* | 나라장터 공공입찰 공고 자동 수집 · RFP 요구사항 매트릭스 파싱 · 3D Cosmos 시각화 · 제안서 Auditor AI 검증 | Python · FastAPI · Next.js · Three.js · G2B OpenAPI |
+| **link21-ai-jarvis-office** *(Private)* | AI 직원 19명 단일·동시·체인 실행 · 제작 점수와 분리한 게시 판정 · 말로 부탁하기 대화 입력 · 웹자보·카드뉴스 PNG | React 19 · TypeScript · Cloudflare Workers · D1 · OpenAI API |
+| **[tri-agent-control](https://github.com/kwsahe/tri-agent-control)** | Claude Code(구현) · Antigravity(테스트) · Codex(검토) 고정 역할 코딩 파이프라인 · 세션별 git worktree · 숨김 테스트 평가 하니스 | Python · Multi-Agent · Claude Code · Codex · Antigravity · git worktree |
+| **[k-safety-law-rag](https://github.com/kwsahe/k-safety-law-rag)** | 건설현장 법령 이중 RAG · Claude Opus 5.5 연동 및 모델별 답변 경로 분리 (종합 테스트 90.0점) | Python · Claude Opus 5.5 · Anthropic API · ChromaDB · EXAONE · FastAPI |
+| **[market-pulse](https://github.com/kwsahe/market-pulse)** | PC/노트북 실시간 수집 · React 19 + Three.js 3D 씬 · FastAPI 13개 엔드포인트 · LangGraph 파이프라인 | React 19 · TypeScript · Three.js · FastAPI · LangGraph · ML |
+| **[business-card-auto](https://business-card-auto.vercel.app)** *(Private)* | 행사 현장용 프라이버시 우선 vCard 3.0 QR 디지털 명함 웹앱 ([실배포](https://business-card-auto.vercel.app)) | Next.js 15 · TypeScript · Canvas · Tailwind CSS · Vercel |
+| **[construction-accident-vl-agent](https://github.com/kwsahe/construction-accident-vl-agent)** | CCTV 영상 → 프레임 Contact Sheet 분석 → 사고 판단 VL Agent & YOLO 어댑터 | Python · Qwen2.5-VL · OpenCV · YOLO · TypeScript |
+| **[O2O-demand-forecasting-solution](https://github.com/kwsahe/O2O-demand-forecasting-solution)** | 102개 시군구 인테리어 수요점수 산출 · SARIMA/Prophet/LightGBM 3종 시계열 거래량 예측 비교 | Python · Flask · SARIMA · Prophet · LightGBM · Ollama |
+| **[ecommerce-data-analysis-practice](https://github.com/kwsahe/ecommerce-data-analysis-practice)** | 23일 데이터 부트캠프 — RFM 분석 · SHAP 모델 해석(XAI) · Prophet 시계열 예측 대시보드 | Python · Scikit-learn · XGBoost · SHAP · Streamlit |
+| **[english-word-streamlit](https://github.com/kwsahe/english-word-streamlit)** | Google Gemini API 연동 AI 단어 학습 및 토익 빈칸 시험 생성 ([실배포](https://honeyenglish.streamlit.app)) | Python · Streamlit · Google Gemini · Kivy |
+| **[Artesia](https://github.com/kwsahe/Artesia)** | Unity2D 로그라이크 턴제 던전 RPG · 팀장·기획 총괄 | C# · Unity2D |
 
-## 3. Getting Started
-
-```bash
-# 1. Install dependencies
-npm install --legacy-peer-deps
-
-# 2. Run local development server (http://localhost:3000/kwsahe/)
-npm run dev
-
-# 3. Run TypeScript check & Vitest suite
-npm run typecheck
-npm run test
-
-# 4. Generate production static export (./out)
-npm run build
-```
-
----
-
-## 4. Architecture & Documentation (`docs/`)
-
-- [`docs/01_SOURCE_AUDIT.md`](docs/01_SOURCE_AUDIT.md) — Phase 1 Source Repository Audit & 14-Project Mapping
-- [`docs/02_DESIGN_SYSTEM.md`](docs/02_DESIGN_SYSTEM.md) — Phase 2 Design System (`NEXUS CORE × SYSTEM ATLAS × OPS COMMAND`)
-- [`docs/03_ARCHITECTURE.md`](docs/03_ARCHITECTURE.md) — Phase 3 Application & Static Export Architecture
-- [`docs/04_3D_INTERACTIONS.md`](docs/04_3D_INTERACTIONS.md) — Phase 4 WebGL 3D Core & Architecture Lab Spec
-- [`docs/05_PROJECT_CONTENT.md`](docs/05_PROJECT_CONTENT.md) — Phase 5 Bilingual Case Study Content Mapping
-- [`docs/06_TEST_REPORT.md`](docs/06_TEST_REPORT.md) — Phase 8 Unit, Build, and Browser QA Report
-- [`docs/07_PERFORMANCE_REPORT.md`](docs/07_PERFORMANCE_REPORT.md) — Phase 8 WebGL Performance & Accessibility Report
-- [`docs/08_DEPLOYMENT_GUIDE.md`](docs/08_DEPLOYMENT_GUIDE.md) — Phase 9 GitHub Pages Deployment & Rollback Guide
-- [`docs/09_FINAL_HANDOFF.md`](docs/09_FINAL_HANDOFF.md) — Phase 10 Final Handoff Summary
