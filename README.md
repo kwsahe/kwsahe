@@ -37,7 +37,12 @@
 
 <div align="center">
 
-## 🛠 기술 스택 (Tech Stack)
+<details>
+<summary><b>🛠 기술 스택 전체 보기 (Tech Stack · 클릭하여 펼치기)</b></summary>
+
+<br/>
+
+<div align="center">
 
 ### Backend / Infra & Database
 ![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
@@ -111,6 +116,10 @@
 ![Git](https://img.shields.io/badge/Git_%2F_worktree-F05032?style=for-the-badge&logo=git&logoColor=white)
 ![Google Colab](https://img.shields.io/badge/Google_Colab-F9AB00?style=for-the-badge&logo=googlecolab&logoColor=white)
 ![Azure AI Fundamentals](https://img.shields.io/badge/Azure_AI_(AI--900)-0078D4?style=for-the-badge&logo=microsoftazure&logoColor=white)
+
+</div>
+
+</details>
 
 </div>
 
