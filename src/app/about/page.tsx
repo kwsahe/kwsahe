@@ -98,7 +98,7 @@ export default function AboutPage() {
               />
               <div>
                 <span className="rounded-md bg-[#25C8BD]/15 px-2 py-0.5 font-mono text-[11px] font-bold text-[#25C8BD]">
-                  {locale === "ko" ? "링크21 재직 중" : "At Link21 Inc."}
+                  {locale === "ko" ? "전 링크21 (2026.08~11)" : "Ex-Link21 Inc."}
                 </span>
                 <h1
                   id="about-heading"
@@ -115,7 +115,7 @@ export default function AboutPage() {
             <dl className="space-y-3 border-t border-[var(--border-subtle)] pt-4 text-xs">
               <div className="flex justify-between gap-2">
                 <dt className="text-[var(--text-muted)]">
-                  {locale === "ko" ? "현재 소속" : "Affiliation"}
+                  {locale === "ko" ? "최근 경력" : "Latest Role"}
                 </dt>
                 <dd className="font-semibold text-[var(--text-primary)] text-right">
                   {PROFILE_DATA.currentCompany[locale]}

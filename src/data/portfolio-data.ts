@@ -99,8 +99,8 @@ export const PROFILE_DATA = {
   secondaryRole: "AI Engineer / Full-stack Developer",
   tagline: "From Architecture to Production",
   currentCompany: {
-    ko: "주식회사 링크21 (2026.08 ~ 재직 중)",
-    en: "Link21 Inc. (Aug 2026 ~ Present)",
+    ko: "주식회사 링크21 (2026.08 ~ 2026.11, 퇴사)",
+    en: "Link21 Inc. (Aug 2026 ~ Nov 2026)",
   },
   birthDate: "2001. 02. 23",
   phone: "010-9280-9415",
@@ -114,8 +114,8 @@ export const PROFILE_DATA = {
     en: "Sergeant, ROK Army — Honorably Discharged (Nov 2021 ~ May 2023)",
   },
   heroSummary: {
-    ko: "현재 링크21에 재직하며 실제 프로덕션 웹서비스와 AI 시스템을 기획·아키텍처 설계부터 구현·검증·배포·운영까지 End-to-End로 구축하는 AI 서비스 백엔드 엔지니어 / 풀스택 개발자입니다. AI 직원 19명이 협업하고 게시 게이트가 검증하는 사내 제작 시스템(JARVIS OFFICE), 공공입찰·지원사업 자동 검토 도구(BidPilot AI), 기업 AI 교육 플랫폼(LINK21 Premium)과 통합 허브(AI Hub), 서비스 내 AI 챗봇(링키), 3-CLI 코딩 오케스트레이션(tri-agent-control), 법령 이중 RAG 및 3D 하드웨어 시세 분석 시스템을 설계·구현했습니다.",
-    en: "AI Service Backend Engineer & Full-stack Developer at Link21 building production web platforms and AI systems end-to-end from architecture to verification, deployment, and operations. Engineered a 19-agent content orchestration system with separated publish gates (JARVIS OFFICE), public procurement & grant review automation (BidPilot AI), LINK21 Premium & AI Hub live services, an in-service AI chatbot, a 3-CLI coding pipeline (tri-agent-control), dual ChromaDB legal RAG, and a 3D hardware market analytics platform.",
+    ko: "링크21(2026.08~2026.11)에서 실제 프로덕션 웹서비스와 AI 시스템을 기획·아키텍처 설계부터 구현·검증·배포·운영까지 End-to-End로 구축한 AI 서비스 백엔드 엔지니어 / 풀스택 개발자입니다. AI 직원 19명이 협업하고 게시 게이트가 검증하는 사내 제작 시스템(JARVIS OFFICE), 공공입찰·지원사업 자동 검토 도구(BidPilot AI), 기업 AI 교육 플랫폼(LINK21 Premium)과 통합 허브(AI Hub), 서비스 내 AI 챗봇(링키), 3-CLI 코딩 오케스트레이션(tri-agent-control), 법령 이중 RAG 및 3D 하드웨어 시세 분석 시스템을 설계·구현했습니다.",
+    en: "AI Service Backend Engineer & Full-stack Developer who built production web platforms at Link21 (Aug–Nov 2026) and AI systems end-to-end from architecture to verification, deployment, and operations. Engineered a 19-agent content orchestration system with separated publish gates (JARVIS OFFICE), public procurement & grant review automation (BidPilot AI), LINK21 Premium & AI Hub live services, an in-service AI chatbot, a 3-CLI coding pipeline (tri-agent-control), dual ChromaDB legal RAG, and a 3D hardware market analytics platform.",
   },
   aboutNarrative: [
     {
@@ -188,15 +188,15 @@ export const EXPERIENCE_DATA: ExperienceItem[] = [
   {
     company: { ko: "주식회사 링크21 (Link21 Inc.)", en: "Link21 Inc." },
     role: { ko: "AI 엔지니어 · 풀스택 개발자", en: "AI Engineer · Full-stack Developer" },
-    period: { ko: "2026.08 – 현재 (재직 중)", en: "Aug 2026 – Present (Current)" },
-    isCurrent: true,
+    period: { ko: "2026.08 – 2026.11 (퇴사)", en: "Aug 2026 – Nov 2026" },
+    isCurrent: false,
     bullets: [
       {
         ko: "LINK21 Premium 기업교육 웹플랫폼(link21premium.com) 0→1 제작·운영 전담 및 신규 페이지, 수강신청 파이프라인, 관리자 시스템(XLSX 내보내기) 지속 고도화",
         en: "Lead end-to-end development and live operations of LINK21 Premium (link21premium.com), building course discovery, enrollment pipelines, and admin XLSX reporting.",
       },
       {
-        ko: "LINK21 AI Hub(aihub.link21premium.com, 정식 운영 중) 기획·인프라·검수·배포 전담 — 디지털 명함·NFC 메탈 명함 실시간 원근 각인 미리보기, OpenCV 제품 사진 개인정보 제거, AI 치트키 200, Google Sheets 연동 (Vitest 515개 · 마이그레이션 9개)",
+        ko: "LINK21 AI Hub(aihub.link21premium.com, 정식 오픈) 기획·인프라·검수·배포 전담 — 디지털 명함·NFC 메탈 명함 실시간 원근 각인 미리보기, OpenCV 제품 사진 개인정보 제거, AI 치트키 200, Google Sheets 연동 (Vitest 515개 · 마이그레이션 9개)",
         en: "Spearheaded planning, infrastructure, QA, and deployment of LINK21 AI Hub (aihub.link21premium.com, Live) featuring NFC metal card perspective laser preview, OpenCV privacy masking, and 515 Vitest tests.",
       },
       {
@@ -391,7 +391,7 @@ export const PROJECTS_DATA: ProjectData[] = [
     },
     status: "Internal Tool",
     statusBadge: {
-      ko: "사내 운영 중 · Cloudflare Workers + D1",
+      ko: "재직 중 사내 운영 · Cloudflare Workers + D1",
       en: "Internal Production · Cloudflare Workers + D1",
     },
     isPrivateRepo: true,
@@ -525,7 +525,7 @@ export const PROJECTS_DATA: ProjectData[] = [
       ],
       limitations: [
         {
-          ko: "사내 홍보 제작 전용 시스템이므로 외부 소셜 채널 자동 발행 API 연동 대신 검토 완료된 9개 채널 패키지와 PNG 다운로드 방식으로 운영 중",
+          ko: "사내 홍보 제작 전용 시스템이므로 외부 소셜 채널 자동 발행 API 연동 대신 검토 완료된 9개 채널 패키지와 PNG 다운로드 방식으로 운영",
           en: "Operates as an internal production studio exporting verified 9-channel packages and PNGs rather than direct third-party social auto-posting.",
         },
       ],
@@ -545,7 +545,7 @@ export const PROJECTS_DATA: ProjectData[] = [
     },
     status: "Live Production",
     statusBadge: {
-      ko: "Live · 정식 운영 중 (aihub.link21premium.com)",
+      ko: "Live · 정식 오픈 (aihub.link21premium.com)",
       en: "Live Production (aihub.link21premium.com)",
     },
     isPrivateRepo: true,
@@ -569,7 +569,7 @@ export const PROJECTS_DATA: ProjectData[] = [
       "Vercel",
     ],
     keyMetrics: [
-      { ko: "Live 정식 운영 중 (aihub.link21premium.com)", en: "Live Commercial Service (aihub.link21premium.com)" },
+      { ko: "Live 정식 오픈 (aihub.link21premium.com)", en: "Live Commercial Service (aihub.link21premium.com)" },
       { ko: "Vitest 자동화 테스트 515개 · DB 마이그레이션 9개", en: "515 Vitest Automated Tests · 9 DB Migrations" },
       { ko: "AI 치트키 200 (무료 20 + 리드 신청 시 180 해금)", en: "AI Cheat-Key 200 (20 Free + 180 Server-Gated Lead Unlock)" },
     ],
@@ -833,7 +833,7 @@ export const PROJECTS_DATA: ProjectData[] = [
     },
     status: "Live Production",
     statusBadge: {
-      ko: "Live · 상용 서비스 운영 중 (link21premium.com)",
+      ko: "Live · 상용 서비스 (link21premium.com)",
       en: "Live Production (link21premium.com)",
     },
     isPrivateRepo: true,
@@ -843,7 +843,7 @@ export const PROJECTS_DATA: ProjectData[] = [
       ko: "웹서비스 0→1 단독 개발 및 라이브 운영 전담",
       en: "0→1 Full-stack Lead Developer & Service Operations",
     },
-    period: { ko: "2026.08 – 현재 · 상용 운영 중", en: "Aug 2026 – Present · Live Operations" },
+    period: { ko: "2026.08 – 2026.11 · 상용 서비스", en: "Aug 2026 – Nov 2026 · Live Service" },
     techStack: [
       "Next.js 16",
       "React 19",
@@ -853,7 +853,7 @@ export const PROJECTS_DATA: ProjectData[] = [
       "Vercel",
     ],
     keyMetrics: [
-      { ko: "실제 기업 고객 대상 상용 프로덕션 운영 중", en: "Live Commercial Platform Serving Corporate Clients" },
+      { ko: "실제 기업 고객 대상 상용 프로덕션 배포·운영 경험", en: "Live Commercial Platform Serving Corporate Clients" },
       { ko: "과정 탐색 · 월별 일정 필터 · 수강신청 · 환급 안내 통합", en: "Unified Course Catalog, Monthly Calendar & Enrollment Funnel" },
       { ko: "관리자 실시간 신청자 조회 및 XLSX 일괄 내보내기", en: "Real-Time Admin Applicant Portal & XLSX Export" },
     ],
@@ -929,7 +929,7 @@ export const PROJECTS_DATA: ProjectData[] = [
       ],
       limitations: [
         {
-          ko: "기업 교육 특성상 단체 맞춤 견적 및 B2B 정산 비중이 높아 온라인 신청 접수 후 담당자 해피콜 연동 방식으로 운영 중",
+          ko: "기업 교육 특성상 단체 맞춤 견적 및 B2B 정산 비중이 높아 온라인 신청 접수 후 담당자 해피콜 연동 방식으로 운영",
           en: "Tailored for B2B corporate training workflows where online applications trigger dedicated enterprise billing follow-up.",
         },
       ],
@@ -1427,7 +1427,7 @@ export const PROJECTS_DATA: ProjectData[] = [
       ko: "대화 위젯 UI · 의도 분류 라우터 · SSE 스트리밍 백엔드 0→1 단독 설계·구현·운영",
       en: "0→1 Solo Architect & Developer — Widget UI, Intent Router & SSE Streaming Backend",
     },
-    period: { ko: "2026.08 – 현재 · 상용 운영 중", en: "Aug 2026 – Present · Live Operations" },
+    period: { ko: "2026.08 – 2026.11 · 상용 서비스", en: "Aug 2026 – Nov 2026 · Live Service" },
     techStack: [
       "Next.js",
       "TypeScript",

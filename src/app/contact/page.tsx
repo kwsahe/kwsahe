@@ -137,7 +137,7 @@ export default function ContactPage() {
             <span className="h-2 w-2 rounded-full bg-[#25C8BD]" />
             <span>
               <strong className="text-[var(--text-primary)]">
-                {locale === "ko" ? "현재 상태:" : "Current Status:"}
+                {locale === "ko" ? "최근 경력:" : "Latest Role:"}
               </strong>{" "}
               {PROFILE_DATA.currentCompany[locale]}
             </span>

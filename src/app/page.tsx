@@ -94,7 +94,7 @@ export default function HomePage() {
                 <span>{PROFILE_DATA.primaryRole.toUpperCase()}</span>
                 <span className="text-[var(--text-muted)]">·</span>
                 <span className="text-[var(--accent-cyan)]">
-                  {locale === "ko" ? "링크21 재직 중" : "At Link21 Inc."}
+                  {locale === "ko" ? "전 링크21 (2026.08~11)" : "Ex-Link21 Inc."}
                 </span>
               </div>
 
@@ -117,8 +117,8 @@ export default function HomePage() {
               <div className="space-y-3">
                 <p className="text-base sm:text-[17px] leading-[1.72] text-[var(--text-secondary)]">
                   {locale === "ko"
-                    ? "링크21에서 실제 상용 웹서비스와 사내 AI 시스템을 아키텍처 설계부터 구현·검증 게이트·배포·운영까지 End-to-End로 구축하는 AI 서비스 백엔드 엔지니어입니다."
-                    : "AI Service Backend Engineer & Full-Stack Developer at Link21 building production web platforms and multi-agent AI systems end-to-end from architecture to verification and live operations."}
+                    ? "링크21에서 실제 상용 웹서비스와 사내 AI 시스템을 아키텍처 설계부터 구현·검증 게이트·배포·운영까지 End-to-End로 구축한 AI 서비스 백엔드 엔지니어입니다."
+                    : "AI Service Backend Engineer & Full-Stack Developer who built production web platforms and multi-agent AI systems at Link21 end-to-end from architecture to verification and live operations."}
                 </p>
                 <ul className="space-y-1.5 text-xs sm:text-sm text-[var(--text-muted)]">
                   <li className="flex items-start gap-2">
